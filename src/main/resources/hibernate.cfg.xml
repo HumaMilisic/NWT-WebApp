@@ -1,0 +1,37 @@
+<?xml version='1.0' encoding='utf-8'?>
+<!DOCTYPE hibernate-configuration PUBLIC
+        "-//Hibernate/Hibernate Configuration DTD//EN"
+        "http://www.hibernate.org/dtd/hibernate-configuration-3.0.dtd">
+<hibernate-configuration>
+    <session-factory>
+        <property name="connection.url"></property>
+        <property name="connection.driver_class"></property>
+        <property name="connection.username"></property>
+        <property name="connection.password"></property>
+        <mapping class="model.Akcija"/>
+        <mapping class="model.Dokument"/>
+        <mapping class="model.DokumentXStatus"/>
+        <mapping class="model.Komentar"/>
+        <mapping class="model.Korisnik"/>
+        <mapping class="model.KorisnikXDokument"/>
+        <mapping class="model.KorisnikXKorisnik"/>
+        <mapping class="model.Notifikacija"/>
+        <mapping class="model.RelKorisnikXNotifikacija"/>
+        <mapping class="model.RelKorisnikXRelDokument"/>
+        <mapping class="model.RelKorisnikXStatus"/>
+        <mapping class="model.RelKorisnikXVrstaDoc"/>
+        <mapping class="model.RelacijaDokument"/>
+        <mapping class="model.RelacijaKorisnik"/>
+        <mapping class="model.Status"/>
+        <mapping class="model.Uloga"/>
+        <mapping class="model.UlogaXNotifikacija"/>
+        <mapping class="model.UlogaXStatus"/>
+        <mapping class="model.UlogaXVrstaDokumenta"/>
+        <mapping class="model.VrstaDokumenta"/>
+        <mapping class="model.Dogadjaj" />
+        <mapping class="model.StatusXStatus" />
+
+        <!-- DB schema will be updated if needed -->
+        <!-- <property name="hbm2ddl.auto">update</property> -->
+    </session-factory>
+</hibernate-configuration>
