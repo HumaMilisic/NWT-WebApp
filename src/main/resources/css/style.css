@@ -1,0 +1,51 @@
+html, body {
+	padding: 0;
+	margin: 0;
+}
+.forma {
+	position: relative;
+	margin: 0 auto 0;
+	overflow: auto;
+	display: table;
+	color: rgb(245,245,245);
+	width: 300px;
+	height: 100vh;
+}
+
+.forma .forma-content {
+	display: table-cell;
+	vertical-align: middle;
+	width: 100%;
+	text-align: center;
+}
+
+.login-pozadina {
+	background: #6686ff;
+}
+
+h2.white {
+	color: #fff;
+}
+h2.white small {
+	color: #dddddd;
+}
+
+/*input[type="date"]:before {
+	 content: attr(placeholder) !important;
+	 color: #aaa;
+	 margin-right: 0.5em;
+ }
+input[type="date"]:focus:before,
+input[type="date"]:valid:before {
+	content: "";
+}
+
+input[type="datetime-local"]:before {
+	content: attr(placeholder) !important;
+	color: #aaa;
+	margin-right: 0.5em;
+}
+input[type="datetime-localm"]:focus:before,
+input[type="datetime-local"]:valid:before {
+	content: "";
+}*/
