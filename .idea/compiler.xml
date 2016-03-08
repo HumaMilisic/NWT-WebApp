@@ -26,7 +26,7 @@
       </profile>
     </annotationProcessing>
     <bytecodeTargetLevel>
-      <module name="NWT new" target="1.5" />
+      <module name="NWT new" target="1.8" />
     </bytecodeTargetLevel>
   </component>
 </project>
