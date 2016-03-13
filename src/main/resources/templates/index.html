@@ -22,7 +22,9 @@
 <div th:replace="fragments/header :: header">&nbsp;</div>
 <div class="container" ng-app="DMApp">
     <h1><br/>elcome! radi?</h1>
-
+    <div ng-controller="homeController">
+        {{name}}
+    </div>
     <p>Click <a href="/home">here</a> to see a greeting.</p>
 </div>
 
