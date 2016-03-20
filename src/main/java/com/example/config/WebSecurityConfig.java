@@ -16,22 +16,29 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
     @Override
     protected void configure(HttpSecurity http) throws Exception{
         http
+                //.httpBasic().and()
                 .authorizeRequests()
                     .antMatchers("/").permitAll()
                     .anyRequest().authenticated()
                     .and()
                 .formLogin()
-                    .loginPage("/login")
+                    .loginProcessingUrl("/login")
+
+//                    .loginPage("/login")
                     .permitAll().and()
                 .logout()
-                    .permitAll();
+                    .permitAll()
+                    .logoutSuccessUrl("/")
+                .and().csrf().disable();
 
     }
     @Autowired
     public void configureGlobal(AuthenticationManagerBuilder auth) throws Exception{
         auth
                 .inMemoryAuthentication()
-                    .withUser("user").password("password").roles("USER");
+                    .withUser("user").password("user").roles("USER")
+                .and()
+                    .withUser("admin").password("admin").roles("ADMIN","USER");
 
     }
 }

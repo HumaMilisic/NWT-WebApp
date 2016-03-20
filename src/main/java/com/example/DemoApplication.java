@@ -10,4 +10,10 @@ public class DemoApplication {
 
 		SpringApplication.run(DemoApplication.class, args);
 	}
+
+//	@Bean
+//	DataSource dataSource() throws SQLException{
+//		OracleDataSource dataSource = new OracleDataSource();
+//		dataSource.setUser(username);
+//	}
 }
