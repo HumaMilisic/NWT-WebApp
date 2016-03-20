@@ -1,5 +1,7 @@
 package com.example.models;
 
+import org.hibernate.annotations.Generated;
+import org.hibernate.annotations.GenerationTime;
 import org.hibernate.validator.constraints.Length;
 
 import javax.persistence.*;
@@ -18,13 +20,9 @@ public class Akcija implements Serializable {
 	private static final long serialVersionUID = 1L;
 
 	@Id
-//	@GeneratedValue
-	//@GenericGenerator(name = "sequence", strategy = "sequence", parameters = {})
-//	@GeneratedValue(generator = "AKCIJA_SEQ",strategy = GenerationType.SEQUENCE)
-//	@Generated(GenerationTime.INSERT)
-
-	@GeneratedValue(strategy = GenerationType.AUTO) //strategy = GenerationType.SEQUENCE, generator = "AkcijaSEQ")
-//	@SequenceGenerator(name = "AkcijaSEQ", sequenceName = "AKCIJA_SEQ", allocationSize = 1)
+	@GeneratedValue(strategy = GenerationType.SEQUENCE,generator = "AKCIJA_SEQ")
+	@SequenceGenerator(name = "AKCIJA_SEQ",sequenceName = "AKCIJA_SEQ")
+	@Generated(GenerationTime.INSERT)
 	private long id;
 
 	@Length(max = 100)
