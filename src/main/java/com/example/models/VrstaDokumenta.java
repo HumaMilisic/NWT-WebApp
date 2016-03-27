@@ -1,6 +1,9 @@
 package com.example.models;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
+import org.hibernate.annotations.Generated;
+import org.hibernate.annotations.GenerationTime;
+import org.hibernate.validator.constraints.Length;
 
 import java.io.Serializable;
 import javax.persistence.*;
@@ -12,14 +15,15 @@ import java.util.List;
  * 
  */
 @Entity
-@Table(name="VRSTA_DOKUMENTA")
-@NamedQuery(name="VrstaDokumenta.findAll", query="SELECT v FROM VrstaDokumenta v")
+//@Table(name="VRSTA_DOKUMENTA")
+//@NamedQuery(name="VrstaDokumenta.findAll", query="SELECT v FROM VrstaDokumenta v")
 public class VrstaDokumenta implements Serializable {
 	private static final long serialVersionUID = 1L;
 
 	@Id
 	@GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "VrstaDokumentaSEQ")
 	@SequenceGenerator(name = "VrstaDokumentaSEQ", sequenceName = "VRSTA_DOKUMENTA_SEQ", allocationSize = 1)
+	@Generated(GenerationTime.INSERT) //dodano
 	private long id;
 
 	private String nazivba;
@@ -30,33 +34,36 @@ public class VrstaDokumenta implements Serializable {
 
 	private String templateen;
 
-	@JsonIgnore //proba
+//	@JsonIgnore //proba
 	//bi-directional many-to-one association to Dokument
-	@OneToMany(mappedBy="vrstaDokumenta")
-	private List<Dokument> dokuments;
+//	@OneToMany(mappedBy="vrstaDokumenta")
+//	private List<Dokument> dokuments;
 
 	//bi-directional many-to-one association to RelKorisnikXVrstaDoc
-	@OneToMany(mappedBy="vrstaDokumentaBean")
-	private List<RelKorisnikXVrstaDoc> relKorisnikXVrstaDocs;
+//	@OneToMany(mappedBy="vrstaDokumentaBean")
+//	private List<RelKorisnikXVrstaDoc> relKorisnikXVrstaDocs;
 
 	//bi-directional many-to-one association to UlogaXVrstaDokumenta
-	@OneToMany(mappedBy="vrstaDokumentaBean")
-	private List<UlogaXVrstaDokumenta> ulogaXVrstaDokumentas;
+//	@OneToMany(mappedBy="vrstaDokumentaBean")
+//	private List<UlogaXVrstaDokumenta> ulogaXVrstaDokumentas;
 
 	//bi-directional many-to-many association to Status
-	@ManyToMany
-	@JoinTable(
-		name="VRSTA_DOKUMENTA_X_STATUS"
-		, joinColumns={
-			@JoinColumn(name="VRSTA_DOKUMENTA")
-			}
-		, inverseJoinColumns={
-			@JoinColumn(name="STATUS")
-			}
-		)
-	private List<Status> statuses;
+//	@ManyToMany
+//	@JoinTable(
+//		name="VRSTA_DOKUMENTA_X_STATUS"
+//		, joinColumns={
+//			@JoinColumn(name="VRSTA_DOKUMENTA")
+//			}
+//		, inverseJoinColumns={
+//			@JoinColumn(name="STATUS")
+//			}
+//		)
+//	private List<Status> statuses;
 
-	private char deleted;
+//	private char deleted;
+	@Length(max = 1)
+	@Column(nullable = false,name="deleted")
+	private String deleted;
 
 	public VrstaDokumenta() {
 	}
@@ -101,86 +108,87 @@ public class VrstaDokumenta implements Serializable {
 		this.templateen = templateen;
 	}
 
-	public List<Dokument> getDokuments() {
-		return this.dokuments;
-	}
+//	public List<Dokument> getDokuments() {
+//		return this.dokuments;
+//	}
 
-	public void setDokuments(List<Dokument> dokuments) {
-		this.dokuments = dokuments;
-	}
+//	public void setDokuments(List<Dokument> dokuments) {
+//		this.dokuments = dokuments;
+//	}
 
-	public Dokument addDokument(Dokument dokument) {
-		getDokuments().add(dokument);
-		dokument.setVrstaDokumenta(this);
+//	public Dokument addDokument(Dokument dokument) {
+//		getDokuments().add(dokument);
+//		dokument.setVrstaDokumenta(this);
+//		return dokument;
+//	}
 
-		return dokument;
-	}
+//	public Dokument removeDokument(Dokument dokument) {
+//		getDokuments().remove(dokument);
+//		dokument.setVrstaDokumenta(null);
+//		return dokument;
+//	}
 
-	public Dokument removeDokument(Dokument dokument) {
-		getDokuments().remove(dokument);
-		dokument.setVrstaDokumenta(null);
+//	public List<RelKorisnikXVrstaDoc> getRelKorisnikXVrstaDocs() {
+//		return this.relKorisnikXVrstaDocs;
+//	}
 
-		return dokument;
-	}
+//	public void setRelKorisnikXVrstaDocs(List<RelKorisnikXVrstaDoc> relKorisnikXVrstaDocs) {
+//		this.relKorisnikXVrstaDocs = relKorisnikXVrstaDocs;
+//	}
 
-	public List<RelKorisnikXVrstaDoc> getRelKorisnikXVrstaDocs() {
-		return this.relKorisnikXVrstaDocs;
-	}
+//	public RelKorisnikXVrstaDoc addRelKorisnikXVrstaDoc(RelKorisnikXVrstaDoc relKorisnikXVrstaDoc) {
+//		getRelKorisnikXVrstaDocs().add(relKorisnikXVrstaDoc);
+//		relKorisnikXVrstaDoc.setVrstaDokumentaBean(this);
+//		return relKorisnikXVrstaDoc;
+//	}
 
-	public void setRelKorisnikXVrstaDocs(List<RelKorisnikXVrstaDoc> relKorisnikXVrstaDocs) {
-		this.relKorisnikXVrstaDocs = relKorisnikXVrstaDocs;
-	}
+//	public RelKorisnikXVrstaDoc removeRelKorisnikXVrstaDoc(RelKorisnikXVrstaDoc relKorisnikXVrstaDoc) {
+//		getRelKorisnikXVrstaDocs().remove(relKorisnikXVrstaDoc);
+//		relKorisnikXVrstaDoc.setVrstaDokumentaBean(null);
+//		return relKorisnikXVrstaDoc;
+//	}
 
-	public RelKorisnikXVrstaDoc addRelKorisnikXVrstaDoc(RelKorisnikXVrstaDoc relKorisnikXVrstaDoc) {
-		getRelKorisnikXVrstaDocs().add(relKorisnikXVrstaDoc);
-		relKorisnikXVrstaDoc.setVrstaDokumentaBean(this);
+//	public List<UlogaXVrstaDokumenta> getUlogaXVrstaDokumentas() {
+//		return this.ulogaXVrstaDokumentas;
+//	}
 
-		return relKorisnikXVrstaDoc;
-	}
+//	public void setUlogaXVrstaDokumentas(List<UlogaXVrstaDokumenta> ulogaXVrstaDokumentas) {
+//		this.ulogaXVrstaDokumentas = ulogaXVrstaDokumentas;
+//	}
 
-	public RelKorisnikXVrstaDoc removeRelKorisnikXVrstaDoc(RelKorisnikXVrstaDoc relKorisnikXVrstaDoc) {
-		getRelKorisnikXVrstaDocs().remove(relKorisnikXVrstaDoc);
-		relKorisnikXVrstaDoc.setVrstaDokumentaBean(null);
+//	public UlogaXVrstaDokumenta addUlogaXVrstaDokumenta(UlogaXVrstaDokumenta ulogaXVrstaDokumenta) {
+//		getUlogaXVrstaDokumentas().add(ulogaXVrstaDokumenta);
+//		ulogaXVrstaDokumenta.setVrstaDokumentaBean(this);
+//		return ulogaXVrstaDokumenta;
+//	}
 
-		return relKorisnikXVrstaDoc;
-	}
+//	public UlogaXVrstaDokumenta removeUlogaXVrstaDokumenta(UlogaXVrstaDokumenta ulogaXVrstaDokumenta) {
+//		getUlogaXVrstaDokumentas().remove(ulogaXVrstaDokumenta);
+//		ulogaXVrstaDokumenta.setVrstaDokumentaBean(null);
+//		return ulogaXVrstaDokumenta;
+//	}
 
-	public List<UlogaXVrstaDokumenta> getUlogaXVrstaDokumentas() {
-		return this.ulogaXVrstaDokumentas;
-	}
+//	public List<Status> getStatuses() {
+//		return this.statuses;
+//	}
 
-	public void setUlogaXVrstaDokumentas(List<UlogaXVrstaDokumenta> ulogaXVrstaDokumentas) {
-		this.ulogaXVrstaDokumentas = ulogaXVrstaDokumentas;
-	}
+//	public void setStatuses(List<Status> statuses) {
+//		this.statuses = statuses;
+//	}
 
-	public UlogaXVrstaDokumenta addUlogaXVrstaDokumenta(UlogaXVrstaDokumenta ulogaXVrstaDokumenta) {
-		getUlogaXVrstaDokumentas().add(ulogaXVrstaDokumenta);
-		ulogaXVrstaDokumenta.setVrstaDokumentaBean(this);
-
-		return ulogaXVrstaDokumenta;
-	}
-
-	public UlogaXVrstaDokumenta removeUlogaXVrstaDokumenta(UlogaXVrstaDokumenta ulogaXVrstaDokumenta) {
-		getUlogaXVrstaDokumentas().remove(ulogaXVrstaDokumenta);
-		ulogaXVrstaDokumenta.setVrstaDokumentaBean(null);
-
-		return ulogaXVrstaDokumenta;
-	}
-
-	public List<Status> getStatuses() {
-		return this.statuses;
-	}
-
-	public void setStatuses(List<Status> statuses) {
-		this.statuses = statuses;
-	}
-
-	public char getDeleted() {
+/*	public char getDeleted() {
 		return this.deleted;
 	}
 
 	public void setDeleted(char deleted) {
 		this.deleted = deleted;
 	}
+*/
+	public String getDeleted() { //bilo char
+	return this.deleted;
+}
 
+	public void setDeleted(String deleted) {
+		this.deleted = deleted;
+	}
 }
