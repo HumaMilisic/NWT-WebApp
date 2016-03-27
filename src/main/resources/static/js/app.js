@@ -6,12 +6,12 @@ DMApp.config(function($httpProvider,$routeProvider){
     $httpProvider.defaults.headers.common["X-Requested-With"] = 'XMLHttpRequest';
 
     $routeProvider
-        .when('/',{
-
+        .when('/korisnik',{
+            templateUrl:'korisnik.html'
         })
-        .when('/login',{
-            templateUrl:'login.html'
-        })
+        //.when('/login',{
+        //    templateUrl:'login.html'
+        //})
         .otherwise('/');
 
 })
@@ -63,5 +63,11 @@ DMApp.controller('loginController',function($scope,$http,$rootScope,auth){
     $scope.logout = function(){
         auth.logout();
     }
+
+})
+
+DMApp.controller('korisnikPageController',function($scope,$http,$rootScope,auth){
+    $scope.poruka = "korisnikPageController";
+
 
 })

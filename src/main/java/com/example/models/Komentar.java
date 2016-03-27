@@ -1,17 +1,17 @@
 package com.example.models;
 
 
-import java.io.Serializable;
 import javax.persistence.*;
+import java.io.Serializable;
 import java.sql.Timestamp;
 
 
 /**
  * The persistent class for the KOMENTAR database table.
- * 
+ *
  */
 @Entity
-@NamedQuery(name="Komentar.findAll", query="SELECT k FROM Komentar k")
+//@NamedQuery(name="Komentar.findAll", query="SELECT k FROM Komentar k")
 public class Komentar implements Serializable {
 	private static final long serialVersionUID = 1L;
 

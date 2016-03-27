@@ -1,7 +1,7 @@
 package com.example.models;
 
-import java.io.Serializable;
 import javax.persistence.*;
+import java.io.Serializable;
 
 
 /**
@@ -9,7 +9,7 @@ import javax.persistence.*;
  *
  */
 @Entity
-@NamedQuery(name="Dogadjaj.findAll", query="SELECT d FROM Dogadjaj d")
+//@NamedQuery(name="Dogadjaj.findAll", query="SELECT d FROM Dogadjaj d")
 public class Dogadjaj implements Serializable {
     private static final long serialVersionUID = 1L;
 
@@ -26,7 +26,7 @@ public class Dogadjaj implements Serializable {
 
     //private List<StatusXStatus> statusXStatuses;
 
-    private char deleted;
+    private String deleted;
 
     public Dogadjaj() {
     }
@@ -55,25 +55,25 @@ public class Dogadjaj implements Serializable {
     //	this.statusXStatuses = statusXStatuses;
     //}
 
-    public StatusXStatus addStatusXStatus(StatusXStatus statusXStatus) {
-        //getStatusXStatuses().add(statusXStatus);
-        //statusXStatus.setDogadjaj(this);
+//    public StatusXStatus addStatusXStatus(StatusXStatus statusXStatus) {
+//        //getStatusXStatuses().add(statusXStatus);
+//        //statusXStatus.setDogadjaj(this);
+//
+//        return statusXStatus;
+//    }
+//
+//    public StatusXStatus removeStatusXStatus(StatusXStatus statusXStatus) {
+//        //getStatusXStatuses().remove(statusXStatus);
+//        //statusXStatus.setDogadjaj(null);
+//
+//        return statusXStatus;
+//    }
 
-        return statusXStatus;
-    }
-
-    public StatusXStatus removeStatusXStatus(StatusXStatus statusXStatus) {
-        //getStatusXStatuses().remove(statusXStatus);
-        //statusXStatus.setDogadjaj(null);
-
-        return statusXStatus;
-    }
-
-    public char getDeleted() {
+    public String getDeleted() {
         return this.deleted;
     }
 
-    public void setDeleted(char deleted) {
+    public void setDeleted(String deleted) {
         this.deleted = deleted;
     }
 
