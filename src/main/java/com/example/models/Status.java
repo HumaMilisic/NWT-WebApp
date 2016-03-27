@@ -1,6 +1,9 @@
 package com.example.models;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
+import org.hibernate.annotations.Generated;
+import org.hibernate.annotations.GenerationTime;
+import org.hibernate.validator.constraints.Length;
 
 import java.io.Serializable;
 import javax.persistence.*;
@@ -12,55 +15,59 @@ import java.util.List;
  * 
  */
 @Entity
-@NamedQuery(name="Status.findAll", query="SELECT s FROM Status s")
+//@NamedQuery(name="Status.findAll", query="SELECT s FROM Status s")
 public class Status implements Serializable {
 	private static final long serialVersionUID = 1L;
 
 	@Id
 	@GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "StatusSEQ")
 	@SequenceGenerator(name = "StatusSEQ", sequenceName = "STATUS_SEQ", allocationSize = 1)
+	@Generated(GenerationTime.INSERT) //dodano
 	private long id;
 
 	private String nazivba;
 
 	private String naziven;
 
-	@JsonIgnore
+//	@JsonIgnore
 	//bi-directional many-to-one association to Dokument
-	@OneToMany(mappedBy="statusBean")
-	private List<Dokument> dokuments;
+//	@OneToMany(mappedBy="statusBean")
+//	private List<Dokument> dokuments;
 
 	//bi-directional many-to-one association to DokumentXStatus
-	@OneToMany(mappedBy="statusBean")
-	private List<DokumentXStatus> dokumentXStatuses;
+//	@OneToMany(mappedBy="statusBean")
+//	private List<DokumentXStatus> dokumentXStatuses;
 
 	//bi-directional many-to-one association to RelKorisnikXStatus
-	@OneToMany(mappedBy="statusBean")
-	private List<RelKorisnikXStatus> relKorisnikXStatuses;
+//	@OneToMany(mappedBy="statusBean")
+//	private List<RelKorisnikXStatus> relKorisnikXStatuses;
 
 	//bi-directional many-to-many association to Notifikacija
-	@ManyToMany
-	@JoinTable(
-		name="STATUS_X_NOTIFIKACIJA"
-		, joinColumns={
-			@JoinColumn(name="STATUS")
-			}
-		, inverseJoinColumns={
-			@JoinColumn(name="NOTIFIKACIJA")
-			}
-		)
-	private List<Notifikacija> notifikacijas;
+//	@ManyToMany
+//	@JoinTable(
+//		name="STATUS_X_NOTIFIKACIJA"
+//		, joinColumns={
+//			@JoinColumn(name="STATUS")
+//			}
+//		, inverseJoinColumns={
+//			@JoinColumn(name="NOTIFIKACIJA")
+//			}
+//		)
+//	private List<Notifikacija> notifikacijas;
 
 	//bi-directional many-to-one association to UlogaXStatus
-	@OneToMany(mappedBy="statusBean")
-	private List<UlogaXStatus> ulogaXStatuses;
+//	@OneToMany(mappedBy="statusBean")
+//	private List<UlogaXStatus> ulogaXStatuses;
 
-	@JsonIgnore
+//	@JsonIgnore
 	//bi-directional many-to-many association to VrstaDokumenta
-	@ManyToMany(mappedBy="statuses")
-	private List<VrstaDokumenta> vrstaDokumentas;
+//	@ManyToMany(mappedBy="statuses")
+//	private List<VrstaDokumenta> vrstaDokumentas;
 
-	private char deleted;
+	//private char deleted;
+	@Length(max = 1)
+	@Column(nullable = false,name="deleted")
+	private String deleted;
 
 	public Status() {
 	}
@@ -89,115 +96,115 @@ public class Status implements Serializable {
 		this.naziven = naziven;
 	}
 
-	public List<Dokument> getDokuments() {
-		return this.dokuments;
-	}
+//	public List<Dokument> getDokuments() {
+//		return this.dokuments;
+//	}
 
-	public void setDokuments(List<Dokument> dokuments) {
-		this.dokuments = dokuments;
-	}
+///	public void setDokuments(List<Dokument> dokuments) {
+//		this.dokuments = dokuments;
+//	}
 
-	public Dokument addDokument(Dokument dokument) {
-		getDokuments().add(dokument);
-		dokument.setStatusBean(this);
+//	public Dokument addDokument(Dokument dokument) {
+//		getDokuments().add(dokument);
+//		dokument.setStatusBean(this);
+//		return dokument;
+//	}
 
-		return dokument;
-	}
+//	public Dokument removeDokument(Dokument dokument) {
+//		getDokuments().remove(dokument);
+//		dokument.setStatusBean(null);
+//		return dokument;
+//	}
 
-	public Dokument removeDokument(Dokument dokument) {
-		getDokuments().remove(dokument);
-		dokument.setStatusBean(null);
+//	public List<DokumentXStatus> getDokumentXStatuses() {
+//		return this.dokumentXStatuses;
+//	}
 
-		return dokument;
-	}
+//	public void setDokumentXStatuses(List<DokumentXStatus> dokumentXStatuses) {
+//		this.dokumentXStatuses = dokumentXStatuses;
+//	}
 
-	public List<DokumentXStatus> getDokumentXStatuses() {
-		return this.dokumentXStatuses;
-	}
+//	public DokumentXStatus addDokumentXStatus(DokumentXStatus dokumentXStatus) {
+//		getDokumentXStatuses().add(dokumentXStatus);
+//		dokumentXStatus.setStatusBean(this);
+//		return dokumentXStatus;
+//	}
 
-	public void setDokumentXStatuses(List<DokumentXStatus> dokumentXStatuses) {
-		this.dokumentXStatuses = dokumentXStatuses;
-	}
+//	public DokumentXStatus removeDokumentXStatus(DokumentXStatus dokumentXStatus) {
+//		getDokumentXStatuses().remove(dokumentXStatus);
+//		dokumentXStatus.setStatusBean(null);
+//		return dokumentXStatus;
+//	}
 
-	public DokumentXStatus addDokumentXStatus(DokumentXStatus dokumentXStatus) {
-		getDokumentXStatuses().add(dokumentXStatus);
-		dokumentXStatus.setStatusBean(this);
+//	public List<RelKorisnikXStatus> getRelKorisnikXStatuses() {
+//		return this.relKorisnikXStatuses;
+//	}
 
-		return dokumentXStatus;
-	}
+//	public void setRelKorisnikXStatuses(List<RelKorisnikXStatus> relKorisnikXStatuses) {
+//		this.relKorisnikXStatuses = relKorisnikXStatuses;
+//	}
 
-	public DokumentXStatus removeDokumentXStatus(DokumentXStatus dokumentXStatus) {
-		getDokumentXStatuses().remove(dokumentXStatus);
-		dokumentXStatus.setStatusBean(null);
+//	public RelKorisnikXStatus addRelKorisnikXStatus(RelKorisnikXStatus relKorisnikXStatus) {
+//		getRelKorisnikXStatuses().add(relKorisnikXStatus);
+//		relKorisnikXStatus.setStatusBean(this);
+//		return relKorisnikXStatus;
+//	}
 
-		return dokumentXStatus;
-	}
+//	public RelKorisnikXStatus removeRelKorisnikXStatus(RelKorisnikXStatus relKorisnikXStatus) {
+//		getRelKorisnikXStatuses().remove(relKorisnikXStatus);
+//		relKorisnikXStatus.setStatusBean(null);
+//		return relKorisnikXStatus;
+//	}
 
-	public List<RelKorisnikXStatus> getRelKorisnikXStatuses() {
-		return this.relKorisnikXStatuses;
-	}
+//	public List<Notifikacija> getNotifikacijas() {
+//		return this.notifikacijas;
+//	}
 
-	public void setRelKorisnikXStatuses(List<RelKorisnikXStatus> relKorisnikXStatuses) {
-		this.relKorisnikXStatuses = relKorisnikXStatuses;
-	}
+//	public void setNotifikacijas(List<Notifikacija> notifikacijas) {
+//		this.notifikacijas = notifikacijas;
+//	}
 
-	public RelKorisnikXStatus addRelKorisnikXStatus(RelKorisnikXStatus relKorisnikXStatus) {
-		getRelKorisnikXStatuses().add(relKorisnikXStatus);
-		relKorisnikXStatus.setStatusBean(this);
+//	public List<UlogaXStatus> getUlogaXStatuses() {
+//		return this.ulogaXStatuses;
+//	}
 
-		return relKorisnikXStatus;
-	}
+//	public void setUlogaXStatuses(List<UlogaXStatus> ulogaXStatuses) {
+//		this.ulogaXStatuses = ulogaXStatuses;
+//	}
 
-	public RelKorisnikXStatus removeRelKorisnikXStatus(RelKorisnikXStatus relKorisnikXStatus) {
-		getRelKorisnikXStatuses().remove(relKorisnikXStatus);
-		relKorisnikXStatus.setStatusBean(null);
+//	public UlogaXStatus addUlogaXStatus(UlogaXStatus ulogaXStatus) {
+//		getUlogaXStatuses().add(ulogaXStatus);
+//		ulogaXStatus.setStatusBean(this);
+//		return ulogaXStatus;
+//	}
 
-		return relKorisnikXStatus;
-	}
+//	public UlogaXStatus removeUlogaXStatus(UlogaXStatus ulogaXStatus) {
+//		getUlogaXStatuses().remove(ulogaXStatus);
+//		ulogaXStatus.setStatusBean(null);
+//		return ulogaXStatus;
+//	}
 
-	public List<Notifikacija> getNotifikacijas() {
-		return this.notifikacijas;
-	}
+//	public List<VrstaDokumenta> getVrstaDokumentas() {
+//		return this.vrstaDokumentas;
+//	}
 
-	public void setNotifikacijas(List<Notifikacija> notifikacijas) {
-		this.notifikacijas = notifikacijas;
-	}
+//	public void setVrstaDokumentas(List<VrstaDokumenta> vrstaDokumentas) {
+//		this.vrstaDokumentas = vrstaDokumentas;
+//	}
 
-	public List<UlogaXStatus> getUlogaXStatuses() {
-		return this.ulogaXStatuses;
-	}
-
-	public void setUlogaXStatuses(List<UlogaXStatus> ulogaXStatuses) {
-		this.ulogaXStatuses = ulogaXStatuses;
-	}
-
-	public UlogaXStatus addUlogaXStatus(UlogaXStatus ulogaXStatus) {
-		getUlogaXStatuses().add(ulogaXStatus);
-		ulogaXStatus.setStatusBean(this);
-
-		return ulogaXStatus;
-	}
-
-	public UlogaXStatus removeUlogaXStatus(UlogaXStatus ulogaXStatus) {
-		getUlogaXStatuses().remove(ulogaXStatus);
-		ulogaXStatus.setStatusBean(null);
-
-		return ulogaXStatus;
-	}
-
-	public List<VrstaDokumenta> getVrstaDokumentas() {
-		return this.vrstaDokumentas;
-	}
-
-	public void setVrstaDokumentas(List<VrstaDokumenta> vrstaDokumentas) {
-		this.vrstaDokumentas = vrstaDokumentas;
-	}
-
-	public char getDeleted() {
+/*	public char getDeleted() {
 		return this.deleted;
 	}
 
 	public void setDeleted(char deleted) {
+		this.deleted = deleted;
+	}
+*/
+	public String getDeleted() { //bilo char
+	return this.deleted;
+}
+
+	public void setDeleted(String deleted) {
 		this.deleted = deleted;
 	}
 

@@ -1,5 +1,9 @@
 package com.example.models;
 
+import org.hibernate.annotations.Generated;
+import org.hibernate.annotations.GenerationTime;
+import org.hibernate.validator.constraints.Length;
+
 import java.io.Serializable;
 import javax.persistence.*;
 import java.util.List;
@@ -10,14 +14,15 @@ import java.util.List;
  * 
  */
 @Entity
-@Table(name="RELACIJA_DOKUMENT")
-@NamedQuery(name="RelacijaDokument.findAll", query="SELECT r FROM RelacijaDokument r")
+//@Table(name="RELACIJA_DOKUMENT")
+//@NamedQuery(name="RelacijaDokument.findAll", query="SELECT r FROM RelacijaDokument r")
 public class RelacijaDokument implements Serializable {
 	private static final long serialVersionUID = 1L;
 
 	@Id
 	@GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "RelacijaDokumentSEQ")
 	@SequenceGenerator(name = "RelacijaDokumentSEQ", sequenceName = "RELACIJA_DOKUMENT_SEQ", allocationSize = 1)
+	@Generated(GenerationTime.INSERT) //dodano
 	private long id;
 
 	private String nazivba;
@@ -25,14 +30,17 @@ public class RelacijaDokument implements Serializable {
 	private String naziven;
 
 	//bi-directional many-to-one association to KorisnikXDokument
-	@OneToMany(mappedBy="relacijaDokument")
-	private List<KorisnikXDokument> korisnikXDokuments;
+	//@OneToMany(mappedBy="relacijaDokument")
+	//private List<KorisnikXDokument> korisnikXDokuments;
 
 	//bi-directional many-to-one association to RelKorisnikXRelDokument
-	@OneToMany(mappedBy="relacijaDokumentBean")
-	private List<RelKorisnikXRelDokument> relKorisnikXRelDokuments;
+	//@OneToMany(mappedBy="relacijaDokumentBean")
+	//private List<RelKorisnikXRelDokument> relKorisnikXRelDokuments;
 
-	private char deleted;
+	//private char deleted;
+	@Length(max = 1)
+	@Column(nullable = false,name="deleted")
+	private String deleted;
 
 	public RelacijaDokument() {
 	}
@@ -61,56 +69,60 @@ public class RelacijaDokument implements Serializable {
 		this.naziven = naziven;
 	}
 
-	public List<KorisnikXDokument> getKorisnikXDokuments() {
-		return this.korisnikXDokuments;
-	}
+//	public List<KorisnikXDokument> getKorisnikXDokuments() {
+//		return this.korisnikXDokuments;
+//	}
 
-	public void setKorisnikXDokuments(List<KorisnikXDokument> korisnikXDokuments) {
-		this.korisnikXDokuments = korisnikXDokuments;
-	}
+//	public void setKorisnikXDokuments(List<KorisnikXDokument> korisnikXDokuments) {
+//		this.korisnikXDokuments = korisnikXDokuments;
+//	}
 
-	public KorisnikXDokument addKorisnikXDokument(KorisnikXDokument korisnikXDokument) {
-		getKorisnikXDokuments().add(korisnikXDokument);
-		korisnikXDokument.setRelacijaDokument(this);
+//	public KorisnikXDokument addKorisnikXDokument(KorisnikXDokument korisnikXDokument) {
+//		getKorisnikXDokuments().add(korisnikXDokument);
+//		korisnikXDokument.setRelacijaDokument(this);
+//		return korisnikXDokument;
+//	}
 
-		return korisnikXDokument;
-	}
+//	public KorisnikXDokument removeKorisnikXDokument(KorisnikXDokument korisnikXDokument) {
+//		getKorisnikXDokuments().remove(korisnikXDokument);
+//		korisnikXDokument.setRelacijaDokument(null);
+//		return korisnikXDokument;
+//	}
 
-	public KorisnikXDokument removeKorisnikXDokument(KorisnikXDokument korisnikXDokument) {
-		getKorisnikXDokuments().remove(korisnikXDokument);
-		korisnikXDokument.setRelacijaDokument(null);
+//	public List<RelKorisnikXRelDokument> getRelKorisnikXRelDokuments() {
+//		return this.relKorisnikXRelDokuments;
+//	}
 
-		return korisnikXDokument;
-	}
+//	public void setRelKorisnikXRelDokuments(List<RelKorisnikXRelDokument> relKorisnikXRelDokuments) {
+//		this.relKorisnikXRelDokuments = relKorisnikXRelDokuments;
+//	}
 
-	public List<RelKorisnikXRelDokument> getRelKorisnikXRelDokuments() {
-		return this.relKorisnikXRelDokuments;
-	}
+//	public RelKorisnikXRelDokument addRelKorisnikXRelDokument(RelKorisnikXRelDokument relKorisnikXRelDokument) {
+//		getRelKorisnikXRelDokuments().add(relKorisnikXRelDokument);
+//		relKorisnikXRelDokument.setRelacijaDokumentBean(this);
+//		return relKorisnikXRelDokument;
+//	}
 
-	public void setRelKorisnikXRelDokuments(List<RelKorisnikXRelDokument> relKorisnikXRelDokuments) {
-		this.relKorisnikXRelDokuments = relKorisnikXRelDokuments;
-	}
+//	public RelKorisnikXRelDokument removeRelKorisnikXRelDokument(RelKorisnikXRelDokument relKorisnikXRelDokument) {
+//		getRelKorisnikXRelDokuments().remove(relKorisnikXRelDokument);
+//		relKorisnikXRelDokument.setRelacijaDokumentBean(null);
+//		return relKorisnikXRelDokument;
+//	}
 
-	public RelKorisnikXRelDokument addRelKorisnikXRelDokument(RelKorisnikXRelDokument relKorisnikXRelDokument) {
-		getRelKorisnikXRelDokuments().add(relKorisnikXRelDokument);
-		relKorisnikXRelDokument.setRelacijaDokumentBean(this);
-
-		return relKorisnikXRelDokument;
-	}
-
-	public RelKorisnikXRelDokument removeRelKorisnikXRelDokument(RelKorisnikXRelDokument relKorisnikXRelDokument) {
-		getRelKorisnikXRelDokuments().remove(relKorisnikXRelDokument);
-		relKorisnikXRelDokument.setRelacijaDokumentBean(null);
-
-		return relKorisnikXRelDokument;
-	}
-
-	public char getDeleted() {
+/*	public char getDeleted() {
 		return this.deleted;
 	}
 
 	public void setDeleted(char deleted) {
 		this.deleted = deleted;
 	}
+*/
 
+	public String getDeleted() { //bilo char
+		return this.deleted;
+	}
+
+	public void setDeleted(String deleted) {
+		this.deleted = deleted;
+	}
 }
