@@ -14,7 +14,7 @@ import java.util.List;
  * 
  */
 @Entity
-//@Table(name="RELACIJA_KORISNIK")
+@Table(name="RELACIJA_KORISNIK")
 //@NamedQuery(name="RelacijaKorisnik.findAll", query="SELECT r FROM RelacijaKorisnik r")
 public class RelacijaKorisnik implements Serializable {
 	private static final long serialVersionUID = 1L;
@@ -34,8 +34,8 @@ public class RelacijaKorisnik implements Serializable {
 //	private List<KorisnikXKorisnik> korisnikXKorisniks;
 
 	//bi-directional many-to-one association to RelKorisnikXNotifikacija
-//	@OneToMany(mappedBy="relacijaKorisnikBean")
-//	private List<RelKorisnikXNotifikacija> relKorisnikXNotifikacijas;
+	@OneToMany(mappedBy="relacijaKorisnikBean")
+	private List<RelKorisnikXNotifikacija> relKorisnikXNotifikacijas;
 
 	//bi-directional many-to-one association to RelKorisnikXRelDokument
 //	@OneToMany(mappedBy="relacijaKorisnikBean")

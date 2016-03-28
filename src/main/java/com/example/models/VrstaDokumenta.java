@@ -48,17 +48,17 @@ public class VrstaDokumenta implements Serializable {
 //	private List<UlogaXVrstaDokumenta> ulogaXVrstaDokumentas;
 
 	//bi-directional many-to-many association to Status
-//	@ManyToMany
-//	@JoinTable(
-//		name="VRSTA_DOKUMENTA_X_STATUS"
-//		, joinColumns={
-//			@JoinColumn(name="VRSTA_DOKUMENTA")
-//			}
-//		, inverseJoinColumns={
-//			@JoinColumn(name="STATUS")
-//			}
-//		)
-//	private List<Status> statuses;
+	@ManyToMany
+	@JoinTable(
+		name="VRSTA_DOKUMENTA_X_STATUS"
+		, joinColumns={
+			@JoinColumn(name="VRSTA_DOKUMENTA")
+			}
+		, inverseJoinColumns={
+			@JoinColumn(name="STATUS")
+			}
+		)
+	private List<Status> statuses;
 
 //	private char deleted;
 	@Length(max = 1)
@@ -168,13 +168,13 @@ public class VrstaDokumenta implements Serializable {
 //		return ulogaXVrstaDokumenta;
 //	}
 
-//	public List<Status> getStatuses() {
-//		return this.statuses;
-//	}
+	public List<Status> getStatuses() {
+		return this.statuses;
+	}
 
-//	public void setStatuses(List<Status> statuses) {
-//		this.statuses = statuses;
-//	}
+	public void setStatuses(List<Status> statuses) {
+		this.statuses = statuses;
+	}
 
 /*	public char getDeleted() {
 		return this.deleted;

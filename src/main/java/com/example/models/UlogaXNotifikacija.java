@@ -1,5 +1,7 @@
 package com.example.models;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+
 import java.io.Serializable;
 import javax.persistence.*;
 
@@ -10,7 +12,7 @@ import javax.persistence.*;
  */
 @Entity @IdClass(UlogaXNotifikacijaID.class)
 @Table(name="ULOGA_X_NOTIFIKACIJA")
-@NamedQuery(name="UlogaXNotifikacija.findAll", query="SELECT u FROM UlogaXNotifikacija u")
+//@NamedQuery(name="UlogaXNotifikacija.findAll", query="SELECT u FROM UlogaXNotifikacija u")
 public class UlogaXNotifikacija implements Serializable {
 	private static final long serialVersionUID = 1L;
 
@@ -49,6 +51,7 @@ public class UlogaXNotifikacija implements Serializable {
 		this.email = email;
 	}
 
+	@JsonIgnore //dodala
 	public Notifikacija getNotifikacijaBean() {
 		return this.notifikacijaBean;
 	}
@@ -56,6 +59,7 @@ public class UlogaXNotifikacija implements Serializable {
 	public void setNotifikacijaBean(Notifikacija notifikacijaBean) {
 		this.notifikacijaBean = notifikacijaBean;
 	}
+
 
 	public Uloga getUlogaBean() {
 		return this.ulogaBean;

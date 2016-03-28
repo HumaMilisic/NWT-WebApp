@@ -1,5 +1,7 @@
 package com.example.models;
 
+import com.fasterxml.jackson.annotation.JsonManagedReference;
+
 import java.io.Serializable;
 import javax.persistence.*;
 
@@ -10,7 +12,7 @@ import javax.persistence.*;
  */
 @Entity @IdClass(RelKorisnikXStatusID.class)
 @Table(name="REL_KORISNIK_X_STATUS")
-@NamedQuery(name="RelKorisnikXStatus.findAll", query="SELECT r FROM RelKorisnikXStatus r")
+//@NamedQuery(name="RelKorisnikXStatus.findAll", query="SELECT r FROM RelKorisnikXStatus r")
 public class RelKorisnikXStatus implements Serializable {
 	private static final long serialVersionUID = 1L;
 
@@ -34,6 +36,7 @@ public class RelKorisnikXStatus implements Serializable {
 
 	//bi-directional many-to-one association to Status
 	@Id
+	@JsonManagedReference //dodala
 	@ManyToOne
 	@JoinColumn(name="STATUS")
 	private Status statusBean;
