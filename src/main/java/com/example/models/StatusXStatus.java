@@ -10,7 +10,7 @@ import javax.persistence.*;
  */
 @Entity @IdClass(StatusXStatusID.class)
 @Table(name="STATUS_X_STATUS")
-@NamedQuery(name="StatusXStatus.findAll", query="SELECT s FROM StatusXStatus s")
+//@NamedQuery(name="StatusXStatus.findAll", query="SELECT s FROM StatusXStatus s")
 public class StatusXStatus implements Serializable {
     private static final long serialVersionUID = 1L;
 
