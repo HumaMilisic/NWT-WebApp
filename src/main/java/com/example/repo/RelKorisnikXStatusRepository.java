@@ -1,40 +1,37 @@
 package com.example.repo;
 
-import com.example.models.Notifikacija;
+import com.example.models.RelKorisnikXStatus;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.domain.Sort;
 import org.springframework.data.repository.PagingAndSortingRepository;
-import org.springframework.data.repository.query.Param;
 import org.springframework.data.rest.core.annotation.RepositoryRestResource;
 import org.springframework.security.access.prepost.PreAuthorize;
 
-import java.util.List;
-
 @PreAuthorize("hasRole('ROLE_USER')")
-@RepositoryRestResource(collectionResourceRel = "notifikacija",path = "notifikacija")
-public interface NotifikacijaRepository extends PagingAndSortingRepository<Notifikacija,Long> {
+@RepositoryRestResource(collectionResourceRel = "relKorisnikXStatus",path = "relKorisnikXStatus")
+public interface RelKorisnikXStatusRepository extends PagingAndSortingRepository<RelKorisnikXStatus,Long> {
 
     @Override
-    Iterable<Notifikacija> findAll(Sort sort);
+    Iterable<RelKorisnikXStatus> findAll(Sort sort);
 
     @Override
-    Page<Notifikacija> findAll(Pageable pageable);
+    Page<RelKorisnikXStatus> findAll(Pageable pageable);
 
     @Override
-    Notifikacija save(Notifikacija s);
+    RelKorisnikXStatus save(RelKorisnikXStatus s);
 
     @Override
-    Notifikacija findOne(Long aLong);
+    RelKorisnikXStatus findOne(Long aLong);
 
     @Override
     boolean exists(Long aLong);
 
     @Override
-    Iterable<Notifikacija> findAll();
+    Iterable<RelKorisnikXStatus> findAll();
 
     @Override
-    Iterable<Notifikacija> findAll(Iterable<Long> iterable);
+    Iterable<RelKorisnikXStatus> findAll(Iterable<Long> iterable);
 
     @Override
     long count();
@@ -45,19 +42,13 @@ public interface NotifikacijaRepository extends PagingAndSortingRepository<Notif
 
     @Override
     @PreAuthorize("hasRole('ROLE_ADMIN')")
-    void delete(Notifikacija notifikacija);
+    void delete(RelKorisnikXStatus relKorisnikXStatus);
 
     @Override
     @PreAuthorize("hasRole('ROLE_ADMIN')")
-    void delete(Iterable<? extends Notifikacija> iterable);
+    void delete(Iterable<? extends RelKorisnikXStatus> iterable);
 
     @Override
     @PreAuthorize("hasRole('ROLE_ADMIN')")
     void deleteAll();
-
-    List<Notifikacija> findById(@Param("id")long id); //zasad po id
-
- //   List<Notifikacija> findByTekst(@Param("tekst")String tekst);
-
-
 }

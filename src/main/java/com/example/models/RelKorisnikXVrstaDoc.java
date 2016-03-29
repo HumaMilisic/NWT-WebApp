@@ -10,7 +10,7 @@ import javax.persistence.*;
  */
 @Entity @IdClass(RelKorisnikXVrstaDocID.class)
 @Table(name="REL_KORISNIK_X_VRSTA_DOC")
-@NamedQuery(name="RelKorisnikXVrstaDoc.findAll", query="SELECT r FROM RelKorisnikXVrstaDoc r")
+//@NamedQuery(name="RelKorisnikXVrstaDoc.findAll", query="SELECT r FROM RelKorisnikXVrstaDoc r")
 public class RelKorisnikXVrstaDoc implements Serializable {
 	private static final long serialVersionUID = 1L;
 
