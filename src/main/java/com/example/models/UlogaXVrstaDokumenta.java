@@ -10,7 +10,7 @@ import javax.persistence.*;
  */
 @Entity @IdClass(UlogaXVrstaDokumentaID.class)
 @Table(name="ULOGA_X_VRSTA_DOKUMENTA")
-@NamedQuery(name="UlogaXVrstaDokumenta.findAll", query="SELECT u FROM UlogaXVrstaDokumenta u")
+//@NamedQuery(name="UlogaXVrstaDokumenta.findAll", query="SELECT u FROM UlogaXVrstaDokumenta u")
 public class UlogaXVrstaDokumenta implements Serializable {
 	private static final long serialVersionUID = 1L;
 

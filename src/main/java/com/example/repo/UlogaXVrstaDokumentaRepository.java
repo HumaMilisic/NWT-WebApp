@@ -55,9 +55,5 @@ public interface UlogaXVrstaDokumentaRepository extends PagingAndSortingReposito
     @PreAuthorize("hasRole('ROLE_ADMIN')")
     void deleteAll();
 
-    List<UlogaXVrstaDokumenta> findById(@Param("id")long id); //zasad po id
-
-    //   List<UlogaXVrstaDokumenta> findByTekst(@Param("tekst")String tekst);
-
 
 }
