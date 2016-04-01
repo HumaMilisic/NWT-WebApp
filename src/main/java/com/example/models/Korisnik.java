@@ -1,5 +1,7 @@
 package com.example.models;
 
+import com.example.utils.validators.ValidPassword;
+
 import javax.persistence.*;
 import java.io.Serializable;
 import java.math.BigDecimal;
@@ -37,6 +39,7 @@ public class Korisnik implements Serializable {
 	@Column(name="DATUM_RODJENJA")
 	private LocalDate datumRodjenja;
 
+	@Column(unique = true)
 	private String email;
 
 	private String ime;
@@ -47,6 +50,7 @@ public class Korisnik implements Serializable {
 	private String mjestoRodjenja;
 
 	//@Lob
+	@ValidPassword
 	private String password;
 
 	private String prezime;

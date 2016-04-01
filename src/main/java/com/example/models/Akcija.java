@@ -1,5 +1,6 @@
 package com.example.models;
 
+import com.example.utils.validators.ValidBool;
 import org.hibernate.annotations.Generated;
 import org.hibernate.annotations.GenerationTime;
 import org.hibernate.validator.constraints.Length;
@@ -45,6 +46,7 @@ public class Akcija implements Serializable {
 	//private char deleted;
 	@Length(max = 1)
 	@Column(nullable = false,name="deleted")
+	@ValidBool
 	private String deleted;
 
 	protected Akcija() {

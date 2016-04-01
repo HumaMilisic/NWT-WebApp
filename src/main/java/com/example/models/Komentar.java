@@ -1,6 +1,8 @@
 package com.example.models;
 
 
+import com.example.utils.validators.ValidBool;
+
 import javax.persistence.*;
 import java.io.Serializable;
 import java.sql.Timestamp;
@@ -35,7 +37,8 @@ public class Komentar implements Serializable {
 	@JoinColumn(name="AUTOR")
 	private Korisnik korisnik;
 
-	private char deleted;
+	@ValidBool
+	private String deleted;
 
 	public Komentar() {
 	}
@@ -80,11 +83,11 @@ public class Komentar implements Serializable {
 		this.korisnik = korisnik;
 	}
 
-	public char getDeleted() {
+	public String getDeleted() {
 		return this.deleted;
 	}
 
-	public void setDeleted(char deleted) {
+	public void setDeleted(String deleted) {
 		this.deleted = deleted;
 	}
 

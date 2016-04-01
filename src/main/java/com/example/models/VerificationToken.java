@@ -1,5 +1,7 @@
 package com.example.models;
 
+import org.springframework.beans.factory.annotation.Value;
+
 import javax.persistence.*;
 import java.sql.Timestamp;
 import java.util.Calendar;
@@ -10,6 +12,8 @@ import java.util.Date;
  */
 @Entity
 public class VerificationToken {
+    @Value("${my.token.trajanje}")
+    private static int trajanje;
     private static final int EXPIRATION = 60 * 24;
 
     @Id

@@ -10,7 +10,7 @@ import javax.persistence.*;
  */
 @Entity @IdClass(UlogaXStatusID.class)
 @Table(name="ULOGA_X_STATUS")
-@NamedQuery(name="UlogaXStatus.findAll", query="SELECT u FROM UlogaXStatus u")
+//@NamedQuery(name="UlogaXStatus.findAll", query="SELECT u FROM UlogaXStatus u")
 public class UlogaXStatus implements Serializable {
 	private static final long serialVersionUID = 1L;
 

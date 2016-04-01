@@ -1,6 +1,8 @@
 package com.example.models;
 
 
+import com.example.utils.validators.ValidBool;
+
 import javax.persistence.*;
 import java.io.Serializable;
 import java.sql.Timestamp;
@@ -82,6 +84,7 @@ public class Dokument implements Serializable {
 //	@OneToMany(mappedBy="dokumentBean")
 //	private List<KorisnikXDokument> korisnikXDokuments;
 
+	@ValidBool
 	private String deleted;
 
 	public Dokument() {

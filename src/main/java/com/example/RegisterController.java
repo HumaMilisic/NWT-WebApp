@@ -4,7 +4,9 @@ package com.example;
 import com.example.models.Korisnik;
 import com.example.models.PasswordResetToken;
 import com.example.models.VerificationToken;
+import com.example.repo.KorisnikRepository;
 import com.example.utils.GenericResponse;
+import com.example.utils.GlobalStuff;
 import com.example.utils.KorisnikDTO;
 import com.example.utils.events.OnRegistrationCompleteEvent;
 import com.example.utils.service.CustomUserDetailsService;
@@ -12,9 +14,7 @@ import com.example.utils.service.EmailService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.ApplicationEventPublisher;
 import org.springframework.context.MessageSource;
-import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
-import org.springframework.security.core.Authentication;
-import org.springframework.security.core.context.SecurityContextHolder;
+import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
 import org.springframework.validation.Errors;
@@ -24,8 +24,10 @@ import org.springframework.web.servlet.ModelAndView;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.validation.Valid;
+import java.nio.file.attribute.UserPrincipalNotFoundException;
 import java.util.Calendar;
 import java.util.Locale;
+import java.util.UUID;
 
 /**
  * Created by WorkIt on 26/03/2016.
@@ -43,6 +45,10 @@ public class RegisterController {
     private MessageSource messages;
     @Autowired
     private EmailService emailService;
+    @Autowired
+    PasswordEncoder passwordEncoder;
+    @Autowired
+    KorisnikRepository korisnikRepository;
 
     public RegisterController(){
         super();
@@ -96,7 +102,8 @@ public class RegisterController {
 
         Korisnik user = verificationToken.getKorisnik();
         Calendar cal = Calendar.getInstance();
-        if ((verificationToken.getExpiryDate().getTime() - cal.getTime().getTime()) <= 0) {
+        double razlika = (verificationToken.getExpiryDate().getTime() - cal.getTime().getTime());
+        if (razlika <= 0) {
             model.addAttribute("message", "istekao token");//messages.getMessage("auth.message.expired", null, locale));
             model.addAttribute("expired",true);
             model.addAttribute("token",token);
@@ -124,39 +131,42 @@ public class RegisterController {
         return new GenericResponse("meh");
     }
 
-//    @RequestMapping(value = "/user/resetPassword", method = RequestMethod.POST)
-//    @ResponseBody
-//    public GenericResponse resetPassword( HttpServletRequest request,@RequestParam("email") String userEmail) throws Exception{
-//        Korisnik korisnik = userDetailsService.findUserByMail(userEmail);
-//        if(korisnik == null){
-//            throw new UserPrincipalNotFoundException(userEmail);
-//        }
-//
-//        String token = UUID.randomUUID().toString();
-//        userDetailsService.createPasswordResetTokenForUser(korisnik,token);
-//        String appUrl = request.getContextPath();
-//        emailService.sendResetTokenMail(korisnik.getEmail(),appUrl,token);
-//        return new GenericResponse("poruka");
-//    }
+    @RequestMapping(value = "/user/resetPassword", method = RequestMethod.POST)
+    @ResponseBody
+    public GenericResponse resetPassword( HttpServletRequest request,@RequestParam("email") String userEmail) throws Exception{
+        Korisnik korisnik = userDetailsService.findUserByMail(userEmail);
+        if(korisnik == null){
+            throw new UserPrincipalNotFoundException(userEmail);
+        }
+
+        String token = UUID.randomUUID().toString();
+        userDetailsService.createPasswordResetTokenForUser(korisnik,token);
+        String appUrl = request.getContextPath();
+        emailService.sendResetTokenMail(korisnik.getEmail(),appUrl,token);
+        return new GenericResponse("poruka");
+    }
 
     @RequestMapping(value = "/user/resetPassword", method = RequestMethod.GET)
-    public String showChangePasswordPage(Locale locale, Model model,
-                                         @RequestParam("id") long id,@RequestParam("token") String token)throws Exception{
+    public String showChangePasswordPage(HttpServletRequest request,@RequestParam("token") String token)throws Exception{
         PasswordResetToken passToken = userDetailsService.getPasswordResetToken(token);
         Korisnik korisnik = passToken.getKorisnik();
-        if(passToken == null || korisnik.getId()!= id){
+        if(passToken == null){
             // nejma cojk
         }
         Calendar cal = Calendar.getInstance();
         if ((passToken.getExpiryDate().getTime() - cal.getTime().getTime()) <= 0) {
-            model.addAttribute("message", messages.getMessage("auth.message.expired", null, locale));
-            return "redirect:/login.html";//?lang=" + locale.getLanguage();
+//            model.addAttribute("message", messages.getMessage("auth.message.expired", null, locale));
+            return "redirect:/bad.html";//?lang=" + locale.getLanguage();
         }
-        Authentication auth = new UsernamePasswordAuthenticationToken(korisnik,null,
-                userDetailsService.loadUserByUsername(korisnik.getUsername()).getAuthorities());
-        SecurityContextHolder.getContext().setAuthentication(auth);
-
-        return "redirect: /updatePassword";
+//        Authentication auth = new UsernamePasswordAuthenticationToken(korisnik,null,
+//                userDetailsService.loadUserByUsername(korisnik.getUsername()).getAuthorities());
+//        SecurityContextHolder.getContext().setAuthentication(auth);
+//
+        String noviPassword = GlobalStuff.RandomPassword();
+        korisnik.setPassword(passwordEncoder.encode(noviPassword));//passwordEncoder.encode(korisnikDTO.getPassword()
+        korisnikRepository.save(korisnik);
+        emailService.sendNewPasswordMail(korisnik.getEmail(),noviPassword );
+        return "redirect: /login";
     }
 
     private Korisnik createUserAccount(KorisnikDTO korisnikDTO, BindingResult result ){

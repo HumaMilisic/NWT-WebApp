@@ -29,4 +29,7 @@ public class DemoApplication {
 		registrationBean.addUrlMappings("/console/*");
 		return registrationBean;
 	}
+
+//    @Bean
+
 }

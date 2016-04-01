@@ -55,4 +55,10 @@ public class EmailService {
         String text = " rn " + adr + confirmationUrl;
         sendMail(to,subject,text);
     }
+
+    public void sendNewPasswordMail(String to, String password){
+        String subject = "New Password";
+        String text = password;
+        sendMail(to,subject,text);
+    }
 }

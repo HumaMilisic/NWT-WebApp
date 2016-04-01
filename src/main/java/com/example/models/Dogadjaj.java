@@ -1,5 +1,8 @@
 package com.example.models;
 
+import com.example.utils.validators.ValidBool;
+import org.hibernate.validator.constraints.Length;
+
 import javax.persistence.*;
 import java.io.Serializable;
 
@@ -18,6 +21,7 @@ public class Dogadjaj implements Serializable {
     @SequenceGenerator(name = "DogadjajSEQ", sequenceName = "DOGADJAJ_SEQ", allocationSize = 1)
     private long id;
 
+    @Length(max = 15)
     private String naziv;
 
     //bi-directional many-to-one association to Dokument
@@ -26,6 +30,7 @@ public class Dogadjaj implements Serializable {
 
     //private List<StatusXStatus> statusXStatuses;
 
+    @ValidBool
     private String deleted;
 
     public Dogadjaj() {

@@ -127,4 +127,9 @@ public class CustomUserDetailsService implements UserDetailsService{
         token = tokenRepository.save(token);
         return token;
     }
+
+    public void createPasswordResetTokenForUser(Korisnik korisnik,String token){
+        PasswordResetToken myToken = new PasswordResetToken(token,korisnik);
+        passwordResetTokenRepo.save(myToken);
+    }
 }
