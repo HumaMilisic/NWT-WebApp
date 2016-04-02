@@ -1,5 +1,6 @@
 var DMApp = angular.module('DMApp', [
-    'ngRoute'
+    'ngRoute',
+    'ngTable'
 ]);
 
 DMApp.config(function($httpProvider,$routeProvider){
@@ -12,6 +13,9 @@ DMApp.config(function($httpProvider,$routeProvider){
         //.when('/login',{
         //    templateUrl:'login.html'
         //})
+        .when('/admin/korisnik',{
+            templateUrl:'/js/app/admin/views/administracijaKorisnika.html'
+        })
         .otherwise('/');
 
 })
