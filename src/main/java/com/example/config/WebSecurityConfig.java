@@ -37,6 +37,7 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
 //                    .loginProcessingUrl("/login")
 
                     .loginPage("/login")
+
                     .permitAll().and()
                 .logout()
                     .permitAll()
@@ -45,8 +46,7 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
                 .and().csrf().disable();
 //                .and()
 //                .headers().frameOptions().disable();
-
-
+//        http.exceptionHandling().authenticationEntryPoint()
     }
 
 
