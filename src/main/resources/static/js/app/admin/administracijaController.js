@@ -5,7 +5,9 @@ DMApp.controller('administracijaController', [
     '$http',
     'loader',
     '$location',
-    function($scope/*,NgTableParams*/,Resource,$http,loader,$location) {
+    'auth',
+    function($scope/*,NgTableParams*/,Resource,$http,loader,$location,auth) {
+        //auth.check();
         $scope.main = {};
         $scope.name = "administracija";
 
@@ -28,6 +30,7 @@ DMApp.controller('administracijaController', [
         };
         $scope.dajStranicu = function(){
             loader.startSpin();
+            //auth.check();
             Resource.getPageBroj($scope.bigCurrentPage,$scope.page.size,'korisnik').then(function(result){
                 loader.stopSpin();
                 if(result.status == 200){
@@ -35,7 +38,7 @@ DMApp.controller('administracijaController', [
                     $scope.page = result.page;
                     $scope.links = result.links;
                 }else {
-                    alert(result.status);
+                    //alert(result.status);
                 }
             })
         }

@@ -17,7 +17,7 @@ import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
-import java.time.LocalDate;
+import java.util.Date;
 import java.util.List;
 import java.util.UUID;
 
@@ -56,7 +56,7 @@ public class CustomUserDetailsService implements UserDetailsService{
             if(korisnik == null){
                 return null;
             }
-            List<GrantedAuthority> auth = AuthorityUtils.commaSeparatedStringToAuthorityList("ROLE_ADMIN,ROLE_USER");
+            List<GrantedAuthority> auth = AuthorityUtils.commaSeparatedStringToAuthorityList("ROLE_USER");//ROLE_ADMIN,
 
             String password = korisnik.getPassword();
 
@@ -78,7 +78,7 @@ public class CustomUserDetailsService implements UserDetailsService{
             throw new Exception();
         }
         Korisnik user = new Korisnik();
-        user.setDatumRodjenja(LocalDate.now());
+        user.setDatumRodjenja(new Date());
         user.setEmail(korisnikDTO.getEmail().toLowerCase());
         user.setIme(korisnikDTO.getIme());
         user.setPrezime(korisnikDTO.getPrezime());

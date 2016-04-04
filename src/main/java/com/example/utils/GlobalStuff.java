@@ -22,7 +22,7 @@ public class GlobalStuff {
 //////                new WhitespaceRule()
 ////        );
 //    }
-    private static PasswordGenerator generator;
+    private static PasswordGenerator generator = new PasswordGenerator();
 
     public static String RandomPassword(){
         String rez = generator.generatePassword(11,Arrays.asList(

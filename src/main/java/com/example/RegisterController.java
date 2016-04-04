@@ -25,6 +25,7 @@ import org.springframework.web.servlet.ModelAndView;
 import javax.servlet.http.HttpServletRequest;
 import javax.validation.Valid;
 import java.nio.file.attribute.UserPrincipalNotFoundException;
+import java.security.Principal;
 import java.util.Calendar;
 import java.util.Locale;
 import java.util.UUID;
@@ -53,6 +54,13 @@ public class RegisterController {
     public RegisterController(){
         super();
     }
+
+
+    @RequestMapping("/user")
+    public Principal user(Principal user) {
+        return user;
+    }
+
 
     @RequestMapping(value = "/register",method = RequestMethod.GET)
     public ModelAndView showRegistrationForm(WebRequest request, ModelAndView mav){
@@ -131,7 +139,7 @@ public class RegisterController {
         return new GenericResponse("meh");
     }
 
-    @RequestMapping(value = "/user/resetPassword", method = RequestMethod.POST)
+    @RequestMapping(value = "/resetPassword", method = RequestMethod.POST)
     @ResponseBody
     public GenericResponse resetPassword( HttpServletRequest request,@RequestParam("email") String userEmail) throws Exception{
         Korisnik korisnik = userDetailsService.findUserByMail(userEmail);
@@ -146,7 +154,7 @@ public class RegisterController {
         return new GenericResponse("poruka");
     }
 
-    @RequestMapping(value = "/user/resetPassword", method = RequestMethod.GET)
+    @RequestMapping(value = "/resetPassword", method = RequestMethod.GET)
     public String showChangePasswordPage(HttpServletRequest request,@RequestParam("token") String token)throws Exception{
         PasswordResetToken passToken = userDetailsService.getPasswordResetToken(token);
         Korisnik korisnik = passToken.getKorisnik();

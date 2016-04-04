@@ -28,7 +28,7 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
         http
                 //.httpBasic().and()
                 .authorizeRequests()
-                    .antMatchers("/*","/register","/registrationConfirm","/user/resetPassword","/console/*","/api")
+                    .antMatchers("/","/register","/registrationConfirm","/resetPassword")
                 .permitAll()
                     .anyRequest().authenticated()
                     .and()
@@ -41,11 +41,11 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
                     .permitAll().and()
                 .logout()
                     .permitAll()
-                    .logoutSuccessUrl("/")
-                .and().headers().frameOptions().disable()
-                .and().csrf().disable();
+//                    .logoutSuccessUrl("/");
+//                .and().headers().frameOptions().disable()
+                .and().csrf().disable()//;
 //                .and()
-//                .headers().frameOptions().disable();
+                .headers().frameOptions().disable();
 //        http.exceptionHandling().authenticationEntryPoint()
     }
 

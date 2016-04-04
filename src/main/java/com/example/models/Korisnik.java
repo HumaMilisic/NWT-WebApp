@@ -5,7 +5,7 @@ import com.example.utils.validators.ValidPassword;
 import javax.persistence.*;
 import java.io.Serializable;
 import java.math.BigDecimal;
-import java.time.LocalDate;
+import java.util.Date;
 import java.util.HashSet;
 import java.util.Set;
 
@@ -37,7 +37,7 @@ public class Korisnik implements Serializable {
 
 //	@Temporal(TemporalType.DATE)
 	@Column(name="DATUM_RODJENJA")
-	private LocalDate datumRodjenja;
+	private Date datumRodjenja;
 
 	@Column(unique = true)
 	private String email;
@@ -140,11 +140,11 @@ public class Korisnik implements Serializable {
 		this.id = id;
 	}
 
-	public LocalDate getDatumRodjenja() {
+	public Date getDatumRodjenja() {
 		return this.datumRodjenja;
 	}
 
-	public void setDatumRodjenja(LocalDate datumRodjenja) {
+	public void setDatumRodjenja(Date datumRodjenja) {
 		this.datumRodjenja = datumRodjenja;
 	}
 

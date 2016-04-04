@@ -1,12 +1,10 @@
 package com.example.utils.validators;
 
-import com.example.utils.GlobalStuff;
-import org.passay.PasswordData;
-import org.passay.PasswordValidator;
-import org.passay.RuleResult;
+import org.passay.*;
 
 import javax.validation.ConstraintValidator;
 import javax.validation.ConstraintValidatorContext;
+import java.util.Arrays;
 
 
 public class PasswordConstraintValidator implements ConstraintValidator<ValidPassword,String> {
@@ -20,7 +18,12 @@ public class PasswordConstraintValidator implements ConstraintValidator<ValidPas
     @Override
     public boolean isValid(String value, ConstraintValidatorContext context) {
         PasswordValidator validator = new PasswordValidator(
-                GlobalStuff.getRules());
+                Arrays.asList(
+                        new LengthRule(8,30),
+                        new CharacterRule(EnglishCharacterData.UpperCase,1),
+                        new CharacterRule(EnglishCharacterData.Digit,1),
+                        new CharacterRule(EnglishCharacterData.Special,1)//,
+                ));
         RuleResult result = validator.validate(new PasswordData(value));
         if(result.isValid()){
             return true;
