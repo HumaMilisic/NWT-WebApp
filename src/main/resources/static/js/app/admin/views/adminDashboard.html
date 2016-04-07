@@ -8,21 +8,32 @@
     </div>
     <div class="row">
         <div class="col-lg-6">
-            <p>
-            Lorem ipsum dolor sit amet, consectetur adipiscing elit. Maecenas vel scelerisque tellus. Curabitur elit lacus, dapibus a porttitor sit amet, iaculis ut sem. Cras lectus quam, consectetur vehicula lectus ut, rutrum fermentum turpis. Nam sollicitudin, elit id semper venenatis, odio nulla fermentum quam, eget malesuada arcu lorem quis mauris. In in ante in risus placerat euismod sit amet et lectus. Integer tortor odio, porta ac metus ac, mollis viverra libero. Morbi ut libero at ipsum vehicula rhoncus ut vel felis. Ut sit amet quam tempus, maximus nunc aliquet, sodales dui. Curabitur quis semper justo. Nam consequat leo a sapien imperdiet, quis placerat tellus bibendum. Suspendisse a malesuada enim, a gravida magna. Sed posuere turpis sed consectetur aliquam. Class aptent taciti sociosqu ad litora torquent per conubia nostra, per inceptos himenaeos. Phasellus elementum neque nulla, sed sagittis erat tempus bibendum. Nam et sem urna.
-            </p>
+            <canvas id="radar" class="chart chart-radar"
+                    chart-data="dataRadar" chart-labels="labelsRadar">
+            </canvas>
         </div>
         <div class="col-lg-6">
-            <p>
-            Lorem ipsum dolor sit amet, consectetur adipiscing elit. Maecenas vel scelerisque tellus. Curabitur elit lacus, dapibus a porttitor sit amet, iaculis ut sem. Cras lectus quam, consectetur vehicula lectus ut, rutrum fermentum turpis. Nam sollicitudin, elit id semper venenatis, odio nulla fermentum quam, eget malesuada arcu lorem quis mauris. In in ante in risus placerat euismod sit amet et lectus. Integer tortor odio, porta ac metus ac, mollis viverra libero. Morbi ut libero at ipsum vehicula rhoncus ut vel felis. Ut sit amet quam tempus, maximus nunc aliquet, sodales dui. Curabitur quis semper justo. Nam consequat leo a sapien imperdiet, quis placerat tellus bibendum. Suspendisse a malesuada enim, a gravida magna. Sed posuere turpis sed consectetur aliquam. Class aptent taciti sociosqu ad litora torquent per conubia nostra, per inceptos himenaeos. Phasellus elementum neque nulla, sed sagittis erat tempus bibendum. Nam et sem urna.
-            </p>
+            <canvas id="line" class="chart chart-line" chart-data="dataLine"
+                    chart-labels="labelsLine" chart-legend="false" chart-series="seriesLine"
+                    chart-click="onClick" >
+            </canvas>
         </div>
     </div>
     <div class="row">
-        <div class="col-lg-12">
+        <div class="col-lg-4">
             <p>
             Lorem ipsum dolor sit amet, consectetur adipiscing elit. Maecenas vel scelerisque tellus. Curabitur elit lacus, dapibus a porttitor sit amet, iaculis ut sem. Cras lectus quam, consectetur vehicula lectus ut, rutrum fermentum turpis. Nam sollicitudin, elit id semper venenatis, odio nulla fermentum quam, eget malesuada arcu lorem quis mauris. In in ante in risus placerat euismod sit amet et lectus. Integer tortor odio, porta ac metus ac, mollis viverra libero. Morbi ut libero at ipsum vehicula rhoncus ut vel felis. Ut sit amet quam tempus, maximus nunc aliquet, sodales dui. Curabitur quis semper justo. Nam consequat leo a sapien imperdiet, quis placerat tellus bibendum. Suspendisse a malesuada enim, a gravida magna. Sed posuere turpis sed consectetur aliquam. Class aptent taciti sociosqu ad litora torquent per conubia nostra, per inceptos himenaeos. Phasellus elementum neque nulla, sed sagittis erat tempus bibendum. Nam et sem urna.
             </p>
+        </div>
+        <div class="col-lg-4">
+            <canvas id="polar-area" class="chart chart-polar-area"
+                    chart-data="dataPie" chart-labels="labelsPie">
+            </canvas>
+        </div>
+        <div class="col-lg-4">
+            <canvas id="doughnut" class="chart chart-doughnut"
+                    chart-data="data" chart-labels="labels">
+            </canvas>
         </div>
     </div>
 

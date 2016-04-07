@@ -3,7 +3,8 @@ var DMApp = angular.module('DMApp', [
     //'ngTable',
     //'smart-table',
     'ui.bootstrap',
-    'angularSpinner'
+    'angularSpinner',
+    'chart.js'
 ]);
 
 DMApp.config(function($httpProvider,$routeProvider){
