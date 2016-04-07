@@ -1,4 +1,10 @@
-DMApp.controller('homeController', ['$scope', function($scope) {
-    $scope.main = {};
-    $scope.name = "naziv!!!";
-}]);
+DMApp.controller('administracijaKorisnikaController', [
+    '$scope',
+    '$controller',
+    function($scope, $controller) {
+        $scope.main = {};
+        $scope.name = "naziv!!!";
+        $scope.childEntity = 'korisnik';
+        $controller('administracijaController', { $scope: $scope});
+    }
+]);

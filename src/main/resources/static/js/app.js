@@ -16,12 +16,19 @@ DMApp.config(function($httpProvider,$routeProvider){
         .when('/login',{
             templateUrl:'login.html'
         })
+
+        //administracija
+        .when('/admin',{
+            templateUrl:'/js/app/admin/views/adminDashboard.html'
+        })
         .when('/admin/korisnik',{
             templateUrl:'/js/app/admin/views/administracijaKorisnika.html'
         })
         .when('/admin/korisnik/:username',{
             templateUrl:'korisnik.html'
         })
+
+
         .otherwise('/');
 
 })
@@ -65,6 +72,8 @@ DMApp.service('auth',function($rootScope,$http,$q,$location,redirekt,loader){
     var korisnik = null;
     var logovan = null;
     var authorities = null;
+
+
 
     this.jeLogovan = function(){
         loader.startSpin();
@@ -382,27 +391,51 @@ DMApp.factory('Resource',
 )
 
 DMApp.controller('loginController',function($scope,$http,$rootScope,auth){
-    $scope.logovan = $rootScope.logovan;
-    $scope.$on('logovan',function(){
-        $scope.logovan = $rootScope.logovan;
-    })
+    //$scope.logovan = $rootScope.logovan;
+    //$scope.$on('logovan',function(){
+    //    $scope.logovan = $rootScope.logovan;
+    //})
+    $scope.logCheck = function(){
+            auth.jeLogovan().then(function(data){
+            $scope.logovan = data.logovan;
+            auth.getKorisnik().then(function(data){
+                $scope.korisnik = data.data;
+            });
+    });}
     var user = {username:'user',password:'user'};
-    $scope.login = function(){
-        auth.login(user.username,user.password);
-    }
-    $scope.logout = function(){
-        auth.logout();
+
+    $scope.korisnik = {
+        username:'username'
     }
 
+    $scope.login = function(){
+        auth.login(user.username,user.password);
+        $scope.logCheck();
+    }
+    $scope.logout = function(){
+
+        auth.logout();
+        //$scope.logovan = auth.jeLogovan();
+    }
+    $scope.logCheck();
 })
+
+DMApp.directive('nwtMeni',function(){
+    return{
+        templateUrl: 'meni.html',
+        controller: 'loginController'
+    }
+});
 
 DMApp.controller('korisnikPageController',function($scope,$http,$rootScope,auth,$routeParams,auth){
     $scope.name = "korisnikPageController";
 
     $scope.username = $routeParams.username;
+    $scope.korisnik = null;
     if($routeParams.username==undefined){
         auth.getKorisnik().then(function(rez){
             $scope.username = rez.data.username;
+            $scope.korisnik = rez.data;
         });
         //$scope.username = a.name;
     }

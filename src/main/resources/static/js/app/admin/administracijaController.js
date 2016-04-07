@@ -11,6 +11,10 @@ DMApp.controller('administracijaController', [
         $scope.main = {};
         $scope.name = "administracija";
 
+
+        $scope.dummy = function(){
+            alert('nije napravljeno');
+        }
         //loader.startSpin();
 
         $scope.maxSize = 5;
@@ -28,10 +32,17 @@ DMApp.controller('administracijaController', [
             size:5,
             totalElements:1
         };
+
+        $scope.entity = null;
+
+        if($scope.childEntity){
+            $scope.entity = $scope.childEntity;
+        }
+
         $scope.dajStranicu = function(){
             loader.startSpin();
             //auth.check();
-            Resource.getPageBroj($scope.bigCurrentPage,$scope.page.size,'korisnik').then(function(result){
+            Resource.getPageBroj($scope.bigCurrentPage,$scope.page.size,$scope.entity).then(function(result){
                 loader.stopSpin();
                 if(result.status == 200){
                     $scope.displayed = result.data;
