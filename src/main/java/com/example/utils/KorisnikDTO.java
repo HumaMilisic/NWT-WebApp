@@ -9,7 +9,8 @@ import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
 
 @PasswordMatches
-public class KorisnikDTO {
+public class KorisnikDTO extends RecaptchaForm{
+
     @NotNull
     @NotEmpty
     @NotBlank
@@ -35,10 +36,6 @@ public class KorisnikDTO {
     @NotEmpty
     @NotNull
     private String email;
-
-//    @NotNull
-//    @NotEmpty
-//    private LocalDateTime datumRodjenja;
 
     public String getUsername() {
         return username;
@@ -85,14 +82,7 @@ public class KorisnikDTO {
     }
 
     public void setEmail(String email) {
-        this.email = email;
+        this.email = email.toLowerCase();
     }
 
-//    public LocalDateTime getDatumRodjenja() {
-//        return datumRodjenja;
-//    }
-//
-//    public void setDatumRodjenja(LocalDateTime datumRodjenja) {
-//        this.datumRodjenja = datumRodjenja;
-//    }
 }

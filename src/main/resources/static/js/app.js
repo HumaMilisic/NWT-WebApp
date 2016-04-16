@@ -3,8 +3,10 @@ var DMApp = angular.module('DMApp', [
     //'ngTable',
     //'smart-table',
     'ui.bootstrap',
+    //'angularSpinner',
+    'chart.js',
     'angularSpinner',
-    'chart.js'
+    'vcRecaptcha',
 ]);
 
 DMApp.config(function($httpProvider,$routeProvider){
@@ -32,16 +34,16 @@ DMApp.config(function($httpProvider,$routeProvider){
 
         .otherwise('/');
 
-})
+});
 
 DMApp.service('loader',function(usSpinnerService){
     this.startSpin = function(){
         usSpinnerService.spin('mainSpinner');
-    }
+    };
     this.stopSpin = function(){
         usSpinnerService.stop('mainSpinner');
     }
-})
+});
 
 DMApp.service('redirekt',function($location){
     var staro = null;
@@ -52,22 +54,22 @@ DMApp.service('redirekt',function($location){
             staro = staro!=url?url:staro;
             $location.path(gdje);
         }
-    }
+    };
 
     this.goToHome = function(){
         this.goTo('/');
-    }
+    };
 
     this.goToLogin = function(){
         this.goTo('/login');
-    }
+    };
 
     this.goToStaro = function(){
         if(staro!=null){
             this.goTo(staro);
         }
     }
-})
+});
 
 DMApp.service('auth',function($rootScope,$http,$q,$location,redirekt,loader){
     var korisnik = null;
@@ -102,7 +104,7 @@ DMApp.service('auth',function($rootScope,$http,$q,$location,redirekt,loader){
             });
         }
         return deferred.promise;
-    }
+    };
 
     this.getKorisnik = function(){
         var deferred = $q.defer();
@@ -152,7 +154,7 @@ DMApp.service('auth',function($rootScope,$http,$q,$location,redirekt,loader){
         });
 
         return deferred.promise;
-    }
+    };
     this.login = function(username,password){
         $http({
             method: 'POST',
@@ -177,7 +179,7 @@ DMApp.service('auth',function($rootScope,$http,$q,$location,redirekt,loader){
                 $rootScope.logovan = false;
                 $rootScope.$broadcast('logovan');
             })
-    }
+    };
     this.logout = function(){
         $http.post("/logout")
             .success(function(x,y,z,k,i){
@@ -194,7 +196,7 @@ DMApp.service('auth',function($rootScope,$http,$q,$location,redirekt,loader){
                 //$rootScope.logovan = false;
                 //$rootScope.$broadcast('logovan');
             });
-    }
+    };
     this.check = function(){
         var deferred = $q.defer();
 
@@ -240,11 +242,11 @@ DMApp.service('auth',function($rootScope,$http,$q,$location,redirekt,loader){
                 korisnik = null;
                 redirekt.goToLogin();
                 //$location.path("/");
-            })
+            });
 
         return deferred.promise;
     }
-})
+});
 
 DMApp.factory('Resource',
     //['$q','$filter','$timeout','tabela'],
@@ -320,7 +322,7 @@ DMApp.factory('Resource',
                     deferred.resolve({
                         status:status
                     });
-                })
+                });
 
             return deferred.promise;
         }
@@ -330,7 +332,7 @@ DMApp.factory('Resource',
                     return goTo('GET',links.next.href)
                 }
             }
-        };
+        }
         function getPageBroj(brojStranice,brojNaStranici,tabelaa){
             var deferred = $q.defer();
             auth.check().then(function(rez){
@@ -376,10 +378,13 @@ DMApp.factory('Resource',
                 }
             });
             return deferred.promise;
-        };
-        function prevPage(){};
-        function firstPage(){};
-        function lastPage(){};
+        }
+        function prevPage() {
+        }
+        function firstPage() {
+        }
+        function lastPage() {
+        }
         return {
             //getPage: getPage,
             //nextPage: nextPage,
@@ -389,7 +394,7 @@ DMApp.factory('Resource',
             getPageBroj: getPageBroj
         };
     }
-)
+);
 
 DMApp.controller('loginController',function($scope,$http,$rootScope,auth){
     //$scope.logovan = $rootScope.logovan;
@@ -402,24 +407,24 @@ DMApp.controller('loginController',function($scope,$http,$rootScope,auth){
             auth.getKorisnik().then(function(data){
                 $scope.korisnik = data.data;
             });
-    });}
+    });};
     var user = {username:'user',password:'user'};
 
     $scope.korisnik = {
         username:'username'
-    }
+    };
 
     $scope.login = function(){
         auth.login(user.username,user.password);
         $scope.logCheck();
-    }
+    };
     $scope.logout = function(){
 
         auth.logout();
         //$scope.logovan = auth.jeLogovan();
-    }
+    };
     $scope.logCheck();
-})
+});
 
 DMApp.directive('nwtMeni',function(){
     return{
@@ -427,6 +432,99 @@ DMApp.directive('nwtMeni',function(){
         controller: 'loginController'
     }
 });
+
+DMApp.directive('formaRegistracija',function(){
+    return{
+
+        templateUrl: 'registracija.html',
+    }
+});
+
+DMApp.controller('registracijaController', function ($scope, vcRecaptchaService,$http) {
+    console.log("this is your app's controller");
+    $scope.user = {};
+    $scope.response = null;
+    $scope.widgetId = null;
+
+    $scope.model = {
+        key: '6Ld7gB0TAAAAAHP-rEzmJM9H93ZbNvM__Ndx89qW'
+    };
+
+    $scope.setResponse = function (response) {
+        console.info('Response available');
+
+        $scope.response = response;
+    };
+
+    $scope.setWidgetId = function (widgetId) {
+        console.info('Created widget ID: %s', widgetId);
+
+        $scope.widgetId = widgetId;
+    };
+
+    $scope.cbExpiration = function() {
+        console.info('Captcha expired. Resetting response object');
+
+        vcRecaptchaService.reload($scope.widgetId);
+
+        $scope.response = null;
+    };
+
+    $scope.$watch('response',function(){
+        $scope.user.recaptchaResponse = $scope.response;
+    });
+
+    $scope.submit = function () {
+        var valid;
+
+        /**
+         * SERVER SIDE VALIDATION
+         *
+         * You need to implement your server side validation here.
+         * Send the reCaptcha response to the server and use some of the server side APIs to validate it
+         * See https://developers.google.com/recaptcha/docs/verify
+         */
+        console.log('sending the captcha response to the server', $scope.response);
+        if($scope.response!=null){
+            $http({
+                method: 'POST',
+                url:'/register',
+                headers: {'Content-Type': 'application/x-www-form-urlencoded'},
+                transformRequest: function(obj) {
+                    var str = [];
+                    for(var p in obj)
+                        str.push(encodeURIComponent(p) + "=" + encodeURIComponent(obj[p]));
+                    return str.join("&");
+                },
+                data: $scope.user
+            })
+                .success(function(data, status, x){
+                    var a = 0;
+                    alert(data.message);
+                })
+                .error(function(response,status,nesto,request){
+                    var a = 0;
+                    alert(response.message);
+                    console.log('Failed validation');
+
+                    // In case of a failed validation you need to reload the captcha
+                    // because each response can be checked just once
+                    vcRecaptchaService.reload($scope.widgetId);
+                })
+        }
+        //if (valid) {
+        //    console.log('Success');
+        //} else {
+        //    console.log('Failed validation');
+        //
+        //    // In case of a failed validation you need to reload the captcha
+        //    // because each response can be checked just once
+        //    vcRecaptchaService.reload($scope.widgetId);
+        //}
+    };
+});
+
+
 
 DMApp.controller('korisnikPageController',function($scope,$http,$rootScope,auth,$routeParams,auth){
     $scope.name = "korisnikPageController";
@@ -440,4 +538,4 @@ DMApp.controller('korisnikPageController',function($scope,$http,$rootScope,auth,
         });
         //$scope.username = a.name;
     }
-})
+});

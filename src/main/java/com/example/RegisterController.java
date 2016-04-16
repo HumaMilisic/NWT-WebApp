@@ -11,9 +11,12 @@ import com.example.utils.KorisnikDTO;
 import com.example.utils.events.OnRegistrationCompleteEvent;
 import com.example.utils.service.CustomUserDetailsService;
 import com.example.utils.service.EmailService;
+import com.example.utils.service.ReCaptchaService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.ApplicationEventPublisher;
 import org.springframework.context.MessageSource;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
@@ -36,8 +39,6 @@ import java.util.UUID;
  */
 @RestController
 public class RegisterController {
-
-
     @Autowired
     CustomUserDetailsService userDetailsService;// = new CustomUserDetailsService();
     @Autowired
@@ -50,6 +51,8 @@ public class RegisterController {
     PasswordEncoder passwordEncoder;
     @Autowired
     KorisnikRepository korisnikRepository;
+    @Autowired
+    ReCaptchaService reCaptchaService;
 
     public RegisterController(){
         super();
@@ -70,20 +73,65 @@ public class RegisterController {
         return mav;
     }
 
+//    @RequestMapping(value = "/register",method = RequestMethod.GET)
+//    public ResponseEntity<KorisnikDTO> showRegistrationForm(WebRequest request, ModelAndView mav){
+//        KorisnikDTO korisnikDTO = new KorisnikDTO();
+////        mav.setViewName("register");
+////        mav.addObject("user",korisnikDTO);
+////
+////        HttpHeaders responseHeaders = new HttpHeaders();
+////        ResponseEntity<KorisnikDTO> temp = new ResponseEntity<KorisnikDTO>()
+//        return new ResponseEntity<KorisnikDTO>(korisnikDTO, HttpStatus.CREATED);
+//    }
+
+//    @RequestMapping(value = "/register",method = RequestMethod.POST)
+//    public ModelAndView registerUserAccount(@ModelAttribute("user") @Valid KorisnikDTO korisnikDTO, BindingResult result,
+//                                            WebRequest request, Errors errors){
+//
+//        if(result.hasErrors()){
+//            ModelAndView modelAndView = new ModelAndView("register","user",korisnikDTO);
+////            modelAndView.ad
+//            return modelAndView;
+//        }
+//
+//        Korisnik registered = createUserAccount(korisnikDTO,result);
+//
+//        if(registered==null){
+//            result.rejectValue("email","message.regError");
+//        }
+//        try{
+//            String appUrl = request.getContextPath();
+//
+//            eventPublisher.publishEvent(new OnRegistrationCompleteEvent(registered,
+//                    request.getLocale(),appUrl));
+//        }catch (Exception ex){
+//            return new ModelAndView("emailError","user",korisnikDTO);
+//        }
+//        return new ModelAndView("successRegister","user",korisnikDTO);
+//    }
+
     @RequestMapping(value = "/register",method = RequestMethod.POST)
-    public ModelAndView registerUserAccount(@ModelAttribute("user") @Valid KorisnikDTO korisnikDTO, BindingResult result,
-                                            WebRequest request, Errors errors){
+    @ResponseBody
+    public ResponseEntity<GenericResponse> registerUserAccount(@ModelAttribute("user") @Valid KorisnikDTO korisnikDTO, BindingResult result,
+                                                              WebRequest request, Errors errors){
 
         if(result.hasErrors()){
-            ModelAndView modelAndView = new ModelAndView("register","user",korisnikDTO);
-//            modelAndView.ad
-            return modelAndView;
+            GenericResponse error = new GenericResponse("validacijaFula","ima gresaka",korisnikDTO);
+            return new ResponseEntity<GenericResponse>(error,HttpStatus.valueOf(400));
+        }
+        //test captcha ovdje
+        boolean valid = reCaptchaService.isResponseValid(korisnikDTO.getRecaptchaResponse());
+        if(!valid){
+            GenericResponse errorMail = new GenericResponse("captcha nevalja","user",korisnikDTO);
+            return new ResponseEntity<GenericResponse>(errorMail,HttpStatus.EXPECTATION_FAILED);
         }
 
         Korisnik registered = createUserAccount(korisnikDTO,result);
 
         if(registered==null){
-            result.rejectValue("email","message.regError");
+//            result.rejectValue("email","message.regError");
+            GenericResponse errorMail = new GenericResponse("problem u registraciji","user",korisnikDTO);
+            return new ResponseEntity<GenericResponse>(errorMail,HttpStatus.EXPECTATION_FAILED);
         }
         try{
             String appUrl = request.getContextPath();
@@ -91,9 +139,14 @@ public class RegisterController {
             eventPublisher.publishEvent(new OnRegistrationCompleteEvent(registered,
                     request.getLocale(),appUrl));
         }catch (Exception ex){
-            return new ModelAndView("emailError","user",korisnikDTO);
+//            return new ModelAndView("emailError","user",korisnikDTO);
+            GenericResponse errorMail = new GenericResponse("errorMail slanje","user",korisnikDTO);
+            return new ResponseEntity<GenericResponse>(errorMail,HttpStatus.EXPECTATION_FAILED);
         }
-        return new ModelAndView("successRegister","user",korisnikDTO);
+//        return new ModelAndView("successRegister","user",korisnikDTO);
+        GenericResponse uspjeh = new GenericResponse("poslan mail",null);
+        return new ResponseEntity<GenericResponse>(uspjeh,HttpStatus.CREATED);
+
     }
 
     @RequestMapping(value = "/registrationConfirm", method = RequestMethod.GET)

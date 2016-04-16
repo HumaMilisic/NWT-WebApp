@@ -1,0 +1,20 @@
+<div ng-controller="registracijaController">
+    <h2>Registracija korisnika</h2>
+    <!-- Call a method in the scope of your controller to handle data submit -->
+    <form ng-submit="submit()" method="post">
+        <div><label> User Name : <input type="text" name="username" ng-model="user.username"/> </label></div>
+        <div><label> Password: <input type="password" name="password" ng-model="user.password"/> </label></div>
+        <div><label> Ponovo Password: <input type="password" name="matchingPassword" ng-model="user.matchingPassword"/> </label></div>
+        <div><label> Ime: <input type="text" name="ime" ng-model="user.ime"/> </label></div>
+        <div><label> Prezime: <input type="text" name="prezime" ng-model="user.prezime"/> </label></div>
+        <div><label> email: <input type="email" name="email" ng-model="user.email"/> </label></div>
+        <div    vc-recaptcha
+                theme="'light'"
+                key="model.key"
+                on-create="setWidgetId(widgetId)"
+                on-success="setResponse(response)"
+                on-expire="cbExpiration()"
+        ></div>
+        <button class="btn" type="submit">Submit</button>
+    </form>
+</div>

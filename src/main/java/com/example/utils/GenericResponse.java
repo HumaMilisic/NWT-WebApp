@@ -2,6 +2,7 @@ package com.example.utils;
 
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
+import org.springframework.http.HttpStatus;
 import org.springframework.validation.FieldError;
 import org.springframework.validation.ObjectError;
 
@@ -14,10 +15,27 @@ import java.util.List;
 public class GenericResponse {
     private String message;
     private String error;
+    private Object objekat;
+    private HttpStatus httpStatus;
 
     public GenericResponse(final String message){
         super();
         this.message = message;
+    }
+
+    public GenericResponse(final String message,final String error,final Object objekat, final  HttpStatus httpStatus){
+        super();
+        this.message = message;
+        this.error = error;
+        this.objekat = objekat;
+        this.httpStatus = httpStatus;
+    }
+
+    public GenericResponse(final String message,final String error,final Object objekat){
+        super();
+        this.message = message;
+        this.error = error;
+        this.objekat = objekat;
     }
 
     public GenericResponse(final String message, final String error){
@@ -53,5 +71,21 @@ public class GenericResponse {
 
     public void setMessage(String message) {
         this.message = message;
+    }
+
+    public Object getObjekat() {
+        return objekat;
+    }
+
+    public void setObjekat(Object objekat) {
+        this.objekat = objekat;
+    }
+
+    public HttpStatus getHttpStatus() {
+        return httpStatus;
+    }
+
+    public void setHttpStatus(HttpStatus httpStatus) {
+        this.httpStatus = httpStatus;
     }
 }
