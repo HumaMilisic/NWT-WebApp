@@ -10,6 +10,6 @@ import org.springframework.security.access.prepost.PreAuthorize;
 @RepositoryRestResource(collectionResourceRel = "korisnik",path = "korisnik")
 public interface KorisnikRepository extends PagingAndSortingRepository<Korisnik,Long> {
     //List<Akcija> findByNaziv(@Param("name")String naziv);
-    Korisnik findByUsername(@Param("name") String username);
-    Korisnik findByEmail(@Param("name") String email);
+    Korisnik findByUsername(@Param("username") String username);
+    Korisnik findByEmail(@Param("email") String email);
 }

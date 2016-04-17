@@ -7,6 +7,7 @@ import org.hibernate.validator.constraints.Length;
 
 import javax.persistence.*;
 import java.io.Serializable;
+import java.util.Set;
 
 
 /**
@@ -76,7 +77,17 @@ public class Akcija implements Serializable {
 		this.naziv = naziv;
 	}
 
-//	public List<Uloga> getUlogas() {
+	@ManyToMany(mappedBy = "akcijaSet",fetch = FetchType.LAZY)
+	private Set<Uloga> ulogaSet;
+
+	public Set<Uloga> getUlogaSet() {
+		return ulogaSet;
+	}
+
+	public void setUlogaSet(Set<Uloga> ulogaSet) {
+		this.ulogaSet = ulogaSet;
+	}
+	//	public List<Uloga> getUlogas() {
 //		return this.ulogas;
 //	}
 

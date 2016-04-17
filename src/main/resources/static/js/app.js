@@ -7,10 +7,16 @@ var DMApp = angular.module('DMApp', [
     'chart.js',
     'angularSpinner',
     'vcRecaptcha',
+    'ngResource',
+    'spring-data-rest',
 ]);
 
-DMApp.config(function($httpProvider,$routeProvider){
+DMApp.config(function($httpProvider,$routeProvider/*,SpringDataRestInterceptor*/){
     $httpProvider.defaults.headers.common["X-Requested-With"] = 'XMLHttpRequest';
+
+    //http://www.webdeveasy.com/interceptors-in-angularjs-and-useful-examples/
+    //auth intercept nesto nesto sigh
+    //$httpProvider.interceptors.push(SpringDataRestInterceptor);
 
     $routeProvider
         .when('/korisnik',{
@@ -19,8 +25,10 @@ DMApp.config(function($httpProvider,$routeProvider){
         .when('/login',{
             templateUrl:'login.html'
         })
+        .otherwise('/');
 
-        //administracija
+    //administracija
+    $routeProvider
         .when('/admin',{
             templateUrl:'/js/app/admin/views/adminDashboard.html'
         })
@@ -30,9 +38,15 @@ DMApp.config(function($httpProvider,$routeProvider){
         .when('/admin/korisnik/:username',{
             templateUrl:'korisnik.html'
         })
+        .when('/admin/akcija',{
+            templateUrl:'/js/app/admin/views/administracijaAkcija.html'
+        })
+        .when('/admin/uloga',{
+            templateUrl:'/js/app/admin/views/administracijaUloga.html'
+        })
 
 
-        .otherwise('/');
+
 
 });
 
@@ -538,4 +552,62 @@ DMApp.controller('korisnikPageController',function($scope,$http,$rootScope,auth,
         });
         //$scope.username = a.name;
     }
+});
+
+DMApp.factory('Item',function(SpringDataRestAdapter,$http){
+    var entity = "";
+    var baseUrl = "/api/";
+    function Item(item,tabela){
+        if(tabela){
+            entity = tabela;
+        }
+
+        if(item._resources){
+            item.resources = item._resources("self",{},{
+                update:{
+                    method: 'PUT'
+                }
+            });
+
+            item.save = function(callback){
+                item.resources.update(item,function(){
+                    callback && callback(item);
+                })
+            };
+
+            item.remove = function(callback){
+                item.resources.remove(function(){
+                    callback && callback(item);
+                })
+            }
+        }else {
+            item.save = function (callback) {
+                Item.resources.save(item, function (item, headers) {
+                    var deferred = $http.get(headers().location);
+                    return SpringDataRestAdapter.processWithPromise(deferred).then(function (newItem) {
+                        callback && callback(new Item(newItem));
+                    });
+                });
+            };
+        }
+        return item;
+
+    }
+
+    Item.query = function(callback,tabela){
+        if(tabela){
+            entity = tabela;
+        }
+        var deffered = $http.get(baseUrl+entity);
+        return SpringDataRestAdapter.process(deffered,'_allLinks').then(function(data){
+            Item.resources = data._resources("self");
+            callback && callback(_.map(data._embeddedItems,function(item){
+                return new Item(item);
+            }))
+        })
+    };
+
+    Item.resources = null;
+
+    return Item;
 });

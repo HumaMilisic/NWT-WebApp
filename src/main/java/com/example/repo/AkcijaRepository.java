@@ -56,7 +56,7 @@ public interface AkcijaRepository extends PagingAndSortingRepository<Akcija,Long
     @PreAuthorize("hasRole('ROLE_ADMIN')")
     void deleteAll();
 
-    List<Akcija> findByNaziv(@Param("name")String naziv);
+    List<Akcija> findByNaziv(@Param("naziv")String naziv);
 
 //    List<Akcija> findByDeleted(@Param("deleted")char deleted);
 }

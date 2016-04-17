@@ -1,0 +1,44 @@
+<div ng-controller="administracijaUlogaController">
+    <!--{{name}}-->
+    <!--<pre>administracija korisnika view</pre>-->
+    <div class="row">
+        <div class="col-lg-12 col-sm-12 col-md-12">
+            <table class="table table-striped">
+                <thead>
+                <th>naziv</th>
+                <th>korisnici</th>
+                <th>akcije</th>
+                <th>button</th>
+                </thead>
+                <tbody>
+                <tr ng-repeat="row in displayed">
+                    <td>{{row.naziv}}</td>
+                    <td>{{displaySet(row.korisnikSet)}}</td>
+                    <td>{{displaySet(row.akcijaSet)}}</td>
+                    <td>
+                        <!--<button ng-click="detalji(row.username)">details</button>-->
+                        <button ng-click="delete(row,row.naziv)">delete</button></td>
+                </tr>
+                </tbody>
+                <tfoot>
+
+                </tfoot>
+            </table>
+            <uib-pagination total-items="page.totalElements"
+                            ng-model="bigCurrentPage"
+                            ng-change="dajStranicu()"
+                            items-per-page="page.size"
+                            class="pagination-sm"
+                            boundary-links="true"
+                            force-ellipses="true">
+            </uib-pagination>
+        </div>
+        <button ng-click="dodajUloga()">test</button>
+        <button ng-click="dodaj()">test2</button>
+        <button ng-click="dodaj2()">test3</button>
+        <button ng-click="dodaj3()">testp</button>
+        <pre>{{items}}</pre>
+        <pre>{{ppl}}</pre>
+    </div>
+
+</div>

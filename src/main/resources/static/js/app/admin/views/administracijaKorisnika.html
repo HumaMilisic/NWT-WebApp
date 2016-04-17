@@ -13,6 +13,7 @@
                 <th>jmbg</th>
                 <th>mjestoRodjenja</th>
                 <th>enabled</th>
+                <th>uloge</th>
                 <th>buttons</th>
                 </thead>
                 <tbody>
@@ -25,7 +26,9 @@
                     <td>{{row.jmbg}}</td>
                     <td>{{row.mjestoRodjenja}}</td>
                     <td>{{row.enabled}}</td>
-                    <td><button ng-click="detalji(row.username)">details</button><button ng-click="dummy">delete</button></td>
+                    <td>{{displaySet(row.ulogaSet)}}</td>
+                    <td><button ng-click="detalji(row.username)">details</button>
+                        <button ng-click="delete(row,row.username)">delete</button></td>
                 </tr>
                 </tbody>
                 <tfoot>

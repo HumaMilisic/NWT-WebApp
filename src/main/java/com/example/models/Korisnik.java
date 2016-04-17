@@ -6,7 +6,6 @@ import javax.persistence.*;
 import java.io.Serializable;
 import java.math.BigDecimal;
 import java.util.Date;
-import java.util.HashSet;
 import java.util.Set;
 
 
@@ -114,7 +113,7 @@ public class Korisnik implements Serializable {
 
 //    @JsonIgnore
     @ManyToMany(mappedBy = "korisnikSet",fetch = FetchType.LAZY)
-    private Set<Uloga> ulogaSet = new HashSet<Uloga>();
+    private Set<Uloga> ulogaSet;
     public void setUlogaSet(Set<Uloga> ulogaSet) {
         this.ulogaSet = ulogaSet;
     }

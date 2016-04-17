@@ -2,7 +2,6 @@ package com.example.models;
 
 import javax.persistence.*;
 import java.io.Serializable;
-import java.util.HashSet;
 import java.util.Set;
 
 
@@ -76,16 +75,34 @@ public class Uloga implements Serializable {
     }
 
 //    @JsonIgnore
-    @ManyToMany(fetch = FetchType.EAGER)
+    @ManyToMany(fetch = FetchType.LAZY)
     @JoinTable(name = "KORISNIK_X_ULOGA",
             joinColumns = @JoinColumn(name = "KORISNIK",
                     referencedColumnName = "ID"),
             inverseJoinColumns = @JoinColumn(name = "ULOGA",
                     referencedColumnName ="ID" )
     )
-    private Set<Korisnik> korisnikSet = new HashSet<Korisnik>();
+    private Set<Korisnik> korisnikSet;
+
+	@ManyToMany(fetch = FetchType.EAGER)
+	@JoinTable(name = "ULOGA_X_AKCIJA",
+			joinColumns = @JoinColumn(name = "AKCIJA",
+					referencedColumnName = "ID"	),
+			inverseJoinColumns = @JoinColumn(name = "ULOGA",
+					referencedColumnName = "ID")
+	)
+	private Set<Akcija> akcijaSet;
+
+	public Set<Akcija> getAkcijaSet() {
+		return akcijaSet;
+	}
+
+	public void setAkcijaSet(Set<Akcija> akcijaSet) {
+		this.akcijaSet = akcijaSet;
+	}
 
 	public Uloga() {
+		super();
 	}
 
 	public long getId() {

@@ -1,0 +1,51 @@
+<div ng-controller="administracijaAkcijaController">
+    <!--{{name}}-->
+    <!--<pre>administracija korisnika view</pre>-->
+    <div class="row">
+        <div class="col-lg-12 col-sm-12 col-md-12">
+            <table class="table table-striped">
+                <thead>
+                <th>naziv</th>
+                <!--<th>email</th>-->
+                <!--<th>ime</th>-->
+                <!--<th>prezime</th>-->
+                <!--<th>username</th>-->
+                <!--<th>datumRodjenja</th>-->
+                <!--<th>jmbg</th>-->
+                <!--<th>mjestoRodjenja</th>-->
+                <!--<th>enabled</th>-->
+                <!--<th>buttons</th>-->
+                <th>uloga</th>
+                </thead>
+                <tbody>
+                <tr ng-repeat="row in displayed">
+                    <td>{{row.naziv}}</td>
+                    <!--<td>{{row.email}}</td>-->
+                    <!--<td>{{row.ime}}</td>-->
+                    <!--<td>{{row.prezime}}</td>-->
+                    <!--<td>{{row.username}}</td>-->
+                    <!--<td>{{row.datumRodjenja}}</td>-->
+                    <!--<td>{{row.jmbg}}</td>-->
+                    <!--<td>{{row.mjestoRodjenja}}</td>-->
+                    <!--<td>{{row.enabled}}</td>-->
+                    <td>{{displaySet(row.ulogaSet)}}</td>
+                    <td><button ng-click="detalji(row.username)">details</button>
+                        <button ng-click="delete(row,row.naziv)">delete</button></td>
+                </tr>
+                </tbody>
+                <tfoot>
+
+                </tfoot>
+            </table>
+            <uib-pagination total-items="page.totalElements"
+                            ng-model="bigCurrentPage"
+                            ng-change="dajStranicu()"
+                            items-per-page="page.size"
+                            class="pagination-sm"
+                            boundary-links="true"
+                            force-ellipses="true">
+            </uib-pagination>
+        </div>
+    </div>
+
+</div>
