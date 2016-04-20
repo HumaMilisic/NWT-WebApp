@@ -43,6 +43,33 @@ DMApp.controller('administracijaController', [
             $scope.entity = $scope.childEntity;
         }
 
+        $scope.sveUloge = {};
+        $scope.sveAkcije = {};
+
+        $scope.popuni = function(){
+            var httpPromiseUloge = $http.get('/api/uloga')
+                .success(function(x,y,z){
+                    var a = 0;
+                })
+                .error(function(x,y,z){
+                    var a = 0;
+                });
+            var httpPromiseAkcije = $http.get('/api/akcija')
+                .success(function(x,y,z){
+                    var a = 0;
+                })
+                .error(function(x,y,z){
+                    var a = 0;
+                });
+            SpringDataRestAdapter.process(httpPromiseAkcije,'_allLinks').then(function(data){
+                $scope.sveAkcije = data._embeddedItems;
+            });
+            SpringDataRestAdapter.process(httpPromiseUloge,'_allLinks').then(function(data){
+                $scope.sveUloge = data._embeddedItems;
+            });
+        };
+        $scope.popuni();
+
         $scope.dajStranicu = function(){
             //loader.startSpin();
             //auth.check();
@@ -149,16 +176,16 @@ DMApp.controller('administracijaController', [
             //    //$scope.items.push(item);
             //    var a = 0;
             //});
-            //$http({
-            //    method:'POST',
-            //    url:'/api/uloga',
-            //    data:{'naziv':'testunos','deleted':'0'}
-            //    //headers: {'Content-Type': 'application/x-www-form-urlencoded'},
-            //}).success(function(x,y,z,r,k){
-            //    $scope.dajStranicu();
-            //}).error(function(x,y,zr,k){
-            //    var a =0 ;
-            //});
+            $http({
+                method:'POST',
+                url:'/api/uloga',
+                data:{'naziv':'testunos','deleted':'0'}
+                //headers: {'Content-Type': 'application/x-www-form-urlencoded'},
+            }).success(function(x,y,z,r,k){
+                $scope.dajStranicu();
+            }).error(function(x,y,zr,k){
+                var a =0 ;
+            });
         };
 
         $scope.dodaj();
@@ -167,8 +194,8 @@ DMApp.controller('administracijaController', [
         $scope.dodaj();
 
         $scope.dodaj2 = function(){
-            var korisnik = "http://localhost:8181/api/korisnik/5";//},
-    //            {"uri":"http://localhost:8181/api/korisnik/2"}
+            var korisnik = "http://localhost:8181/api/korisnik/5 \n" +
+                "http://localhost:8181/api/korisnik/2";
        //     ];
             $http({
                 method:'POST',

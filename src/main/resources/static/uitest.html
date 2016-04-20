@@ -1,0 +1,173 @@
+<div ng-controller="uiTestCtrl">
+    <div>
+        <h1>Quantum UI</h1>
+        <div class="col-lg-6">
+            <div class="col-lg-4">
+                <pre>commondatpicker: {{commonDarePicker}}</pre>
+            </div>
+            <div class="col-lg-8">
+                <input ng-model="commonDatePicker" data-nq-datepicker="">
+
+            </div>
+        </div>
+        <button type="button" data-nq-popover="" class="btn btn-inverse">Open Popover</button>
+        <div class="popover">
+            <h3 class="popover-title">Popover Come After Button</h3>
+            <div class="popover-content">
+                <p>Sed posuere consectetur est at lobortis. Aenean eu leo quam. Pellentesque ornare sem lacinia quam venenatis vestibulum.</p>
+            </div>
+        </div>
+        <!--<a class="btn btn-lg btn-default" data-aside-toggle="#chatAside">-->
+            <!--<i class="fic fu-chat"></i> Toggle Chat Aside-->
+        <!--</a>-->
+    </div>
+    <!--<div>-->
+        <!--<h6>strap</h6>-->
+        <!--<div>-->
+            <!--<button type="button" class="btn btn-lg btn-primary" data-animation="am-fade-and-scale" data-placement="center" bs-modal="modal">Click to toggle modal-->
+                <!--<br>-->
+                <!--<small>(using an object)</small>-->
+            <!--</button>-->
+            <!--<button type="button" class="btn btn-lg btn-primary" bs-aside="aside">Click to toggle aside-->
+                <!--<br>-->
+                <!--<small>(using an object)</small>-->
+            <!--</button>-->
+            <!--<button class="btn btn-lg btn-primary" data-placement="top-right" data-container="body" data-duration="3" bs-alert="alert">Click to toggle alert-->
+                <!--<br>-->
+                <!--<small>(using an object)</small>-->
+            <!--</button>-->
+            <!--<button type="button" class="btn btn-lg btn-primary" data-placement="bottom" data-animation="am-flip-x" bs-popover="popover">Click to toggle popover-->
+                <!--<br>-->
+                <!--<small>(using an object)</small>-->
+            <!--</button>-->
+            <!--<input class="form-control" ng-model="fromDate" data-max-date="{{untilDate}}" placeholder="From" bs-datepicker type="text">-->
+            <!--<input class="form-control" ng-model="untilDate" data-min-date="{{fromDate}}" placeholder="Until" bs-datepicker type="text">-->
+            <!--<label>Single select:&nbsp;</label>-->
+            <!--<button type="button" class="btn btn-default" ng-model="selectedIcon" data-html="1" bs-options="icon.value as icon.label for icon in icons" bs-select>-->
+                <!--Action <span class="caret"></span>-->
+            <!--</button>-->
+            <!--<hr>-->
+            <!--<label>Multiple select:&nbsp;</label>-->
+            <!--<button type="button" class="btn btn-default" ng-model="selectedIcons" data-html="1" data-multiple="1" data-animation="am-flip-x" bs-options="icon.value as icon.label for icon in icons" bs-select>-->
+                <!--Action <span class="caret"></span>-->
+            <!--</button>-->
+        <!--</div>-->
+    <!--</div>-->
+    <div>
+        <h1>material</h1>
+        <md-content class="md-padding">
+            <form ng-submit="$event.preventDefault()" name="searchForm">
+                <p>The following example demonstrates floating labels being used as a normal form element.</p>
+                <div layout-gt-sm="row">
+                    <md-input-container flex="">
+                        <label>Name</label>
+                        <input type="text">
+                    </md-input-container>
+                    <md-autocomplete flex="" required="" md-input-name="autocompleteField" md-input-minlength="2" md-input-maxlength="18" md-no-cache="ctrl.noCache" md-selected-item="ctrl.selectedItem" md-search-text="ctrl.searchText" md-items="item in ctrl.querySearch(ctrl.searchText)" md-item-text="item.display" md-floating-label="Favorite state">
+                        <md-item-template>
+                            <span md-highlight-text="ctrl.searchText">{{item.display}}</span>
+                        </md-item-template>
+                        <div ng-messages="searchForm.autocompleteField.$error" ng-if="searchForm.autocompleteField.$touched">
+                            <div ng-message="required">You <b>must</b> have a favorite state.</div>
+                            <div ng-message="minlength">Your entry is not long enough.</div>
+                            <div ng-message="maxlength">Your entry is too long.</div>
+                        </div>
+                    </md-autocomplete>
+                </div>
+            </form>
+        </md-content>
+
+    </div>
+</div>
+<!--<div id="chatAside" class="aside" data-nq-aside="" data-width="260px" data-container="body" data-side="right" data-effect="slide-right">-->
+    <!--<div class="aside-header">-->
+        <!--<div class="aside-buttons">-->
+            <!--<span ng-click="$aside.close()"><i class="fic fu-cross"></i></span>-->
+        <!--</div>-->
+        <!--<span class="aside-title">Chat</span>-->
+    <!--</div>-->
+    <!--<div class="aside-body bordered bg-base-lighter">-->
+        <!--<div class="bg-white aside-content" data-ng-controller="chatAppController">-->
+            <!--<div class="list-group-container" data-stretch-height="70%" data-padding-top=".list-group-heading">-->
+                <!--<div class="list-group-heading">-->
+                    <!--Users-->
+                <!--</div>-->
+                <!--<div class="list-group list-group-flat no-radius no-margin height-full" data-nq-scroll="" data-qo-hide-rail="true">-->
+                    <!--<a href="#" class="list-group-item row-just" ng-repeat="contact in chatList track by $index" ng-click="openChatPanel(contact)">-->
+                <!--<span class="width-48 cell-middle">-->
+                  <!--<span class="status-thumb-circle" ng-class="'status-' + contact.status">-->
+                    <!--<img class="img-circle" ng-src="/data/images/users/thumbs/{{contact.images.img32}}">-->
+                  <!--</span>-->
+                <!--</span>-->
+                <!--<span class="cell-top">-->
+                  <!--<strong class="text-block">{{contact.name}}</strong>-->
+                  <!--<span class="text-muted text-sm">-->
+                    <!--{{contact.lastMessage}}-->
+                  <!--</span>-->
+                  <!--<span class="text-xs absolute-mr" ng-moment="moment(contact.messageDate).fromNow()"></span>-->
+                <!--</span>-->
+
+                    <!--</a>-->
+                <!--</div>-->
+            <!--</div>-->
+            <!--<div class="list-group-container" data-stretch-height="30%" data-padding-top=".list-group-heading">-->
+                <!--<div class="list-group-heading">-->
+                    <!--Rooms-->
+                <!--</div>-->
+                <!--<div class="list-group list-group-flat no-radius no-margin height-full" data-nq-scroll="" data-qo-hide-rail="true">-->
+                    <!--<a href="#" class="list-group-item row-just" ng-click="openChatPanel(null, 'Hello Group')">-->
+                <!--<span class="width-48 cell-middle">-->
+                  <!--<i class="fic fic-md fu-lifebuoy"></i>-->
+                <!--</span>-->
+                <!--<span class="cell-top">-->
+                  <!--<strong class="text-block">Help Group</strong>-->
+                  <!--<span class="text-muted text-sm">Hello there</span>-->
+                <!--</span>-->
+                    <!--</a>-->
+                    <!--<a href="#" class="list-group-item row-just" ng-click="openChatPanel(null, 'Sale Group')">-->
+                <!--<span class="width-48 cell-middle">-->
+                  <!--<i class="fic fic-md fu-office"></i>-->
+                <!--</span>-->
+                <!--<span class="cell-top">-->
+                  <!--<strong class="text-block">Sale Group</strong>-->
+                  <!--<span class="text-muted text-sm">Hello there</span>-->
+                <!--</span>-->
+                    <!--</a>-->
+                    <!--<a href="#" class="list-group-item row-just" ng-click="openChatPanel(null, 'My Team')">-->
+                <!--<span class="width-48 cell-middle">-->
+                  <!--<i class="fic fic-md fu-users"></i>-->
+                <!--</span>-->
+                <!--<span class="cell-top">-->
+                  <!--<strong class="text-block">My Team</strong>-->
+                  <!--<span class="text-muted text-sm">Hello there</span>-->
+                <!--</span>-->
+                    <!--</a>-->
+                <!--</div>-->
+            <!--</div>-->
+        <!--</div>-->
+    <!--</div>-->
+    <!--<div class="aside-footer no-border  bordered-h bg-base-lighter">-->
+        <!--<div class="row-just height-full bg-base-light">-->
+            <!--<div class="col-xs-8 cell-middle">-->
+                <!--<form name="searchChat">-->
+                    <!--<div class="input-group input-group-sm">-->
+                <!--<span class="input-group-addon color-base no-border bg-transparent no-pad-h">-->
+                  <!--<i class="fic fu-search"></i>-->
+                <!--</span>-->
+                        <!--<input data-ng-model="searchTerm" placeholder="search" class="form-control no-focus no-pad-h text-muted no-border bg-transparent" type="text">-->
+                    <!--</div>-->
+                <!--</form>-->
+            <!--</div>-->
+            <!--<div class="col-xs-2 cell-middle">-->
+                <!--<a href="javascript:;" class="titip-top color-base" data-title="Setting">-->
+                    <!--<i class="fic fu-cog2"></i>-->
+                <!--</a>-->
+            <!--</div>-->
+            <!--<div class="col-xs-2 cell-middle">-->
+                <!--<a href="javascript:;" class="titip-top-left color-base" data-title="New Message">-->
+                    <!--<i class="fic fu-pencil"></i>-->
+                <!--</a>-->
+            <!--</div>-->
+        <!--</div>-->
+    <!--</div>-->
+<!--</div>-->

@@ -1,9 +1,7 @@
 package com.example.utils.service;
 
 
-import com.example.models.Korisnik;
-import com.example.models.PasswordResetToken;
-import com.example.models.VerificationToken;
+import com.example.models.*;
 import com.example.repo.KorisnikRepository;
 import com.example.repo.PasswordResetTokenRepository;
 import com.example.repo.VerificationTokenRepository;
@@ -17,9 +15,7 @@ import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
-import java.util.Date;
-import java.util.List;
-import java.util.UUID;
+import java.util.*;
 
 /**
  * Created by WorkIt on 25/03/2016.
@@ -53,11 +49,20 @@ public class CustomUserDetailsService implements UserDetailsService{
         boolean accountNonLocked = true;
         try{
             Korisnik korisnik = repo.findByUsername(username);
+            Set<Uloga> setUloga = korisnik.getUlogaSet();
+            Set<Akcija> setAkcija = new HashSet<Akcija>();
+            setUloga.forEach((uloga -> {
+                setAkcija.addAll(uloga.getAkcijaSet());
+            }));
             if(korisnik == null){
                 return null;
             }
-            List<GrantedAuthority> auth = AuthorityUtils.commaSeparatedStringToAuthorityList("ROLE_USER");//ROLE_ADMIN,
-
+            String lista = "";
+            for(Akcija i: setAkcija){
+                lista+= i.getNaziv()+",";
+            }
+            List<GrantedAuthority> auth = AuthorityUtils.commaSeparatedStringToAuthorityList(lista);//ROLE_ADMIN,
+            AuthorityUtils.createAuthorityList();
             String password = korisnik.getPassword();
 
             return new org.springframework.security.core.userdetails.User(
@@ -89,10 +94,7 @@ public class CustomUserDetailsService implements UserDetailsService{
 
     private boolean emailExists(String email){
         Korisnik korisnik = repo.findByEmail(email);
-        if(korisnik != null){
-            return true;
-        }
-        return false;
+        return korisnik != null;
     }
 
     public Korisnik getKorisnik(String verificationToken){

@@ -27,7 +27,7 @@
                     <td>{{row.mjestoRodjenja}}</td>
                     <td>{{row.enabled}}</td>
                     <td>{{displaySet(row.ulogaSet)}}</td>
-                    <td><button ng-click="detalji(row.username)">details</button>
+                    <td><button ng-click="uloge(row)">details</button>
                         <button ng-click="delete(row,row.username)">delete</button></td>
                 </tr>
                 </tbody>
@@ -43,6 +43,19 @@
                             boundary-links="true"
                             force-ellipses="true">
             </uib-pagination>
+        </div>
+    </div>
+    <div class="row" ng-show="ulogeFlag">
+        <h1>uloge</h1>
+        <div class="col-lg-6">
+            {{trenutni.username}}<br>
+            <table class="table table-striped">
+                <tr ng-repeat="row in sveUloge">
+                    <td>{{row.naziv}}</td>
+                    <td><button ng-click="dodajKorisnikaUUlogu(row,trenutni)">dodaj</button></td>
+                    <td><button ng-click="izbaciKorisnikaIzUloge(row,trenutni)">Izbaci</button></td>
+                </tr>
+            </table>
         </div>
     </div>
 

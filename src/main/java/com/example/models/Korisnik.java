@@ -112,7 +112,7 @@ public class Korisnik implements Serializable {
 
 
 //    @JsonIgnore
-    @ManyToMany(mappedBy = "korisnikSet",fetch = FetchType.LAZY)
+    @ManyToMany(mappedBy = "korisnikSet",fetch = FetchType.EAGER)
     private Set<Uloga> ulogaSet;
     public void setUlogaSet(Set<Uloga> ulogaSet) {
         this.ulogaSet = ulogaSet;

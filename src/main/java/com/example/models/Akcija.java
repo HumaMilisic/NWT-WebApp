@@ -77,7 +77,7 @@ public class Akcija implements Serializable {
 		this.naziv = naziv;
 	}
 
-	@ManyToMany(mappedBy = "akcijaSet",fetch = FetchType.LAZY)
+	@ManyToMany(mappedBy = "akcijaSet",fetch = FetchType.EAGER)
 	private Set<Uloga> ulogaSet;
 
 	public Set<Uloga> getUlogaSet() {

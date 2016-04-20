@@ -9,6 +9,11 @@ var DMApp = angular.module('DMApp', [
     'vcRecaptcha',
     'ngResource',
     'spring-data-rest',
+    'ngSanitize',
+    'ngAnimate',
+    'ngQuantum',
+    //'mgcrea.ngStrap',
+    'ngMaterial'
 ]);
 
 DMApp.config(function($httpProvider,$routeProvider/*,SpringDataRestInterceptor*/){
@@ -24,6 +29,9 @@ DMApp.config(function($httpProvider,$routeProvider/*,SpringDataRestInterceptor*/
         })
         .when('/login',{
             templateUrl:'login.html'
+        })
+        .when('/uitest',{
+            templateUrl:'uitest.html'
         })
         .otherwise('/');
 
@@ -610,4 +618,35 @@ DMApp.factory('Item',function(SpringDataRestAdapter,$http){
     Item.resources = null;
 
     return Item;
+});
+
+DMApp.controller('uiTestCtrl',function($scope){
+    $scope.modal = {
+        "title": "Title",
+        "content": "Hello Modal<br />This is a multiline message!"
+    };
+    $scope.aside = {
+        "title": "Title",
+        "content": "Hello Aside<br />This is a multiline message!"
+    };
+    $scope.alert = {
+        "title": "Holy guacamole!",
+        "content": "Best check yo self, you're not looking too good.",
+        "type": "info"
+    };
+    $scope.popover = {
+        "title": "Title",
+        "content": "Hello Popover<br />This is a multiline message!"
+    };
+    $scope.selectedDate = "2016-04-20T07:06:46.479Z"; // <- [object Date]
+    $scope.selectedDateAsNumber = 509414400000; // <- [object Number]
+    //$scope.fromDate = ; // <- [object Undefined]
+    //$scope.untilDate = ; // <- [object Undefined]
+    $scope.selectedIcon = "";
+    $scope.selectedIcons = ["Globe","Heart"];
+    $scope.icons = [
+        {"value":"Gear","label":"<i class=\"fa fa-gear\"></i> Gear"},
+        {"value":"Globe","label":"<i class=\"fa fa-globe\"></i> Globe"},
+        {"value":"Heart","label":"<i class=\"fa fa-heart\"></i> Heart"},
+        {"value":"Camera","label":"<i class=\"fa fa-camera\"></i> Camera"}];
 });

@@ -10,7 +10,41 @@ DMApp.controller('administracijaKorisnikaController', [
             $location.path('/admin/korisnik/'+username);
         };
 
+        $scope.ulogeFlag = false;
+        $scope.uloge = function(osoba){
+            $scope.ulogeFlag = true;
+            $scope.trenutni = osoba;
+        };
 
+        $scope.dodajKorisnikaUUlogu = function(uloga,osoba){
+            var korisnik = osoba._links.self.href;
+            var url = uloga._links.self.href+'/korisnikSet';
+            $http({
+                method:'POST',
+                url:url,
+                data:korisnik,
+                headers: {'Content-Type': 'text/uri-list'},
+            }).success(function(x,y,z,r,k){
+                $scope.dajStranicu();
+            }).error(function(x,y,zr,k){
+                var a =0 ;
+            });
+        };
+
+        $scope.izbaciKorisnikaIzUloge = function(uloga,osoba){
+            var korisnik = osoba._links.self.href;
+            var url = uloga._links.self.href+'/korisnikSet';
+            $http({
+                method:'PUT',
+                url:url,
+                //data:korisnik,
+                headers: {'Content-Type': 'text/uri-list'},
+            }).success(function(x,y,z,r,k){
+                $scope.dajStranicu();
+            }).error(function(x,y,z,r,k){
+                var a =0 ;
+            });
+        };
 
         $scope.childDelete = function(objekat,username){
             var urlPretraga = '/api/'+$scope.entity+'/search/findByUsername?username='+username;

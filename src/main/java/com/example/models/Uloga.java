@@ -75,7 +75,7 @@ public class Uloga implements Serializable {
     }
 
 //    @JsonIgnore
-    @ManyToMany(fetch = FetchType.LAZY)
+    @ManyToMany(fetch = FetchType.EAGER)
     @JoinTable(name = "KORISNIK_X_ULOGA",
             joinColumns = @JoinColumn(name = "KORISNIK",
                     referencedColumnName = "ID"),
