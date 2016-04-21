@@ -1,62 +1,103 @@
-<div ng-controller="administracijaKorisnikaController">
-    <!--{{name}}-->
-    <!--<pre>administracija korisnika view</pre>-->
-    <div class="row">
-        <div class="col-lg-12 col-sm-12 col-md-12">
-            <table class="table table-striped">
-                <thead>
-                <th>email</th>
-                <th>ime</th>
-                <th>prezime</th>
-                <th>username</th>
-                <th>datumRodjenja</th>
-                <th>jmbg</th>
-                <th>mjestoRodjenja</th>
-                <th>enabled</th>
-                <th>uloge</th>
-                <th>buttons</th>
+<md-content layout="column" flex ng-controller="administracijaKorisnikaController">
+    <md-card>
+        <md-toolbar class="md-table-toolbar md-default"
+                    ng-hide="options.rowSelection && selected.length">
+            <div class="md-toolbar-tools">
+                <h2 flex="">Korisnici</h2>
+                <md-button class="md-icon-button">
+                    <ng-md-icon icon="cached" ng-click="loadStuff()"
+                                style="fill: black"></ng-md-icon>
+                </md-button>
+            </div>
+        </md-toolbar>
+
+        <md-toolbar class="md-table-toolbar alternate"
+                    ng-show="options.rowSelection && selected.length">
+            <div class="md-toolbar-tools">
+                <span flex="">{{selected.length}} {{selected.length > 1 ? 'items' : 'item'}} selected</span>
+                <md-button class="md-icon-button">
+                    <md-tooltip>Edit</md-tooltip>
+                    <ng-md-icon icon="edit"
+                                ng-click="dummy()"
+                                style="fill: black"></ng-md-icon>
+                </md-button>
+                <md-button class="md-icon-button">
+                    <md-tooltip>Delete</md-tooltip>
+                    <ng-md-icon icon="delete"
+                                ng-click="dummy()"
+                                style="fill: black"></ng-md-icon>
+                </md-button>
+            </div>
+        </md-toolbar>
+
+        <md-table-container>
+            <table md-table
+                   md-row-select="options.rowSelection"
+                   multiple="{{options.multiSelect}}"
+                   ng-model="selected"
+                   md-progress="promise">
+                <thead ng-if="!options.decapitate" md-head
+                       md-order="query.order" md-on-reorder="logOrder">
+                <tr md-row>
+                    <th md-column>Username</th>
+                    <th md-column="">ime</th>
+                    <th md-column="">prezime</th>
+                    <th md-column="">email</th>
+                    <!--<th md-column="">jmbg</th>-->
+                    <th md-column="">enabled</th>
+                    <!--<th md-column="">deleted</th>-->
+                    <th md-column="">uloge</th>
+                    <th md-column>Dugmici</th>
+                </tr>
                 </thead>
-                <tbody>
-                <tr ng-repeat="row in displayed">
-                    <td>{{row.email}}</td>
-                    <td>{{row.ime}}</td>
-                    <td>{{row.prezime}}</td>
-                    <td>{{row.username}}</td>
-                    <td>{{row.datumRodjenja}}</td>
-                    <td>{{row.jmbg}}</td>
-                    <td>{{row.mjestoRodjenja}}</td>
-                    <td>{{row.enabled}}</td>
-                    <td>{{displaySet(row.ulogaSet)}}</td>
-                    <td><button ng-click="uloge(row)">details</button>
-                        <button ng-click="delete(row,row.username)">delete</button></td>
+                <tbody md-body>
+                <tr md-row
+                    md-select="item"
+                    md-on-select="logItem"
+                    md-auto-select="options.autoSelect"
+                    ng-repeat="item in query.data">
+                    <td md-cell>{{item.username}}</td>
+                    <td md-cell>{{item.ime}}</td>
+                    <td md-cell>{{item.prezime}}</td>
+                    <td md-cell>{{item.email}}</td>
+                    <!--<td md-cell>{{item.jmbg}}</td>-->
+                    <td md-cell>{{item.enabled}}</td>
+                    <!--<td md-cell>{{item.deleted}}</td>-->
+                    <td md-cell>{{displaySet(item.ulogaSet)}}</td>
+                    <td md-cell>
+                        <md-button class="md-icon-button">
+                            <md-tooltip>Open</md-tooltip>
+                            <ng-md-icon icon="open_in_browser"
+                                        ng-click="detalji(item.username)"
+                                        style="fill: black">
+                            </ng-md-icon>
+                        </md-button>
+                        <!--<md-button class="md-icon-button">-->
+                            <!--<md-tooltip>Edit</md-tooltip>-->
+                            <!--<ng-md-icon icon="edit"-->
+                                        <!--ng-click="dummy()"-->
+                                        <!--style="fill: black"></ng-md-icon>-->
+                        <!--</md-button>-->
+                        <!--<md-button class="md-icon-button">-->
+                            <!--<md-tooltip>Reset password</md-tooltip>-->
+                            <!--<ng-md-icon icon="mail"-->
+                                        <!--ng-click="dummy()"-->
+                                        <!--style="fill: black">-->
+                            <!--</ng-md-icon>-->
+                        <!--</md-button>-->
+                    </td>
                 </tr>
                 </tbody>
-                <tfoot>
-
-                </tfoot>
             </table>
-            <uib-pagination total-items="page.totalElements"
-                            ng-model="bigCurrentPage"
-                            ng-change="dajStranicu()"
-                            items-per-page="page.size"
-                            class="pagination-sm"
-                            boundary-links="true"
-                            force-ellipses="true">
-            </uib-pagination>
-        </div>
-    </div>
-    <div class="row" ng-show="ulogeFlag">
-        <h1>uloge</h1>
-        <div class="col-lg-6">
-            {{trenutni.username}}<br>
-            <table class="table table-striped">
-                <tr ng-repeat="row in sveUloge">
-                    <td>{{row.naziv}}</td>
-                    <td><button ng-click="dodajKorisnikaUUlogu(row,trenutni)">dodaj</button></td>
-                    <td><button ng-click="izbaciKorisnikaIzUloge(row,trenutni)">Izbaci</button></td>
-                </tr>
-            </table>
-        </div>
-    </div>
+        </md-table-container>
 
-</div>
+
+        <md-table-pagination md-limit="query.limit"
+                             md-limit-options="limitOptions"
+                             md-page="query.page"
+                             md-total="{{query.totalElements}}"
+                             md-page-select="options.pageSelect"
+                             md-boundary-links="options.boundaryLinks"
+                             md-on-paginate="logPagination"></md-table-pagination>
+    </md-card>
+</md-content>

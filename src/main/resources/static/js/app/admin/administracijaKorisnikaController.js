@@ -2,7 +2,8 @@ DMApp.controller('administracijaKorisnikaController', [
     '$scope',
     '$controller',
     '$http',
-    function($scope, $controller,$http) {
+    '$location',
+    function($scope, $controller,$http,$location) {
         $scope.main = {};
         $scope.name = "naziv!!!";
         $scope.childEntity = 'korisnik';
@@ -33,12 +34,26 @@ DMApp.controller('administracijaKorisnikaController', [
 
         $scope.izbaciKorisnikaIzUloge = function(uloga,osoba){
             var korisnik = osoba._links.self.href;
+            var t = osoba.ulogaSet._resources();
+            var httpUlogaSetPromise = $http.get(osoba._links.ulogaSet.href);
+
+            //var ulogaSet = osoba._links.
             var url = uloga._links.self.href+'/korisnikSet';
+            var data = {
+                _links: {
+                    korisnikSet:
+                        [
+                            {"href":"http://localhost:8181/api/korisnik/6"},
+                            {"href":"http://localhost:8181/api/korisnik/7"},
+                            {"href":"http://localhost:8181/api/korisnik/8"}
+                        ]}
+            };
+
             $http({
                 method:'PUT',
                 url:url,
-                //data:korisnik,
-                headers: {'Content-Type': 'text/uri-list'},
+                data:data,
+                //headers: {'Content-Type': 'text/uri-list'},
             }).success(function(x,y,z,r,k){
                 $scope.dajStranicu();
             }).error(function(x,y,z,r,k){

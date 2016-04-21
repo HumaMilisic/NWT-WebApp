@@ -11,9 +11,12 @@ var DMApp = angular.module('DMApp', [
     'spring-data-rest',
     'ngSanitize',
     'ngAnimate',
-    'ngQuantum',
+    //'ngQuantum',
     //'mgcrea.ngStrap',
-    'ngMaterial'
+    'ngMaterial',
+    'md.data.table',
+    //'mdDataTable',
+    'ngMdIcons',
 ]);
 
 DMApp.config(function($httpProvider,$routeProvider/*,SpringDataRestInterceptor*/){
