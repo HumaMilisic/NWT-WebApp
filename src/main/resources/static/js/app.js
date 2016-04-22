@@ -653,3 +653,15 @@ DMApp.controller('uiTestCtrl',function($scope){
         {"value":"Heart","label":"<i class=\"fa fa-heart\"></i> Heart"},
         {"value":"Camera","label":"<i class=\"fa fa-camera\"></i> Camera"}];
 });
+
+DMApp.controller('novaUlogaCtrl',function ($scope,$mdDialog){
+    $scope.hide = function() {
+        $mdDialog.hide();
+    };
+    $scope.cancel = function() {
+        $mdDialog.cancel();
+    };
+    $scope.answer = function(answer) {
+        $mdDialog.hide(answer);
+    };
+});

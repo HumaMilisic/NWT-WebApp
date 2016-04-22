@@ -1,0 +1,31 @@
+<!--https://klarsys.github.io/angular-material-icons/-->
+<md-dialog aria-label="Mango (Fruit)" ng-controller="novaUlogaCtrl">
+    <!--<md-toolbar>-->
+        <!--<div class="md-table-toolbar">-->
+            <!--<h2 flex>Nova uloga</h2>-->
+            <!--<md-button class="md-icon-button" ng-click="cancel()">-->
+                <!--<md-icon icon="close"-->
+                         <!--style="fill: black"-->
+                         <!--aria-label="Close dialog"></md-icon>-->
+            <!--</md-button>-->
+        <!--</div>-->
+    <!--</md-toolbar>-->
+    <md-content class="md-padding">
+        <form name="form">
+            <md-input-container class="md-block">
+                <label>Naziv</label>
+                <input required name="naziv"
+                       md-maxlength="100"
+                       ng-model="item.naziv">
+                <div ng-messages="form.naziv.$error">
+                    <div ng-message="required">This is required.</div>
+                </div>
+            </md-input-container>
+        </form>
+    </md-content>
+    <div class="md-actions" layout="row">
+        <span flex></span>
+        <md-button ng-click="answer(null)"> Cancel </md-button>
+        <md-button ng-click="answer(item)" class="md-primary"> Save </md-button>
+    </div>
+</md-dialog>

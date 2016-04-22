@@ -12,7 +12,8 @@ DMApp.controller('administracijaController', [
     '$resource',
     '$mdEditDialog',
     '$mdToast',
-    function($scope/*,NgTableParams*/,Resource,$http,loader,$location,auth,$q,SpringDataRestAdapter,Item,$resource,$mdEditDialog,$mdToast) {
+    '$mdDialog',
+    function($scope/*,NgTableParams*/,Resource,$http,loader,$location,auth,$q,SpringDataRestAdapter,Item,$resource,$mdEditDialog,$mdToast,$mdDialog) {
         //auth.check();
         $scope.main = {};
         $scope.name = "administracija";
@@ -189,12 +190,16 @@ DMApp.controller('administracijaController', [
         };
 
         $scope.loadStuff = function () {
-            $scope.getPage($scope.query.page-1,$scope.query.limit);
+            $scope.getPage($scope.query.page-1,$scope.query.limit,$scope.entity,$scope.query,$scope.promise);
         };
 
         $scope.logItem = function (item) {
-            console.log(item.username, 'was selected');
+            //console.log(item.username, 'was selected');
             var i = $scope.selected;
+            $scope.mainSelectedItem = item;
+            if($scope.getAkcijeIKorisnikeUloge){
+                $scope.getAkcijeIKorisnikeUloge(item);
+            }
         };
 
         $scope.logOrder = function (order) {
@@ -202,50 +207,79 @@ DMApp.controller('administracijaController', [
         };
 
         $scope.logPagination = function (page, limit) {
-            $scope.getPage(page-1,limit);
+            $scope.getPage(page-1,limit,$scope.entity,$scope.query,$scope.promise);
             console.log('page: ', page);
             console.log('limit: ', limit);
         };
 
+        //if($scope.logPaginationChild){
+        //    $scope.logPagination = $scope.dummy();
+        //        //$scope.logPaginationChild;
+        //}
 
-        $scope.getPage = function(page,pageSize){
-            var url = '/api/'+$scope.entity+'?page='+page+'&size='+pageSize;
+
+        $scope.getPage = function(page,pageSize,entity,query,promise,linkovi){
+            var url = '/api/'+entity+'?page='+page+'&size='+pageSize;
             var httpGetPromise = $http.get(url)
                 .success(function(x,y,z){
                     var a = 0;
-                    //$scope.query.limit = x.page.size;
-                    //$scope.query.page = x.page.number+1;
-                    //$scope.query.totalElements = x.page.totalElements;
-                    //$scope.query.data = x._embedded[$scope.entity];
                 })
                 .error(function(x,y,z){
                     var a =0;
                 });
+            if(linkovi==null|| typeof(linkovi)=='undefined'){
+                linkovi = '_allLinks';
+            }
 
-
-            //    .then(function(result){
-            //    var a =0;
-            //});
-            //$scope.promise = httpGetPromise;
-            var obrada = SpringDataRestAdapter.process(httpGetPromise,'_allLinks').then(function(data,x,y,z,k){
-                //         $scope.sveAkcije = data._embeddedItems;
-                //$scope.data = data._embeddedItems;
-                $scope.query.limit = data.page.size;
-                $scope.query.page = data.page.number+1;
-                $scope.query.totalElements = data.page.totalElements;
-                $scope.query.data = data._embeddedItems;
+            var obrada = SpringDataRestAdapter.process(httpGetPromise,linkovi).then(function(data,x,y,z,k){
+                query.limit = data.page.size;
+                query.page = data.page.number+1;
+                query.totalElements = data.page.totalElements;
+                query.data = data._embeddedItems;
             });
-            $scope.promise = obrada.$promise;
+            promise = obrada.$promise;
         };
 
-        $scope.getPage($scope.query.page-1,$scope.query.limit);
+        if($scope.loadStuffUloga){
+            $scope.loadStuff = $scope.loadStuffUloga;
+        }
+        $scope.loadStuff();
 
-        $scope.newDialog = function(){
 
+
+
+        $scope.newDialog = function(event){
+            $mdDialog.show({
+                //controller: novaUlogaCtrl,
+                templateUrl: 'views/parts/novaUloga.html',
+                targetEvent: event
+            }).then(function(answer){
+                    //$scope.toastMsg(answer);
+                if(answer!=null){
+                    answer.deleted = "0";
+                    var url = '/api/'+$scope.entity;
+                    $http({
+                        method:'POST',
+                        data:answer,
+                        url:url
+                    }).success(function(x,y,z){
+                        $scope.toastMsg('dodano');
+                        $scope.loadStuff();
+                    }).error(function(x,y,z){
+                        $scope.toastMsg('problem');
+                    })
+                }
+            },
+                function(){
+                    $scope.toastMsg('cancel');
+                })
         };
+
+
 
         $scope.delete = function(){
-            angular.forEach($scope.selected,function(item){
+            var selected = $scope.selected;
+            angular.forEach(selected,function(item){
                 var a = 0;
                 var self = item._links.self.href;
                 var naziv = item.naziv;
@@ -260,6 +294,7 @@ DMApp.controller('administracijaController', [
                         $scope.toastMsg("greska");
                     })
             });
+            $scope.selected = [];
         };
 
         $scope.toastMsg = function(text) {

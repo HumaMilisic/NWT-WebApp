@@ -118,6 +118,130 @@ DMApp.controller('administracijaUlogaController', [
         $scope.name = "naziv!!!uloge";
         $scope.childEntity = 'uloga';
 
+        $scope.selectedAkcije = [];
+        $scope.selectedKorisnici = [];
+
+        $scope.queryAkcije = {
+            order: 'name',
+            limit: 5,
+            page: 1
+        };
+
+        $scope.queryKorisnici = {
+            order: 'name',
+            limit: 5,
+            page: 1
+        };
+
+        $scope.logPaginationUloga = function (page, limit) {
+            $scope.getPage(page-1,limit,$scope.entity,$scope.query,$scope.promise);
+            $scope.getPage($scope.query.page-1,$scope.query.limit,'akcija',$scope.queryAkcije,$scope.promiseAkcije,"");
+            $scope.getPage($scope.query.page-1,$scope.query.limit,'korisnik',$scope.queryKorisnici,$scope.promiseKorisnici,"");
+            $scope.selected = [];
+            $scope.akcijaSet = {};
+            $scope.korisnikSet = {};
+            $scope.selectedAkcije = [];
+            $scope.selectedKorisnici = [];
+        };
+
+        $scope.loadStuffUloga = function(){
+            $scope.getPage($scope.query.page-1,$scope.query.limit,$scope.entity,$scope.query,$scope.promise);
+            $scope.getPage($scope.query.page-1,$scope.query.limit,'akcija',$scope.queryAkcije,$scope.promiseAkcije,"");
+            $scope.getPage($scope.query.page-1,$scope.query.limit,'korisnik',$scope.queryKorisnici,$scope.promiseKorisnici,"");
+            $scope.selected = [];
+            $scope.akcijaSet = {};
+            $scope.korisnikSet = {};
+            $scope.selectedAkcije = [];
+            $scope.selectedKorisnici = [];
+        };
+
+        $scope.paginationKorisnici = function (page, limit) {
+            $scope.getPage(page-1,limit,'korisnik',$scope.queryKorisnici,$scope.promiseKorisnici,"");
+        };
+        $scope.paginationAkcije= function (page, limit) {
+            $scope.getPage(page-1,limit,'akcija',$scope.queryAkcije,$scope.promiseAkcije,"");
+        };
+
+        $scope.akcijaSet = {};
+        $scope.korisnikSet = {};
+
+        $scope.getAkcijeIKorisnikeUloge = function(item){
+            var a = 0;
+            $scope.akcijaSet = {};
+            $scope.korisnikSet = {};
+            angular.forEach(item.akcijaSet._embeddedItems,function(item){
+                var a = 0;
+                $scope.akcijaSet[item.naziv] = {
+                    flag:true,
+                    href: item._links.self.href
+                }
+            });
+            angular.forEach(item.korisnikSet._embeddedItems,function(item){
+                var a = 0;
+                $scope.korisnikSet[item.username] = {
+                    flag:true,
+                    href: item._links.self.href
+                }
+            });
+            //$scope.akcijaSet = item.akcijaSet._embeddedItems;
+            //$scope.korisnikSet = item.korisnikSet._embeddedItems;
+        };
+
+        $scope.selectAkcije = function(item){
+            var a = 0;
+        };
+
+        $scope.saveAkcije = function(){
+            var data = {
+                _links:{
+                    akcijaSet:[]
+                }};
+            angular.forEach($scope.queryAkcije.data,function(item){
+                if(typeof($scope.akcijaSet[item.naziv])!='undefined'){
+                    $scope.akcijaSet[item.naziv].flag = false;
+                }
+            });
+            angular.forEach($scope.selectedAkcije,function(item){
+                //if(typeof($scope.akcijaSet[item.naziv])=='undefined'){
+                    $scope.akcijaSet[item.naziv] = {
+                        flag:true,
+                        href: item._links.self.href
+                    };
+                //}
+            });
+
+            for (var prop in $scope.akcijaSet) {
+                if (!$scope.akcijaSet.hasOwnProperty(prop)) {
+                    //The current property is not a direct property of p
+                    continue;
+                }
+                if($scope.akcijaSet[prop].flag){
+                    data._links.akcijaSet.push({href:$scope.akcijaSet[prop].href});
+                }
+                //Do your logic with the property here
+            }
+            var url = $scope.selected[0]._links.akcijaSet.href;
+            if($scope.akcijaSet!={}){
+                $http({
+                    method:'PUT',
+                    data:data,
+                    url:url
+                }).then(function(x,y,z){
+                    var a = 0;
+                    $scope.loadStuffUloga();
+                });
+            }
+        };
+        $scope.test = function(){
+
+        };
+
         $controller('administracijaController', { $scope: $scope});
+
+        //$scope.dummy();
+
+        //$scope.izvadiAkcije = function(item){
+        //    $scope.queryAkcije.data = item.akcijaSet;
+        //}
     }
 ]);
