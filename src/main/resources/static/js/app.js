@@ -17,10 +17,28 @@ var DMApp = angular.module('DMApp', [
     'md.data.table',
     //'mdDataTable',
     'ngMdIcons',
+    'pascalprecht.translate',
 ]);
 
-DMApp.config(function($httpProvider,$routeProvider/*,SpringDataRestInterceptor*/){
+
+DMApp.config(function($httpProvider,$routeProvider/*,SpringDataRestInterceptor*/,$translateProvider){
     $httpProvider.defaults.headers.common["X-Requested-With"] = 'XMLHttpRequest';
+
+    //$translateProvider
+    //    .translations('en',translations)
+    //    .preferredLanguage('en');
+    //
+    //$translateProvider.useLoader('$translatePartialLoader', {
+    //    urlTemplate: '/i18n/{lang}.json'
+    //});
+
+    //jezik.loadEN();
+    $translateProvider.useStaticFilesLoader({
+        //prefix: 'locale-',
+        prefix: 'i18n/',
+        suffix: '.json'
+    });
+    $translateProvider.preferredLanguage('en-US');
 
     //http://www.webdeveasy.com/interceptors-in-angularjs-and-useful-examples/
     //auth intercept nesto nesto sigh
@@ -60,6 +78,8 @@ DMApp.config(function($httpProvider,$routeProvider/*,SpringDataRestInterceptor*/
 
 
 });
+
+
 
 DMApp.service('loader',function(usSpinnerService){
     this.startSpin = function(){
@@ -421,11 +441,15 @@ DMApp.factory('Resource',
     }
 );
 
-DMApp.controller('loginController',function($scope,$http,$rootScope,auth){
+DMApp.controller('loginController',function($scope,$http,$rootScope,auth,$translate){
     //$scope.logovan = $rootScope.logovan;
     //$scope.$on('logovan',function(){
     //    $scope.logovan = $rootScope.logovan;
     //})
+    $scope.changeLanguage = function (langKey) {
+        $translate.use(langKey);
+    };
+
     $scope.logCheck = function(){
             auth.jeLogovan().then(function(data){
             $scope.logovan = data.logovan;
