@@ -18,10 +18,12 @@ var DMApp = angular.module('DMApp', [
     //'mdDataTable',
     'ngMdIcons',
     'pascalprecht.translate',
+    //'ngMessages',
+    'LocalStorageModule',
 ]);
 
 
-DMApp.config(function($httpProvider,$routeProvider/*,SpringDataRestInterceptor*/,$translateProvider){
+DMApp.config(function($httpProvider,$routeProvider/*,SpringDataRestInterceptor*/,$translateProvider,localStorageServiceProvider){
     $httpProvider.defaults.headers.common["X-Requested-With"] = 'XMLHttpRequest';
 
     //$translateProvider
@@ -33,6 +35,11 @@ DMApp.config(function($httpProvider,$routeProvider/*,SpringDataRestInterceptor*/
     //});
 
     //jezik.loadEN();
+    localStorageServiceProvider
+        .setPrefix('NWT-DMS.')
+        .setStorageType('sessionStorage')
+        .setNotify(true, true);
+
     $translateProvider.useStaticFilesLoader({
         //prefix: 'locale-',
         prefix: 'i18n/',
@@ -441,14 +448,22 @@ DMApp.factory('Resource',
     }
 );
 
-DMApp.controller('loginController',function($scope,$http,$rootScope,auth,$translate){
+DMApp.controller('loginController',function($scope,$http,$rootScope,auth,$translate,localStorageService){
     //$scope.logovan = $rootScope.logovan;
     //$scope.$on('logovan',function(){
     //    $scope.logovan = $rootScope.logovan;
     //})
+    //$scope.jezik = localStorageService.bind($scope, 'locale');
+
     $scope.changeLanguage = function (langKey) {
+        if(langKey==null || typeof (langKey)=='undefined'){
+            langKey='en-US';
+        }
         $translate.use(langKey);
+        $scope.jezik = langKey;
     };
+
+    $scope.changeLanguage($scope.jezik);
 
     $scope.logCheck = function(){
             auth.jeLogovan().then(function(data){

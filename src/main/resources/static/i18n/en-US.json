@@ -1,4 +1,14 @@
 {
   "GREETING": "Hello World!",
-  "EXAMPLE_TRANSLATION": "Example translation"
+  "EXAMPLE_TRANSLATION": "Example translation",
+  "REGISTRATION": "?REGISTRATION",
+  "USER_NAME": "?USER_NAME",
+  "PASSWORD": "?PASSWORD",
+  "REPEAT_PASSWORD":"?REPEAT_PASSWORD",
+  "FIRST_NAME":"?FIRST_NAME",
+  "LAST_NAME": "?LAST_NAME",
+  "EMAIL": "?EMAIL",
+  "VALIDATION_ERROR": {
+    "REQUIRED":"Required"
+  }
 }

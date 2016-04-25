@@ -1,4 +1,14 @@
 {
   "GREETING": "Wozdraaaaaaaaa",
-  "EXAMPLE_TRANSLATION": "?EXAMPLE_TRANSLATION"
+  "EXAMPLE_TRANSLATION": "?EXAMPLE_TRANSLATION",
+  "REGISTRATION": "Registracija",
+  "USER_NAME": "?USER_NAME",
+  "PASSWORD": "Lozinka",
+  "REPEAT_PASSWORD":"?REPEAT_PASSWORD",
+  "FIRST_NAME":"Ime",
+  "LAST_NAME": "Prezime",
+  "EMAIL": "email",
+  "VALIDATION_ERROR": {
+    "REQUIRED":"Obavezno"
+  }
 }
