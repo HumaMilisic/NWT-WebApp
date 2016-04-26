@@ -1,0 +1,24 @@
+<div layout-gt-sm="row" ng-controller="loginController">
+    <!--<div>-->
+        <!--<h1>napraviti login ovdje</h1>-->
+        <!--<a href="/login">login drugi</a>-->
+    <!--</div>-->
+
+    <!--user user<br/>-->
+    <!--admin admin<br/>-->
+    <md-card>
+        <form role="form" ng-submit="login()">
+            <div><label> User Name :
+                <input type="text" ng-model="user.username" name="username" id="username"/> </label></div>
+            <div><label> Password:
+                <input type="password" ng-model="user.password" name="password" id="password"/> </label></div>
+            <div><button type="submit" ng-click="login()">submit </button></div>
+
+        </form>
+        <button ng-click="toggleRegistracija()">registraija</button>
+        <button ng-click="resetMail()">reset mail</button>
+        <!--<a href="#/registracija">registracija</a>-->
+        <pre>{{korisnik}}</pre>
+    </md-card>
+    <div forma-registracija ng-show="registracijaFlag" ></div>
+</div>

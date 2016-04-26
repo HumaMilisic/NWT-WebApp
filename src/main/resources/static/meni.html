@@ -46,8 +46,10 @@
                 <li><h2 translate="GREETING">poz</h2></li>
                 <li ng-click="changeLanguage('bs-Latn-BA')"><button>bs-Latn-BA</button></li>
                 <li ng-click="changeLanguage('en-US')"><button>en-US</button></li>
-                <li ng-show="logovan"><a href="#/korisnik">{{korisnik.username}}</a></li>
-                <li><a href="/login">Sign In</a></li>
+                <li ng-show="authenticated"> !!!!
+                    <!--<a href="#/korisnik">{{korisnik.username}}</a>-->
+                </li>
+                <li><a href="#/login">Sign In</a></li>
                 <li ng-click="logout()"><a href="#">Logout</a></li>
             </ul>
         </div><!-- /.navbar-collapse -->

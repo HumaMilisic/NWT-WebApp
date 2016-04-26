@@ -237,7 +237,7 @@ DMApp.controller('administracijaController', [
                 query.totalElements = data.page.totalElements;
                 query.data = data._embeddedItems;
             });
-            promise = obrada.$promise;
+            promise = httpGetPromise.$promise;
         };
 
         if($scope.loadStuffUloga){
