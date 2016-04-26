@@ -43,7 +43,7 @@ public class EmailService {
     public void sendVerificationTokenMail(Korisnik korisnik, String appUrl, String token){
         String to = korisnik.getEmail();
         String subject = "Registration confirmation";
-        String confirmationUrl = appUrl + "/registrationConfirm?token=" + token;
+        String confirmationUrl = appUrl + "#/register/confirm?token=" + token;
         String text = " rn " + adr + confirmationUrl;
         sendMail(to,subject,text);
     }

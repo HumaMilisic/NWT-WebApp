@@ -1,4 +1,5 @@
-<div layout-gt-sm="row" ng-controller="loginController">
+<div md-content layout-gt-sm="row"  layout="row" flex
+     ng-controller="loginController">
     <!--<div>-->
         <!--<h1>napraviti login ovdje</h1>-->
         <!--<a href="/login">login drugi</a>-->
@@ -6,19 +7,198 @@
 
     <!--user user<br/>-->
     <!--admin admin<br/>-->
-    <md-card>
-        <form role="form" ng-submit="login()">
-            <div><label> User Name :
-                <input type="text" ng-model="user.username" name="username" id="username"/> </label></div>
-            <div><label> Password:
-                <input type="password" ng-model="user.password" name="password" id="password"/> </label></div>
-            <div><button type="submit" ng-click="login()">submit </button></div>
+    <div layout="column" layout-padding>
+        <md-card >
+            <md-toolbar class="md-table-toolbar md-default">
+                <div class="md-toolbar-tools">
+                    <h2 translate="SIGN_IN"></h2>
+                    <span flex=""></span>
+                </div>
+            </md-toolbar>
+            <form role="form" ng-submit="login()" name="loginForm">
+                <md-input-container class="md-block">
+                    <label translate="USERNAME"> User Name :  </label>
+                    <input type="text" name="username"
+                           required
+                           ng-model="user.username"/>
+                    <div ng-messages="form.username.$error">
+                        <div ng-message="required" TRANSLATE="VALIDATION_ERROR.REQUIRED">This is required.</div>
+                    </div>
+                </md-input-container>
+                <md-input-container class="md-block">
+                    <label TRANSLATE="PASSWORD"> Password: </label>
+                    <input type="password" name="password"
+                           required
+                           ng-model="user.password"/>
+                    <div ng-messages="form.password.$error">
+                        <div ng-message="required" TRANSLATE="VALIDATION_ERROR.REQUIRED">This is required.</div>
+                    </div>
+                </md-input-container>
 
+                <!--<div><button type="submit" ng-click="login()">submit </button></div>-->
+
+            </form>
+            <div class="md-actions" layout="row">
+                <div layout-gt-xs="row">
+                    <span flex></span>
+                    <!--<md-button ng-click="answer(null)"> Cancel </md-button>-->
+                    <md-button ng-click="toggleRegistracija()"
+                               class="md-alternate" translate="REGISTRATION">Register</md-button>
+                    <md-button ng-click="login()"
+                               ng-disabled="!loginForm.$valid"
+                               class="md-primary" TRANSLATE="SUBMIT">Submit</md-button>
+                </div>
+
+            </div>
+            <div layout-gt-xs="row">
+                <span flex></span>
+                <a ng-click="toogleResetMail()" TRANSLATE="FORGOT_PASSWORD">Forgot password?</a>
+            </div>
+            <!--<button ng-click="toggleRegistracija()">registraija</button>-->
+
+            <!--<a href="#/registracija">registracija</a>-->
+            <!--<pre>{{korisnik}}</pre>-->
+        </md-card>
+        <md-card ng-show="resetMailFlag">
+            <md-toolbar class="md-table-toolbar md-default">
+                <div class="md-toolbar-tools">
+                    <h2 translate="FORGOT_PASSWORD"></h2>
+                    <span flex=""></span>
+                </div>
+            </md-toolbar>
+            <md-input-container class="md-block">
+                <label TRANSLATE="EMAIL"> email: </label>
+                <input type="email" name="email"
+
+                       ng-model="user.email"/>
+                <!--<div ng-messages="form.email.$error">-->
+                    <!--<div ng-message="required" TRANSLATE="VALIDATION_ERROR.REQUIRED">This is required.</div>-->
+                <!--</div>-->
+            </md-input-container>
+            <md-button ng-click="sendMail()"
+                       class="md-primary" translate="SEND_MAIL"></md-button>
+        </md-card>
+    </div>
+    <!--<div forma-registracija ng-show="registracijaFlag" ></div>-->
+    <div layout-padding>
+        <md-card ng-show="registracijaFlag" ng-controller="registracijaController">
+        <md-toolbar class="md-table-toolbar md-default">
+            <div class="md-toolbar-tools">
+                <h2 translate="REGISTRATION">Registracija</h2>
+                <span flex=""></span>
+                <!--<md-button class="md-icon-button">-->
+                <!--<ng-md-icon icon="add" ng-click="newDialog($event)"-->
+                <!--style="fill: black"></ng-md-icon>-->
+                <!--</md-button>-->
+                <!--<md-button class="md-icon-button">-->
+                <!--<ng-md-icon icon="cached" ng-click="loadStuffUloga()"-->
+                <!--style="fill: black"></ng-md-icon>-->
+                <!--</md-button>-->
+                <!--<md-button class="md-icon-button"-->
+                <!--ng-show="options.rowSelection && selected.length">-->
+                <!--<md-tooltip>Delete</md-tooltip>-->
+                <!--<ng-md-icon icon="delete"-->
+                <!--ng-click="delete()"-->
+                <!--style="fill: black"></ng-md-icon>-->
+                <!--</md-button>-->
+            </div>
+        </md-toolbar>
+        <!--<md-card-header>-->
+        <!--&lt;!&ndash;<h2></h2>&ndash;&gt;-->
+        <!--<md-card-avatar>-->
+        <!--&lt;!&ndash;<ng-md-icon icon="edit" style="fill:black"/>&ndash;&gt;-->
+        <!--</md-card-avatar>-->
+        <!--<md-card-header-text>-->
+        <!--<span class="md-title">Registracija korisnika</span>-->
+        <!--</md-card-header-text>-->
+        <!--</md-card-header>-->
+        <!-- Call a method in the scope of your controller to handle data submit -->
+
+        <form ng-submit="submit()" method="post" name="registracijaForm">
+            <md-content>
+                <div layout-gt-xs="row">
+                    <md-input-container class="md-block">
+                        <label translate="USERNAME"> User Name :  </label>
+                        <input type="text" name="username"
+                               required
+                               ng-model="user.username"/>
+                        <div ng-messages="form.username.$error">
+                            <div ng-message="required" TRANSLATE="VALIDATION_ERROR.REQUIRED">This is required.</div>
+                        </div>
+                    </md-input-container>
+                    <md-input-container class="md-block">
+                        <label TRANSLATE="EMAIL"> email: </label>
+                        <input type="email" name="email"
+                               required
+                               ng-model="user.email"/>
+                        <div ng-messages="form.email.$error">
+                            <div ng-message="required" TRANSLATE="VALIDATION_ERROR.REQUIRED">This is required.</div>
+                        </div>
+                    </md-input-container>
+                </div>
+                <!--<div layout-gt-xs="row">-->
+                <md-input-container class="md-block">
+                    <label TRANSLATE="PASSWORD"> Password: </label>
+                    <input type="password" name="password"
+                           required
+                           ng-model="user.password"/>
+                    <div ng-messages="form.password.$error">
+                        <div ng-message="required" TRANSLATE="VALIDATION_ERROR.REQUIRED">This is required.</div>
+                    </div>
+                </md-input-container>
+                <md-input-container class="md-block">
+                    <label TRANSLATE="REPEAT_PASSWORD">Ponovo Password:  </label>
+                    <input type="password" name="matchingPassword"
+                           required
+                           ng-model="user.matchingPassword"/>
+                    <div ng-messages="form.matchingPassword.$error">
+                        <div ng-message="required" TRANSLATE="VALIDATION_ERROR.REQUIRED">This is required.</div>
+                    </div>
+                </md-input-container>
+                <!--</div>-->
+                <div layout-gt-xs="row">
+                    <md-input-container class="md-block">
+                        <label TRANSLATE="FIRST_NAME"> Ime: </label>
+                        <input type="text" name="ime"
+                               required
+                               ng-model="user.ime"/>
+                        <div ng-messages="form.ime.$error">
+                            <div ng-message="required" TRANSLATE="VALIDATION_ERROR.REQUIRED">This is required.</div>
+                        </div>
+                    </md-input-container>
+                    <md-input-container class="md-block">
+                        <label TRANSLATE="LAST_NAME"> Prezime: </label>
+                        <input type="text" name="prezime"
+                               required
+                               ng-model="user.prezime"/>
+                        <div ng-messages="form.prezime.$error">
+                            <div ng-message="required" TRANSLATE="VALIDATION_ERROR.REQUIRED">This is required.</div>
+                        </div>
+                    </md-input-container>
+                </div>
+
+                <md-input-container>
+                    <div    vc-recaptcha
+                            theme="'light'"
+                            key="model.key"
+                            on-create="setWidgetId(widgetId)"
+                            on-success="setResponse(response)"
+                            on-expire="cbExpiration()"
+                            ng-required="response!=null"
+                    ></div>
+                </md-input-container>
+            </md-content>
+            <!--<button class="btn" type="submit">Submit</button>-->
         </form>
-        <button ng-click="toggleRegistracija()">registraija</button>
-        <button ng-click="resetMail()">reset mail</button>
-        <!--<a href="#/registracija">registracija</a>-->
-        <pre>{{korisnik}}</pre>
+
+        <div class="md-actions" layout="row">
+            <span flex></span>
+            <!--<md-button ng-click="answer(null)"> Cancel </md-button>-->
+            <md-button ng-click="submit()"
+                       ng-show="registracijaForm.$valid == registracijaForm.$valid"
+                       ng-disabled="!registracijaForm.$valid"
+                       class="md-primary" TRANSLATE="SUBMIT">Submit</md-button>
+        </div>
     </md-card>
-    <div forma-registracija ng-show="registracijaFlag" ></div>
+    </div>
 </div>

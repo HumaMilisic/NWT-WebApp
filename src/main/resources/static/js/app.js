@@ -39,6 +39,9 @@ DMApp.config(function($httpProvider,$routeProvider/*,SpringDataRestInterceptor*/
     $translateProvider.preferredLanguage('en-US');
 
     $routeProvider
+        .when('/home',{
+
+        })
         .when('/korisnik',{
             templateUrl:'korisnik.html'
         })
@@ -51,7 +54,10 @@ DMApp.config(function($httpProvider,$routeProvider/*,SpringDataRestInterceptor*/
         .when('/uitest',{
             templateUrl:'uitest.html'
         })
-        .otherwise({templateUrl:'loginA.html'});
+        .when('/404',{
+            templateUrl: '404.html'
+        })
+        .otherwise({redirectTo:'/home'});
 
     //administracija
     $routeProvider
@@ -69,11 +75,55 @@ DMApp.config(function($httpProvider,$routeProvider/*,SpringDataRestInterceptor*/
         })
         .when('/admin/uloga',{
             templateUrl:'/app/admin/views/administracijaUloga.html'
-        })
+        });
 
 
+    var redirectOnError = ['$q','redirekt',function($q,redirekt){
+        var success = function(response){
+            return response;
+        };
 
+        var error = function(response){
+            if(response){
+                var url = response.config.url;
+                var flag = ~url.indexOf('username=admin');
+                if(flag){
+                    return $q.reject(response);
+                }
 
+                switch (response.status){
+                    case 404:{
+                        redirekt.goTo404();
+                        return $q.reject(response);
+                    }
+                    case 401:{
+                        redirekt.goToLogin();
+                        return $q.reject(response);
+                    }
+                    default:{
+                        return $q.reject(response);
+                    }
+                }
+            }
+        };
+
+        return {
+            'request':function(config){
+                return config;
+            },
+            'requestError':function(rejection){
+                return $q.reject(rejection);
+            },
+            'response': function(response){
+                return response;
+            },
+            'responseError' :function(rejection){
+                return error(rejection);
+            }
+        }
+    }];
+
+    $httpProvider.interceptors.push(redirectOnError);
 });
 
 //DMApp.factory("UserProfile",function($http,$q){
@@ -148,6 +198,10 @@ DMApp.service('redirekt',function($location){
         if(staro!=null){
             this.goTo(staro);
         }
+    };
+
+    this.goTo404 = function(){
+        this.goTo('/404');
     }
 });
 
@@ -574,9 +628,18 @@ DMApp.controller('loginController',function($scope,$http,$rootScope,$translate,l
     });
 
     $scope.registracijaFlag = false;
+    $scope.resetMailFlag = false;
     //$scope.toggle($scope.registracijaFlag);
     $scope.toggle = function(value){
         value = !value;
+    };
+
+    $scope.sendMail = function(){
+        alert('nope');
+    };
+
+    $scope.toogleResetMail = function(){
+        $scope.resetMailFlag = !$scope.resetMailFlag;
     };
 
     $scope.toggleRegistracija = function(){
@@ -660,7 +723,7 @@ DMApp.directive('formaRegistracija',function(){
     }
 });
 
-DMApp.controller('registracijaController', function ($scope, vcRecaptchaService,$http) {
+DMApp.controller('registracijaController', function ($scope, vcRecaptchaService,$http,$mdToast) {
     console.log("this is your app's controller");
     $scope.user = {};
     $scope.response = null;
@@ -694,6 +757,15 @@ DMApp.controller('registracijaController', function ($scope, vcRecaptchaService,
         $scope.user.recaptchaResponse = $scope.response;
     });
 
+    $scope.toastMsg = function(text) {
+        var pinTo = "bottom right";
+        $mdToast.show(
+            $mdToast.simple()
+                .textContent(text)
+                .position(pinTo )
+                .hideDelay(3000)
+        );
+    };
     $scope.submit = function () {
         var valid;
 
@@ -720,11 +792,15 @@ DMApp.controller('registracijaController', function ($scope, vcRecaptchaService,
             })
                 .success(function(data, status, x){
                     var a = 0;
-                    alert(data.message);
+                    if(status===201){
+                        $scope.toastMsg(data.message);
+                    }
+                    //alert(data.message);
                 })
                 .error(function(response,status,nesto,request){
                     var a = 0;
-                    alert(response.message);
+                    $scope.toastMsg(response.message);
+                    //alert(response.message);
                     console.log('Failed validation');
 
                     // In case of a failed validation you need to reload the captcha
