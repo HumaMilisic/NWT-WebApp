@@ -43,7 +43,7 @@ public class EmailService {
     public void sendVerificationTokenMail(Korisnik korisnik, String appUrl, String token){
         String to = korisnik.getEmail();
         String subject = "Registration confirmation";
-        String confirmationUrl = appUrl + "#/register/confirm?token=" + token;
+        String confirmationUrl = appUrl + "#/login/registracija/token=" + token;
         String text = " rn " + adr + confirmationUrl;
         sendMail(to,subject,text);
     }
@@ -51,7 +51,7 @@ public class EmailService {
     public void resendVerificationTokenMail(String mail, String appUrl, String token){
         String to = mail;
         String subject = "Resent registration confirmation";
-        String confirmationUrl = appUrl + "/resendRegistrationToken?token=" + token;
+        String confirmationUrl = appUrl + "#/login/registracija/tokenr=" + token;
         String text = " rn " + adr + confirmationUrl;
         sendMail(to,subject,text);
     }

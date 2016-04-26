@@ -48,9 +48,9 @@ DMApp.config(function($httpProvider,$routeProvider/*,SpringDataRestInterceptor*/
         .when('/login',{
             templateUrl:'loginA.html',
         })
-        //.when('/registracija',{
-        //    templateUrl:'registracija.html'
-        //})
+        .when('/login/registracija/:token',{
+            templateUrl:'loginA.html'
+        })
         .when('/uitest',{
             templateUrl:'uitest.html'
         })
@@ -108,15 +108,6 @@ DMApp.config(function($httpProvider,$routeProvider/*,SpringDataRestInterceptor*/
         };
 
         return {
-            'request':function(config){
-                return config;
-            },
-            'requestError':function(rejection){
-                return $q.reject(rejection);
-            },
-            'response': function(response){
-                return response;
-            },
             'responseError' :function(rejection){
                 return error(rejection);
             }
@@ -615,12 +606,18 @@ DMApp.factory('auth',function($http,$rootScope,$location,SpringDataRestAdapter){
     }
 });
 
-DMApp.controller('loginController',function($scope,$http,$rootScope,$translate,localStorageService,$location,auth){
+DMApp.controller('loginController',function($scope,$http,$rootScope,$translate,localStorageService,$location,auth,$routeParams){
     //$scope.logovan = $rootScope.logovan;
     //$scope.$on('logovan',function(){
     //    $scope.logovan = $rootScope.logovan;
     //})
     //$scope.jezik = localStorageService.bind($scope, 'locale');
+
+    //if($routeParams.token){
+    //    alert('token: '+$routeParams.token);
+    //}
+
+
 
     $scope.korisnik = auth.korisnik;
     $scope.$on('korisnik',function(event,args){
@@ -723,11 +720,47 @@ DMApp.directive('formaRegistracija',function(){
     }
 });
 
-DMApp.controller('registracijaController', function ($scope, vcRecaptchaService,$http,$mdToast) {
+DMApp.controller('registracijaController', function ($scope, vcRecaptchaService,$http,$mdToast,$routeParams,$location) {
     console.log("this is your app's controller");
     $scope.user = {};
     $scope.response = null;
     $scope.widgetId = null;
+
+    $scope.toastMsg = function(text) {
+        var pinTo = "bottom right";
+        $mdToast.show(
+            $mdToast.simple()
+                .textContent(text)
+                .position(pinTo )
+                .hideDelay(3000)
+        );
+    };
+
+    $scope.registrationConfirm = function(token){
+        var url = '/registrationConfirm?'+token;
+        $http.get(url)
+            .success(function(x,status,z){
+                var a = 0;
+                if(status===202){
+                    $scope.toastMsg('korisnik aktiviran');
+                }
+            })
+            .error(function(x,y,x){
+                var a=0;
+                $scope.toastMsg('problem sa tokenom');
+            })
+    };
+
+    if($routeParams.token){
+        //alert('token: '+$routeParams.token);
+        var url = $location.path();
+        //token i tokenr
+        if(url.indexOf("token=")>-1){
+            $scope.registrationConfirm($routeParams.token);
+        }
+    }
+
+
 
     $scope.model = {
         key: '6Ld7gB0TAAAAAHP-rEzmJM9H93ZbNvM__Ndx89qW'
@@ -757,15 +790,7 @@ DMApp.controller('registracijaController', function ($scope, vcRecaptchaService,
         $scope.user.recaptchaResponse = $scope.response;
     });
 
-    $scope.toastMsg = function(text) {
-        var pinTo = "bottom right";
-        $mdToast.show(
-            $mdToast.simple()
-                .textContent(text)
-                .position(pinTo )
-                .hideDelay(3000)
-        );
-    };
+
     $scope.submit = function () {
         var valid;
 
