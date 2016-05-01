@@ -15,7 +15,7 @@ import java.util.List;
  * The persistent class for the STATUS database table.
  * 
  */
-@Entity
+@Entity(name = "status")
 //@NamedQuery(name="Status.findAll", query="SELECT s FROM Status s")
 public class Status implements Serializable {
 	private static final long serialVersionUID = 1L;
@@ -23,7 +23,7 @@ public class Status implements Serializable {
 	@Id
 	@GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "StatusSEQ")
 	@SequenceGenerator(name = "StatusSEQ", sequenceName = "STATUS_SEQ", allocationSize = 1)
-	@Generated(GenerationTime.INSERT) //dodano
+	//@Generated(GenerationTime.INSERT) //dodano
 	private long id;
 
 	private String nazivba;
@@ -67,8 +67,8 @@ public class Status implements Serializable {
 	private List<VrstaDokumenta> vrstaDokumentas;
 
 	//private char deleted;
-	@Length(max = 1)
-	@Column(nullable = false,name="deleted")
+	//@Length(max = 1)
+	//@Column(nullable = false,name="deleted")
 	private String deleted;
 
 	public Status() {

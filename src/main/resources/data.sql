@@ -58,3 +58,17 @@ INSERT INTO ULOGA_X_AKCIJA
 INSERT INTO ULOGA_X_AKCIJA
 -- (uloga,akcija)
  VALUES (2,1);
+
+
+ -- status
+ INSERT INTO STATUS VALUES(1, 'Kreiran', 'Kreiran', 0);
+ INSERT INTO STATUS VALUES(2, 'Potpisan', 'Potpisan', 0);
+
+ -- vrsta dokumenta
+INSERT INTO VRSTA_DOKUMENTA VALUES(1, 0, 'Rodni list', 'Rodni list', 'Template BA', 'Template EN');
+INSERT INTO VRSTA_DOKUMENTA VALUES(2, 0, 'Zavrsni rad', 'Zavrsni rad', 'Template BA', 'Template EN');
+
+-- notifikacija
+INSERT INTO NOTIFIKACIJA VALUES(1, 0, 'Hitno pregledati');
+INSERT INTO NOTIFIKACIJA VALUES(2, 0, 'Hitno hitno');
+

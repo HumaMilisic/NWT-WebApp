@@ -80,8 +80,15 @@ DMApp.config(function($httpProvider,$routeProvider/*,SpringDataRestInterceptor*/
         .when('/admin/uloga',{
             templateUrl:'/js/app/admin/views/administracijaUloga.html'
         })
-
-
+        .when('/admin/status',{
+            templateUrl:'/js/app/admin/views/administracijaStatusa.html'
+        })
+        .when('/admin/vrstaDokumenta',{
+            templateUrl:'/js/app/admin/views/administracijaVrstaDokumenta.html'
+        })
+        .when('/admin/notifikacija',{
+            templateUrl:'/js/app/admin/views/administracijaNotifikacija.html'
+        })
 
 
 });
