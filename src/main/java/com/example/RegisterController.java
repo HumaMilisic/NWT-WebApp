@@ -201,17 +201,21 @@ public class RegisterController {
 
     @RequestMapping(value = "/resetPassword", method = RequestMethod.POST)
     @ResponseBody
-    public GenericResponse resetPassword( HttpServletRequest request,@RequestParam("email") String userEmail) throws Exception{
+    public ResponseEntity<GenericResponse> resetPassword( HttpServletRequest request,@RequestParam("email") String userEmail) throws Exception{
         Korisnik korisnik = userDetailsService.findUserByMail(userEmail);
         if(korisnik == null){
-            throw new UserPrincipalNotFoundException(userEmail);
+//            throw new UserPrincipalNotFoundException(userEmail);
+            GenericResponse fail = new GenericResponse("korisnik ne postoji","");
+            return new ResponseEntity<GenericResponse>(fail,HttpStatus.EXPECTATION_FAILED);
         }
 
         String token = UUID.randomUUID().toString();
         userDetailsService.createPasswordResetTokenForUser(korisnik,token);
         String appUrl = request.getContextPath();
         emailService.sendResetTokenMail(korisnik.getEmail(),appUrl,token);
-        return new GenericResponse("poruka");
+        GenericResponse uspjeh = new GenericResponse("poslan mail",null);
+        return new ResponseEntity<GenericResponse>(uspjeh,HttpStatus.CREATED);
+//        return new GenericResponse("poruka");
     }
 
     @RequestMapping(value = "/resetPassword", method = RequestMethod.GET)

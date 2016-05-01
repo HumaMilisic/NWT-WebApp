@@ -618,6 +618,16 @@ DMApp.controller('loginController',function($scope,$http,$rootScope,$translate,l
     //    alert('token: '+$routeParams.token);
     //}
 
+    $scope.toastMsg = function(text) {
+        var pinTo = "bottom right";
+        $mdToast.show(
+            $mdToast.simple()
+                .textContent(text)
+                .position(pinTo )
+                .hideDelay(3000)
+        );
+    };
+
     $scope.authenticated = $rootScope.authenticated;
 
     $scope.korisnik = auth.korisnik;
@@ -634,7 +644,37 @@ DMApp.controller('loginController',function($scope,$http,$rootScope,$translate,l
     };
 
     $scope.sendMail = function(){
-        alert('nope');
+        alert("test: "+$scope.user.email);
+        var url = "/resetPassword?email="+$scope.user.email;
+        //$http.get(url)
+        //    .success(function(x,status,z){
+        //        var a = 0;
+        //        if(status===202){
+        //            $scope.toastMsg('korisnik aktiviran');
+        //        }
+        //    })
+        //    .error(function(x,y,x){
+        //        var a=0;
+        //        $scope.toastMsg('problem sa tokenom');
+        //    })
+        $http.post(url)
+            .success(function(data, status, x){
+                var a = 0;
+                if(status===201){
+                    $scope.toastMsg(data.message);
+                }
+                //alert(data.message);
+            })
+            .error(function(response,status,nesto,request){
+                var a = 0;
+                $scope.toastMsg(response.message);
+                //alert(response.message);
+                console.log('Failed validation');
+
+                // In case of a failed validation you need to reload the captcha
+                // because each response can be checked just once
+                vcRecaptchaService.reload($scope.widgetId);
+            })
     };
 
     $scope.toogleResetMail = function(){
