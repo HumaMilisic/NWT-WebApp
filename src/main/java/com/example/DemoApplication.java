@@ -11,6 +11,7 @@ import org.springframework.security.crypto.password.PasswordEncoder;
 
 @SpringBootApplication
 @ComponentScan
+
 public class DemoApplication {
 
 	public static void main(String[] args) {

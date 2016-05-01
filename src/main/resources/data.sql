@@ -21,8 +21,8 @@ INSERT INTO ULOGA VALUES (8,'0','EH8');
 
 -- korisnik
 
--- INSERT INTO KORISNIK VALUES
--- (1,NULL ,NULL,'huma.milisic@gmail.com',TRUE,'HUMA',NULL ,NULL,'$2a$10$VrVNE6bFjI8GsLujFb2qquB8/jYqJiyuJ6aYUBr5Rdysp2u33wRsS','HUMA','huma' );
+INSERT INTO KORISNIK VALUES
+(1,NULL ,NULL,'huma.milisic@gmail.com',TRUE,'HUMA',NULL ,NULL,'$2a$10$VrVNE6bFjI8GsLujFb2qquB8/jYqJiyuJ6aYUBr5Rdysp2u33wRsS','HUMA','huma' );
 --
 -- INSERT INTO KORISNIK VALUES
 -- (2,NULL ,NULL,'1huma.milisic@gmail.com',TRUE,'HUMA',NULL ,NULL,'g','HUMA','humta' );

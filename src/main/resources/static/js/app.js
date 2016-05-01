@@ -40,7 +40,7 @@ DMApp.config(function($httpProvider,$routeProvider/*,SpringDataRestInterceptor*/
 
     $routeProvider
         .when('/home',{
-
+            templateUrl: 'views/home.html'
         })
         .when('/korisnik',{
             templateUrl:'korisnik.html'
@@ -62,23 +62,23 @@ DMApp.config(function($httpProvider,$routeProvider/*,SpringDataRestInterceptor*/
     //administracija
     $routeProvider
         .when('/admin',{
-            templateUrl:'/app/admin/views/adminDashboard.html'
+            templateUrl:'/views/admin/adminDashboard.html'
         })
         .when('/admin/korisnik',{
-            templateUrl:'/app/admin/views/administracijaKorisnika.html'
+            templateUrl:'/views/admin/administracijaKorisnika.html'
         })
         .when('/admin/korisnik/:username',{
             templateUrl:'korisnik.html'
         })
         .when('/admin/akcija',{
-            templateUrl:'/app/admin/views/administracijaAkcija.html'
+            templateUrl:'/views/admin/administracijaAkcija.html'
         })
         .when('/admin/uloga',{
-            templateUrl:'/app/admin/views/administracijaUloga.html'
+            templateUrl:'/views/admin/administracijaUloga.html'
         });
 
 
-    var redirectOnError = ['$q','redirekt',function($q,redirekt){
+    var redirectOnError = ['$q','redirekt','$rootScope',function($q,redirekt,$rootScope){
         var success = function(response){
             return response;
         };
@@ -588,13 +588,14 @@ DMApp.factory('auth',function($http,$rootScope,$location,SpringDataRestAdapter){
                 var a = 0;
                 korisnik = null;
                 user = null;
+                $rootScope.$broadcast('korisnik');
             })
             .error(function(x,y,z){
                 var a  = 0;
             })
             .finally(function(){
                 $rootScope.authenticated = false;
-                $location.path("/");
+                $location.path("/login");
             })
     };
     return{
@@ -617,11 +618,12 @@ DMApp.controller('loginController',function($scope,$http,$rootScope,$translate,l
     //    alert('token: '+$routeParams.token);
     //}
 
-
+    $scope.authenticated = $rootScope.authenticated;
 
     $scope.korisnik = auth.korisnik;
     $scope.$on('korisnik',function(event,args){
         $scope.korisnik = $rootScope.korisnik;
+        $scope.authenticated = $rootScope.korisnik?true:false;
     });
 
     $scope.registracijaFlag = false;
@@ -960,4 +962,87 @@ DMApp.controller('novaUlogaCtrl',function ($scope,$mdDialog){
     $scope.answer = function(answer) {
         $mdDialog.hide(answer);
     };
+});
+
+DMApp.controller('SubheaderAppCtrl', function($scope) {
+    var imagePath = 'img/list/60.jpeg';
+    $scope.messages = [
+        {
+            face : imagePath,
+            what: 'Brunch this weekend?',
+            who: 'Min Li Chan',
+            when: '3:08PM',
+            notes: " I'll be in your neighborhood doing errands"
+        },
+        {
+            face : imagePath,
+            what: 'Brunch this weekend?',
+            who: 'Min Li Chan',
+            when: '3:08PM',
+            notes: " I'll be in your neighborhood doing errands"
+        },
+        {
+            face : imagePath,
+            what: 'Brunch this weekend?',
+            who: 'Min Li Chan',
+            when: '3:08PM',
+            notes: " I'll be in your neighborhood doing errands"
+        },
+        {
+            face : imagePath,
+            what: 'Brunch this weekend?',
+            who: 'Min Li Chan',
+            when: '3:08PM',
+            notes: " I'll be in your neighborhood doing errands"
+        },
+        {
+            face : imagePath,
+            what: 'Brunch this weekend?',
+            who: 'Min Li Chan',
+            when: '3:08PM',
+            notes: " I'll be in your neighborhood doing errands"
+        },
+        {
+            face : imagePath,
+            what: 'Brunch this weekend?',
+            who: 'Min Li Chan',
+            when: '3:08PM',
+            notes: " I'll be in your neighborhood doing errands"
+        },
+        {
+            face : imagePath,
+            what: 'Brunch this weekend?',
+            who: 'Min Li Chan',
+            when: '3:08PM',
+            notes: " I'll be in your neighborhood doing errands"
+        },
+        {
+            face : imagePath,
+            what: 'Brunch this weekend?',
+            who: 'Min Li Chan',
+            when: '3:08PM',
+            notes: " I'll be in your neighborhood doing errands"
+        },
+        {
+            face : imagePath,
+            what: 'Brunch this weekend?',
+            who: 'Min Li Chan',
+            when: '3:08PM',
+            notes: " I'll be in your neighborhood doing errands"
+        },
+        {
+            face : imagePath,
+            what: 'Brunch this weekend?',
+            who: 'Min Li Chan',
+            when: '3:08PM',
+            notes: " I'll be in your neighborhood doing errands"
+        },
+        {
+            face : imagePath,
+            what: 'Brunch this weekend?',
+            who: 'Min Li Chan',
+            when: '3:08PM',
+            notes: " I'll be in your neighborhood doing errands"
+        },
+    ];
 });

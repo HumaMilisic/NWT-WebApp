@@ -20,6 +20,8 @@ import org.springframework.security.web.csrf.HttpSessionCsrfTokenRepository;
  */
 @Configuration
 @EnableWebSecurity
+
+//@EnableGlobalMethodSecurity(securedEnabled = true, prePostEnabled = true)
 public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
 
     @Autowired
@@ -31,7 +33,7 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
     protected void configure(HttpSecurity http) throws Exception{
         http
                 .httpBasic().and().authorizeRequests()
-                .antMatchers("/","/register","/registrationConfirm","/user/resetPassword","/app/**",
+                .antMatchers("/","/register","/registrationConfirm","/user/resetPassword","/login","/app/**",
                         "/loginA.html","/index.html","/404.html","/meni.html","/registracija.html","/i18n/**").permitAll()
                 .anyRequest().authenticated()
                 .and()
@@ -111,3 +113,5 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
         return repository;
     }
 }
+
+
