@@ -10,5 +10,9 @@
   "EMAIL": "?EMAIL",
   "VALIDATION_ERROR": {
     "REQUIRED":"Required"
-  }
+  },
+  "SIGN_IN":"?SIGN_IN",
+  "FORGOT_PASSWORD":"Forgot password?",
+  "SEND_MAIL":"?SEND_MAIL",
+  "SUBMIT":"?SUBMIT"
 }

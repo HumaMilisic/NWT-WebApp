@@ -26,15 +26,6 @@ var DMApp = angular.module('DMApp', [
 DMApp.config(function($httpProvider,$routeProvider/*,SpringDataRestInterceptor*/,$translateProvider,localStorageServiceProvider){
     $httpProvider.defaults.headers.common["X-Requested-With"] = 'XMLHttpRequest';
 
-    //$translateProvider
-    //    .translations('en',translations)
-    //    .preferredLanguage('en');
-    //
-    //$translateProvider.useLoader('$translatePartialLoader', {
-    //    urlTemplate: '/i18n/{lang}.json'
-    //});
-
-    //jezik.loadEN();
     localStorageServiceProvider
         .setPrefix('NWT-DMS.')
         .setStorageType('sessionStorage')
@@ -47,35 +38,43 @@ DMApp.config(function($httpProvider,$routeProvider/*,SpringDataRestInterceptor*/
     });
     $translateProvider.preferredLanguage('en-US');
 
-    //http://www.webdeveasy.com/interceptors-in-angularjs-and-useful-examples/
-    //auth intercept nesto nesto sigh
-    //$httpProvider.interceptors.push(SpringDataRestInterceptor);
-
     $routeProvider
+        .when('/home',{
+            templateUrl: 'views/home.html'
+        })
         .when('/korisnik',{
-            templateUrl:'korisnik.html'
+            templateUrl:'views/korisnik.html'
         })
         .when('/login',{
-            templateUrl:'login.html'
+            templateUrl:'views/loginA.html',
+        })
+        .when('/login/registracija/:token',{
+            templateUrl:'views/loginA.html'
+        })
+        .when('/login/resetPassword/:token',{
+            templateUrl:'views/loginA.html'
         })
         .when('/uitest',{
             templateUrl:'uitest.html'
         })
-        .otherwise('/');
+        .when('/404',{
+            templateUrl: 'views/404.html'
+        })
+        .otherwise({redirectTo:'/home'});
 
     //administracija
     $routeProvider
         .when('/admin',{
-            templateUrl:'/js/app/admin/views/adminDashboard.html'
+            templateUrl:'/views/admin/adminDashboard.html'
         })
         .when('/admin/korisnik',{
-            templateUrl:'/js/app/admin/views/administracijaKorisnika.html'
+            templateUrl:'/views/admin/administracijaKorisnika.html'
         })
         .when('/admin/korisnik/:username',{
             templateUrl:'korisnik.html'
         })
         .when('/admin/akcija',{
-            templateUrl:'/js/app/admin/views/administracijaAkcija.html'
+            templateUrl:'/views/admin/administracijaAkcija.html'
         })
         .when('/admin/uloga',{
             templateUrl:'/js/app/admin/views/administracijaUloga.html'
@@ -88,11 +87,85 @@ DMApp.config(function($httpProvider,$routeProvider/*,SpringDataRestInterceptor*/
         })
         .when('/admin/notifikacija',{
             templateUrl:'/js/app/admin/views/administracijaNotifikacija.html'
-        })
+        });
 
 
+    var redirectOnError = ['$q','redirekt','$rootScope',function($q,redirekt,$rootScope){
+        var success = function(response){
+            return response;
+        };
+        var error = function(response){
+            if(response){
+                var url = response.config.url;
+                var flag = ~url.indexOf('username=admin');
+                if(flag){
+                    return $q.reject(response);
+                }
+
+                switch (response.status){
+                    case 404:{
+                        redirekt.goTo404();
+                        return $q.reject(response);
+                    }
+                    case 401:{
+                        redirekt.goToLogin();
+                        return $q.reject(response);
+                    }
+                    default:{
+                        return $q.reject(response);
+                    }
+                }
+            }
+        };
+
+        return {
+            'responseError' :function(rejection){
+                return error(rejection);
+            }
+        }
+    }];
+
+    $httpProvider.interceptors.push(redirectOnError);
 });
 
+//DMApp.factory("UserProfile",function($http,$q){
+//    "use strict";
+//
+//    var getPromise = $http.get("/user")
+//        .success(function(x,y,z){
+//            var a = 0;
+//        })
+//        .error(function(x,y,z){
+//            var a = 0;
+//        });
+//    return getPromise;
+//    //return $resource("user");
+//})
+
+DMApp.factory("Access",function($q,auth){
+    "use strict";
+
+    var Access = {
+        OK: 200,
+        UNAUTHORISED: 401,
+        FORBIDDEN: 403,
+
+        hasRole: function(role){
+            var deferred = $q.defer();
+            deferred.reject(Access.UNAUTHORISED);
+            return deferred.promise;
+        },
+
+        isAnon: function(){
+            var deferred = $q.defer();
+            //deferred.reject(Access.FORBIDDEN);
+            deferred.resolve(Access.OK);
+            return deferred.promise;
+        }
+    };
+
+    return Access;
+});
 
 
 DMApp.service('loader',function(usSpinnerService){
@@ -128,184 +201,228 @@ DMApp.service('redirekt',function($location){
             this.goTo(staro);
         }
     }
-});
-
-DMApp.service('auth',function($rootScope,$http,$q,$location,redirekt,loader){
-    var korisnik = null;
-    var logovan = null;
-    var authorities = null;
-
-
-
-    this.jeLogovan = function(){
-        loader.startSpin();
-        var deferred = $q.defer();
-        if(logovan==null){
-            this.check().then(function(data){
-                loader.stopSpin();
-                if(data.status==200){
-                    logovan = true;
-                    deferred.resolve({
-                        logovan:logovan
-                    });
-                }else{
-                    logovan = false;
-                    deferred.resolve({
-                        logovan:logovan
-                    });
-
-                }
-            })
-        }else{
-            loader.stopSpin();
-            deferred.resolve({
-                logovan:logovan
-            });
-        }
-        return deferred.promise;
-    };
-
-    this.getKorisnik = function(){
-        var deferred = $q.defer();
-        this.check().then(function(rez){
-            loader.startSpin();
-            if(rez.status==200){
-                //http://localhost:8181/api/korisnik/search/findByUsername?name=huma
-                if(korisnik==null){
-
-                    $http({
-                        method:'GET',
-                        url:'/api/korisnik/search/findByUsername?name='+rez.name
-                    })
-                        .success(function(data, status, x){
-                            loader.stopSpin();
-                            var a = 0;
-                            //return data;
-                            korisnik = data;
-                            deferred.resolve({
-                                data:data,
-                                status:status
-                            });
-                        })
-                        .error(function(response,status,nesto,request){
-                            loader.stopSpin();
-                            //return response;
-                            deferred.resolve({
-                                status:status
-                            });
-                        })
-                }
-                else {
-                    loader.stopSpin();
-                    deferred.resolve({
-                        status:200,
-                        data:korisnik
-                    });
-                }
-            }
-            else{
-                loader.stopSpin();
-                //return 403;
-                deferred.resolve({
-                    status:403
-                });
-            }
-        });
-
-        return deferred.promise;
-    };
-    this.login = function(username,password){
-        $http({
-            method: 'POST',
-            url: '/login',
-            headers: {'Content-Type': 'application/x-www-form-urlencoded'},
-            transformRequest: function(obj) {
-                var str = [];
-                for(var p in obj)
-                    str.push(encodeURIComponent(p) + "=" + encodeURIComponent(obj[p]));
-                return str.join("&");
-            },
-            data: {username:username,password:password}
-        })
-        //$http.post("/login",{headers:headers})
-            .success(function(data){
-                //alert(data);
-                $rootScope.logovan = true;
-                $rootScope.$broadcast('logovan');
-            })
-            .error(function(data){
-                //alert("error: "+data);
-                $rootScope.logovan = false;
-                $rootScope.$broadcast('logovan');
-            })
-    };
-    this.logout = function(){
-        $http.post("/logout")
-            .success(function(x,y,z,k,i){
-                var a = 0;
-                //logovan = null;
-                korisnik = null;
-                redirekt.goToHome();
-            })
-            .error(function(x,y,z,k,i){
-                var a = 0;
-            })
-            .finally(function(x,y,z,k,i){
-                var a = 0;
-                //$rootScope.logovan = false;
-                //$rootScope.$broadcast('logovan');
-            });
-    };
-    this.check = function(){
-        var deferred = $q.defer();
-
-        $http({
-            method:'GET',
-            url:'/user'
-        })
-            .success(function(data, status, x){
-                loader.stopSpin();
-                if(data.name!=undefined){
-                    logovan = true;
-                    authorities = data.authorities;
-                    deferred.resolve({
-                        //data: result._embedded[tabela],
-                        //page: result.page,
-                        //links: result._links,
-                        name: data.name,
-                        status: status
-                    });
-                }
-                else{
-                    logovan = false;
-                    deferred.resolve({
-                        //data: result._embedded[tabela],
-                        //page: result.page,
-                        //links: result._links,
-                        status: 403
-                    });
-                    korisnik = null;
-                    redirekt.goToLogin();
-                    //$location.path("/");
-                }
-            })
-            .error(function(response,status,nesto,request){
-                loader.stopSpin();
-                logovan = false;
-                deferred.resolve({
-                    //data: result._embedded[tabela],
-                    //page: result.page,
-                    //links: result._links,
-                    status: status
-                });
-                korisnik = null;
-                redirekt.goToLogin();
-                //$location.path("/");
-            });
-
-        return deferred.promise;
+    this.goTo404 = function(){
+        this.goTo('/404');
     }
+
 });
+
+//DMApp.service('auth',function($rootScope,$http,$q,$location,redirekt,loader){
+//    var korisnik = null;
+//    var logovan = null;
+//    var authorities = null;
+//
+//
+//
+//    this.jeLogovan = function(){
+//        loader.startSpin();
+//        var deferred = $q.defer();
+//        if(logovan==null){
+//            this.check().then(function(data){
+//                loader.stopSpin();
+//                if(data.status==200){
+//                    logovan = true;
+//                    deferred.resolve({
+//                        logovan:logovan
+//                    });
+//                }else{
+//                    logovan = false;
+//                    deferred.resolve({
+//                        logovan:logovan
+//                    });
+//
+//                }
+//            })
+//        }else{
+//            loader.stopSpin();
+//            deferred.resolve({
+//                logovan:logovan
+//            });
+//        }
+//        return deferred.promise;
+//    };
+//
+//    this.goTo404 = function(){
+//        this.goTo('/404');
+//    }
+//});
+
+//DMApp.service('auth',function($rootScope,$http,$q,$location,redirekt,loader){
+//    var korisnik = null;
+//    var logovan = null;
+//    var authorities = null;
+//
+//
+//
+//    this.jeLogovan = function(){
+//        loader.startSpin();
+//        var deferred = $q.defer();
+//        if(logovan==null){
+//            this.check().then(function(data){
+//                loader.stopSpin();
+//                if(data.status==200){
+//                    logovan = true;
+//                    deferred.resolve({
+//                        logovan:logovan
+//                    });
+//                }else{
+//                    logovan = false;
+//                    deferred.resolve({
+//                        logovan:logovan
+//                    });
+//
+//                }
+//            })
+//        }else{
+//            loader.stopSpin();
+//            deferred.resolve({
+//                logovan:logovan
+//            });
+//        }
+//        return deferred.promise;
+//    };
+//
+//    this.getKorisnik = function(){
+//        var deferred = $q.defer();
+//        this.check().then(function(rez){
+//            loader.startSpin();
+//            if(rez.status==200){
+//                //http://localhost:8181/api/korisnik/search/findByUsername?name=huma
+//                if(korisnik==null){
+//
+//                    $http({
+//                        method:'GET',
+//                        url:'/api/korisnik/search/findByUsername?name='+rez.name
+//                    })
+//                        .success(function(data, status, x){
+//                            loader.stopSpin();
+//                            var a = 0;
+//                            //return data;
+//                            korisnik = data;
+//                            deferred.resolve({
+//                                data:data,
+//                                status:status
+//                            });
+//                        })
+//                        .error(function(response,status,nesto,request){
+//                            loader.stopSpin();
+//                            //return response;
+//                            deferred.resolve({
+//                                status:status
+//                            });
+//                        })
+//                }
+//                else {
+//                    loader.stopSpin();
+//                    deferred.resolve({
+//                        status:200,
+//                        data:korisnik
+//                    });
+//                }
+//            }
+//            else{
+//                loader.stopSpin();
+//                //return 403;
+//                deferred.resolve({
+//                    status:403
+//                });
+//            }
+//        });
+//
+//        return deferred.promise;
+//    };
+//    this.login = function(username,password){
+//        $http({
+//            method: 'POST',
+//            url: '/login',
+//            headers: {'Content-Type': 'application/x-www-form-urlencoded'},
+//            transformRequest: function(obj) {
+//                var str = [];
+//                for(var p in obj)
+//                    str.push(encodeURIComponent(p) + "=" + encodeURIComponent(obj[p]));
+//                return str.join("&");
+//            },
+//            data: {username:username,password:password}
+//        })
+//        //$http.post("/login",{headers:headers})
+//            .success(function(data){
+//                //alert(data);
+//                $rootScope.logovan = true;
+//                $rootScope.$broadcast('logovan');
+//            })
+//            .error(function(data){
+//                //alert("error: "+data);
+//                $rootScope.logovan = false;
+//                $rootScope.$broadcast('logovan');
+//            })
+//    };
+//    this.logout = function(){
+//        $http.post("/logout")
+//            .success(function(x,y,z,k,i){
+//                var a = 0;
+//                //logovan = null;
+//                korisnik = null;
+//                redirekt.goToHome();
+//            })
+//            .error(function(x,y,z,k,i){
+//                var a = 0;
+//            })
+//            .finally(function(x,y,z,k,i){
+//                var a = 0;
+//                //$rootScope.logovan = false;
+//                //$rootScope.$broadcast('logovan');
+//            });
+//    };
+//    this.check = function(){
+//        var deferred = $q.defer();
+//
+//        $http({
+//            method:'GET',
+//            url:'/user'
+//        })
+//            .success(function(data, status, x){
+//                loader.stopSpin();
+//                if(data.name!=undefined){
+//                    logovan = true;
+//                    authorities = data.authorities;
+//                    deferred.resolve({
+//                        //data: result._embedded[tabela],
+//                        //page: result.page,
+//                        //links: result._links,
+//                        name: data.name,
+//                        status: status
+//                    });
+//                }
+//                else{
+//                    logovan = false;
+//                    deferred.resolve({
+//                        //data: result._embedded[tabela],
+//                        //page: result.page,
+//                        //links: result._links,
+//                        status: 403
+//                    });
+//                    korisnik = null;
+//                    redirekt.goToLogin();
+//                    //$location.path("/");
+//                }
+//            })
+//            .error(function(response,status,nesto,request){
+//                loader.stopSpin();
+//                logovan = false;
+//                deferred.resolve({
+//                    //data: result._embedded[tabela],
+//                    //page: result.page,
+//                    //links: result._links,
+//                    status: status
+//                });
+//                korisnik = null;
+//                redirekt.goToLogin();
+//                //$location.path("/");
+//            });
+//
+//        return deferred.promise;
+//    }
+//});
 
 DMApp.factory('Resource',
     //['$q','$filter','$timeout','tabela'],
@@ -454,6 +571,100 @@ DMApp.factory('Resource',
         };
     }
 );
+DMApp.factory('auth',function($http,$rootScope,$location,SpringDataRestAdapter,redirekt){
+    var user = null;
+    var korisnik = null;
+
+    var getKorisnik = function(username){
+        var url = '/api/korisnik/search/findByUsername?username='+username;
+        var promise = $http.get(url)
+            .success(function(x,y,z){
+                var a = 0;
+            })
+            .error(function(x,y,z){
+                var a = 0;
+            });
+        SpringDataRestAdapter.process(promise,'_allLinks').then(function(resurs,y,z,k){
+            var a = 0;
+            korisnik = resurs;
+            $rootScope.korisnik = korisnik;
+            $rootScope.$broadcast('korisnik');
+        })
+    };
+
+    var checkUser = function(user,callback){
+        var headers = {};
+
+        if(user!=null && typeof (user)!='undefined'){
+            headers = {authorization:"Basic " + btoa(user.username+":"+user.password)};
+        }
+
+        $http.get('user',{headers:headers})
+            .then(function(response){
+                if(response.data.name){
+                    $rootScope.authenticated = true;
+                    $rootScope.$broadcast('authenticated');
+                    user = response.data;
+                    if(korisnik==null)
+                        getKorisnik(user.name);
+                }else{
+                    $rootScope.authenticated = false;
+                    $rootScope.$broadcast('authenticated');
+                }
+                callback && callback();
+            },function(x,y,z,k){
+                $rootScope.authenticated = false;
+                $rootScope.$broadcast('authenticated');
+                callback && callback();
+            })
+    };
+
+    var login = function(user){
+        checkUser(user,function(){
+            if($rootScope.authenticated){
+                checkUser(user,function(){
+                    if($rootScope.authenticated){
+                        //$location.path("/");
+                        redirekt.goToHome();
+                    }else{
+                        //$location.path("login");
+                        redirekt.goToLogin();
+                    }
+                })
+            }else{
+                //$location.path("login");
+                redirekt.goToLogin();
+            }
+        })
+    };
+
+    var logout = function(){
+        $http.post('logout',{})
+            .success(function(x,y,z){
+                var a = 0;
+                korisnik = null;
+                user = null;
+                $rootScope.$broadcast('korisnik');
+            })
+            .error(function(x,y,z){
+                var a  = 0;
+            })
+            .finally(function(){
+                $rootScope.authenticated = false;
+                $rootScope.$broadcast('authenticated');
+                //$location.path("/login");
+                redirekt.goToLogin();
+            })
+    };
+    return{
+        check: checkUser,
+        login: login,
+        logout: logout,
+        user: user,
+        korisnik: korisnik
+    }
+});
+
 
 DMApp.controller('loginController',function($scope,$http,$rootScope,auth,$translate,localStorageService){
     //$scope.logovan = $rootScope.logovan;
@@ -462,6 +673,80 @@ DMApp.controller('loginController',function($scope,$http,$rootScope,auth,$transl
     //})
     //$scope.jezik = localStorageService.bind($scope, 'locale');
 
+    //if($routeParams.token){
+    //    alert('token: '+$routeParams.token);
+    //}
+
+    $scope.toastMsg = function(text) {
+        var pinTo = "bottom right";
+        $mdToast.show(
+            $mdToast.simple()
+                .textContent(text)
+                .position(pinTo )
+                .hideDelay(3000)
+        );
+    };
+
+    $scope.authenticated = $rootScope.authenticated;
+    $scope.$on('authenticated',function(event,args){
+        $scope.authenticated = $rootScope.authenticated;
+    });
+
+    $scope.korisnik = auth.korisnik;
+    $scope.$on('korisnik',function(event,args){
+        $scope.korisnik = $rootScope.korisnik;
+        //$scope.authenticated = $rootScope.korisnik?true:false;
+    });
+
+    $scope.registracijaFlag = false;
+    $scope.resetMailFlag = false;
+    //$scope.toggle($scope.registracijaFlag);
+    $scope.toggle = function(value){
+        value = !value;
+    };
+
+    $scope.sendMail = function(){
+        //alert("test: "+$scope.user.email);
+        var url = "/resetPassword?email="+$scope.user.email;
+        //$http.get(url)
+        //    .success(function(x,status,z){
+        //        var a = 0;
+        //        if(status===202){
+        //            $scope.toastMsg('korisnik aktiviran');
+        //        }
+        //    })
+        //    .error(function(x,y,x){
+        //        var a=0;
+        //        $scope.toastMsg('problem sa tokenom');
+        //    })
+        $http.post(url)
+            .success(function(data, status, x){
+                var a = 0;
+                if(status===201){
+                    $scope.toastMsg(data.message);
+                }
+                //alert(data.message);
+            })
+            .error(function(response,status,nesto,request){
+                var a = 0;
+                $scope.toastMsg(response.message);
+                //alert(response.message);
+                console.log('Failed validation');
+
+                // In case of a failed validation you need to reload the captcha
+                // because each response can be checked just once
+                vcRecaptchaService.reload($scope.widgetId);
+            })
+    };
+
+    $scope.toogleResetMail = function(){
+        $scope.resetMailFlag = !$scope.resetMailFlag;
+    };
+
+    $scope.toggleRegistracija = function(){
+        $scope.registracijaFlag = !$scope.registracijaFlag;
+    };
+
     $scope.changeLanguage = function (langKey) {
         if(langKey==null || typeof (langKey)=='undefined'){
             langKey='en-US';
@@ -469,37 +754,65 @@ DMApp.controller('loginController',function($scope,$http,$rootScope,auth,$transl
         $translate.use(langKey);
         $scope.jezik = langKey;
     };
+    //
+    //$scope.auth = function(user,callback){
+    //    var headers = user ? {authorization:"Basic " + btoa(user.username+":"+user.password)}:{};
+    //
+    //    $http.get('user',{headers:headers})
+    //        .then(function(response){
+    //        if(response.data.name){
+    //            $rootScope.authenticated = true;
+    //        }else{
+    //            $rootScope.authenticated = false;
+    //        }
+    //        callback && callback();
+    //    },function(){
+    //        $rootScope.authenticated = false;
+    //        callback && callback();
+    //    })
+    //}
 
-    $scope.changeLanguage($scope.jezik);
-
-    $scope.logCheck = function(){
-            auth.jeLogovan().then(function(data){
-            $scope.logovan = data.logovan;
-            auth.getKorisnik().then(function(data){
-                $scope.korisnik = data.data;
-            });
-    });};
-    var user = {username:'user',password:'user'};
-
-    $scope.korisnik = {
-        username:'username'
-    };
+    auth.check();
+    //$scope.auth();
+    $scope.user = {};
 
     $scope.login = function(){
-        auth.login(user.username,user.password);
-        $scope.logCheck();
+        auth.login($scope.user);
     };
-    $scope.logout = function(){
 
+    $scope.logout = function(){
         auth.logout();
-        //$scope.logovan = auth.jeLogovan();
     };
-    $scope.logCheck();
+    //$scope.changeLanguage($scope.jezik);
+
+    //$scope.logCheck = function(){
+    //        auth.jeLogovan().then(function(data){
+    //        $scope.logovan = data.logovan;
+    //        auth.getKorisnik().then(function(data){
+    //            $scope.korisnik = data.data;
+    //        });
+    //});};
+    //var user = {username:'user',password:'user'};
+    //
+    //$scope.korisnik = {
+    //    username:'username'
+    //};
+
+    //$scope.login = function(){
+    //    auth.login(user.username,user.password);
+    //    $scope.logCheck();
+    //};
+    //$scope.logout = function(){
+    //
+    //    auth.logout();
+    //    //$scope.logovan = auth.jeLogovan();
+    //};
+    //$scope.logCheck();
 });
 
 DMApp.directive('nwtMeni',function(){
     return{
-        templateUrl: 'meni.html',
+        templateUrl: '/views/meni.html',
         controller: 'loginController'
     }
 });
@@ -511,11 +824,65 @@ DMApp.directive('formaRegistracija',function(){
     }
 });
 
-DMApp.controller('registracijaController', function ($scope, vcRecaptchaService,$http) {
+DMApp.controller('registracijaController', function ($scope, vcRecaptchaService,$http,$mdToast,$routeParams,$location) {
     console.log("this is your app's controller");
     $scope.user = {};
     $scope.response = null;
     $scope.widgetId = null;
+
+    $scope.toastMsg = function(text) {
+        var pinTo = "bottom right";
+        $mdToast.show(
+            $mdToast.simple()
+                .textContent(text)
+                .position(pinTo )
+                .hideDelay(3000)
+        );
+    };
+
+    $scope.registrationConfirm = function(token){
+        var url = '/registrationConfirm?'+token;
+        $http.get(url)
+            .success(function(x,status,z){
+                var a = 0;
+                if(status===202){
+                    $scope.toastMsg('korisnik aktiviran');
+                }
+            })
+            .error(function(x,y,x){
+                var a=0;
+                $scope.toastMsg('problem sa tokenom');
+            })
+    };
+
+    $scope.resetPassword = function(token){
+        var url = '/resetPassword?'+token;
+        $http.get(url)
+            .success(function(x,status,z){
+                var a = 0;
+                if(status===202){
+                    $scope.toastMsg('potvrda');
+                }
+            })
+            .error(function(x,y,x){
+                var a=0;
+                $scope.toastMsg('problem sa tokenom');
+            })
+    };
+
+    if($routeParams.token){
+        //alert('token: '+$routeParams.token);
+        var url = $location.path();
+        //token i tokenr
+        if(url.indexOf("registracija/token=")>-1){
+            $scope.registrationConfirm($routeParams.token);
+        }else if(url.indexOf("resetPassword/token=")>-1){
+            $scope.resetPassword($routeParams.token);
+        }
+        //resetPassword
+    }
+
+
 
     $scope.model = {
         key: '6Ld7gB0TAAAAAHP-rEzmJM9H93ZbNvM__Ndx89qW'
@@ -571,11 +938,15 @@ DMApp.controller('registracijaController', function ($scope, vcRecaptchaService,
             })
                 .success(function(data, status, x){
                     var a = 0;
-                    alert(data.message);
+                    if(status===201){
+                        $scope.toastMsg(data.message);
+                    }
+                    //alert(data.message);
                 })
                 .error(function(response,status,nesto,request){
                     var a = 0;
-                    alert(response.message);
+                    $scope.toastMsg(response.message);
+                    //alert(response.message);
                     console.log('Failed validation');
 
                     // In case of a failed validation you need to reload the captcha
@@ -610,6 +981,31 @@ DMApp.controller('korisnikPageController',function($scope,$http,$rootScope,auth,
         //$scope.username = a.name;
     }
 });
+
+DMApp.controller('indexController',function($scope,$rootScope){
+    $scope.authenticated = $rootScope.authenticated;
+    $scope.$on('authenticated',function(event,args){
+        $scope.authenticated = $rootScope.authenticated;
+    });
+
+    $scope.jezici = ['en-US','bs-Latn-BA'];
+    $scope.jezik = 'en-US';
+
+
+
+    $scope.changeLanguage = function (langKey) {
+        if(langKey==null || typeof (langKey)=='undefined'){
+            langKey='en-US';
+        }
+        $translate.use(langKey);
+        //$scope.jezik = langKey;
+    };
+
+    $scope.$watch('jezik',function(newVal,oldVal){
+        $scope.changeLanguage(newVal);
+    })
+});
+
 
 DMApp.factory('Item',function(SpringDataRestAdapter,$http){
     var entity = "";
@@ -710,4 +1106,87 @@ DMApp.controller('novaUlogaCtrl',function ($scope,$mdDialog){
     $scope.answer = function(answer) {
         $mdDialog.hide(answer);
     };
+});
+
+DMApp.controller('SubheaderAppCtrl', function($scope) {
+    var imagePath = 'img/list/60.jpeg';
+    $scope.messages = [
+        {
+            face : imagePath,
+            what: 'Brunch this weekend?',
+            who: 'Min Li Chan',
+            when: '3:08PM',
+            notes: " I'll be in your neighborhood doing errands"
+        },
+        {
+            face : imagePath,
+            what: 'Brunch this weekend?',
+            who: 'Min Li Chan',
+            when: '3:08PM',
+            notes: " I'll be in your neighborhood doing errands"
+        },
+        {
+            face : imagePath,
+            what: 'Brunch this weekend?',
+            who: 'Min Li Chan',
+            when: '3:08PM',
+            notes: " I'll be in your neighborhood doing errands"
+        },
+        {
+            face : imagePath,
+            what: 'Brunch this weekend?',
+            who: 'Min Li Chan',
+            when: '3:08PM',
+            notes: " I'll be in your neighborhood doing errands"
+        },
+        {
+            face : imagePath,
+            what: 'Brunch this weekend?',
+            who: 'Min Li Chan',
+            when: '3:08PM',
+            notes: " I'll be in your neighborhood doing errands"
+        },
+        {
+            face : imagePath,
+            what: 'Brunch this weekend?',
+            who: 'Min Li Chan',
+            when: '3:08PM',
+            notes: " I'll be in your neighborhood doing errands"
+        },
+        {
+            face : imagePath,
+            what: 'Brunch this weekend?',
+            who: 'Min Li Chan',
+            when: '3:08PM',
+            notes: " I'll be in your neighborhood doing errands"
+        },
+        {
+            face : imagePath,
+            what: 'Brunch this weekend?',
+            who: 'Min Li Chan',
+            when: '3:08PM',
+            notes: " I'll be in your neighborhood doing errands"
+        },
+        {
+            face : imagePath,
+            what: 'Brunch this weekend?',
+            who: 'Min Li Chan',
+            when: '3:08PM',
+            notes: " I'll be in your neighborhood doing errands"
+        },
+        {
+            face : imagePath,
+            what: 'Brunch this weekend?',
+            who: 'Min Li Chan',
+            when: '3:08PM',
+            notes: " I'll be in your neighborhood doing errands"
+        },
+        {
+            face : imagePath,
+            what: 'Brunch this weekend?',
+            who: 'Min Li Chan',
+            when: '3:08PM',
+            notes: " I'll be in your neighborhood doing errands"
+        },
+    ];
 });

@@ -59,7 +59,7 @@ public class RegisterController {
     }
 
 
-    @RequestMapping("/user")
+    @RequestMapping(value = "/user",method = RequestMethod.GET)
     public Principal user(Principal user) {
         return user;
     }
@@ -150,15 +150,18 @@ public class RegisterController {
     }
 
     @RequestMapping(value = "/registrationConfirm", method = RequestMethod.GET)
-    public ModelAndView confirmRegistration (WebRequest request, Model model,
+    public ResponseEntity<GenericResponse> confirmRegistration (WebRequest request, Model model,
                                        @RequestParam("token") String token){
         Locale locale = request.getLocale();
         VerificationToken verificationToken = userDetailsService.getVerificationToken(token);
 
         if(verificationToken == null){
-            String message = messages.getMessage("auth.message.invalidToken", null, locale);
+//            String message = messages.getMessage("auth.message.invalidToken", null, locale);
+            String message = "auth.message.invalidToken";
             model.addAttribute("message",message);
-            return new ModelAndView("redirect:/badUser");//?lang=" + locale.getLanguage();
+            GenericResponse fail = new GenericResponse("invalidToken",null);
+            return new ResponseEntity<GenericResponse>(fail, HttpStatus.EXPECTATION_FAILED);
+//            return new ModelAndView("redirect:/badUser");//?lang=" + locale.getLanguage();
         }
 
         Korisnik user = verificationToken.getKorisnik();
@@ -168,13 +171,17 @@ public class RegisterController {
             model.addAttribute("message", "istekao token");//messages.getMessage("auth.message.expired", null, locale));
             model.addAttribute("expired",true);
             model.addAttribute("token",token);
-            return new ModelAndView("redirect:/badUser");
+            GenericResponse fail = new GenericResponse("token istekao",null);
+            return new ResponseEntity<GenericResponse>(fail, HttpStatus.EXPECTATION_FAILED);
+//            return new ModelAndView("redirect:/badUser");
         }
 
         user.setEnabled(true);
         userDetailsService.saveRegisteredUser(user);
         System.out.println("sacuvan korisnik");
-        return new ModelAndView("redirect:/login");//?lang=" + request.getLocale().getLanguage();
+        GenericResponse uspjeh = new GenericResponse("korisnik aktiviran",null);
+        return new ResponseEntity<GenericResponse>(uspjeh, HttpStatus.ACCEPTED);
+//        return new ModelAndView("redirect:/login");//?lang=" + request.getLocale().getLanguage();
     }
 
     @RequestMapping(value = "/resendRegistrationToken",method = RequestMethod.GET)
@@ -194,17 +201,21 @@ public class RegisterController {
 
     @RequestMapping(value = "/resetPassword", method = RequestMethod.POST)
     @ResponseBody
-    public GenericResponse resetPassword( HttpServletRequest request,@RequestParam("email") String userEmail) throws Exception{
+    public ResponseEntity<GenericResponse> resetPassword( HttpServletRequest request,@RequestParam("email") String userEmail) throws Exception{
         Korisnik korisnik = userDetailsService.findUserByMail(userEmail);
         if(korisnik == null){
-            throw new UserPrincipalNotFoundException(userEmail);
+//            throw new UserPrincipalNotFoundException(userEmail);
+            GenericResponse fail = new GenericResponse("korisnik ne postoji","");
+            return new ResponseEntity<GenericResponse>(fail,HttpStatus.EXPECTATION_FAILED);
         }
 
         String token = UUID.randomUUID().toString();
         userDetailsService.createPasswordResetTokenForUser(korisnik,token);
         String appUrl = request.getContextPath();
         emailService.sendResetTokenMail(korisnik.getEmail(),appUrl,token);
-        return new GenericResponse("poruka");
+        GenericResponse uspjeh = new GenericResponse("poslan mail",null);
+        return new ResponseEntity<GenericResponse>(uspjeh,HttpStatus.CREATED);
+//        return new GenericResponse("poruka");
     }
 
     @RequestMapping(value = "/resetPassword", method = RequestMethod.GET)
@@ -228,6 +239,7 @@ public class RegisterController {
         korisnikRepository.save(korisnik);
         emailService.sendNewPasswordMail(korisnik.getEmail(),noviPassword );
         return "redirect: /login";
+
     }
 
     private Korisnik createUserAccount(KorisnikDTO korisnikDTO, BindingResult result ){
