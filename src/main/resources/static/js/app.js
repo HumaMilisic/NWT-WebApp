@@ -51,6 +51,9 @@ DMApp.config(function($httpProvider,$routeProvider/*,SpringDataRestInterceptor*/
         .when('/login/registracija/:token',{
             templateUrl:'views/loginA.html'
         })
+        .when('/login/resetPassword/:token',{
+            templateUrl:'views/loginA.html'
+        })
         .when('/uitest',{
             templateUrl:'uitest.html'
         })
@@ -521,7 +524,7 @@ DMApp.factory('Resource',
     }
 );
 
-DMApp.factory('auth',function($http,$rootScope,$location,SpringDataRestAdapter){
+DMApp.factory('auth',function($http,$rootScope,$location,SpringDataRestAdapter,redirekt){
     var user = null;
     var korisnik = null;
 
@@ -553,15 +556,18 @@ DMApp.factory('auth',function($http,$rootScope,$location,SpringDataRestAdapter){
             .then(function(response){
                 if(response.data.name){
                     $rootScope.authenticated = true;
+                    $rootScope.$broadcast('authenticated');
                     user = response.data;
                     if(korisnik==null)
                         getKorisnik(user.name);
                 }else{
                     $rootScope.authenticated = false;
+                    $rootScope.$broadcast('authenticated');
                 }
                 callback && callback();
             },function(x,y,z,k){
                 $rootScope.authenticated = false;
+                $rootScope.$broadcast('authenticated');
                 callback && callback();
             })
     };
@@ -571,13 +577,16 @@ DMApp.factory('auth',function($http,$rootScope,$location,SpringDataRestAdapter){
             if($rootScope.authenticated){
                 checkUser(user,function(){
                     if($rootScope.authenticated){
-                        $location.path("/");
+                        //$location.path("/");
+                        redirekt.goToHome();
                     }else{
-                        $location.path("login");
+                        //$location.path("login");
+                        redirekt.goToLogin();
                     }
                 })
             }else{
-                $location.path("login");
+                //$location.path("login");
+                redirekt.goToLogin();
             }
         })
     };
@@ -595,7 +604,9 @@ DMApp.factory('auth',function($http,$rootScope,$location,SpringDataRestAdapter){
             })
             .finally(function(){
                 $rootScope.authenticated = false;
-                $location.path("/login");
+                $rootScope.$broadcast('authenticated');
+                //$location.path("/login");
+                redirekt.goToLogin();
             })
     };
     return{
@@ -607,7 +618,7 @@ DMApp.factory('auth',function($http,$rootScope,$location,SpringDataRestAdapter){
     }
 });
 
-DMApp.controller('loginController',function($scope,$http,$rootScope,$translate,localStorageService,$location,auth,$routeParams){
+DMApp.controller('loginController',function($mdToast,$scope,$http,$rootScope,$translate,localStorageService,$location,auth,$routeParams){
     //$scope.logovan = $rootScope.logovan;
     //$scope.$on('logovan',function(){
     //    $scope.logovan = $rootScope.logovan;
@@ -629,11 +640,14 @@ DMApp.controller('loginController',function($scope,$http,$rootScope,$translate,l
     };
 
     $scope.authenticated = $rootScope.authenticated;
+    $scope.$on('authenticated',function(event,args){
+        $scope.authenticated = $rootScope.authenticated;
+    });
 
     $scope.korisnik = auth.korisnik;
     $scope.$on('korisnik',function(event,args){
         $scope.korisnik = $rootScope.korisnik;
-        $scope.authenticated = $rootScope.korisnik?true:false;
+        //$scope.authenticated = $rootScope.korisnik?true:false;
     });
 
     $scope.registracijaFlag = false;
@@ -644,7 +658,7 @@ DMApp.controller('loginController',function($scope,$http,$rootScope,$translate,l
     };
 
     $scope.sendMail = function(){
-        alert("test: "+$scope.user.email);
+        //alert("test: "+$scope.user.email);
         var url = "/resetPassword?email="+$scope.user.email;
         //$http.get(url)
         //    .success(function(x,status,z){
@@ -793,13 +807,31 @@ DMApp.controller('registracijaController', function ($scope, vcRecaptchaService,
             })
     };
 
+    $scope.resetPassword = function(token){
+        var url = '/resetPassword?'+token;
+        $http.get(url)
+            .success(function(x,status,z){
+                var a = 0;
+                if(status===202){
+                    $scope.toastMsg('potvrda');
+                }
+            })
+            .error(function(x,y,x){
+                var a=0;
+                $scope.toastMsg('problem sa tokenom');
+            })
+    };
+
     if($routeParams.token){
         //alert('token: '+$routeParams.token);
         var url = $location.path();
         //token i tokenr
-        if(url.indexOf("token=")>-1){
+        if(url.indexOf("registracija/token=")>-1){
             $scope.registrationConfirm($routeParams.token);
+        }else if(url.indexOf("resetPassword/token=")>-1){
+            $scope.resetPassword($routeParams.token);
         }
+        //resetPassword
     }
 
 
@@ -902,6 +934,31 @@ DMApp.controller('korisnikPageController',function($scope,$http,$rootScope,auth,
         //$scope.username = a.name;
     }
 });
+
+DMApp.controller('indexController',function($scope,$rootScope){
+    $scope.authenticated = $rootScope.authenticated;
+    $scope.$on('authenticated',function(event,args){
+        $scope.authenticated = $rootScope.authenticated;
+    });
+
+    $scope.jezici = ['en-US','bs-Latn-BA'];
+    $scope.jezik = 'en-US';
+
+
+
+    $scope.changeLanguage = function (langKey) {
+        if(langKey==null || typeof (langKey)=='undefined'){
+            langKey='en-US';
+        }
+        $translate.use(langKey);
+        //$scope.jezik = langKey;
+    };
+
+    $scope.$watch('jezik',function(newVal,oldVal){
+        $scope.changeLanguage(newVal);
+    })
+});
+
 
 DMApp.factory('Item',function(SpringDataRestAdapter,$http){
     var entity = "";

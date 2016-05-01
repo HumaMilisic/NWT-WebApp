@@ -239,6 +239,7 @@ public class RegisterController {
         korisnikRepository.save(korisnik);
         emailService.sendNewPasswordMail(korisnik.getEmail(),noviPassword );
         return "redirect: /login";
+
     }
 
     private Korisnik createUserAccount(KorisnikDTO korisnikDTO, BindingResult result ){

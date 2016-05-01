@@ -51,14 +51,16 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter{
                 .httpBasic()
                 .and()
                 .authorizeRequests()
-                .antMatchers("/","/register","/registrationConfirm","/resetPassword","/login","/app/**","/views/**",
+                .antMatchers("/","/register","/registrationConfirm","/resetPassword","/login",
+                        "/app/**","/views/**","/i18n/**",
                         "/loginA.html","/index.html","/404.html","/meni.html","/registracija.html","/i18n/**").permitAll()
                 .anyRequest().authenticated()
                 .and()
 //                .logout()
 //                .and()
 // .csrf()
-                .csrf().csrfTokenRepository(csrfTokenRepository()).and()
+                .csrf().csrfTokenRepository(csrfTokenRepository())
+                .and().headers().frameOptions().disable().and()
                 .addFilterAfter(new CsrfHeaderFilter(),CsrfFilter.class);
 
 //                .and()
@@ -90,11 +92,11 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter{
 
     @Override
     public void configure(AuthenticationManagerBuilder auth) throws Exception{
-//        inMemoryConfigurer()
-//                .withUser("user").password("user").roles("USER")
-//                .and()
-//                .withUser("admin").password("admin").roles("USER","ADMIN")
-//                .and().configure(auth);
+        inMemoryConfigurer()
+                .withUser("user").password("user").roles("USER")
+                .and()
+                .withUser("admin").password("admin").roles("USER","ADMIN")
+                .and().configure(auth);
 
         auth
                 .userDetailsService(userDetailsService)
