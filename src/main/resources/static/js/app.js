@@ -43,19 +43,19 @@ DMApp.config(function($httpProvider,$routeProvider/*,SpringDataRestInterceptor*/
             templateUrl: 'views/home.html'
         })
         .when('/korisnik',{
-            templateUrl:'korisnik.html'
+            templateUrl:'views/korisnik.html'
         })
         .when('/login',{
-            templateUrl:'loginA.html',
+            templateUrl:'views/loginA.html',
         })
         .when('/login/registracija/:token',{
-            templateUrl:'loginA.html'
+            templateUrl:'views/loginA.html'
         })
         .when('/uitest',{
             templateUrl:'uitest.html'
         })
         .when('/404',{
-            templateUrl: '404.html'
+            templateUrl: 'views/404.html'
         })
         .otherwise({redirectTo:'/home'});
 
@@ -560,7 +560,7 @@ DMApp.factory('auth',function($http,$rootScope,$location,SpringDataRestAdapter){
                     $rootScope.authenticated = false;
                 }
                 callback && callback();
-            },function(){
+            },function(x,y,z,k){
                 $rootScope.authenticated = false;
                 callback && callback();
             })
@@ -710,7 +710,7 @@ DMApp.controller('loginController',function($scope,$http,$rootScope,$translate,l
 
 DMApp.directive('nwtMeni',function(){
     return{
-        templateUrl: 'meni.html',
+        templateUrl: '/views/meni.html',
         controller: 'loginController'
     }
 });

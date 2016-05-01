@@ -31,6 +31,6 @@ public class DemoApplication {
 		return registrationBean;
 	}
 
-//    @Bean
+
 
 }
