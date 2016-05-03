@@ -1,0 +1,43 @@
+<!--https://klarsys.github.io/angular-material-icons/-->
+<md-dialog aria-label="Mango (Fruit)" ng-controller="noviItemModalCtrl">
+    <md-toolbar layout-padding>
+        Novi korisnik
+        <!--<h4>Nova uloga</h4>-->
+        <!--<span flex></span>-->
+        <!--<md-button class="md-icon-button" ng-click="cancel()">-->
+        <!--<md-icon icon="close"-->
+        <!--style="fill: black"-->
+        <!--aria-label="Close dialog"></md-icon>-->
+        <!--</md-button>-->
+    </md-toolbar>
+    <md-content class="md-padding">
+        <form name="form">
+
+            <div layout-gt-xs="row">
+                <md-input-container class="md-block">
+                    <label translate="USERNAME"> User Name :  </label>
+                    <input type="text" name="username"
+                           required
+                           ng-model="item.username"/>
+                    <div ng-messages="form.username.$error">
+                        <div ng-message="required" TRANSLATE="VALIDATION_ERROR.REQUIRED">This is required.</div>
+                    </div>
+                </md-input-container>
+                <md-input-container class="md-block">
+                    <label TRANSLATE="EMAIL"> email: </label>
+                    <input type="email" name="email"
+                           required
+                           ng-model="item.email"/>
+                    <div ng-messages="form.email.$error">
+                        <div ng-message="required" TRANSLATE="VALIDATION_ERROR.REQUIRED">This is required.</div>
+                    </div>
+                </md-input-container>
+            </div>
+        </form>
+    </md-content>
+    <div class="md-actions" layout="row">
+        <span flex></span>
+        <md-button ng-click="answer(null)"> Cancel </md-button>
+        <md-button ng-click="answer(item)" class="md-primary"> Save </md-button>
+    </div>
+</md-dialog>

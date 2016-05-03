@@ -249,33 +249,36 @@ DMApp.controller('administracijaController', [
 
 
         $scope.newDialog = function(event){
-            $mdDialog.show({
-                //controller: novaUlogaCtrl,
-                templateUrl: 'views/parts/novaUloga.html',
-                targetEvent: event
-            }).then(function(answer){
-                    //$scope.toastMsg(answer);
-                if(answer!=null){
-                    answer.deleted = "0";
-                    var url = '/api/'+$scope.entity;
-                    $http({
-                        method:'POST',
-                        data:answer,
-                        url:url
-                    }).success(function(x,y,z){
-                        $scope.toastMsg('dodano');
-                        $scope.loadStuff();
-                    }).error(function(x,y,z){
-                        $scope.toastMsg('problem');
-                    })
-                }
-            },
-                function(){
-                    $scope.toastMsg('cancel');
-                })
+            alert('napraviti specificno');
+            //$mdDialog.show({
+            //    //controller: novaUlogaCtrl,
+            //    templateUrl: 'views/parts/novaUloga.html',
+            //    targetEvent: event
+            //}).then(function(answer){
+            //        //$scope.toastMsg(answer);
+            //    if(answer!=null){
+            //        answer.deleted = "0";
+            //        var url = '/api/'+$scope.entity;
+            //        $http({
+            //            method:'POST',
+            //            data:answer,
+            //            url:url
+            //        }).success(function(x,y,z){
+            //            $scope.toastMsg('dodano');
+            //            $scope.loadStuff();
+            //        }).error(function(x,y,z){
+            //            $scope.toastMsg('problem');
+            //        })
+            //    }
+            //},
+            //    function(){
+            //        $scope.toastMsg('cancel');
+            //    })
         };
 
-
+        if($scope.newDialogChild){
+            $scope.newDialog = $scope.newDialogChild;
+        }
 
         $scope.delete = function(){
             var selected = $scope.selected;

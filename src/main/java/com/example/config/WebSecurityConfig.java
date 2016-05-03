@@ -48,7 +48,7 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter{
 //                .and()
 //                    .csrf().disable();
         http
-                .httpBasic()
+                .httpBasic()//.disable()
                 .and()
                 .authorizeRequests()
                 .antMatchers("/","/register","/registrationConfirm","/resetPassword","/login",
@@ -56,6 +56,9 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter{
                         "/loginA.html","/index.html","/404.html","/meni.html","/registracija.html","/i18n/**").permitAll()
                 .anyRequest().authenticated()
                 .and()
+//                .formLogin()
+//                .loginProcessingUrl("/login")
+//                .and()
 //                .logout()
 //                .and()
 // .csrf()
