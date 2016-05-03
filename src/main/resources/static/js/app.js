@@ -20,6 +20,11 @@ var DMApp = angular.module('DMApp', [
     'pascalprecht.translate',
     //'ngMessages',
     'LocalStorageModule',
+    'nsPopover',
+    //'mgcrea.ngStrap.core',
+    //'mgcrea.ngStrap.helpers.dimensions',
+    //'mgcrea.ngStrap.tooltip',
+    //'mgcrea.ngStrap.popover'
 ]);
 
 
@@ -128,6 +133,20 @@ DMApp.config(function($httpProvider,$routeProvider/*,SpringDataRestInterceptor*/
     $httpProvider.interceptors.push(redirectOnError);
 });
 
+DMApp.run(["$rootScope","loader","auth",function($rootScope,loader,auth){
+    $rootScope.$on("$routeChangeStart",function(event){
+        loader.startSpin();
+    });
+    $rootScope.$on("$routeChangeSuccess",function(event){
+        loader.stopSpin();
+    });
+    $rootScope.$on("$routeChangeError",function(event){
+        loader.stopSpin();
+    });
+    auth.check();
+}]);
+
+
 //DMApp.factory("UserProfile",function($http,$q){
 //    "use strict";
 //
@@ -168,12 +187,16 @@ DMApp.factory("Access",function($q,auth){
 });
 
 
-DMApp.service('loader',function(usSpinnerService){
+DMApp.service('loader',function(usSpinnerService,$rootScope){
     this.startSpin = function(){
-        usSpinnerService.spin('mainSpinner');
+        //usSpinnerService.spin('mainSpinner');
+        $rootScope.isLoading = true;
+        $rootScope.$broadcast('isLoading');
     };
     this.stopSpin = function(){
-        usSpinnerService.stop('mainSpinner');
+        //usSpinnerService.stop('mainSpinner');
+        $rootScope.isLoading = false;
+        $rootScope.$broadcast('isLoading');
     }
 });
 
@@ -388,16 +411,26 @@ DMApp.factory('auth',function($http,$rootScope,$location,SpringDataRestAdapter,r
                     $rootScope.authenticated = true;
                     $rootScope.$broadcast('authenticated');
                     user = response.data;
+                    $rootScope.user = user;
+                    $rootScope.$broadcast('user');
                     if(korisnik==null)
                         getKorisnik(user.name);
                 }else{
                     $rootScope.authenticated = false;
                     $rootScope.$broadcast('authenticated');
+                    $rootScope.user = null;
+                    $rootScope.$broadcast('user');
+                    $rootScope.korisnik = null;
+                    $rootScope.$broadcast('korisnik');
                 }
                 callback && callback();
             },function(x,y,z,k){
                 $rootScope.authenticated = false;
                 $rootScope.$broadcast('authenticated');
+                $rootScope.user = null;
+                $rootScope.$broadcast('user');
+                $rootScope.korisnik = null;
+                $rootScope.$broadcast('korisnik');
                 callback && callback();
             })
     };
@@ -448,6 +481,39 @@ DMApp.factory('auth',function($http,$rootScope,$location,SpringDataRestAdapter,r
     }
 });
 
+DMApp.controller('mainToolbarCtrl',function($scope,$rootScope,auth,$translate){
+    //$scope.authenticated = $rootScope.authenticated;
+    //$scope.$on('authenticated',function(event,args){
+    //    $scope.authenticated = $rootScope.authenticated;
+    //});
+
+    $scope.popover = {
+        "title": "Title",
+        "content": "Helloooooooooo"
+    };
+
+    if($rootScope.user==null){
+        $scope.localUser = {name:""}
+    }else{
+        $scope.localUser = $rootScope.user;
+    }
+
+    $scope.$on("user",function(event){
+        if($rootScope.user==null){
+            $scope.localUser = {name:""}
+        }else{
+            $scope.localUser = $rootScope.user;
+        }
+    });
+
+    $scope.changeLanguage = function (langKey) {
+        if(langKey==null || typeof (langKey)=='undefined'){
+            langKey='en-US';
+        }
+        $translate.use(langKey);
+        $scope.jezik = langKey;
+    };
+});
 
 DMApp.controller('loginController',function($scope,$http,$rootScope,auth,$translate,localStorageService){
     //$scope.logovan = $rootScope.logovan;
@@ -555,7 +621,7 @@ DMApp.controller('loginController',function($scope,$http,$rootScope,auth,$transl
     //    })
     //}
 
-    auth.check();
+    //auth.check();
     //$scope.auth();
     $scope.user = {};
 
@@ -756,10 +822,10 @@ DMApp.controller('korisnikPageController',function($scope,$http,$rootScope,auth,
     $scope.username = $routeParams.username;
     $scope.korisnik = null;
     if($routeParams.username==undefined){
-        auth.getKorisnik().then(function(rez){
-            $scope.username = rez.data.username;
-            $scope.korisnik = rez.data;
-        });
+        //auth.getKorisnik().then(function(rez){
+        //    $scope.username = rez.data.username;
+        //    $scope.korisnik = rez.data;
+        //});
         //$scope.username = a.name;
     }
 });
@@ -768,6 +834,11 @@ DMApp.controller('indexController',function($scope,$rootScope,$translate,$mdSide
     $scope.authenticated = $rootScope.authenticated;
     $scope.$on('authenticated',function(event,args){
         $scope.authenticated = $rootScope.authenticated;
+    });
+
+    $scope.isLoading = $rootScope.isLoading;
+    $scope.$on('isLoading',function(event,args){
+        $scope.isLoading = $rootScope.isLoading;
     });
 
     $scope.jezici = ['en-US','bs-Latn-BA'];

@@ -18,6 +18,33 @@ DMApp.controller('administracijaKorisnikaController', [
             $scope.trenutni = osoba;
         };
 
+        $scope.resetPasswordMail = function(){
+            ///user/resetPassword POST
+            if($scope.selected.length>0){
+                var user = $scope.selected[0];
+                var data = {
+                    "username":user.username,
+                    email:true
+                };
+                var url = "/user/resetPassword?username="+user.username+"&email=true";
+                var promise = $http({
+                    method:'POST',
+                    url:url,
+                    //data:data
+                })
+                    .success(function(resource,status, y){
+                        var a = 0;
+                        $scope.selected = [];
+                        $scope.toastMsg(resource.message);
+                    })
+                    .error(function(x,y,z,k){
+                        var a = 0;
+                        $scope.toastMsg("error: "+x.message);
+                    });
+                $scope.promise = promise;
+            }
+        };
+
         $scope.newDialogChild = function(event){
             $mdDialog.show({
                 //controller: novaUlogaCtrl,
@@ -219,6 +246,47 @@ DMApp.controller('administracijaUlogaController', [
 
         $scope.selectAkcije = function(item){
             var a = 0;
+        };
+
+        $scope.saveKorisnike = function(){var data = {
+            _links:{
+                korisnikSet:[]
+            }};
+            angular.forEach($scope.queryKorisnici.data,function(item){
+                if(typeof($scope.korisnikSet[item.username])!='undefined'){
+                    $scope.korisnikSet[item.username].flag = false;
+                }
+            });
+            angular.forEach($scope.selectedKorisnici,function(item){
+                //if(typeof($scope.akcijaSet[item.naziv])=='undefined'){
+                $scope.korisnikSet[item.username] = {
+                    flag:true,
+                    href: item._links.self.href
+                };
+                //}
+            });
+
+            for (var prop in $scope.korisnikSet) {
+                if (!$scope.korisnikSet.hasOwnProperty(prop)) {
+                    //The current property is not a direct property of p
+                    continue;
+                }
+                if($scope.korisnikSet[prop].flag){
+                    data._links.korisnikSet.push({href:$scope.korisnikSet[prop].href});
+                }
+                //Do your logic with the property here
+            }
+            var url = $scope.selected[0]._links.korisnikSet.href;
+            if($scope.korisnikSet!={}){
+                $http({
+                    method:'PUT',
+                    data:data,
+                    url:url
+                }).then(function(x,y,z){
+                    var a = 0;
+                    $scope.loadStuffUloga();
+                });
+            }
         };
 
         $scope.saveAkcije = function(){

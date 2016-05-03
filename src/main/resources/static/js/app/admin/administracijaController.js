@@ -227,6 +227,9 @@ DMApp.controller('administracijaController', [
                 .error(function(x,y,z){
                     var a =0;
                 });
+            $scope.promise = httpGetPromise;
+            promise = httpGetPromise;
+            $scope.selected = [];
             if(linkovi==null|| typeof(linkovi)=='undefined'){
                 linkovi = '_allLinks';
             }

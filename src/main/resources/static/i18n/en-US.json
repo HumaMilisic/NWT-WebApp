@@ -15,5 +15,6 @@
   "FORGOT_PASSWORD":"Forgot password?",
   "SEND_MAIL":"?SEND_MAIL",
   "SUBMIT":"?SUBMIT",
-  "JMBG":"?JMBG"
+  "JMBG":"?JMBG",
+  "RESET_PASSWORD":"?RESET_PASSWORD"
 }

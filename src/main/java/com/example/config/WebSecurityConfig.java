@@ -1,5 +1,6 @@
 package com.example.config;
 
+import com.example.utils.filter.CsrfHeaderFilter;
 import com.example.utils.service.CustomUserDetailsService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
@@ -11,6 +12,7 @@ import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
 import org.springframework.security.config.annotation.web.configuration.WebSecurityConfigurerAdapter;
 import org.springframework.security.crypto.password.PasswordEncoder;
+import org.springframework.security.web.csrf.CsrfFilter;
 import org.springframework.security.web.csrf.CsrfTokenRepository;
 import org.springframework.security.web.csrf.HttpSessionCsrfTokenRepository;
 
@@ -60,11 +62,11 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter{
 //                .logout()
 //                .and()
 // .csrf()
-                .csrf().disable();
-//                .csrfTokenRepository(csrfTokenRepository())
-////                .and().headers().frameOptions().disable().and()
-//                .and()
-//                .addFilterAfter(new CsrfHeaderFilter(),CsrfFilter.class);
+                .csrf()//.disable();
+                .csrfTokenRepository(csrfTokenRepository())
+//                .and().headers().frameOptions().disable().and()
+                .and()
+                .addFilterAfter(new CsrfHeaderFilter(),CsrfFilter.class);
 
 //                .and()
 //                .csrf().disable();

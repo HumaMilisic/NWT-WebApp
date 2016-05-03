@@ -108,11 +108,21 @@
             <md-card-header-text>
                 <span class="md-title">{{selected[0].naziv}}</span>
             </md-card-header-text>
+            <span flex=""></span>
+            <md-button class="md-icon-button">
+                <ng-md-icon icon="save" ng-click="saveAkcije()"
+                            style="fill: black"></ng-md-icon>
+            </md-button>
+            <md-button class="md-icon-button">
+                <ng-md-icon icon="save" style="fill: red"
+                            ng-click="saveKorisnike()">
+                </ng-md-icon>
+            </md-button>
         </md-card-header>
         <md-tabs md-dynamic-height
                  md-border-bottom>
             <md-tab label="akcije">
-                <button ng-click="saveAkcije()">save</button>
+                <!--<button ng-click="saveAkcije()">save</button>-->
                 <md-table-container>
                     <table md-table
                            md-row-select="true"
