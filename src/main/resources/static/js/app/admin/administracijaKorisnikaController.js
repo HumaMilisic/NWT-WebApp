@@ -27,6 +27,7 @@ DMApp.controller('administracijaKorisnikaController', [
                     //$scope.toastMsg(answer);
                     if(answer!=null){
                         answer.deleted = "0";
+                        answer.password = "";
                         var url = '/api/'+$scope.entity;
                         $http({
                             method:'POST',

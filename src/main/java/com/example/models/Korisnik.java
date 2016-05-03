@@ -1,7 +1,6 @@
 package com.example.models;
 
 import com.example.utils.validators.ValidPassword;
-import com.fasterxml.jackson.annotation.JsonIgnore;
 
 import javax.persistence.*;
 import java.io.Serializable;
@@ -51,7 +50,7 @@ public class Korisnik implements Serializable {
 
 	//@Lob
 	@ValidPassword
-	@JsonIgnore
+//	@JsonIgnore
 	private String password;
 
 	private String prezime;
