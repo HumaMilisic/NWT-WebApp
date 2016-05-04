@@ -20,7 +20,7 @@ var DMApp = angular.module('DMApp', [
     'pascalprecht.translate',
     //'ngMessages',
     'LocalStorageModule',
-    'nsPopover',
+    //'nsPopover',
     //'mgcrea.ngStrap.core',
     //'mgcrea.ngStrap.helpers.dimensions',
     //'mgcrea.ngStrap.tooltip',
@@ -42,6 +42,7 @@ DMApp.config(function($httpProvider,$routeProvider/*,SpringDataRestInterceptor*/
         suffix: '.json'
     });
     $translateProvider.preferredLanguage('en-US');
+    $translateProvider.fallbackLanguage('en-US');
 
     $routeProvider
         .when('/home',{
@@ -146,6 +147,21 @@ DMApp.run(["$rootScope","loader","auth",function($rootScope,loader,auth){
     auth.check();
 }]);
 
+DMApp.directive('nwtPopover',function(){
+    return {
+        restrict: 'A',
+        //template: '<span>{{label}}</span>',
+        link: function(scope,el,attrs){
+            scope.label = attrs.nwtPopoverLabel;
+            $(el).popover({
+                trigger: 'click',
+                html: true,
+                content: attrs.nwtPopoverHtml,
+                placement: attrs.nwtPopoverPlacement
+            });
+        }
+    }
+});
 
 //DMApp.factory("UserProfile",function($http,$q){
 //    "use strict";
@@ -481,11 +497,38 @@ DMApp.factory('auth',function($http,$rootScope,$location,SpringDataRestAdapter,r
     }
 });
 
-DMApp.controller('mainToolbarCtrl',function($scope,$rootScope,auth,$translate){
+DMApp.directive('breadcrumb',function(){
+    return{
+        template:"{{crumb}}",
+        controller: function($scope,$rootScope,$location){
+            $rootScope.$on("$routeChangeSuccess",function(event){
+                $scope.crumb = $location.url();
+            });
+            $rootScope.$on("$routeChangeError",function(event){
+                $scope.crumb = $location.url();
+            });
+        }
+    }
+});
+
+DMApp.controller('mainToolbarCtrl',function($scope,$rootScope,auth,$translate,$location){
     //$scope.authenticated = $rootScope.authenticated;
     //$scope.$on('authenticated',function(event,args){
     //    $scope.authenticated = $rootScope.authenticated;
     //});
+
+    //$scope.breadcrumb = $location.url();
+
+    $scope.jezici = ['en-US','bs-Latn-BA'];
+    $scope.jezik = $translate.use();
+
+    $scope.login = function(){
+        auth.login($scope.user);
+    };
+
+    $scope.logout = function(){
+        auth.logout();
+    };
 
     $scope.popover = {
         "title": "Title",
@@ -842,18 +885,23 @@ DMApp.controller('indexController',function($scope,$rootScope,$translate,$mdSide
     });
 
     $scope.jezici = ['en-US','bs-Latn-BA'];
-    $scope.jezik = 'en-US';
+    $scope.jezik = $translate.use();
+
+    $scope.navBarVisibleFlag = $mdSidenav('left').isOpen();
 
     $scope.toggleNavBar = function(){
         //$scope.isOpenRight = function(){
         //    return $mdSidenav('right').isOpen();
         //};
-        //$mdSidenav("left")
-        //    .toggle()
-        //    .then(function () {
-        //        $log.debug("toggle " +  " is done");
-        //    });
+        $mdSidenav("left").open();
+        $scope.navBarVisibleFlag = !$scope.navBarVisibleFlag;
+            //.toggle()
+            //.then(function () {
+            //    $log.debug("toggle " +  " is done");
+            //});
     };
+
+
 
     $scope.changeLanguage = function (langKey) {
         if(langKey==null || typeof (langKey)=='undefined'){
@@ -980,6 +1028,82 @@ DMApp.controller('novaUlogaCtrl',function ($scope,$mdDialog){
     $scope.answer = function(answer) {
         $mdDialog.hide(answer);
     };
+});
+
+DMApp.factory('randomElem',function(){
+
+    var doc = function(){
+        var azuriran=faker.date.recent();
+        var istice=faker.date.future();
+        var kreiran=faker.date.past();
+        var oznaka=faker.lorem.text();
+        var potpis=faker.lorem.text();
+        var potpisan=kreiran;
+        var tekst=faker.lorem.text();
+        return{
+            azuriran:azuriran,
+            istice:istice,
+            kreiran:kreiran,
+            oznaka:oznaka,
+            potpis:potpis,
+            potpisan:potpisan,
+            tekst:tekst
+        }
+    };
+
+    var niz = function(n,callback){
+        var niz = [];
+        for(var i =0;i<n;i++){
+            var temp = callback && callback();
+            niz.push(temp);
+        }
+        return niz;
+    };
+
+    var nizDoc = function(n){
+        return niz(n,doc);
+    };
+
+    var nizDocSortiranAzuriran = function(n){
+        var niz = nizDoc(n);
+        niz.sort(function(a,b){
+            return new Date(a.azuriran)- new Date(b.azuriran);
+        });
+        return niz;
+    };
+
+    return {
+        doc:doc,
+        nizDoc:nizDoc,
+        nizDocSortiranPoAzuriran:nizDocSortiranAzuriran
+    }
+});
+
+
+
+DMApp.factory('navigacijaDozvoljena',function(){
+    var sve = function(){
+        var niz = [
+            {label:"home",url:"/home"},
+            {label:"admin",url:"/admin"},
+            {label:"/admin/korisnik",url:"/admin/korisnik"},
+            {label:"/admin/uloga",url:"/admin/uloga"},
+            {label:"/admin/status",url:"/admin/status"},
+            {label:"/admin/vrstaDokumenta",url:"/admin/vrstaDokumenta"},
+            {label:"/admin/notifikacija",url:"/admin/notifikacija"}
+        ];
+        return niz;
+    };
+    return{
+        sve:sve
+    }
+});
+
+DMApp.controller('sideNavCtrl',function($scope,navigacijaDozvoljena){
+    $scope.linkovi = navigacijaDozvoljena.sve();
+    $scope.hashIt = function (url) {
+        return "/#"+url;
+    }
 });
 
 DMApp.controller('SubheaderAppCtrl', function($scope) {

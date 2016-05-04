@@ -84,13 +84,15 @@
     <script src="js/scripts/angular-material-icons.min.js"></script>
     <script src="js/scripts/angular-local-storage.js"></script>
 
-    <script src="js/scripts/popover/nsPopover.js"></script>
-    <link rel="stylesheet" href="js/scripts/popover/nsPopover.css">
+    <!--<script src="js/scripts/popover/nsPopover.js"></script>-->
+    <!--<link rel="stylesheet" href="js/scripts/popover/nsPopover.css">-->
     <!--<script src="js/scripts/angular-strap-master/dist/angular-strap.js"></script>-->
     <!--<script src="js/scripts/angular-strap-master/dist/angular-strap.tpl.js"></script>-->
     <!--<script src="js/scripts/angular-strap-master/dist/modules/dimensions.js"></script>-->
     <!--<script src="js/scripts/angular-strap-master/dist/modules/tooltip.js"></script>-->
     <!--<script src="js/scripts/angular-strap-master/dist/modules/popover.js"></script>-->
+
+    <script src = "js/scripts/faker.js" type = "text/javascript"></script>
 
     <!--nase-->
     <script src="/js/app.js" type="text/javascript"></script>
@@ -102,78 +104,86 @@
     <script src="/js/app/admin/administracijaVrstaDokumentaController.js" type="text/javascript"></script>
     <script src="/js/app/admin/administracijaNotifikacijaController.js" type="text/javascript"></script>
     <base href="/" />
-
-    <script type="text/ng-template" id="menu">
-        <div class="triangle"></div>
-        <div class="ns-popover-tooltip">
-            <ul>
-                <li ng-repeat="item in items"><a>{{item.name}}</a></li>
-            </ul>
-        </div>
+    <script type="text/ng-template" id="myPopoverTemplate.html">
+        <span style="color: rebeccapurple">
+            <div>nestp</div>
+                {{dynamicPopover.title}}
+            <div class="form-group">
+                <label>Popup Title:</label>
+                <input type="text" ng-model="dynamicPopover.title" class="form-control">
+            </div>
+            </span>
     </script>
 
-    <script type="text/ng-template" id="close">
-        <div class="triangle"></div>
-        <div class="ns-popover-tooltip">
-            <ul>
-                <li ng-repeat="item in items"><input type="checkbox">{{item.name}}</li>
-            </ul>
-            <button ng-click="hidePopover()">Close</button>
-        </div>
-    </script>
-
-    <script type="text/ng-template" id="tooltip">
-        <div class="triangle"></div>
-        <div class="ns-popover-tooltip">
-            Cool! The <b>nsPopover</b> could be used as a tooptip.
-        </div>
-    </script>
 </head>
 <body ng-cloak class="ng-cloak"
       layout="column"
       ng-controller="indexController">
 
-<md-toolbar ng-show="authenticated" ng-controller="mainToolbarCtrl">
-    <div class="md-toolbar-tools">
-        <md-button class="md-icon-button" ns-popover
-                   ns-popover-template="popover"
-                   ns-popover-trigger="click"
-                   ns-popover-placement="bottom">
-            <ng-md-icon icon="menu" ng-click="toggleNavBar()"
-                        style="fill: black">
-            </ng-md-icon>
-        </md-button>
-        <span flex></span>
-        {{localUser.name}}
-        <md-button class="md-icon-button">
-            <ng-md-icon icon="person"
-                        style="fill: black">
-            </ng-md-icon>
-        </md-button>
-    </div>
-</md-toolbar>
-<div nwt-meni ng-show="authenticated"></div>
-<div layout="column" layout-align="center center" flex ng-show="isLoading">
-    <!---->
-    <md-progress-circular md-mode="indeterminate"></md-progress-circular>
-</div>
+
+<!--<div nwt-meni ng-show="authenticated"></div>-->
+
 <section layout="row" flex>
     <md-sidenav class="md-sidenav-left md-whiteframe-z2"
                 ng-show="authenticated"
+                md-is-locked-open="$mdMedia('gt-md')"
                 md-component-id="left">
-        <!--md-is-locked-open="$mdMedia('gt-md')"-->
-        <!--<div>Side nav</div>-->
-        <md-toolbar>
-            <h1 class="md-toolbar-tools">Sidenav</h1>
-        </md-toolbar>
-        <md-content layout-padding>
-            hiiii
-        </md-content>
+        <div ng-controller="sideNavCtrl">
+            <md-toolbar>
+                <h1 class="md-toolbar-tools">Sidenav</h1>
+            </md-toolbar>
+            <md-content layout-padding layout-fill>
+                <md-list>
+                    <md-list-item ng-repeat="link in linkovi">
+                        <a href="{{hashIt(link.url)}}">{{link.label}}</a>
+                    </md-list-item>
+                </md-list>
+            </md-content>
+        </div>
     </md-sidenav>
-    <md-content>
+    <div layout="column" layout-fill>
+        <md-toolbar ng-show="authenticated" ng-controller="mainToolbarCtrl" flex="none" >
+            <div class="md-toolbar-tools">
+                <md-button class="md-icon-button">
+                    <ng-md-icon icon="menu" ng-click="toggleNavBar()"
+                                style="fill: black">
+                    </ng-md-icon>
+                </md-button>
+                <span breadcrumb></span>
+                <span flex></span>
+                {{localUser.name}}
+                <!--<div>-->
+                <span uib-popover="myPopoverTemplate.html"
+                      popover-placement="bottom-right">
 
-        <span ng-hide="isLoading" ng-view=""></span>
-    </md-content>
+                <md-button class="md-icon-button" >
+
+                    <ng-md-icon icon="person"
+                                style="fill: black">
+                    </ng-md-icon>
+
+                </md-button>
+                                </span>
+                <span ng-click="logout()">logout__  </span>
+                <md-input-container>
+                    <md-select ng-model="jezik">
+                        <md-option ng-repeat="j in jezici" value="{{j}}">{{j}}</md-option>
+                    </md-select>
+                </md-input-container>
+
+                <!--</div>-->
+
+            </div>
+        </md-toolbar>
+        <md-content flex>
+            <div layout="column" layout-align="center center" flex ng-show="isLoading">
+                <md-progress-circular md-mode="indeterminate"></md-progress-circular>
+            </div>
+            <span ng-hide="isLoading" ng-view=""></span>
+        </md-content>
+        <!--<div flex="none">footer?</div>-->
+    </div>
+
 </section>
 
 <section ng-hide="authenticated">
