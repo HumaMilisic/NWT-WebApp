@@ -1,0 +1,58 @@
+<!--https://klarsys.github.io/angular-material-icons/-->
+<md-dialog aria-label="Mango (Fruit)" ng-controller="noviItemModalCtrl">
+    <md-toolbar layout-padding>
+        Nova vrsta dokumenta
+    </md-toolbar>
+    <md-content class="md-padding">
+        <form name="form">
+
+            <div layout-gt-xs="row">
+                <md-input-container class="md-block">
+                    <label TRANSLATE="Title_BA"> Naziv BA: </label>
+                    <input type="text" name="nazivba"
+                           required
+                           ng-model="item.nazivba"/>
+                    <div ng-messages="form.nazivba.$error">
+                        <div ng-message="required" TRANSLATE="VALIDATION_ERROR.REQUIRED">This is required.</div>
+                    </div>
+                </md-input-container>
+                <md-input-container class="md-block">
+                    <label TRANSLATE="Title_EN"> Naziv EN: </label>
+                    <input type="text" name="naziven"
+                           required
+                           ng-model="item.naziven"/>
+                    <div ng-messages="form.naziven.$error">
+                        <div ng-message="required" TRANSLATE="VALIDATION_ERROR.REQUIRED">This is required.</div>
+                    </div>
+                </md-input-container>
+            </div>
+            <div layout-gt-xs="row">
+                <md-input-container class="md-block">
+                    <label TRANSLATE="Template_BA"> Template BA: </label>
+                    <input type="text" name="templateba"
+                           required
+                           ng-model="item.templateba"/>
+                    <div ng-messages="form.templateba.$error">
+                        <div ng-message="required" TRANSLATE="VALIDATION_ERROR.REQUIRED">This is required.</div>
+                    </div>
+                </md-input-container>
+            </div>
+            <div layout-gt-xs="row">
+                <md-input-container class="md-block">
+                    <label TRANSLATE="Template_EN"> Template EN: </label>
+                    <input type="text" name="templateen"
+                           required
+                           ng-model="item.templateen"/>
+                    <div ng-messages="form.templateen.$error">
+                        <div ng-message="required" TRANSLATE="VALIDATION_ERROR.REQUIRED">This is required.</div>
+                    </div>
+                </md-input-container>
+            </div>
+        </form>
+    </md-content>
+    <div class="md-actions" layout="row">
+        <span flex></span>
+        <md-button ng-click="answer(null)"> Cancel </md-button>
+        <md-button ng-click="answer(item)" class="md-primary"> Save </md-button>
+    </div>
+</md-dialog>
