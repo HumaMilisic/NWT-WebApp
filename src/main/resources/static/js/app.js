@@ -418,7 +418,11 @@ DMApp.factory('auth',function($http,$rootScope,$location,SpringDataRestAdapter,r
         var headers = {};
 
         if(user!=null && typeof (user)!='undefined'){
-            headers = {authorization:"Basic " + btoa(user.username+":"+user.password)};
+            if(user.username){
+                if(user.password){
+                    headers = {authorization:"Basic " + btoa(user.username+":"+user.password)};
+                }
+            }
         }
 
         $http.get('user',{headers:headers})
