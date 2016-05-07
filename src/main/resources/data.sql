@@ -76,3 +76,7 @@ INSERT INTO AKCIJA VALUES(7,'0','ADMINISTRACIJA_NOTIFIKACIJE');
 -- Komentari
 
 -- INSERT INTO KOMENTAR VALUES(1, null, 'uraa');
+
+-- Dokumenti
+
+insert into dokument values(2, null, null, null, null, null, null, null,'yeeeey');
