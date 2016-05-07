@@ -28,20 +28,26 @@ public class Komentar implements Serializable {
 	private String tekst;
 
 	//bi-directional many-to-one association to Dokument
+/*
 	@ManyToOne
 	@JoinColumn(name="DOKUMENT")
 	private Dokument dokumentBean;
+*/
 
 	//bi-directional many-to-one association to Korisnik
+/*
 	@ManyToOne
 	@JoinColumn(name="AUTOR")
 	private Korisnik korisnik;
+*/
 
+/*
 	@ValidBool
 	private String deleted;
 
 	public Komentar() {
 	}
+*/
 
 	public long getId() {
 		return this.id;
@@ -67,6 +73,7 @@ public class Komentar implements Serializable {
 		this.tekst = tekst;
 	}
 
+/*
 	public Dokument getDokumentBean() {
 		return this.dokumentBean;
 	}
@@ -90,5 +97,6 @@ public class Komentar implements Serializable {
 	public void setDeleted(String deleted) {
 		this.deleted = deleted;
 	}
+*/
 
 }
