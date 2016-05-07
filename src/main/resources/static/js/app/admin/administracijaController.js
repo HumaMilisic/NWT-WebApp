@@ -303,6 +303,66 @@ DMApp.controller('administracijaController', [
             $scope.selected = [];
         };
 
+        $scope.deleteStatusa = function(){
+            var selected = $scope.selected;
+            angular.forEach(selected,function(item){
+                var a = 0;
+                var self = item._links.self.href;
+                var nazivba = item.nazivba;
+                $http.delete(self)
+                    .success(function(x,z,y){
+                        var a = 0;
+                        $scope.toastMsg(nazivba+" je obrisan");
+                        $scope.loadStuff();
+                    })
+                    .error(function(x,z,y){
+                        var a = 0;
+                        $scope.toastMsg("greska");
+                    })
+            });
+            $scope.selected = [];
+        };
+
+        $scope.deleteNotifikacije = function(){
+            var selected = $scope.selected;
+            angular.forEach(selected,function(item){
+                var a = 0;
+                var self = item._links.self.href;
+                //var naziv = item.naziv;
+                $http.delete(self)
+                    .success(function(x,z,y){
+                        var a = 0;
+                        $scope.toastMsg("Notifikacija je obrisana");
+                        $scope.loadStuff();
+                    })
+                    .error(function(x,z,y){
+                        var a = 0;
+                        $scope.toastMsg("greska");
+                    })
+            });
+            $scope.selected = [];
+        };
+
+        $scope.deleteVrsteDokumenta = function(){
+            var selected = $scope.selected;
+            angular.forEach(selected,function(item){
+                var a = 0;
+                var self = item._links.self.href;
+                var nazivba = item.nazivba;
+                $http.delete(self)
+                    .success(function(x,z,y){
+                        var a = 0;
+                        $scope.toastMsg(nazivba+" je obrisan");
+                        $scope.loadStuff();
+                    })
+                    .error(function(x,z,y){
+                        var a = 0;
+                        $scope.toastMsg("greska");
+                    })
+            });
+            $scope.selected = [];
+        };
+
         $scope.toastMsg = function(text) {
             var pinTo = "bottom right";
             $mdToast.show(

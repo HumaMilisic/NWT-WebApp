@@ -8,7 +8,7 @@ DMApp.controller('administracijaStatusaController', [
         $scope.main = {};
         $scope.name = "naziv!!!statusi";
         $scope.childEntity = 'status';
-        $controller('administracijaController', { $scope: $scope});
+        //$controller('administracijaController', { $scope: $scope});
 
         $scope.newDialogChild = function(event){
             $mdDialog.show({
@@ -24,6 +24,85 @@ DMApp.controller('administracijaStatusaController', [
                             url:url
                         }).success(function(x,y,z){
                             $scope.toastMsg('dodano');
+                            $scope.loadStuff();
+                        }).error(function(x,y,z){
+                            $scope.toastMsg('problem');
+                        })
+                    }
+                },
+                function(){
+                    $scope.toastMsg('cancel');
+                })
+        };
+
+        $scope.childDelete = function(objekat,nazivba){
+            var urlPretraga = '/api/'+$scope.entity+'/search/findByNazivba?nazivba='+nazivba;
+            $http({
+                method: 'GET',
+                url: urlPretraga
+            })
+                .success(function(data,status,x,y,z){
+
+                    var obj = data;
+                    var link = data._links.self.href;
+                    var a = 0;
+
+                    $http({
+                        method: 'DELETE',
+                        url: link
+                    })
+                        .success(function(data,status){
+                            $scope.dajStranicu();
+                            //status 204 uspjesno i no content, nema dodatnog sadrzaja
+                        })
+                        .error(function(x,y,z){
+                            var a = 0;
+                            //409 constraint, povezan korisnik
+                        });
+
+                    //$scope.dajStranicu();
+                })
+                .error(function(data,status,x,y,z){
+                    var a = 0;
+                })
+        };
+
+        $scope.editDialog = function(objekat){
+            //var link = $scope.selected[0]._links.self.href;
+            //var a = 0;
+            //$http({
+            //    method: 'PATCH',
+            //    url: link,
+            //    data: {
+            //        "nazivba": "baa",
+            //        "naziven": "enen",
+            //        "deleted": "0"
+            //    }
+            //})
+            //    .success(function(data,status){
+            //        $scope.dajStranicu();
+            //        //status 204 uspjesno i no content, nema dodatnog sadrzaja
+            //    })
+            //    .error(function(x,y,z){
+            //        var a = 0;
+            //        //409 constraint, povezan korisnik
+            //    })
+            var naziv_BA = $scope.selected[0].nazivba;
+            var naziv_EN = $scope.selected[0].naziven;
+
+            $mdDialog.show({
+                templateUrl: 'js/app/parts/editStatus.html',
+                targetEvent: event
+            }).then(function(answer){
+                    if(answer!=null){
+                        answer.deleted = "0";
+                        var link = $scope.selected[0]._links.self.href;
+                        $http({
+                            method:'PATCH',
+                            url: link,
+                            data: answer
+                        }).success(function(x,y,z){
+                            $scope.toastMsg('izmijenjeno');
                             $scope.loadStuff();
                         }).error(function(x,y,z){
                             $scope.toastMsg('problem');

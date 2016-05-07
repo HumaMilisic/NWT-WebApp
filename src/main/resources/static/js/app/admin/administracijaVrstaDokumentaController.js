@@ -8,7 +8,7 @@ DMApp.controller('administracijaVrstaDokumentaController', [
         $scope.main = {};
         $scope.name = "naziv!!!";
         $scope.childEntity = 'vrstaDokumenta';
-        $controller('administracijaController', { $scope: $scope});
+        //$controller('administracijaController', { $scope: $scope});
 
         $scope.newDialogChild = function(event){
             $mdDialog.show({
@@ -32,6 +32,38 @@ DMApp.controller('administracijaVrstaDokumentaController', [
                 },
                 function(){
                     $scope.toastMsg('cancel');
+                })
+        };
+
+        $scope.childDelete = function(objekat,nazivba){
+            var urlPretraga = '/api/'+$scope.entity+'/search/findByNazivba?nazivba='+nazivba;
+            $http({
+                method: 'GET',
+                url: urlPretraga
+            })
+                .success(function(data,status,x,y,z){
+
+                    var obj = data;
+                    var link = data._links.self.href;
+                    var a = 0;
+
+                    $http({
+                        method: 'DELETE',
+                        url: link
+                    })
+                        .success(function(data,status){
+                            $scope.dajStranicu();
+                            //status 204 uspjesno i no content, nema dodatnog sadrzaja
+                        })
+                        .error(function(x,y,z){
+                            var a = 0;
+                            //409 constraint, povezan korisnik
+                        });
+
+                    //$scope.dajStranicu();
+                })
+                .error(function(data,status,x,y,z){
+                    var a = 0;
                 })
         };
 
