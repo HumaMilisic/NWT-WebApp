@@ -363,6 +363,26 @@ DMApp.controller('administracijaController', [
             $scope.selected = [];
         };
 
+        $scope.deleteDogadjaj = function(){
+            var selected = $scope.selected;
+            angular.forEach(selected,function(item){
+                var a = 0;
+                var self = item._links.self.href;
+                var naziv = item.naziv;
+                $http.delete(self)
+                    .success(function(x,z,y){
+                        var a = 0;
+                        $scope.toastMsg(naziv+" je obrisan");
+                        $scope.loadStuff();
+                    })
+                    .error(function(x,z,y){
+                        var a = 0;
+                        $scope.toastMsg("greska");
+                    })
+            });
+            $scope.selected = [];
+        };
+
         $scope.toastMsg = function(text) {
             var pinTo = "bottom right";
             $mdToast.show(

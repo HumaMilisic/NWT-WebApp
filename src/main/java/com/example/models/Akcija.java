@@ -47,7 +47,7 @@ public class Akcija implements Serializable {
 	//private char deleted;
 	@Length(max = 1)
 	@Column(nullable = false,name="deleted")
-	@ValidBool
+//	@ValidBool
 	private String deleted;
 
 	protected Akcija() {

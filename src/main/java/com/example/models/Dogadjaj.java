@@ -30,7 +30,7 @@ public class Dogadjaj implements Serializable {
 
     //private List<StatusXStatus> statusXStatuses;
 
-    @ValidBool
+ //   @ValidBool
     private String deleted;
 
     public Dogadjaj() {
