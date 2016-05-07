@@ -56,4 +56,6 @@ public interface RelacijaKorisnikRepository extends PagingAndSortingRepository<R
     void deleteAll();
 
     List<RelacijaKorisnik> findById(@Param("id")long id); //zasad po id
+
+    List<RelacijaKorisnik> findByNazivba(@Param("nazivba")long nazivba); //po nazivu BA
 }

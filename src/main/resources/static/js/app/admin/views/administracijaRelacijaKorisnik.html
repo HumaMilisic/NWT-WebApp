@@ -1,0 +1,96 @@
+<md-content layout="column" flex ng-controller="administracijaRelacijaKorisnikController">
+    <md-card>
+        <md-toolbar class="md-table-toolbar md-default"
+                    ng-hide="options.rowSelection && selected.length">
+            <div class="md-toolbar-tools">
+                <h2 flex="">Statusi</h2>
+                <md-button class="md-icon-button">
+                    <ng-md-icon icon="add" ng-click="newDialog($event)"
+                                style="fill: black"></ng-md-icon>
+                </md-button>
+                <md-button class="md-icon-button">
+                    <ng-md-icon icon="cached" ng-click="loadStuff()"
+                                style="fill: black"></ng-md-icon>
+                </md-button>
+                <!-- <md-button class="md-icon-button"
+                            ng-show="options.rowSelection && selected.length">
+                     <md-tooltip>Delete</md-tooltip>
+                     <ng-md-icon icon="delete"
+                                 ng-click="delete()"
+                                 style="fill: black"></ng-md-icon>
+                 </md-button> -->
+            </div>
+        </md-toolbar>
+
+        <md-toolbar class="md-table-toolbar alternate"
+                    ng-show="options.rowSelection && selected.length">
+            <div class="md-toolbar-tools">
+                <span flex="">{{selected.length}} {{selected.length > 1 ? 'items' : 'item'}} selected</span>
+                <md-button class="md-icon-button">
+                    <md-tooltip>Edit</md-tooltip>
+                    <ng-md-icon icon="edit"
+                                ng-click="editDialog($event)"
+                                style="fill: black"></ng-md-icon>
+                </md-button>
+                <md-button class="md-icon-button">
+                    <md-tooltip>Delete</md-tooltip>
+                    <ng-md-icon icon="delete"
+                                ng-click="deleteStatusa()"
+                                style="fill: black"></ng-md-icon> <!-- ako bude trebalo dodaj i deleteRelacijaKorisnika, trenutno radi i ovako -->
+                </md-button>
+            </div>
+        </md-toolbar>
+
+        <md-table-container>
+            <table md-table
+                   md-row-select="options.rowSelection"
+                   multiple="{{options.multiSelect}}"
+                   ng-model="selected"
+                   md-progress="promise">
+                <thead ng-if="!options.decapitate" md-head
+                       md-order="query.order" md-on-reorder="logOrder">
+                <tr md-row>
+                    <th md-column="">Naziv BA</th>
+                    <th md-column="">Naziv EN</th>
+                    <!-- <th md-column>Dugmici</th> -->
+                </tr>
+                </thead>
+                <tbody md-body>
+                <tr md-row
+                    md-select="item"
+                    md-on-select="logItem"
+                    md-auto-select="options.autoSelect"
+                    ng-repeat="item in query.data">
+                    <td md-cell>{{item.nazivba}}</td>
+                    <td md-cell>{{item.naziven}}</td>
+
+                </tr>
+                </tbody>
+            </table>
+        </md-table-container>
+
+
+        <md-table-pagination md-limit="query.limit"
+                             md-limit-options="limitOptions"
+                             md-page="query.page"
+                             md-total="{{query.totalElements}}"
+                             md-page-select="options.pageSelect"
+                             md-boundary-links="options.boundaryLinks"
+                             md-on-paginate="logPagination"></md-table-pagination>
+    </md-card>
+
+    <!--    <md-card ng-show="selected.length">
+            <md-card-header>
+                <md-card-avatar>
+                    <ng-md-icon icon="edit" style="fill:black"/>
+                </md-card-avatar>
+                <md-card-header-text>
+                    <span class="md-title">{{selected[0].nazivba}}</span>
+                </md-card-header-text>
+                <span flex=""></span>
+
+            </md-card-header>
+
+        </md-card> -->
+
+</md-content>
