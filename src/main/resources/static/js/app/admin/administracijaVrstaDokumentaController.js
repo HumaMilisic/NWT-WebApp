@@ -67,6 +67,8 @@ DMApp.controller('administracijaVrstaDokumentaController', [
                 })
         };
 
+        $scope.editModalTemplateUrlChild = 'js/app/parts/editVrstaDokumenta.html';
+
         $controller('administracijaController', { $scope: $scope});
     }
 ]);

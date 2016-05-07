@@ -67,6 +67,8 @@ DMApp.controller('administracijaNotifikacijaController', [
                 })
         };
 
+        $scope.editModalTemplateUrlChild = 'js/app/parts/editNotifikacija.html';
+
         $controller('administracijaController', { $scope: $scope});
     }
 ]);

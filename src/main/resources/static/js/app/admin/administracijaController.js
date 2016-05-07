@@ -923,5 +923,59 @@ DMApp.controller('administracijaController', [
        //     $scope.delete = $scope.childDelete;
        // }
 
+        $scope.editModalTemplateUrl = '';
+
+        if($scope.editModalTemplateUrlChild){
+            $scope.editModalTemplateUrl = $scope.editModalTemplateUrlChild;
+        }
+
+        $scope.editDialog = function(objekat){
+            //var link = $scope.selected[0]._links.self.href;
+            //var a = 0;
+            //$http({
+            //    method: 'PATCH',
+            //    url: link,
+            //    data: {
+            //        "nazivba": "baa",
+            //        "naziven": "enen",
+            //        "deleted": "0"
+            //    }
+            //})
+            //    .success(function(data,status){
+            //        $scope.dajStranicu();
+            //        //status 204 uspjesno i no content, nema dodatnog sadrzaja
+            //    })
+            //    .error(function(x,y,z){
+            //        var a = 0;
+            //        //409 constraint, povezan korisnik
+            //    })
+
+            // bilo za status
+            // var naziv_BA = $scope.selected[0].nazivba;
+            // var naziv_EN = $scope.selected[0].naziven;
+
+            $mdDialog.show({
+                templateUrl: $scope.editModalTemplateUrl,
+                targetEvent: event
+            }).then(function(answer){
+                    if(answer!=null){
+                        answer.deleted = "0";
+                        var link = $scope.selected[0]._links.self.href;
+                        $http({
+                            method:'PATCH',
+                            url: link,
+                            data: answer
+                        }).success(function(x,y,z){
+                            $scope.toastMsg('izmijenjeno');
+                            $scope.loadStuff();
+                        }).error(function(x,y,z){
+                            $scope.toastMsg('problem');
+                        })
+                    }
+                },
+                function(){
+                    $scope.toastMsg('cancel');
+                })
+        };
 
 }]);
