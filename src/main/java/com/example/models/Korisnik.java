@@ -58,16 +58,16 @@ public class Korisnik implements Serializable {
     @Column(unique = true)
 	private String username;
 
-	public boolean isEnabled() {
+	public String isEnabled() {
 		return enabled;
 	}
 
-	public void setEnabled(boolean enabled) {
+	public void setEnabled(String enabled) {
 		this.enabled = enabled;
 	}
 
 	@Column(name = "ENABLED")
-	private boolean enabled;
+	private String enabled;
 
 	//bi-directional many-to-one association to Dokument
 //	@OneToMany(mappedBy="korisnik")
@@ -129,7 +129,7 @@ public class Korisnik implements Serializable {
 
 	public Korisnik() {
 		super();
-		this.enabled = false;
+		this.enabled = "0";
 	}
 
 	public long getId() {

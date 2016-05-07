@@ -65,10 +65,15 @@ public class CustomUserDetailsService implements UserDetailsService{
             AuthorityUtils.createAuthorityList();
             String password = korisnik.getPassword();
 
+            Boolean isEnabled = false;
+            if(korisnik.isEnabled()=="1"){
+                isEnabled = true;
+            }
+
             return new org.springframework.security.core.userdetails.User(
                     korisnik.getUsername(),
                     korisnik.getPassword(),
-                    korisnik.isEnabled(),
+                    isEnabled,
                     accountNonExpired,
                     credentialsNonExpired,
                     accountNonLocked,

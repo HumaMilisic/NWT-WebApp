@@ -176,7 +176,7 @@ public class RegisterController {
 //            return new ModelAndView("redirect:/badUser");
         }
 
-        user.setEnabled(true);
+        user.setEnabled("1");
         userDetailsService.saveRegisteredUser(user);
         System.out.println("sacuvan korisnik");
         GenericResponse uspjeh = new GenericResponse("korisnik aktiviran",null);
