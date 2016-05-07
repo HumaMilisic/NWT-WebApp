@@ -99,6 +99,9 @@ DMApp.config(function($httpProvider,$routeProvider/*,SpringDataRestInterceptor*/
         })
         .when('/admin/dokument',{
             templateUrl:'/js/app/admin/views/administracijaDokumenta.html'
+        })
+        .when('/admin/relacijaDokument',{
+            templateUrl:'/js/app/admin/views/administracijaRelacijaDokumenta.html'
         });
 
 
@@ -1102,7 +1105,8 @@ DMApp.factory('navigacijaDozvoljena',function(){
             {label:"/admin/vrstaDokumenta",url:"/admin/vrstaDokumenta"},
             {label:"/admin/notifikacija",url:"/admin/notifikacija"},
             {label:"/admin/komentar",url:"/admin/komentar"},
-            {label:"/admin/dokument",url:"/admin/dokument"}
+            {label:"/admin/dokument",url:"/admin/dokument"},
+            {label:"/admin/relacijaDokument",url:"/admin/relacijaDokument"}
         ];
         return niz;
     };
