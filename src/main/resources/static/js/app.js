@@ -94,6 +94,15 @@ DMApp.config(function($httpProvider,$routeProvider/*,SpringDataRestInterceptor*/
         .when('/admin/notifikacija',{
             templateUrl:'/js/app/admin/views/administracijaNotifikacija.html'
         })
+        .when('/admin/komentar',{
+            templateUrl:'/js/app/admin/views/administracijaKomentara.html'
+        })
+        .when('/admin/dokument',{
+            templateUrl:'/js/app/admin/views/administracijaDokumenta.html'
+        })
+        .when('/admin/relacijaDokument',{
+            templateUrl:'/js/app/admin/views/administracijaRelacijaDokumenta.html'
+        })
         .when('/admin/dogadjaj',{
             templateUrl:'/js/app/admin/views/administracijaDogadjaja.html'
         })
@@ -1100,6 +1109,10 @@ DMApp.factory('navigacijaDozvoljena',function(){
             {label:"/admin/uloga",url:"/admin/uloga"},
             {label:"/admin/status",url:"/admin/status"},
             {label:"/admin/vrstaDokumenta",url:"/admin/vrstaDokumenta"},
+            {label:"/admin/notifikacija",url:"/admin/notifikacija"},
+            {label:"/admin/komentar",url:"/admin/komentar"},
+            {label:"/admin/dokument",url:"/admin/dokument"},
+            {label:"/admin/relacijaDokument",url:"/admin/relacijaDokument"},
             {label:"/admin/notifikacija",url:"/admin/notifikacija"},
             {label:"/admin/dogadjaj",url:"/admin/dogadjaj"},
             {label:"/admin/relacijaKorisnik",url:"/admin/relacijaKorisnik"}

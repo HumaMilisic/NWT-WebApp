@@ -73,3 +73,14 @@ INSERT INTO AKCIJA VALUES(7,'0','ADMINISTRACIJA_NOTIFIKACIJE');
 -- INSERT INTO NOTIFIKACIJA VALUES(1, 0, 'Hitno pregledati');
 -- INSERT INTO NOTIFIKACIJA VALUES(2, 0, 'Hitno hitno');
 
+-- Komentari
+
+-- INSERT INTO KOMENTAR VALUES(1, null, 'uraa');
+
+-- Dokumenti
+
+insert into dokument values(2, null, null, null, null, null, null, null,'yeeeey');
+
+-- Relacija Dokumenti
+
+insert into relacija_dokument values(1, 1, 'probaaaa', 'proba');
