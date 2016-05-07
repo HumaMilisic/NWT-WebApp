@@ -1,4 +1,4 @@
-DMApp.controller('administracijaVrstaDokumentaController', [
+DMApp.controller('administracijaDogadjajaController', [
     '$scope',
     '$controller',
     '$http',
@@ -7,12 +7,11 @@ DMApp.controller('administracijaVrstaDokumentaController', [
     function($scope, $controller,$http,$location,$mdDialog) {
         $scope.main = {};
         $scope.name = "naziv!!!";
-        $scope.childEntity = 'vrstaDokumenta';
-        //$controller('administracijaController', { $scope: $scope});
+        $scope.childEntity = 'dogadjaj';
 
         $scope.newDialogChild = function(event){
             $mdDialog.show({
-                templateUrl: 'js/app/parts/novaVrstaDokumenta.html',
+                templateUrl: 'js/app/parts/noviDogadjaj.html',
                 targetEvent: event
             }).then(function(answer){
                     if(answer!=null){
@@ -35,8 +34,8 @@ DMApp.controller('administracijaVrstaDokumentaController', [
                 })
         };
 
-        $scope.childDelete = function(objekat,nazivba){
-            var urlPretraga = '/api/'+$scope.entity+'/search/findByNazivba?nazivba='+nazivba;
+        $scope.childDelete = function(objekat,naziv){
+            var urlPretraga = '/api/'+$scope.entity+'/search/findByNaziv?naziv='+naziv;
             $http({
                 method: 'GET',
                 url: urlPretraga
@@ -67,7 +66,7 @@ DMApp.controller('administracijaVrstaDokumentaController', [
                 })
         };
 
-        $scope.editModalTemplateUrlChild = 'js/app/parts/editVrstaDokumenta.html';
+        $scope.editModalTemplateUrlChild = 'js/app/parts/editDogadjaj.html';
 
         $controller('administracijaController', { $scope: $scope});
     }

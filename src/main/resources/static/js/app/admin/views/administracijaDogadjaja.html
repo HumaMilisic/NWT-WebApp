@@ -1,9 +1,9 @@
-<md-content layout="column" flex ng-controller="administracijaNotifikacijaController">
+<md-content layout="column" flex ng-controller="administracijaDogadjajaController">
     <md-card>
         <md-toolbar class="md-table-toolbar md-default"
                     ng-hide="options.rowSelection && selected.length">
             <div class="md-toolbar-tools">
-                <h2 flex="">Notifikacije</h2>
+                <h2 flex="">Dogadjaji</h2>
                 <md-button class="md-icon-button">
                     <ng-md-icon icon="add" ng-click="newDialog($event)"
                                 style="fill: black"></ng-md-icon>
@@ -28,7 +28,7 @@
                 <md-button class="md-icon-button">
                     <md-tooltip>Delete</md-tooltip>
                     <ng-md-icon icon="delete"
-                                ng-click="deleteNotifikacije()"
+                                ng-click="deleteDogadjaj()"
                                 style="fill: black"></ng-md-icon>
                 </md-button>
             </div>
@@ -43,7 +43,7 @@
                 <thead ng-if="!options.decapitate" md-head
                        md-order="query.order" md-on-reorder="logOrder">
                 <tr md-row>
-                    <th md-column="">Tekst</th>
+                    <th md-column="">Naziv</th>
                     <!--<th md-column>Dugmici</th>-->
                 </tr>
                 </thead>
@@ -53,7 +53,7 @@
                     md-on-select="logItem"
                     md-auto-select="options.autoSelect"
                     ng-repeat="item in query.data">
-                    <td md-cell>{{item.tekst}}</td>
+                    <td md-cell>{{item.naziv}}</td>
 
                 </tr>
                 </tbody>

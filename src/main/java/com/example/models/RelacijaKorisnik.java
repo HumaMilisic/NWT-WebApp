@@ -22,7 +22,7 @@ public class RelacijaKorisnik implements Serializable {
 	@Id
 	@GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "RelacijaKorisnikSEQ")
 	@SequenceGenerator(name = "RelacijaKorisnikSEQ", sequenceName = "RELACIJA_KORISNIK_SEQ", allocationSize = 1)
-	@Generated(GenerationTime.INSERT) //dodano
+//	@Generated(GenerationTime.INSERT) //dodano
 	private long id;
 
 	private String nazivba;
@@ -34,8 +34,8 @@ public class RelacijaKorisnik implements Serializable {
 //	private List<KorisnikXKorisnik> korisnikXKorisniks;
 
 	//bi-directional many-to-one association to RelKorisnikXNotifikacija
-	@OneToMany(mappedBy="relacijaKorisnikBean")
-	private List<RelKorisnikXNotifikacija> relKorisnikXNotifikacijas;
+//	@OneToMany(mappedBy="relacijaKorisnikBean")
+//	private List<RelKorisnikXNotifikacija> relKorisnikXNotifikacijas;
 
 	//bi-directional many-to-one association to RelKorisnikXRelDokument
 //	@OneToMany(mappedBy="relacijaKorisnikBean")

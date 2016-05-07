@@ -15,24 +15,24 @@
             </div>
         </md-toolbar>
 
-        <!--<md-toolbar class="md-table-toolbar alternate"-->
-        <!--ng-show="options.rowSelection && selected.length">-->
-        <!--<div class="md-toolbar-tools">-->
-        <!--<span flex="">{{selected.length}} {{selected.length > 1 ? 'items' : 'item'}} selected</span>-->
-        <!--<md-button class="md-icon-button">-->
-        <!--<md-tooltip>Edit</md-tooltip>-->
-        <!--<ng-md-icon icon="edit"-->
-        <!--ng-click="dummy()"-->
-        <!--style="fill: black"></ng-md-icon>-->
-        <!--</md-button>-->
-        <!--<md-button class="md-icon-button">-->
-        <!--<md-tooltip>Delete</md-tooltip>-->
-        <!--<ng-md-icon icon="delete"-->
-        <!--ng-click="dummy()"-->
-        <!--style="fill: black"></ng-md-icon>-->
-        <!--</md-button>-->
-        <!--</div>-->
-        <!--</md-toolbar>-->
+        <md-toolbar class="md-table-toolbar alternate"
+                    ng-show="options.rowSelection && selected.length">
+            <div class="md-toolbar-tools">
+                <span flex="">{{selected.length}} {{selected.length > 1 ? 'items' : 'item'}} selected</span>
+                <md-button class="md-icon-button">
+                    <md-tooltip>Edit</md-tooltip>
+                    <ng-md-icon icon="edit"
+                                ng-click="editDialog($event)"
+                                style="fill: black"></ng-md-icon>
+                </md-button>
+                <md-button class="md-icon-button">
+                    <md-tooltip>Delete</md-tooltip>
+                    <ng-md-icon icon="delete"
+                                ng-click="deleteVrsteDokumenta()"
+                                style="fill: black"></ng-md-icon>
+                </md-button>
+            </div>
+        </md-toolbar>
 
         <md-table-container>
             <table md-table
@@ -47,7 +47,7 @@
                     <th md-column="">Naziv EN</th>
                     <th md-column="">Template BA</th>
                     <th md-column="">Template EN</th>
-                    <th md-column>Dugmici</th>
+                    <!-- <th md-column>Dugmici</th> -->
                 </tr>
                 </thead>
                 <tbody md-body>

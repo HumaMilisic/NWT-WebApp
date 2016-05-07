@@ -1,18 +1,18 @@
-DMApp.controller('administracijaVrstaDokumentaController', [
+DMApp.controller('administracijaRelacijaKorisnikController', [
     '$scope',
     '$controller',
     '$http',
     '$location',
     '$mdDialog',
-    function($scope, $controller,$http,$location,$mdDialog) {
+    function($scope, $controller, $http, $location, $mdDialog) {
         $scope.main = {};
-        $scope.name = "naziv!!!";
-        $scope.childEntity = 'vrstaDokumenta';
+        $scope.name = "naziv!!!relacijaKorisnik";
+        $scope.childEntity = 'relacijaKorisnik';
         //$controller('administracijaController', { $scope: $scope});
 
         $scope.newDialogChild = function(event){
             $mdDialog.show({
-                templateUrl: 'js/app/parts/novaVrstaDokumenta.html',
+                templateUrl: 'js/app/parts/novaRelacijaKorisnik.html',
                 targetEvent: event
             }).then(function(answer){
                     if(answer!=null){
@@ -67,8 +67,9 @@ DMApp.controller('administracijaVrstaDokumentaController', [
                 })
         };
 
-        $scope.editModalTemplateUrlChild = 'js/app/parts/editVrstaDokumenta.html';
+        $scope.editModalTemplateUrlChild = 'js/app/parts/editRelacijaKorisnik.html';
 
         $controller('administracijaController', { $scope: $scope});
     }
 ]);
+
