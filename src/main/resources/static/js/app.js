@@ -1112,7 +1112,7 @@ DMApp.factory('navigacijaDozvoljena',function(){
             {label:"/admin/notifikacija",url:"/admin/notifikacija"},
             {label:"/admin/komentar",url:"/admin/komentar"},
             {label:"/admin/dokument",url:"/admin/dokument"},
-            {label:"/admin/relacijaDokument",url:"/admin/relacijaDokument"}
+            {label:"/admin/relacijaDokument",url:"/admin/relacijaDokument"},
             {label:"/admin/notifikacija",url:"/admin/notifikacija"},
             {label:"/admin/dogadjaj",url:"/admin/dogadjaj"},
             {label:"/admin/relacijaKorisnik",url:"/admin/relacijaKorisnik"}
