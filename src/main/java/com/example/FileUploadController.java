@@ -70,7 +70,7 @@ public class FileUploadController {
     //                               RedirectAttributes redirectAttributes) {
     public @ResponseBody String handleFileUpload(//@RequestBody String name,
                 @RequestBody MultipartFile file) { //,
-        String name = file.getName();
+        String name = file.getOriginalFilename(); //getName();
                 //RedirectAttributes redirectAttributes) {
         if (name.contains("/")) {
             //redirectAttributes.addFlashAttribute("message", "Folder separators not allowed");
