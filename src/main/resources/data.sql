@@ -83,4 +83,4 @@ INSERT INTO AKCIJA VALUES(7,'0','ADMINISTRACIJA_NOTIFIKACIJE');
 
 -- Relacija Dokumenti
 
-insert into relacija_dokument values(1, 1, 'probaaaa', 'proba');
+--insert into relacija_dokument values(1, 1, 'probaaaa', 'proba');

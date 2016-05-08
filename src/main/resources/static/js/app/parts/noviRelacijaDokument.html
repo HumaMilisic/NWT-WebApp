@@ -1,0 +1,45 @@
+<!--https://klarsys.github.io/angular-material-icons/-->
+<md-dialog aria-label="Mango (Fruit)" ng-controller="noviItemModalCtrl">
+    <md-toolbar layout-padding>
+        Novi  relacija dokument
+    </md-toolbar>
+    <md-content class="md-padding">
+        <form name="form">
+            <!--  <md-input-container class="md-block">
+                  <label TRANSLATE="Created"> Kreiran: </label>
+                   <input type="text" name="kreiran"
+                         required
+                         ng-model="item.kreiran"/>
+                  <div ng-messages="form.kreiran.$error">
+                      <div ng-message="required" TRANSLATE="VALIDATION_ERROR.REQUIRED">This is required.</div>
+                  </div>
+              </md-input-container> -->
+
+            <md-input-container class="md-block">
+                <label TRANSLATE="Title_BA"> Naziv BA: </label>
+                <input type="text" name="nazivba"
+                       required
+                       ng-model="item.nazivba"/>
+                <div ng-messages="form.nazivba.$error">
+                    <div ng-message="required" TRANSLATE="VALIDATION_ERROR.REQUIRED">This is required.</div>
+                </div>
+            </md-input-container>
+
+            <md-input-container class="md-block">
+                <label TRANSLATE="Title_EN"> Naziv EN: </label>
+                <input type="text" name="naziven"
+                       required
+                       ng-model="item.naziven"/>
+                <div ng-messages="form.naziven.$error">
+                    <div ng-message="required" TRANSLATE="VALIDATION_ERROR.REQUIRED">This is required.</div>
+                </div>
+            </md-input-container>
+
+        </form>
+    </md-content>
+    <div class="md-actions" layout="row">
+        <span flex></span>
+        <md-button ng-click="answer(null)"> Cancel </md-button>
+        <md-button ng-click="answer(item)" class="md-primary"> Save </md-button>
+    </div>
+</md-dialog>
