@@ -412,6 +412,41 @@ DMApp.factory('auth',function($http,$rootScope,$location,SpringDataRestAdapter,r
     var user = null;
     var korisnik = null;
 
+    var checkAuth = function(user,callback){
+        $http.get("/user")
+            .success(function(response,status,x,y,z){
+                if(response.name){
+                    $rootScope.authenticated = true;
+                    $rootScope.$broadcast('authenticated');
+                    user = response;
+                    $rootScope.user = user;
+                    $rootScope.$broadcast('user');
+                    if(korisnik==null){
+                        getKorisnik(user.name);
+                    }
+                }else{
+                    $rootScope.authenticated = false;
+                    $rootScope.$broadcast('authenticated');
+                    $rootScope.user = null;
+                    $rootScope.$broadcast('user');
+                    $rootScope.korisnik = null;
+                    $rootScope.$broadcast('korisnik');
+                }
+                callback && callback();
+            })
+            .error(function(x,y,z,k){
+                var a = 0;
+                $rootScope.authenticated = false;
+                $rootScope.$broadcast('authenticated');
+                $rootScope.user = null;
+                $rootScope.$broadcast('user');
+                $rootScope.korisnik = null;
+                $rootScope.$broadcast('korisnik');
+                callback && callback();
+            })
+
+    };
+
     var getKorisnik = function(username){
         var url = '/api/korisnik/search/findByUsername?username='+username;
         var promise = $http.get(url)
@@ -425,7 +460,9 @@ DMApp.factory('auth',function($http,$rootScope,$location,SpringDataRestAdapter,r
             var a = 0;
             korisnik = resurs;
             $rootScope.korisnik = korisnik;
+            $rootScope.user.name = korisnik.username;
             $rootScope.$broadcast('korisnik');
+            $rootScope.$broadcast('user');
         })
     };
 
@@ -440,16 +477,41 @@ DMApp.factory('auth',function($http,$rootScope,$location,SpringDataRestAdapter,r
             }
         }
 
-        $http.get('user',{headers:headers})
-            .then(function(response){
-                if(response.data.name){
+        //$http({
+        //    method: 'POST',
+        //    url:'/register',
+        //    headers: {'Content-Type': 'application/x-www-form-urlencoded'},
+        //    transformRequest: function(obj) {
+        //        var str = [];
+        //        for(var p in obj)
+        //            str.push(encodeURIComponent(p) + "=" + encodeURIComponent(obj[p]));
+        //        return str.join("&");
+        //    },
+        //    data: $scope.user
+        //})
+
+        $http({
+            method: 'POST',
+            url: '/login',
+            headers:{'Content-Type': 'application/x-www-form-urlencoded'},
+                transformRequest: function(obj) {
+                    var str = [];
+                    for(var p in obj)
+                        str.push(encodeURIComponent(p) + "=" + encodeURIComponent(obj[p]));
+                    return str.join("&");
+                },
+            data:user
+        })
+            //.get('user',{headers:headers})
+            .success(function(response,status,z,k){
+                if(status==200){
                     $rootScope.authenticated = true;
                     $rootScope.$broadcast('authenticated');
-                    user = response.data;
+                    //user = null;
                     $rootScope.user = user;
                     $rootScope.$broadcast('user');
                     if(korisnik==null)
-                        getKorisnik(user.name);
+                        getKorisnik(user.username);
                 }else{
                     $rootScope.authenticated = false;
                     $rootScope.$broadcast('authenticated');
@@ -459,7 +521,8 @@ DMApp.factory('auth',function($http,$rootScope,$location,SpringDataRestAdapter,r
                     $rootScope.$broadcast('korisnik');
                 }
                 callback && callback();
-            },function(x,y,z,k){
+            })
+            .error(function(x,y,z,k){
                 $rootScope.authenticated = false;
                 $rootScope.$broadcast('authenticated');
                 $rootScope.user = null;
@@ -508,7 +571,7 @@ DMApp.factory('auth',function($http,$rootScope,$location,SpringDataRestAdapter,r
             })
     };
     return{
-        check: checkUser,
+        check: checkAuth,
         login: login,
         logout: logout,
         user: user,

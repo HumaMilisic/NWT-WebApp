@@ -1,6 +1,5 @@
 package com.example.config;
 
-import com.example.utils.filter.CsrfHeaderFilter;
 import com.example.utils.service.CustomUserDetailsService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
@@ -12,7 +11,6 @@ import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
 import org.springframework.security.config.annotation.web.configuration.WebSecurityConfigurerAdapter;
 import org.springframework.security.crypto.password.PasswordEncoder;
-import org.springframework.security.web.csrf.CsrfFilter;
 import org.springframework.security.web.csrf.CsrfTokenRepository;
 import org.springframework.security.web.csrf.HttpSessionCsrfTokenRepository;
 
@@ -21,14 +19,36 @@ import org.springframework.security.web.csrf.HttpSessionCsrfTokenRepository;
 //@EnableGlobalMethodSecurity(prePostEnabled = true)
 public class WebSecurityConfig extends WebSecurityConfigurerAdapter{
 
+//    @Autowired
+//    private MappingJackson2HttpMessageConverter mappingJackson2HttpMessageConverter;
+
+    @Bean
+    AuthFailureHandler authFailureHandler(){
+        return new AuthFailureHandler();
+    }
+
+    @Bean
+    AuthSuccessHandler authSuccessHandler(){
+        return new AuthSuccessHandler();
+    }
+
+
     @Autowired
     private CustomUserDetailsService userDetailsService;
+    @Autowired
+    private AuthFailureHandler authFailureHandler;
+    @Autowired
+    private HttpAuthenticationEntryPoint authenticationEntryPoint;
+    @Autowired
+    private AuthSuccessHandler authSuccessHandler;
 
     @Bean
     @Override
     public AuthenticationManager authenticationManagerBean() throws Exception {
         return super.authenticationManagerBean();
     }
+
+
 
     @Autowired
     private PasswordEncoder passwordEncoder;
@@ -48,25 +68,32 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter{
 //                .and()
 //                    .csrf().disable();
         http
-                .httpBasic()//.disable()
-                .and()
+//                .httpBasic()//.disable()
+
                 .authorizeRequests()
-                .antMatchers("/","/register","/registrationConfirm","/resetPassword","/login",
+                .antMatchers("/","/register","/registrationConfirm","/resetPassword","/login**",
                         "/app/**","/views/**","/i18n/**",
                         "/loginA.html","/index.html","/404.html","/meni.html","/registracija.html","/i18n/**").permitAll()
                 .anyRequest().authenticated()
                 .and()
-//                .formLogin()
-//                .loginProcessingUrl("/login")
+                .formLogin()
+//                .isCustomLoginPage()
+                    .loginProcessingUrl("/login")
+//                    .passwordParameter("password")
+//                    .usernameParameter("username")
+                    .successHandler(authSuccessHandler)
+                    .failureHandler(authFailureHandler)
 //                .and()
 //                .logout()
-//                .and()
-// .csrf()
-                .csrf()//.disable();
-                .csrfTokenRepository(csrfTokenRepository())
-//                .and().headers().frameOptions().disable().and()
                 .and()
-                .addFilterAfter(new CsrfHeaderFilter(),CsrfFilter.class);
+// .csrf()
+                .csrf().disable()
+                .exceptionHandling()
+                    .authenticationEntryPoint(authenticationEntryPoint);
+//                .csrfTokenRepository(csrfTokenRepository())
+////                .and().headers().frameOptions().disable().and()
+//                .and()
+//                .addFilterAfter(new CsrfHeaderFilter(),CsrfFilter.class);
 
 //                .and()
 //                .csrf().disable();
@@ -119,6 +146,27 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter{
         repository.setHeaderName("X-XSRF-TOKEN");
         return repository;
     }
+
+//    @Component
+//    public class AuthSuccessHandler extends SavedRequestAwareAuthenticationSuccessHandler{
+//        private final ObjectMapper mapper;
+//
+//        @Autowired
+//        AuthSuccessHandler(MappingJackson2HttpMessageConverter messageConverter){
+//            this.mapper = messageConverter.getObjectMapper();
+//        }
+//
+//        @Override
+//        public void onAuthenticationSuccess(HttpServletRequest request, HttpServletResponse response, Authentication authentication) throws ServletException, IOException {
+////            super.onAuthenticationSuccess(request, response, authentication);
+//            response.setStatus(HttpServletResponse.SC_OK);
+//
+//
+//        }
+//
+//    }
+
+
 }
 
 //
