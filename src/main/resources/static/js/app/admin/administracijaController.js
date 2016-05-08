@@ -383,66 +383,6 @@ DMApp.controller('administracijaController', [
             $scope.selected = [];
         };
 
-        $scope.deleteKomentar = function(){
-            var selected = $scope.selected;
-            angular.forEach(selected,function(item){
-                var a = 0;
-                var self = item._links.self.href;
-                //var id = item.id;
-                $http.delete(self)
-                    .success(function(x,z,y){
-                        var a = 0;
-                        $scope.toastMsg("Komentar je obrisan");
-                        $scope.loadStuff();
-                    })
-                    .error(function(x,z,y){
-                        var a = 0;
-                        $scope.toastMsg("greska");
-                    })
-            });
-            $scope.selected = [];
-        };
-
-        $scope.deleteDokument = function(){
-            var selected = $scope.selected;
-            angular.forEach(selected,function(item){
-                var a = 0;
-                var self = item._links.self.href;
-                var oznaka = item.oznaka;
-                $http.delete(self)
-                    .success(function(x,z,y){
-                        var a = 0;
-                        $scope.toastMsg(oznaka+" je obrisan");
-                        $scope.loadStuff();
-                    })
-                    .error(function(x,z,y){
-                        var a = 0;
-                        $scope.toastMsg("greska");
-                    })
-            });
-            $scope.selected = [];
-        };
-
-        $scope.deleteRelacijaDokument = function(){
-            var selected = $scope.selected;
-            angular.forEach(selected,function(item){
-                var a = 0;
-                var self = item._links.self.href;
-                //var id = item.id;
-                $http.delete(self)
-                    .success(function(x,z,y){
-                        var a = 0;
-                        $scope.toastMsg("Relacija Dokument je obrisan");
-                        $scope.loadStuff();
-                    })
-                    .error(function(x,z,y){
-                        var a = 0;
-                        $scope.toastMsg("greska");
-                    })
-            });
-            $scope.selected = [];
-        };
-
         $scope.toastMsg = function(text) {
             var pinTo = "bottom right";
             $mdToast.show(
@@ -1035,6 +975,8 @@ DMApp.controller('administracijaController', [
             // var naziv_EN = $scope.selected[0].naziven;
 
             $mdDialog.show({
+                scope: $scope,
+                controller: "editItemModalCtrl",
                 templateUrl: $scope.editModalTemplateUrl,
                 targetEvent: event
             }).then(function(answer){

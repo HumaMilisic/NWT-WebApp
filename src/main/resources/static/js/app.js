@@ -1092,6 +1092,26 @@ DMApp.controller('uiTestCtrl',function($scope){
         {"value":"Camera","label":"<i class=\"fa fa-camera\"></i> Camera"}];
 });
 
+DMApp.controller('editItemModalCtrl',function($scope,$mdDialog){
+//    var a=0;
+//    var naziv_BA = $scope.selected[0].nazivba;
+    $scope.item = $scope.selected[0];
+//    $scope.nazivba = naziv_BA;
+//    var naziv_EN = $scope.selected[0].naziven;
+    $scope.hide = function() {
+        $mdDialog.hide();
+    };
+    $scope.cancel = function() {
+        $mdDialog.cancel();
+    };
+    $scope.answer = function(answer) {
+        $mdDialog.hide(answer);
+    };
+
+
+});
+
+
 DMApp.controller('noviItemModalCtrl',function($scope,$mdDialog){
     $scope.hide = function() {
         $mdDialog.hide();
@@ -1102,6 +1122,8 @@ DMApp.controller('noviItemModalCtrl',function($scope,$mdDialog){
     $scope.answer = function(answer) {
         $mdDialog.hide(answer);
     };
+
+
 });
 
 DMApp.controller('novaUlogaCtrl',function ($scope,$mdDialog){
@@ -1180,7 +1202,6 @@ DMApp.factory('navigacijaDozvoljena',function(){
             {label:"/admin/komentar",url:"/admin/komentar"},
             {label:"/admin/dokument",url:"/admin/dokument"},
             {label:"/admin/relacijaDokument",url:"/admin/relacijaDokument"},
-            {label:"/admin/notifikacija",url:"/admin/notifikacija"},
             {label:"/admin/dogadjaj",url:"/admin/dogadjaj"},
             {label:"/admin/relacijaKorisnik",url:"/admin/relacijaKorisnik"}
         ];

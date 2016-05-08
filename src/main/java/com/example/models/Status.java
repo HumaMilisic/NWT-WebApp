@@ -40,22 +40,22 @@ public class Status implements Serializable {
 //	private List<DokumentXStatus> dokumentXStatuses;
 
 	//bi-directional many-to-one association to RelKorisnikXStatus
-	@JsonBackReference //dodala
-	@OneToMany(mappedBy="statusBean")
-	private List<RelKorisnikXStatus> relKorisnikXStatuses;
+//	@JsonBackReference //dodala
+//	@OneToMany(mappedBy="statusBean")
+//	private List<RelKorisnikXStatus> relKorisnikXStatuses;
 
 	//bi-directional many-to-many association to Notifikacija
-	@ManyToMany
-	@JoinTable(
-		name="STATUS_X_NOTIFIKACIJA"
-		, joinColumns={
-			@JoinColumn(name="STATUS")
-			}
-		, inverseJoinColumns={
-			@JoinColumn(name="NOTIFIKACIJA")
-			}
-		)
-	private List<Notifikacija> notifikacijas;
+//	@ManyToMany
+//	@JoinTable(
+//		name="STATUS_X_NOTIFIKACIJA"
+//		, joinColumns={
+//			@JoinColumn(name="STATUS")
+//			}
+//		, inverseJoinColumns={
+//			@JoinColumn(name="NOTIFIKACIJA")
+//			}
+//		)
+//	private List<Notifikacija> notifikacijas;
 
 	//bi-directional many-to-one association to UlogaXStatus
 //	@OneToMany(mappedBy="statusBean")
@@ -63,8 +63,8 @@ public class Status implements Serializable {
 
 //	@JsonIgnore
 	//bi-directional many-to-many association to VrstaDokumenta
-	@ManyToMany(mappedBy="statuses")
-	private List<VrstaDokumenta> vrstaDokumentas;
+//	@ManyToMany(mappedBy="statuses")
+//	private List<VrstaDokumenta> vrstaDokumentas;
 
 	//private char deleted;
 	//@Length(max = 1)
@@ -138,33 +138,33 @@ public class Status implements Serializable {
 //		return dokumentXStatus;
 //	}
 
-	public List<RelKorisnikXStatus> getRelKorisnikXStatuses() {
-		return this.relKorisnikXStatuses;
-	}
+//	public List<RelKorisnikXStatus> getRelKorisnikXStatuses() {
+//		return this.relKorisnikXStatuses;
+//	}
+//
+//	public void setRelKorisnikXStatuses(List<RelKorisnikXStatus> relKorisnikXStatuses) {
+//		this.relKorisnikXStatuses = relKorisnikXStatuses;
+//	}
+//
+//	public RelKorisnikXStatus addRelKorisnikXStatus(RelKorisnikXStatus relKorisnikXStatus) {
+//		getRelKorisnikXStatuses().add(relKorisnikXStatus);
+//		relKorisnikXStatus.setStatusBean(this);
+//		return relKorisnikXStatus;
+//	}
+//
+//	public RelKorisnikXStatus removeRelKorisnikXStatus(RelKorisnikXStatus relKorisnikXStatus) {
+//		getRelKorisnikXStatuses().remove(relKorisnikXStatus);
+//		relKorisnikXStatus.setStatusBean(null);
+//		return relKorisnikXStatus;
+//	}
 
-	public void setRelKorisnikXStatuses(List<RelKorisnikXStatus> relKorisnikXStatuses) {
-		this.relKorisnikXStatuses = relKorisnikXStatuses;
-	}
-
-	public RelKorisnikXStatus addRelKorisnikXStatus(RelKorisnikXStatus relKorisnikXStatus) {
-		getRelKorisnikXStatuses().add(relKorisnikXStatus);
-		relKorisnikXStatus.setStatusBean(this);
-		return relKorisnikXStatus;
-	}
-
-	public RelKorisnikXStatus removeRelKorisnikXStatus(RelKorisnikXStatus relKorisnikXStatus) {
-		getRelKorisnikXStatuses().remove(relKorisnikXStatus);
-		relKorisnikXStatus.setStatusBean(null);
-		return relKorisnikXStatus;
-	}
-
-	public List<Notifikacija> getNotifikacijas() {
-		return this.notifikacijas;
-	}
-
-	public void setNotifikacijas(List<Notifikacija> notifikacijas) {
-		this.notifikacijas = notifikacijas;
-	}
+//	public List<Notifikacija> getNotifikacijas() {
+//		return this.notifikacijas;
+//	}
+//
+//	public void setNotifikacijas(List<Notifikacija> notifikacijas) {
+//		this.notifikacijas = notifikacijas;
+//	}
 
 //	public List<UlogaXStatus> getUlogaXStatuses() {
 //		return this.ulogaXStatuses;
@@ -186,13 +186,13 @@ public class Status implements Serializable {
 //		return ulogaXStatus;
 //	}
 
-	public List<VrstaDokumenta> getVrstaDokumentas() {
-		return this.vrstaDokumentas;
-	}
+//	public List<VrstaDokumenta> getVrstaDokumentas() {
+//		return this.vrstaDokumentas;
+//	}
 
-	public void setVrstaDokumentas(List<VrstaDokumenta> vrstaDokumentas) {
-		this.vrstaDokumentas = vrstaDokumentas;
-	}
+//	public void setVrstaDokumentas(List<VrstaDokumenta> vrstaDokumentas) {
+//		this.vrstaDokumentas = vrstaDokumentas;
+//	}
 
 /*	public char getDeleted() {
 		return this.deleted;
