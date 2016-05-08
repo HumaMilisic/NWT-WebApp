@@ -83,16 +83,20 @@ public class FileUploadController {
 
         if (!file.isEmpty()) {
             try {
+                File usersFolder = new File(filesRoot + "\\" + SecurityContextHolder.getContext().getAuthentication().getName());
+                if(!usersFolder.exists()) usersFolder.mkdirs();
                 BufferedOutputStream stream = new BufferedOutputStream(
                         //new FileOutputStream(new File(Application.ROOT + "/" + name)));
                         //new FileOutputStream(new File(filesRoot + "/" + name)));
-                        new FileOutputStream(new File(filesRoot + "/" + name)));
+                        new FileOutputStream(new File(filesRoot + "\\" + SecurityContextHolder.getContext().getAuthentication().getName() + "\\" + name)));
                 FileCopyUtils.copy(file.getInputStream(), stream);
                 stream.close();
                 //redirectAttributes.addFlashAttribute("message",
                 //        "You successfully uploaded " + name + "!");
             }
             catch (Exception e) {
+                e.printStackTrace();
+                return e.getMessage();
                 //redirectAttributes.addFlashAttribute("message",
                 //        "You failed to upload " + name + " => " + e.getMessage());
             }
