@@ -428,11 +428,11 @@ DMApp.controller('administracijaController', [
             angular.forEach(selected,function(item){
                 var a = 0;
                 var self = item._links.self.href;
-                var id = item.id;
+                //var id = item.id;
                 $http.delete(self)
                     .success(function(x,z,y){
                         var a = 0;
-                        $scope.toastMsg(id+" je obrisan");
+                        $scope.toastMsg("Relacija Dokument je obrisan");
                         $scope.loadStuff();
                     })
                     .error(function(x,z,y){
