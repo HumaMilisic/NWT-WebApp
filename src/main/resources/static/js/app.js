@@ -301,6 +301,19 @@ DMApp.directive('fileModel', ['$parse', function ($parse) {
     };
 }]);
 
+DMApp.directive('ngEnter', function () {
+    return function (scope, element, attrs) {
+        element.bind("keydown keypress", function (event) {
+            if(event.which === 13) {
+                scope.$apply(function (){
+                    scope.$eval(attrs.ngEnter);
+                });
+                event.preventDefault();
+            }
+        });
+    };
+});
+
 DMApp.factory('Resource',
     //['$q','$filter','$timeout','tabela'],
 
@@ -1320,12 +1333,12 @@ DMApp.controller('SubheaderAppCtrl', function($scope) {
 DMApp.controller('uploadtestController', ['$rootScope', '$scope', '$http', '$location', '$window', 'fileUpload', function($rootScope, $scope, $http, $location, $window, fileUpload) {
     $scope.file = null;
 
-    $scope.testUpload = function() {
-        fileUpload.uploadFileToUrl($scope.file, '/api/upload'); //, $scope.dokument);
-    };
+    //$scope.testUpload = function() {
+    //    fileUpload.uploadFileToUrl($scope.file, '/api/upload'); //, $scope.dokument);
+    //};
 
     $scope.newVersion = function() {
-        fileUpload.uploadFileToUrl($scope.file, '/upload'); //, $scope.dokument);
+        fileUpload.uploadFileToUrl($scope.file, '/document'); //, $scope.dokument);
     };
 
     $scope.download = function (id) {

@@ -22,7 +22,7 @@ public class FileUploadController {
     //private static final String filesRoot = System.getenv("OPENSHIFT_DATA_DIR");
     private static final String filesRoot = "F:\\appDocs";
 
-    @RequestMapping(method = RequestMethod.GET, value = "/upload")
+    @RequestMapping(method = RequestMethod.GET, value = "/document")
     public String provideUploadInfo(Model model) {
         //File rootFolder = new File(Application.ROOT);
         File rootFolder = new File(filesRoot);
@@ -40,10 +40,10 @@ public class FileUploadController {
         return "uploadForm";
     }
 
-    @RequestMapping(method = RequestMethod.GET, value = "/download/{fileName}")
+    @RequestMapping(method = RequestMethod.GET, value = "/document/{fileName}")
     public File Download(@PathVariable String fileName) {
         //File rootFolder = new File(Application.ROOT);
-        File rootFolder = new File(filesRoot);
+        File rootFolder = new File(filesRoot + "\\" + SecurityContextHolder.getContext().getAuthentication().getName());
         List<String> fileNames = Arrays.stream(rootFolder.listFiles())
                 .map(f -> f.getName())
                 .collect(Collectors.toList());
@@ -64,7 +64,7 @@ public class FileUploadController {
     //                                             @RequestParam("file") MultipartFile file,
     //                                             RedirectAttributes redirectAttributes) {
     @CrossOrigin //(origins = "http://localhost:8181")
-    @RequestMapping(method = RequestMethod.POST, value = "/upload")
+    @RequestMapping(method = RequestMethod.POST, value = "/document")
     //public @ResponseBody String handleFileUpload(@RequestBody @RequestParam("name") String name,
     //                               @RequestBody @RequestParam("file") MultipartFile file,
     //                               RedirectAttributes redirectAttributes) {
@@ -96,7 +96,8 @@ public class FileUploadController {
             }
             catch (Exception e) {
                 e.printStackTrace();
-                return e.getMessage();
+                //return e.getMessage(); // OVO JE SAMO ZA DEBUGGING !
+
                 //redirectAttributes.addFlashAttribute("message",
                 //        "You failed to upload " + name + " => " + e.getMessage());
             }
