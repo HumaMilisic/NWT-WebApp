@@ -403,6 +403,26 @@ DMApp.controller('administracijaController', [
             $scope.selected = [];
         };
 
+        $scope.deleteDokument = function(){
+            var selected = $scope.selected;
+            angular.forEach(selected,function(item){
+                var a = 0;
+                var self = item._links.self.href;
+                var oznaka = item.oznaka;
+                $http.delete(self)
+                    .success(function(x,z,y){
+                        var a = 0;
+                        $scope.toastMsg(oznaka+" je obrisan");
+                        $scope.loadStuff();
+                    })
+                    .error(function(x,z,y){
+                        var a = 0;
+                        $scope.toastMsg("greska");
+                    })
+            });
+            $scope.selected = [];
+        };
+
         $scope.toastMsg = function(text) {
             var pinTo = "bottom right";
             $mdToast.show(
