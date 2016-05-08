@@ -261,6 +261,46 @@ DMApp.service('redirekt',function($location){
 
 });
 
+DMApp.service('fileUpload', ['$http', function ($http) {
+    this.uploadFileToUrl = function(file, uploadUrl, data){
+        var fd = new FormData();
+        //fd.append('name', file.name);
+        fd.append('file', file);
+        //debugger;
+        if(typeof (data) !== 'undefined') fd.append('data', data);
+        $http.post(uploadUrl, fd, {
+                transformRequest: angular.identity,
+                headers: {'Content-Type': undefined}
+            })
+            .success(function(data){
+                alert("Fajl uspješno poslan!");
+                //var chars = data;
+                //var bytes = new Array(chars.length);
+                //for (var i = 0; i < chars.length; i++) bytes[i] = chars.charCodeAt(i);
+                //var blob = new Blob([new Uint8Array(bytes)]);
+            })
+            .error(function(a, b, c, d, e, f){
+                debugger;
+            });
+    }
+}]);
+
+DMApp.directive('fileModel', ['$parse', function ($parse) {
+    return {
+        restrict: 'A',
+        link: function(scope, element, attrs) {
+            var model = $parse(attrs.fileModel);
+            var modelSetter = model.assign;
+
+            element.bind('change', function(){
+                scope.$apply(function(){
+                    modelSetter(scope, element[0].files[0]);
+                });
+            });
+        }
+    };
+}]);
+
 DMApp.factory('Resource',
     //['$q','$filter','$timeout','tabela'],
 
@@ -1276,3 +1316,19 @@ DMApp.controller('SubheaderAppCtrl', function($scope) {
         },
     ];
 });
+//DMApp.controller('uploadtestController', function($scope, $http) {
+DMApp.controller('uploadtestController', ['$rootScope', '$scope', '$http', '$location', '$window', 'fileUpload', function($rootScope, $scope, $http, $location, $window, fileUpload) {
+    $scope.file = null;
+
+    $scope.testUpload = function() {
+        fileUpload.uploadFileToUrl($scope.file, '/api/upload'); //, $scope.dokument);
+    };
+
+    $scope.newVersion = function() {
+        fileUpload.uploadFileToUrl($scope.file, '/upload'); //, $scope.dokument);
+    };
+
+    $scope.download = function (id) {
+        $window.open('/document/' + id, '_blank');
+    };
+}]);
