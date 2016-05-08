@@ -5,17 +5,20 @@
     </md-toolbar>
     <md-content class="md-padding">
         <form name="form">
-
             <div layout-gt-xs="row">
-                <md-input-container class="md-block">
-                    <label TRANSLATE="Created"> Kreiran: </label>
-                    <input type="text" name="kreiran"
-                           required
-                           ng-model="item.kreiran"/>
-                    <div ng-messages="form.kreiran.$error">
-                        <div ng-message="required" TRANSLATE="VALIDATION_ERROR.REQUIRED">This is required.</div>
-                    </div>
-                </md-input-container>
+                <md-datepicker ng-model="item.kreiran" md-placeholder="Enter date"></md-datepicker>
+            </div>
+            <div layout-gt-xs="row">
+                <!--  <md-input-container class="md-block">
+                      <label TRANSLATE="Created"> Kreiran: </label>
+                       <input type="text" name="kreiran"
+                             required
+                             ng-model="item.kreiran"/>
+                      <div ng-messages="form.kreiran.$error">
+                          <div ng-message="required" TRANSLATE="VALIDATION_ERROR.REQUIRED">This is required.</div>
+                      </div>
+                  </md-input-container> -->
+
                 <md-input-container class="md-block">
                     <label TRANSLATE="Text"> Tekst: </label>
                     <input type="text" name="tekst"

@@ -11,7 +11,7 @@ DMApp.controller('administracijaKomentaraController', [
         $scope.main = {};
         $scope.name = "naziv!!!komentari";
         $scope.childEntity = 'komentar';
-        $controller('administracijaController', { $scope: $scope});
+        //$controller('administracijaController', { $scope: $scope});
 
         $scope.newDialogChild = function(event){
             $mdDialog.show({
@@ -38,8 +38,8 @@ DMApp.controller('administracijaKomentaraController', [
                 })
         };
 
-        $scope.childDelete = function(objekat,nazivba){
-            var urlPretraga = '/api/'+$scope.entity+'/search/findByNazivba?nazivba='+nazivba;
+        $scope.childDelete = function(objekat,id){
+            var urlPretraga = '/api/'+$scope.entity+'/search/findById?id='+id;
             $http({
                 method: 'GET',
                 url: urlPretraga

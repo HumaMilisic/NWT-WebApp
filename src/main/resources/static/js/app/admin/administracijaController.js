@@ -388,7 +388,7 @@ DMApp.controller('administracijaController', [
             angular.forEach(selected,function(item){
                 var a = 0;
                 var self = item._links.self.href;
-                var tekst = item.tekst;
+                //var id = item.id;
                 $http.delete(self)
                     .success(function(x,z,y){
                         var a = 0;
