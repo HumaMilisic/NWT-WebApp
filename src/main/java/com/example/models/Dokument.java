@@ -84,7 +84,7 @@ public class Dokument implements Serializable {
 //	@OneToMany(mappedBy="dokumentBean")
 //	private List<KorisnikXDokument> korisnikXDokuments;
 
-	@ValidBool
+//	@ValidBool
 	private String deleted;
 
 	public Dokument() {

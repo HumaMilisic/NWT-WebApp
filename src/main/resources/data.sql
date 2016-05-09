@@ -79,8 +79,8 @@ INSERT INTO KORISNIK VALUES
 
 -- Dokumenti
 
-insert into dokument values(2, null, null, null, null, null, null, null,'yeeeey');
+-- insert into dokument values(2, null, null, null, null, null, null, null,'yeeeey');
 
 -- Relacija Dokumenti
 
-insert into relacija_dokument values(1, 1, 'probaaaa', 'proba');
+--insert into relacija_dokument values(1, 1, 'probaaaa', 'proba');

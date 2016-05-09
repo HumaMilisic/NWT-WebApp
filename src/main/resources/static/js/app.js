@@ -234,11 +234,13 @@ DMApp.service('loader',function(usSpinnerService,$rootScope){
 DMApp.service('redirekt',function($location){
     var staro = null;
 
-    this.goTo = function(gdje){
+    this.goTo = function(gdje,force){
         var url = $location.path();
         if(url!=gdje){
             staro = staro!=url?url:staro;
             $location.path(gdje);
+        }else{
+            if(force) $location.path(gdje);
         }
     };
 
@@ -246,8 +248,8 @@ DMApp.service('redirekt',function($location){
         this.goTo('/');
     };
 
-    this.goToLogin = function(){
-        this.goTo('/login');
+    this.goToLogin = function(force){
+        this.goTo('/login', force);
     };
 
     this.goToStaro = function(){
@@ -589,15 +591,16 @@ DMApp.factory('auth',function($http,$rootScope,$location,SpringDataRestAdapter,r
     var login = function(user){
         checkUser(user,function(){
             if($rootScope.authenticated){
-                checkUser(user,function(){
-                    if($rootScope.authenticated){
-                        //$location.path("/");
-                        redirekt.goToHome();
-                    }else{
-                        //$location.path("login");
-                        redirekt.goToLogin();
-                    }
-                })
+                redirekt.goToHome();
+                //checkUser(user,function(){
+                //    if($rootScope.authenticated){
+                //        //$location.path("/");
+                //        redirekt.goToHome();
+                //    }else{
+                //        //$location.path("login");
+                //        redirekt.goToLogin();
+                //    }
+                //})
             }else{
                 //$location.path("login");
                 redirekt.goToLogin();
@@ -609,9 +612,10 @@ DMApp.factory('auth',function($http,$rootScope,$location,SpringDataRestAdapter,r
         $http.post('logout',{})
             .success(function(x,y,z){
                 var a = 0;
-                korisnik = null;
-                user = null;
+                $rootScope.korisnik = null;
+                $rootScope.user = null;
                 $rootScope.$broadcast('korisnik');
+                $rootScope.$broadcast('user');
             })
             .error(function(x,y,z){
                 var a  = 0;
@@ -620,7 +624,7 @@ DMApp.factory('auth',function($http,$rootScope,$location,SpringDataRestAdapter,r
                 $rootScope.authenticated = false;
                 $rootScope.$broadcast('authenticated');
                 //$location.path("/login");
-                redirekt.goToLogin();
+                redirekt.goToLogin(true);
             })
     };
     return{
