@@ -8,6 +8,7 @@ import java.util.Comparator;
 import java.util.List;
 import java.util.stream.Collectors;
 
+import com.example.repo.DokumentRepository;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -18,9 +19,10 @@ import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 @Controller
 public class FileUploadController {
+    private DokumentRepository repo;
 
-    //private static final String filesRoot = System.getenv("OPENSHIFT_DATA_DIR");
-    private static final String filesRoot = "F:\\appDocs";
+    private static final String filesRoot = System.getenv("OPENSHIFT_DATA_DIR");
+    //private static final String filesRoot = "F:\\appDocs";
 
     @RequestMapping(method = RequestMethod.GET, value = "/document")
     public String provideUploadInfo(Model model) {
