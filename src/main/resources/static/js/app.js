@@ -549,15 +549,15 @@ DMApp.factory('auth',function($http,$rootScope,$location,SpringDataRestAdapter,r
             method: 'POST',
             url: '/login',
             headers:{'Content-Type': 'application/x-www-form-urlencoded'},
-                transformRequest: function(obj) {
-                    var str = [];
-                    for(var p in obj)
-                        str.push(encodeURIComponent(p) + "=" + encodeURIComponent(obj[p]));
-                    return str.join("&");
-                },
+            transformRequest: function(obj) {
+                var str = [];
+                for(var p in obj)
+                    str.push(encodeURIComponent(p) + "=" + encodeURIComponent(obj[p]));
+                return str.join("&");
+            },
             data:user
         })
-            //.get('user',{headers:headers})
+        //.get('user',{headers:headers})
             .success(function(response,status,z,k){
                 if(status==200){
                     $rootScope.authenticated = true;
@@ -1034,10 +1034,10 @@ DMApp.controller('indexController',function($scope,$rootScope,$translate,$mdSide
         //};
         $mdSidenav("left").open();
         $scope.navBarVisibleFlag = !$scope.navBarVisibleFlag;
-            //.toggle()
-            //.then(function () {
-            //    $log.debug("toggle " +  " is done");
-            //});
+        //.toggle()
+        //.then(function () {
+        //    $log.debug("toggle " +  " is done");
+        //});
     };
 
 
@@ -1145,26 +1145,6 @@ DMApp.controller('uiTestCtrl',function($scope){
         {"value":"Camera","label":"<i class=\"fa fa-camera\"></i> Camera"}];
 });
 
-DMApp.controller('editItemModalCtrl',function($scope,$mdDialog){
-//    var a=0;
-//    var naziv_BA = $scope.selected[0].nazivba;
-    $scope.item = $scope.selected[0];
-//    $scope.nazivba = naziv_BA;
-//    var naziv_EN = $scope.selected[0].naziven;
-    $scope.hide = function() {
-        $mdDialog.hide();
-    };
-    $scope.cancel = function() {
-        $mdDialog.cancel();
-    };
-    $scope.answer = function(answer) {
-        $mdDialog.hide(answer);
-    };
-
-
-});
-
-
 DMApp.controller('noviItemModalCtrl',function($scope,$mdDialog){
     $scope.hide = function() {
         $mdDialog.hide();
@@ -1175,8 +1155,6 @@ DMApp.controller('noviItemModalCtrl',function($scope,$mdDialog){
     $scope.answer = function(answer) {
         $mdDialog.hide(answer);
     };
-
-
 });
 
 DMApp.controller('novaUlogaCtrl',function ($scope,$mdDialog){
@@ -1255,6 +1233,7 @@ DMApp.factory('navigacijaDozvoljena',function(){
             {label:"/admin/komentar",url:"/admin/komentar"},
             {label:"/admin/dokument",url:"/admin/dokument"},
             {label:"/admin/relacijaDokument",url:"/admin/relacijaDokument"},
+            {label:"/admin/notifikacija",url:"/admin/notifikacija"},
             {label:"/admin/dogadjaj",url:"/admin/dogadjaj"},
             {label:"/admin/relacijaKorisnik",url:"/admin/relacijaKorisnik"}
         ];

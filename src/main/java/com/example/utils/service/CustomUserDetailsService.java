@@ -94,6 +94,7 @@ public class CustomUserDetailsService implements UserDetailsService{
         user.setPrezime(korisnikDTO.getPrezime());
         user.setUsername(korisnikDTO.getUsername());
         user.setPassword(passwordEncoder.encode(korisnikDTO.getPassword()));
+        user.setEnabled("0");
         return repo.save(user);
     }
 

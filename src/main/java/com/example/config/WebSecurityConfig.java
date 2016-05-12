@@ -5,11 +5,13 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.security.authentication.AuthenticationManager;
+import org.springframework.security.authentication.dao.DaoAuthenticationProvider;
 import org.springframework.security.config.annotation.authentication.builders.AuthenticationManagerBuilder;
 import org.springframework.security.config.annotation.authentication.configurers.provisioning.InMemoryUserDetailsManagerConfigurer;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
 import org.springframework.security.config.annotation.web.configuration.WebSecurityConfigurerAdapter;
+import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.security.web.csrf.CsrfTokenRepository;
 import org.springframework.security.web.csrf.HttpSessionCsrfTokenRepository;
@@ -30,6 +32,10 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter{
     @Bean
     AuthSuccessHandler authSuccessHandler(){
         return new AuthSuccessHandler();
+    }
+    @Bean
+    public PasswordEncoder encoder() {
+        return new BCryptPasswordEncoder(11);
     }
 
 
@@ -78,18 +84,18 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter{
                 .and()
                 .formLogin()
 //                .isCustomLoginPage()
-                    .loginProcessingUrl("/login")
+                .loginProcessingUrl("/login")
 //                    .passwordParameter("password")
 //                    .usernameParameter("username")
-                    .successHandler(authSuccessHandler)
-                    .failureHandler(authFailureHandler)
+                .successHandler(authSuccessHandler)
+                .failureHandler(authFailureHandler)
 //                .and()
 //                .logout()
                 .and()
 // .csrf()
                 .csrf().disable()
                 .exceptionHandling()
-                    .authenticationEntryPoint(authenticationEntryPoint);
+                .authenticationEntryPoint(authenticationEntryPoint);
 //                .csrfTokenRepository(csrfTokenRepository())
 ////                .and().headers().frameOptions().disable().and()
 //                .and()
@@ -122,6 +128,14 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter{
 //        http.exceptionHandling().authenticationEntryPoint()
     }
 
+    @Bean
+    public DaoAuthenticationProvider authenticationProvider(){
+        DaoAuthenticationProvider authenticationProvider = new DaoAuthenticationProvider();
+        authenticationProvider.setUserDetailsService(userDetailsService);
+        authenticationProvider.setPasswordEncoder(encoder());
+        return authenticationProvider;
+    }
+
     @Override
     public void configure(AuthenticationManagerBuilder auth) throws Exception{
         inMemoryConfigurer()
@@ -130,9 +144,7 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter{
                 .withUser("admin").password("admin").roles("USER","ADMIN")
                 .and().configure(auth);
 
-        auth
-                .userDetailsService(userDetailsService)
-                .passwordEncoder(passwordEncoder);
+        auth.authenticationProvider(authenticationProvider());
 
     }
 
