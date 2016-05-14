@@ -1,3 +1,4 @@
+
 DMApp.service('redirekt',function($location){
     var staro = null;
 
@@ -22,7 +23,8 @@ DMApp.service('redirekt',function($location){
     this.goToStaro = function(){
         if(staro!=null){
             this.goTo(staro);
-        }
+        }else
+            this.goToHome();
     };
     this.goTo404 = function(){
         this.goTo('/404');

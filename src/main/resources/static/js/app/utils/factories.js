@@ -1,4 +1,3 @@
-
 DMApp.factory('navigacijaDozvoljena',function(){
     var sve = function(){
         var niz = [
@@ -12,7 +11,6 @@ DMApp.factory('navigacijaDozvoljena',function(){
             {label:"/admin/komentar",url:"/admin/komentar"},
             {label:"/admin/dokument",url:"/admin/dokument"},
             {label:"/admin/relacijaDokument",url:"/admin/relacijaDokument"},
-            {label:"/admin/notifikacija",url:"/admin/notifikacija"},
             {label:"/admin/dogadjaj",url:"/admin/dogadjaj"},
             {label:"/admin/relacijaKorisnik",url:"/admin/relacijaKorisnik"}
         ];
@@ -201,7 +199,7 @@ DMApp.factory('auth',function($http,$rootScope,$location,SpringDataRestAdapter,r
     var login = function(user){
         checkUser(user,function(){
             if($rootScope.authenticated){
-                redirekt.goToHome();
+                redirekt.goToStaro();
                 //checkUser(user,function(){
                 //    if($rootScope.authenticated){
                 //        //$location.path("/");
@@ -394,6 +392,8 @@ DMApp.factory('Resource',
     }
 );
 
+
+
 DMApp.factory("Access",function($q,auth){
     "use strict";
 
@@ -417,4 +417,63 @@ DMApp.factory("Access",function($q,auth){
     };
 
     return Access;
+});
+
+
+DMApp.factory('Item',function(SpringDataRestAdapter,$http){
+    var entity = "";
+    var baseUrl = "/api/";
+    function Item(item,tabela){
+        if(tabela){
+            entity = tabela;
+        }
+
+        if(item._resources){
+            item.resources = item._resources("self",{},{
+                update:{
+                    method: 'PUT'
+                }
+            });
+
+            item.save = function(callback){
+                item.resources.update(item,function(){
+                    callback && callback(item);
+                })
+            };
+
+            item.remove = function(callback){
+                item.resources.remove(function(){
+                    callback && callback(item);
+                })
+            }
+        }else {
+            item.save = function (callback) {
+                Item.resources.save(item, function (item, headers) {
+                    var deferred = $http.get(headers().location);
+                    return SpringDataRestAdapter.processWithPromise(deferred).then(function (newItem) {
+                        callback && callback(new Item(newItem));
+                    });
+                });
+            };
+        }
+        return item;
+
+    }
+
+    Item.query = function(callback,tabela){
+        if(tabela){
+            entity = tabela;
+        }
+        var deffered = $http.get(baseUrl+entity);
+        return SpringDataRestAdapter.process(deffered,'_allLinks').then(function(data){
+            Item.resources = data._resources("self");
+            callback && callback(_.map(data._embeddedItems,function(item){
+                return new Item(item);
+            }))
+        })
+    };
+
+    Item.resources = null;
+
+    return Item;
 });
