@@ -46,7 +46,7 @@ DMApp.config(function($httpProvider,$routeProvider/*,SpringDataRestInterceptor*/
 
     $routeProvider
         .when('/home',{
-            templateUrl: 'js/app/home.html'
+            templateUrl: 'js/app/home/home.html'
         })
         .when('/korisnik',{
             templateUrl:'js/app/korisnik.html'

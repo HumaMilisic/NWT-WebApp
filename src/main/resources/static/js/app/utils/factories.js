@@ -477,3 +477,23 @@ DMApp.factory('Item',function(SpringDataRestAdapter,$http){
 
     return Item;
 });
+
+DMApp.factory('ResourceNew',function(SpringDataRestAdapter,$http){
+    //var Item = {
+    //    entity:null,
+    //    page:null,
+    //    size:null,
+    //    sort:null,
+    //}
+    //
+    //var nextPage = function(item){
+    //    if(item==null || typeof (item)=="undefined"){
+    //        item = Item;
+    //    }
+    //}
+    //
+    //
+    //return {
+    //    nextPage:nextPage
+    //}
+})

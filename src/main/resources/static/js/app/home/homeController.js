@@ -6,7 +6,8 @@ DMApp.controller('homeController', [
     '$http',
     'SpringDataRestAdapter',
     'loader',
-    function($scope,auth,$translate,randomElem,$http,SpringDataRestAdapter,loader) {
+    'ResourceNew',
+    function($scope,auth,$translate,randomElem,$http,SpringDataRestAdapter,loader,ResourceNew) {
         $scope.main = {};
         $scope.name = "naziv!!!";
         $scope.logovan = null;
