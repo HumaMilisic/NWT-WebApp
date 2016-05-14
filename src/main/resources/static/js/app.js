@@ -659,8 +659,7 @@ DMApp.controller('mainToolbarCtrl',function($scope,$rootScope,auth,$translate,$l
 
     //$scope.breadcrumb = $location.url();
 
-    $scope.jezici = ['en-US','bs-Latn-BA'];
-    $scope.jezik = $translate.use();
+
 
     $scope.login = function(){
         auth.login($scope.user);
@@ -689,13 +688,6 @@ DMApp.controller('mainToolbarCtrl',function($scope,$rootScope,auth,$translate,$l
         }
     });
 
-    $scope.changeLanguage = function (langKey) {
-        if(langKey==null || typeof (langKey)=='undefined'){
-            langKey='en-US';
-        }
-        $translate.use(langKey);
-        $scope.jezik = langKey;
-    };
 });
 
 DMApp.controller('loginController',function($scope,$http,$rootScope,auth,$translate,localStorageService){
@@ -1024,8 +1016,6 @@ DMApp.controller('indexController',function($scope,$rootScope,$translate,$mdSide
         $scope.isLoading = $rootScope.isLoading;
     });
 
-    $scope.jezici = ['en-US','bs-Latn-BA'];
-    $scope.jezik = $translate.use();
 
     $scope.navBarVisibleFlag = $mdSidenav('left').isOpen();
 
@@ -1043,17 +1033,6 @@ DMApp.controller('indexController',function($scope,$rootScope,$translate,$mdSide
 
 
 
-    $scope.changeLanguage = function (langKey) {
-        if(langKey==null || typeof (langKey)=='undefined'){
-            langKey='en-US';
-        }
-        $translate.use(langKey);
-        //$scope.jezik = langKey;
-    };
-
-    $scope.$watch('jezik',function(newVal,oldVal){
-        $scope.changeLanguage(newVal);
-    })
 });
 
 
@@ -1369,3 +1348,39 @@ DMApp.controller('editItemModalCtrl',function($scope,$mdDialog){
 
 });
 
+DMApp.directive('prevodOdabir',function(){
+    return{
+        controller: ["$scope","$translate","localStorageService",function($scope,$translate,localStorageService){
+            $scope.jezici = ['en-US','bs-Latn-BA'];
+            $scope.jezik = $translate.use();
+
+            $scope.changeLanguage = function (langKey) {
+                if(langKey==null || typeof (langKey)=='undefined'){
+                    langKey='en-US';
+                }
+                $translate.use(langKey);
+                var tempJezik = localStorageService.get('jezik');
+                localStorageService.set('jezik',langKey);
+                //$scope.jezik = langKey;
+            };
+
+            var tempJezik = localStorageService.get('jezik');
+
+            if(tempJezik){
+                $scope.jezik = tempJezik;
+                $scope.changeLanguage(tempJezik);
+            }
+
+
+
+            $scope.$watch('jezik',function(newVal,oldVal){
+                $scope.changeLanguage(newVal);
+            })
+
+        }],
+        template:'<md-input-container>'+
+                    '<md-select ng-model="jezik">'+
+                    '<md-option ng-repeat="j in jezici" value="{{j}}">{{j}}</md-option>'+
+                 '</md-select>'+'</md-input-container>'
+    }
+})

@@ -2,30 +2,42 @@
   "GREETING": "Wozdraaaaaaaaa",
   "EXAMPLE_TRANSLATION": "?EXAMPLE_TRANSLATION",
   "REGISTRATION": "Registracija",
-  "USER_NAME": "?USER_NAME",
+  "USER_NAME": "Username",
   "PASSWORD": "Lozinka",
-  "REPEAT_PASSWORD":"?REPEAT_PASSWORD",
+  "REPEAT_PASSWORD":"Ponovite lozinku",
   "FIRST_NAME":"Ime",
   "LAST_NAME": "Prezime",
   "EMAIL": "email",
   "VALIDATION_ERROR": {
     "REQUIRED":"Obavezno"
   },
-  "SIGN_IN":"?SIGN_IN",
-  "FORGOT_PASSWORD":"?FORGOT_PASSWORD",
-  "SEND_MAIL":"?SEND_MAIL",
+  "SIGN_IN":"Sign in",
+  "FORGOT_PASSWORD":"Zaboravili ste lozinku_",
+  "SEND_MAIL":"Pošaljite email",
   "SUBMIT":"?SUBMIT",
-  "JMBG":"?JMBG",
-  "RESET_PASSWORD":"?RESET_PASSWORD",
+  "JMBG":"JMBG",
+  "RESET_PASSWORD":"Reset lozinke",
   "DOCUMENT":{
-    "EXPIRES":"?Istice",
-    "CREATED":"?Kreirano",
-    "TEXT":"?Tekst",
-    "SIGNED":"?Potpisano",
-    "SIGNATURE":"?Potpis",
-    "UPDATED":"?UPDATED"
+    "NAME":"Naziv",
+    "EXPIRES":"Ističe",
+    "CREATED":"Kreirano",
+    "TEXT":"Tekst",
+    "SIGNED":"Potpisano",
+    "SIGNATURE":"Potpis",
+    "UPDATED":"Ažuriran",
+    "NEW":"Novi dokument",
+    "EDIT":"?EDIT_DOCUMENT"
+  },
+  "USER":{
+    "NEW":"Novi korisnik",
+    "EDIT":"?EDIT USER"
   },
   "DELETE":"?DELETE",
-  "BUTTONS":"?BUTTONS",
-  "EDIT":"?EDIT"
+  "BUTTONS":"Dugmići",
+  "EDIT":"?EDIT",
+  "DOCUMENTS":"Dokumenti",
+  "TITLE":"Naziv",
+  "ROLE":{
+    "NEW":"Nova uloga"
+  }
 }

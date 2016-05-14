@@ -1,7 +1,7 @@
 <!--https://klarsys.github.io/angular-material-icons/-->
 <md-dialog aria-label="Mango (Fruit)" ng-controller="noviItemModalCtrl">
     <md-toolbar layout-padding>
-        Nova uloga
+        <span translate="ROLE.NEW">Nova uloga</span>
             <!--<h4>Nova uloga</h4>-->
         <!--<span flex></span>-->
             <!--<md-button class="md-icon-button" ng-click="cancel()">-->
@@ -13,7 +13,7 @@
     <md-content class="md-padding">
         <form name="form">
             <md-input-container class="md-block">
-                <label>Naziv</label>
+                <label translate="TITLE">Naziv</label>
                 <input required name="naziv"
                        md-maxlength="100"
                        ng-model="item.naziv">

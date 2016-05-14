@@ -2,12 +2,6 @@
   "GREETING": "Hello World!",
   "EXAMPLE_TRANSLATION": "Example translation",
   "REGISTRATION": "?REGISTRATION",
-  "USER_NAME": "?USER_NAME",
-  "PASSWORD": "?PASSWORD",
-  "REPEAT_PASSWORD":"?REPEAT_PASSWORD",
-  "FIRST_NAME":"?FIRST_NAME",
-  "LAST_NAME": "?LAST_NAME",
-  "EMAIL": "?EMAIL",
   "VALIDATION_ERROR": {
     "REQUIRED":"Required"
   },
@@ -15,17 +9,36 @@
   "FORGOT_PASSWORD":"Forgot password?",
   "SEND_MAIL":"?SEND_MAIL",
   "SUBMIT":"?SUBMIT",
-  "JMBG":"?JMBG",
   "RESET_PASSWORD":"?RESET_PASSWORD",
+  "EMAIL": "?EMAIL",
+  "REPEAT_PASSWORD":"?REPEAT_PASSWORD",
+  "FIRST_NAME":"?FIRST_NAME",
+  "LAST_NAME": "?LAST_NAME",
+  "USER_NAME": "?USER_NAME",
+  "PASSWORD": "?PASSWORD",
+  "JMBG":"?JMBG",
   "DOCUMENT":{
+    "NAME":"?NAME",
     "EXPIRES":"?EXPIRES",
     "CREATED":"?CREATED",
     "TEXT":"?TEXT",
     "SIGNED":"?SIGNED",
     "SIGNATURE":"?SIGNATURE",
+    "UPDATED":"?UPDATED",
+    "NEW":"?NEW_DOCUMENT",
+    "EDIT":"?EDIT_DOCUMENT",
     "UPDATED":"?UPDATED"
+  },
+  "USER":{
+    "NEW":"?NEW USER",
+    "EDIT":"?EDIT USER"
   },
   "DELETE":"?DELETE",
   "BUTTONS":"?BUTTONS",
-  "EDIT":"?EDIT"
+  "EDIT":"?EDIT",
+  "DOCUMENTS":"?DOCUMENTS",
+  "TITLE":"?TITLE",
+  "ROLE":{
+    "NEW":"?NEW ROLE"
+  }
 }
