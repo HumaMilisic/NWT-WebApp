@@ -2,6 +2,12 @@
   "GREETING": "Hello World!",
   "EXAMPLE_TRANSLATION": "Example translation",
   "REGISTRATION": "?REGISTRATION",
+  "USER_NAME": "?USER_NAME",
+  "PASSWORD": "?PASSWORD",
+  "REPEAT_PASSWORD":"?REPEAT_PASSWORD",
+  "FIRST_NAME":"?FIRST_NAME",
+  "LAST_NAME": "?LAST_NAME",
+  "EMAIL": "?EMAIL",
   "VALIDATION_ERROR": {
     "REQUIRED":"Required"
   },
@@ -40,5 +46,37 @@
   "TITLE":"?TITLE",
   "ROLE":{
     "NEW":"?NEW ROLE"
+  },
+  "STATUS":{
+    "NEW":"New status",
+    "EDIT":"Edit status"
+  },
+  "TITLE_BA": "Title BA",
+  "TITLE_EN": "Title EN",
+  "TEMPLATE_BA": "Template BA",
+  "TEMPLATE_EN": "Template EN",
+  "CANCEL": "CANCEL",
+  "SAVE": "SAVE",
+  "STATUSES": "Statuses",
+  "NOTIFICATIONS": "Notifications",
+  "NOTIFICATION":{
+    "TEXT": "Text",
+    "NEW": "New notification",
+    "EDIT": "Edit notification"
+  },
+  "TYPE_OF_DOCUMENTS": "Type of document",
+  "TYPE_OF_DOCUMENT":{
+    "NEW": "New type of document",
+    "EDIT": "Edit type of document"
+  },
+  "EVENTS": "Events",
+  "EVENT":{
+    "NEW": "New event",
+    "EDIT": "Edit event",
+    "TITLE": "Title"
+  },
+  "IZBOR":{
+    "EDIT": "Edit",
+    "DELETE": "Delete"
   }
 }

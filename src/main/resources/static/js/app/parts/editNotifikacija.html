@@ -1,13 +1,13 @@
 <md-dialog aria-label="Mango (Fruit)" ng-controller="noviItemModalCtrl">
     <md-toolbar layout-padding>
-        Uredi notifikaciju
+        <span translate="NOTIFICATION.EDIT">Uredi notifikaciju</span>
     </md-toolbar>
     <md-content class="md-padding">
         <form name="form">
 
             <div layout-gt-xs="row">
                 <md-input-container class="md-block">
-                    <label TRANSLATE="Text"> Tekst: </label>
+                    <label TRANSLATE="NOTIFICATION.TEXT"> Tekst: </label>
                     <input type="text" name="tekst"
                            required
                            ng-model="item.tekst"/>
@@ -20,7 +20,7 @@
     </md-content>
     <div class="md-actions" layout="row">
         <span flex></span>
-        <md-button ng-click="answer(null)"> Cancel </md-button>
-        <md-button ng-click="answer(item)" class="md-primary"> Save </md-button>
+        <md-button ng-click="answer(null)" translate="CANCEL"> Cancel </md-button>
+        <md-button ng-click="answer(item)" class="md-primary" translate="SAVE"> Save </md-button>
     </div>
 </md-dialog>

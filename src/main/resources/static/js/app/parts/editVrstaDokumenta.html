@@ -1,13 +1,13 @@
 <md-dialog aria-label="Mango (Fruit)" ng-controller="noviItemModalCtrl">
     <md-toolbar layout-padding>
-        Uredi vrstu dokumenta
+        <span translate="STATUS.EDIT">Uredi vrstu dokumenta</span>
     </md-toolbar>
     <md-content class="md-padding">
         <form name="form">
 
             <div layout-gt-xs="row">
                 <md-input-container class="md-block">
-                    <label TRANSLATE="Title_BA"> Naziv BA: </label>
+                    <label TRANSLATE="TITLE_BA"> Naziv BA: </label>
                     <input type="text" name="nazivba"
                            required
                            ng-model="item.nazivba"/>
@@ -16,7 +16,7 @@
                     </div>
                 </md-input-container>
                 <md-input-container class="md-block">
-                    <label TRANSLATE="Title_EN"> Naziv EN: </label>
+                    <label TRANSLATE="TITLE_EN"> Naziv EN: </label>
                     <input type="text" name="naziven"
                            required
                            ng-model="item.naziven"/>
@@ -27,7 +27,7 @@
             </div>
             <div layout-gt-xs="row">
                 <md-input-container class="md-block">
-                    <label TRANSLATE="Template_BA"> Template BA: </label>
+                    <label TRANSLATE="TEMPLATE_BA"> Template BA: </label>
                     <input type="text" name="templateba"
                            required
                            ng-model="item.templateba"/>
@@ -38,7 +38,7 @@
             </div>
             <div layout-gt-xs="row">
                 <md-input-container class="md-block">
-                    <label TRANSLATE="Template_EN"> Template EN: </label>
+                    <label TRANSLATE="TEMPLATE_EN"> Template EN: </label>
                     <input type="text" name="templateen"
                            required
                            ng-model="item.templateen"/>
@@ -51,7 +51,7 @@
     </md-content>
     <div class="md-actions" layout="row">
         <span flex></span>
-        <md-button ng-click="answer(null)"> Cancel </md-button>
-        <md-button ng-click="answer(item)" class="md-primary"> Save </md-button>
+        <md-button ng-click="answer(null)" translate="CANCEL"> Cancel </md-button>
+        <md-button ng-click="answer(item)" class="md-primary" translate="SAVE"> Save </md-button>
     </div>
 </md-dialog>

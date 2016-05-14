@@ -12,7 +12,7 @@
     "REQUIRED":"Obavezno"
   },
   "SIGN_IN":"Sign in",
-  "FORGOT_PASSWORD":"Zaboravili ste lozinku_",
+  "FORGOT_PASSWORD":"Zaboravili ste lozinku?",
   "SEND_MAIL":"Pošaljite email",
   "SUBMIT":"?SUBMIT",
   "JMBG":"JMBG",
@@ -39,5 +39,35 @@
   "TITLE":"Naziv",
   "ROLE":{
     "NEW":"Nova uloga"
+  },
+  "STATUS":{
+    "NEW":"Novi status",
+    "EDIT":"Uredi status"
+  },
+  "TITLE_BA": "Naziv BA",
+  "TITLE_EN": "Naziv EN",
+  "CANCEL": "Odustani",
+  "SAVE": "Sačuvaj",
+  "STATUSES": "Statusi",
+  "NOTIFICATIONS": "Notifikacije",
+  "NOTIFICATION":{
+    "TEXT": "Tekst",
+    "NEW": "Nova notifikacija",
+    "EDIT": "Uredi notifikaciju"
+  },
+  "TYPE_OF_DOCUMENTS": "Vrste dokumenata",
+  "TYPE_OF_DOCUMENT":{
+    "NEW": "Nova vrsta dokumenta",
+    "EDIT": "Uredi vrstu dokumenta"
+  },
+  "EVENTS": "Događaji",
+  "EVENT":{
+    "NEW": "Novi događaj",
+    "EDIT": "Uredi događaj",
+    "TITLE": "Naziv"
+  },
+  "IZBOR":{
+    "EDIT": "Uredi",
+    "DELETE": "Izbriši"
   }
 }
