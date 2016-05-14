@@ -22,7 +22,8 @@
     "CREATED":"?CREATED",
     "TEXT":"?TEXT",
     "SIGNED":"?SIGNED",
-    "SIGNATURE":"?SIGNATURE"
+    "SIGNATURE":"?SIGNATURE",
+    "UPDATED":"?UPDATED"
   },
   "DELETE":"?DELETE",
   "BUTTONS":"?BUTTONS",

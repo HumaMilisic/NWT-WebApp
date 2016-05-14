@@ -95,7 +95,8 @@ public class Dokument implements Serializable {
 	public void setId(long id) {
 		this.id = id;
 		Date date = new Date();
-		this.kreiran = new Timestamp(date.getTime());
+		if(this.kreiran==null)
+			this.kreiran = new Timestamp(date.getTime());
 		this.azuriran = new Timestamp(date.getTime());
 	}
 
@@ -106,6 +107,8 @@ public class Dokument implements Serializable {
 	public void setAzuriran(Timestamp azuriran) {
 		Date date = new Date();
 		this.azuriran = new Timestamp(date.getTime());
+		if(this.kreiran==null)
+			this.kreiran = new Timestamp(date.getTime());
 	}
 
 	public Date getIstice() {
@@ -116,6 +119,8 @@ public class Dokument implements Serializable {
 		this.istice = istice;
 		Date date = new Date();
 		this.azuriran = new Timestamp(date.getTime());
+		if(this.kreiran==null)
+			this.kreiran = new Timestamp(date.getTime());
 	}
 
 	public Timestamp getKreiran() {
@@ -126,7 +131,8 @@ public class Dokument implements Serializable {
 
 //		this.kreiran = kreiran;
 		Date date = new Date();
-		this.kreiran = new Timestamp(date.getTime());
+		if(this.kreiran==null)
+			this.kreiran = new Timestamp(date.getTime());
 		this.azuriran = new Timestamp(date.getTime());
 	}
 
@@ -139,6 +145,8 @@ public class Dokument implements Serializable {
 		this.oznaka = oznaka;
 		Date date = new Date();
 		this.azuriran = new Timestamp(date.getTime());
+		if(this.kreiran==null)
+			this.kreiran = new Timestamp(date.getTime());
 	}
 
 	public String getPotpis() {
@@ -150,6 +158,8 @@ public class Dokument implements Serializable {
 		Date date = new Date();
 		this.azuriran = new Timestamp(date.getTime());
 		this.potpisan = new Timestamp(date.getTime());
+		if(this.kreiran==null)
+			this.kreiran = new Timestamp(date.getTime());
 	}
 
 	public Timestamp getPotpisan() {
@@ -168,6 +178,8 @@ public class Dokument implements Serializable {
 		this.tekst = tekst;
 		Date date = new Date();
 		this.azuriran = new Timestamp(date.getTime());
+		if(this.kreiran==null)
+			this.kreiran = new Timestamp(date.getTime());
 	}
 
 //	public Dokument getDokument() {
@@ -306,6 +318,8 @@ public class Dokument implements Serializable {
 		this.deleted = deleted;
 		Date date = new Date();
 		this.azuriran = new Timestamp(date.getTime());
+		if(this.kreiran==null)
+			this.kreiran = new Timestamp(date.getTime());
 	}
 
 }

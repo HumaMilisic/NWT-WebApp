@@ -255,7 +255,8 @@ DMApp.service('redirekt',function($location){
     this.goToStaro = function(){
         if(staro!=null){
             this.goTo(staro);
-        }
+        }else
+            this.goToHome();
     };
     this.goTo404 = function(){
         this.goTo('/404');
@@ -591,7 +592,7 @@ DMApp.factory('auth',function($http,$rootScope,$location,SpringDataRestAdapter,r
     var login = function(user){
         checkUser(user,function(){
             if($rootScope.authenticated){
-                redirekt.goToHome();
+                redirekt.goToStaro();
                 //checkUser(user,function(){
                 //    if($rootScope.authenticated){
                 //        //$location.path("/");
@@ -1349,3 +1350,37 @@ DMApp.controller('uploadtestController', ['$rootScope', '$scope', '$http', '$loc
         $window.open('/document/' + id, '_blank');
     };
 }]);
+
+DMApp.controller('editItemModalCtrl',function($scope,$mdDialog){
+//    var a=0;
+//    var naziv_BA = $scope.selected[0].nazivba;
+    $scope.item = $scope.selected[0];
+//    $scope.nazivba = naziv_BA;
+//    var naziv_EN = $scope.selected[0].naziven;
+    $scope.hide = function() {
+        $mdDialog.hide();
+    };
+    $scope.cancel = function() {
+        $mdDialog.cancel();
+    };
+    $scope.answer = function(answer) {
+        $mdDialog.hide(answer);
+    };
+
+
+});
+
+
+DMApp.controller('noviItemModalCtrl',function($scope,$mdDialog){
+    $scope.hide = function() {
+        $mdDialog.hide();
+    };
+    $scope.cancel = function() {
+        $mdDialog.cancel();
+    };
+    $scope.answer = function(answer) {
+        $mdDialog.hide(answer);
+    };
+
+
+});

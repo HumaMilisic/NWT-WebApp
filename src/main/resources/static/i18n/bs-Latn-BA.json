@@ -22,7 +22,8 @@
     "CREATED":"?Kreirano",
     "TEXT":"?Tekst",
     "SIGNED":"?Potpisano",
-    "SIGNATURE":"?Potpis"
+    "SIGNATURE":"?Potpis",
+    "UPDATED":"?UPDATED"
   },
   "DELETE":"?DELETE",
   "BUTTONS":"?BUTTONS",
