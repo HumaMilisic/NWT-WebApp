@@ -1,40 +1,53 @@
-<div ng-controller="administracijaDashboardController">
-    <div class="row">
-        <div class="col-lg-12">
-            <div class="title">
-                <h1>{{name}}</h1>
-            </div>
-        </div>
-    </div>
-    <div class="row">
-        <div class="col-lg-6">
-            <canvas id="radar" class="chart chart-radar"
-                    chart-data="dataRadar" chart-labels="labelsRadar">
-            </canvas>
-        </div>
-        <div class="col-lg-6">
-            <canvas id="line" class="chart chart-line" chart-data="dataLine"
-                    chart-labels="labelsLine" chart-legend="false" chart-series="seriesLine"
-                    chart-click="onClick" >
-            </canvas>
-        </div>
-    </div>
-    <div class="row">
-        <div class="col-lg-4">
-            <p>
-            Lorem ipsum dolor sit amet, consectetur adipiscing elit. Maecenas vel scelerisque tellus. Curabitur elit lacus, dapibus a porttitor sit amet, iaculis ut sem. Cras lectus quam, consectetur vehicula lectus ut, rutrum fermentum turpis. Nam sollicitudin, elit id semper venenatis, odio nulla fermentum quam, eget malesuada arcu lorem quis mauris. In in ante in risus placerat euismod sit amet et lectus. Integer tortor odio, porta ac metus ac, mollis viverra libero. Morbi ut libero at ipsum vehicula rhoncus ut vel felis. Ut sit amet quam tempus, maximus nunc aliquet, sodales dui. Curabitur quis semper justo. Nam consequat leo a sapien imperdiet, quis placerat tellus bibendum. Suspendisse a malesuada enim, a gravida magna. Sed posuere turpis sed consectetur aliquam. Class aptent taciti sociosqu ad litora torquent per conubia nostra, per inceptos himenaeos. Phasellus elementum neque nulla, sed sagittis erat tempus bibendum. Nam et sem urna.
-            </p>
-        </div>
-        <div class="col-lg-4">
-            <canvas id="polar-area" class="chart chart-polar-area"
-                    chart-data="dataPie" chart-labels="labelsPie">
-            </canvas>
-        </div>
-        <div class="col-lg-4">
-            <canvas id="doughnut" class="chart chart-doughnut"
-                    chart-data="data" chart-labels="labels">
-            </canvas>
-        </div>
-    </div>
+<md-content ng-controller="administracijaDashboardController">
+    <!--<base-widget></base-widget>-->
+    <md-grid-list
+            md-cols-xs="1" md-cols-sm="2" md-cols-md="4" md-cols-gt-md="6"
+            md-row-height-gt-md="1:1" md-row-height="2:2"
+            md-gutter="12px" md-gutter-gt-sm="8px">
+        <!--<base-widget></base-widget>-->
+        <md-grid-tile ng-repeat="n in [1,2,3,4,5,6,7]" >
+            <base-widget></base-widget>
+            <!--<md-grid-tile-footer>-->
+            <!--<h3>#1: (3r x 2c)</h3>-->
+            <!--</md-grid-tile-footer>-->
+        </md-grid-tile>
+    </md-grid-list>
+    <!--<div class="row">-->
+        <!--<div class="col-lg-12">-->
+            <!--<div class="title">-->
+                <!--<h1>{{name}}</h1>-->
+            <!--</div>-->
+        <!--</div>-->
+    <!--</div>-->
+    <!--<div class="row">-->
+        <!--<div class="col-lg-6">-->
+            <!--<canvas id="radar" class="chart chart-radar"-->
+                    <!--chart-data="dataRadar" chart-labels="labelsRadar">-->
+            <!--</canvas>-->
+        <!--</div>-->
+        <!--<div class="col-lg-6">-->
+            <!--<canvas id="line" class="chart chart-line" chart-data="dataLine"-->
+                    <!--chart-labels="labelsLine" chart-legend="false" chart-series="seriesLine"-->
+                    <!--chart-click="onClick" >-->
+            <!--</canvas>-->
+        <!--</div>-->
+    <!--</div>-->
+    <!--<div class="row">-->
+        <!--<div class="col-lg-4">-->
+            <!--<p>-->
+            <!--Lorem ipsum dolor sit amet, consectetur adipiscing elit. Maecenas vel scelerisque tellus. Curabitur elit lacus, dapibus a porttitor sit amet, iaculis ut sem. Cras lectus quam, consectetur vehicula lectus ut, rutrum fermentum turpis. Nam sollicitudin, elit id semper venenatis, odio nulla fermentum quam, eget malesuada arcu lorem quis mauris. In in ante in risus placerat euismod sit amet et lectus. Integer tortor odio, porta ac metus ac, mollis viverra libero. Morbi ut libero at ipsum vehicula rhoncus ut vel felis. Ut sit amet quam tempus, maximus nunc aliquet, sodales dui. Curabitur quis semper justo. Nam consequat leo a sapien imperdiet, quis placerat tellus bibendum. Suspendisse a malesuada enim, a gravida magna. Sed posuere turpis sed consectetur aliquam. Class aptent taciti sociosqu ad litora torquent per conubia nostra, per inceptos himenaeos. Phasellus elementum neque nulla, sed sagittis erat tempus bibendum. Nam et sem urna.-->
+            <!--</p>-->
+        <!--</div>-->
+        <!--<div class="col-lg-4">-->
+            <!--<canvas id="polar-area" class="chart chart-polar-area"-->
+                    <!--chart-data="dataPie" chart-labels="labelsPie">-->
+            <!--</canvas>-->
+        <!--</div>-->
+        <!--<div class="col-lg-4">-->
+            <!--<canvas id="doughnut" class="chart chart-doughnut"-->
+                    <!--chart-data="data" chart-labels="labels">-->
+            <!--</canvas>-->
+        <!--</div>-->
+    <!--</div>-->
 
-</div>
+</md-content>
