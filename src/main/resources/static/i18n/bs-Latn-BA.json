@@ -14,5 +14,17 @@
   "SIGN_IN":"?SIGN_IN",
   "FORGOT_PASSWORD":"?FORGOT_PASSWORD",
   "SEND_MAIL":"?SEND_MAIL",
-  "SUBMIT":"?SUBMIT"
+  "SUBMIT":"?SUBMIT",
+  "JMBG":"?JMBG",
+  "RESET_PASSWORD":"?RESET_PASSWORD",
+  "DOCUMENT":{
+    "EXPIRES":"?Istice",
+    "CREATED":"?Kreirano",
+    "TEXT":"?Tekst",
+    "SIGNED":"?Potpisano",
+    "SIGNATURE":"?Potpis"
+  },
+  "DELETE":"?DELETE",
+  "BUTTONS":"?BUTTONS",
+  "EDIT":"?EDIT"
 }

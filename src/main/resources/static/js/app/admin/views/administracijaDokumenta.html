@@ -39,13 +39,13 @@
             <div class="md-toolbar-tools">
                 <span flex="">{{selected.length}} {{selected.length > 1 ? 'items' : 'item'}} selected</span>
                 <md-button class="md-icon-button">
-                    <md-tooltip>Edit</md-tooltip>
+                    <md-tooltip><span translate="EDIT"></span>Edit</md-tooltip>
                     <ng-md-icon icon="edit"
                                 ng-click="editDialog($event)"
                                 style="fill: black"></ng-md-icon>
                 </md-button>
                 <md-button class="md-icon-button">
-                    <md-tooltip>Delete</md-tooltip>
+                    <md-tooltip><span translate="DELETE"></span>Delete</md-tooltip>
                     <ng-md-icon icon="delete"
                                 ng-click="deleteDokument()"
                                 style="fill: black"></ng-md-icon>
@@ -62,14 +62,14 @@
                 <thead ng-if="!options.decapitate" md-head
                        md-order="query.order" md-on-reorder="logOrder">
                 <tr md-row>
-                    <th md-column="">Azuriran</th>
-                    <th md-column="">Istice</th>
-                    <th md-column="">Kreiran</th>
-                    <th md-column="">Oznaka</th>
-                    <th md-column="">Potpis</th>
-                    <th md-column="">Potpisan</th>
-                    <th md-column="">Tekst</th>
-                    <th md-column>Dugmici</th>
+                    <th md-column="" >Azuriran</th>
+                    <th md-column="" > <span translate="DOCUMENT.EXPIRES">Istice</span></th>
+                    <th md-column="" ><span translate="DOCUMENT.CREATED">Kreiran</span></th>
+                    <th md-column="" >Oznaka</th>
+                    <th md-column="" ><span translate="DOCUMENT.SIGNATURE">Potpis</span></th>
+                    <th md-column="" ><span translate="DOCUMENT.SIGNED">Potpisan</span></th>
+                    <th md-column=""><span translate="DOCUMENT.TEXT">Tekst</span></th>
+                    <th md-column><span translate="BUTTONS">Dugmici</span></th>
                 </tr>
                 </thead>
                 <tbody md-body>

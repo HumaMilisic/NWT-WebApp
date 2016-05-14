@@ -13,7 +13,8 @@ DMApp.controller('administracijaController', [
     '$mdEditDialog',
     '$mdToast',
     '$mdDialog',
-    function($scope/*,NgTableParams*/,Resource,$http,loader,$location,auth,$q,SpringDataRestAdapter,Item,$resource,$mdEditDialog,$mdToast,$mdDialog) {
+    '$translate',
+    function($scope/*,NgTableParams*/,Resource,$http,loader,$location,auth,$q,SpringDataRestAdapter,Item,$resource,$mdEditDialog,$mdToast,$mdDialog,$translate) {
         //auth.check();
         $scope.main = {};
         $scope.name = "administracija";

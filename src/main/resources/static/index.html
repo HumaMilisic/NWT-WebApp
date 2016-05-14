@@ -170,11 +170,11 @@
                 </md-button>
                                 </span>
                 <span ng-click="logout()">logout&nbsp;&nbsp;</span>
-                <md-input-container>
-                    <md-select ng-model="jezik">
-                        <md-option ng-repeat="j in jezici" value="{{j}}">{{j}}</md-option>
-                    </md-select>
-                </md-input-container>
+                <!--<md-input-container>-->
+                    <!--<md-select ng-model="jezik">-->
+                        <!--<md-option ng-repeat="j in jezici" value="{{j}}">{{j}}</md-option>-->
+                    <!--</md-select>-->
+                <!--</md-input-container>-->
 
                 <!--</div>-->
 
@@ -191,7 +191,7 @@
 
 </section>
 
-<section ng-hide="authenticated">
+<section>
     <footer layout="row" layout-align="center center">
         <md-input-container>
             <md-select ng-model="jezik">
