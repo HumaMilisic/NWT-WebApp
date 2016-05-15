@@ -25,6 +25,7 @@ var DMApp = angular.module('DMApp', [
     //'mgcrea.ngStrap.helpers.dimensions',
     //'mgcrea.ngStrap.tooltip',
     //'mgcrea.ngStrap.popover'
+    'angularMoment',
 ]);
 
 

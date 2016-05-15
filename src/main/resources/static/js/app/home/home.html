@@ -1,44 +1,208 @@
-<div ng-controller="homeController">
-    <md-list layout-padding>
-        <md-list-item ng-repeat="doc in docs">
-            <md-card layout="row" layout-fill>
-                <!--<md-card-header>-->
-                <div layout="column" layout-align="center center">
-                    <md-card-avatar >
-                        <ng-md-icon icon="insert_drive_file" style="fill:black"/>
-                    </md-card-avatar>
-                </div>
-                <!--</md-card-header>-->
-                <div layout="column" layout-padding>
-                    text: {{doc.tekst}}
-                    azuriran: {{doc.azuriran}}
-                    istice: {{doc.istice}}
-                    kreiran: {{doc.kreiran}}
-                </div>
-                <span flex></span>
-                <div layout="column" layout-align="end end">
-                    <md-menu >
-                        <!--md-offset="0 -7"-->
-                        <md-button class="md-icon-button" ng-click="$mdOpenMenu($event)">
-                            <ng-md-icon icon="more_vert" style="fill: black"></ng-md-icon>
-                        </md-button>
-                        <!--<md-button aria-label="Open demo menu" class="md-icon-button" >-->
-                            <!--<md-icon md-menu-origin md-svg-icon="call:email"></md-icon>-->
-                        <!--</md-button>-->
-                        <md-menu-content width="4">
-                            <md-menu-item ng-repeat="item in [1, 2, 3]">
-                                <md-button ng-click="dummyDoc(doc,item)"> <span md-menu-align-target>Option</span> {{item}} </md-button>
-                            </md-menu-item>
-                        </md-menu-content>
-                    </md-menu>
 
-                </div>
+<span ng-controller="homeController" layout="column" flex layout-fill ng-cloak="">
+    <!--<md-toolbar md-scroll-shrink>-->
+        <!--<div class="md-toolbar-tools">-->
+            <!--<span >MOji dokumenti</span>-->
+        <!--</div>-->
+    <!--</md-toolbar>-->
+    <!--<md-content>-->
+        <section>
+            <md-subheader>Danas</md-subheader>
+
+            <md-list layout-padding>
+                <md-list-item ng-repeat="doc in docFilterDanas">
+                    <md-card layout="row" layout-fill>
+                    <!--<md-card-header>-->
+                    <div layout="column" layout-align="center center">
+                        <md-card-avatar >
+                            <ng-md-icon icon="insert_drive_file" style="fill:black"/>
+                        </md-card-avatar>
+                    </div>
+                    <!--</md-card-header>-->
+                    <div layout="column" layout-padding>
+                        text: {{doc.tekst}}<br/>
 
 
-            </md-card>
-        </md-list-item>
-    </md-list>
-</div>
+                        <time title="{{ doc.azuriran | amDateFormat: 'dddd, MMMM Do YYYY, h:mm a' }}">
+                            azuriran: {{ doc.azuriran | amCalendar }}
+                        </time>
+                        <!--<br/>-->
+                        <time title="{{ doc.istice | amDateFormat: 'dddd, MMMM Do YYYY, h:mm a' }}">
+                            istice: {{ doc.istice | amCalendar }}
+                        </time>
+                        <!--<br/>-->
+                        <time title="{{ doc.kreiran | amDateFormat: 'dddd, MMMM Do YYYY, h:mm a' }}">
+                            kreiran: {{ doc.kreiran | amCalendar }}
+                        </time>
+                        <!--{{doc.azuriran}}-->
+                        <!--<br/>-->
+                    </div>
+                    <span flex></span>
+                    <div layout="column" layout-align="end end">
+                        <md-menu >
+                            <!--md-offset="0 -7"-->
+                            <md-button class="md-icon-button" ng-click="$mdOpenMenu($event)">
+                                <ng-md-icon icon="more_vert" style="fill: black"></ng-md-icon>
+                            </md-button>
+                            <!--<md-button aria-label="Open demo menu" class="md-icon-button" >-->
+                                <!--<md-icon md-menu-origin md-svg-icon="call:email"></md-icon>-->
+                            <!--</md-button>-->
+                            <md-menu-content width="4">
+                                <md-menu-item ng-repeat="item in [1, 2, 3]">
+                                    <md-button ng-click="dummyDoc(doc,item)"> <span md-menu-align-target>Option</span> {{item}} </md-button>
+                                </md-menu-item>
+                            </md-menu-content>
+                        </md-menu>
+
+                    </div>
+
+
+                </md-card>
+            </md-list-item>
+            </md-list>
+        </section>
+        <section>
+            <md-subheader>Starije</md-subheader>
+
+
+            <md-list layout-padding>
+                <md-list-item ng-repeat="doc in docFilterOstali">
+                    <md-card layout="row" layout-fill>
+                        <!--<md-card-header>-->
+                        <div layout="column" layout-align="center center">
+                            <md-card-avatar >
+                                <ng-md-icon icon="insert_drive_file" style="fill:black"/>
+                            </md-card-avatar>
+                        </div>
+                        <!--</md-card-header>-->
+                        <div layout="column" layout-padding>
+                            text: {{doc.tekst}}<br/>
+
+
+                            <time title="{{ doc.azuriran | amDateFormat: 'dddd, MMMM Do YYYY, h:mm a' }}">
+                                azuriran: {{ doc.azuriran | amCalendar }}
+                            </time>
+                            <!--<br/>-->
+                            <time title="{{ doc.istice | amDateFormat: 'dddd, MMMM Do YYYY, h:mm a' }}">
+                                istice: {{ doc.istice | amCalendar }}
+                            </time>
+                            <!--<br/>-->
+                            <time title="{{ doc.kreiran | amDateFormat: 'dddd, MMMM Do YYYY, h:mm a' }}">
+                                kreiran: {{ doc.kreiran | amCalendar }}
+                            </time>
+                        </div>
+                        <span flex></span>
+                        <div layout="column" layout-align="end end">
+                            <md-menu >
+                                <!--md-offset="0 -7"-->
+                                <md-button class="md-icon-button" ng-click="$mdOpenMenu($event)">
+                                    <ng-md-icon icon="more_vert" style="fill: black"></ng-md-icon>
+                                </md-button>
+                                <!--<md-button aria-label="Open demo menu" class="md-icon-button" >-->
+                                <!--<md-icon md-menu-origin md-svg-icon="call:email"></md-icon>-->
+                                <!--</md-button>-->
+                                <md-menu-content width="4">
+                                    <md-menu-item ng-repeat="item in [1, 2, 3]">
+                                        <md-button ng-click="dummyDoc(doc,item)"> <span md-menu-align-target>Option</span> {{item}} </md-button>
+                                    </md-menu-item>
+                                </md-menu-content>
+                            </md-menu>
+
+                        </div>
+
+
+                    </md-card>
+                </md-list-item>
+            </md-list>
+        </section>
+        <!--<section>-->
+            <!--<md-subheader>Mjesec</md-subheader>-->
+
+            <!--<md-list layout-padding>-->
+                <!--<md-list-item ng-repeat="doc in docs">-->
+                    <!--<md-card layout="row" layout-fill>-->
+                        <!--&lt;!&ndash;<md-card-header>&ndash;&gt;-->
+                        <!--<div layout="column" layout-align="center center">-->
+                            <!--<md-card-avatar >-->
+                                <!--<ng-md-icon icon="insert_drive_file" style="fill:black"/>-->
+                            <!--</md-card-avatar>-->
+                        <!--</div>-->
+                        <!--&lt;!&ndash;</md-card-header>&ndash;&gt;-->
+                        <!--<div layout="column" layout-padding>-->
+                            <!--text: {{doc.tekst}}-->
+                            <!--azuriran: {{doc.azuriran}}-->
+                            <!--istice: {{doc.istice}}-->
+                            <!--kreiran: {{doc.kreiran}}-->
+                        <!--</div>-->
+                        <!--<span flex></span>-->
+                        <!--<div layout="column" layout-align="end end">-->
+                            <!--<md-menu >-->
+                                <!--&lt;!&ndash;md-offset="0 -7"&ndash;&gt;-->
+                                <!--<md-button class="md-icon-button" ng-click="$mdOpenMenu($event)">-->
+                                    <!--<ng-md-icon icon="more_vert" style="fill: black"></ng-md-icon>-->
+                                <!--</md-button>-->
+                                <!--&lt;!&ndash;<md-button aria-label="Open demo menu" class="md-icon-button" >&ndash;&gt;-->
+                                <!--&lt;!&ndash;<md-icon md-menu-origin md-svg-icon="call:email"></md-icon>&ndash;&gt;-->
+                                <!--&lt;!&ndash;</md-button>&ndash;&gt;-->
+                                <!--<md-menu-content width="4">-->
+                                    <!--<md-menu-item ng-repeat="item in [1, 2, 3]">-->
+                                        <!--<md-button ng-click="dummyDoc(doc,item)"> <span md-menu-align-target>Option</span> {{item}} </md-button>-->
+                                    <!--</md-menu-item>-->
+                                <!--</md-menu-content>-->
+                            <!--</md-menu>-->
+
+                        <!--</div>-->
+
+
+                    <!--</md-card>-->
+                <!--</md-list-item>-->
+            <!--</md-list>-->
+        <!--</section>-->
+            <!--<section>-->
+                <!--<md-subheader>Starije</md-subheader>-->
+
+                <!--<md-list layout-padding>-->
+                    <!--<md-list-item ng-repeat="doc in docs">-->
+                        <!--<md-card layout="row" layout-fill>-->
+                            <!--&lt;!&ndash;<md-card-header>&ndash;&gt;-->
+                            <!--<div layout="column" layout-align="center center">-->
+                                <!--<md-card-avatar >-->
+                                    <!--<ng-md-icon icon="insert_drive_file" style="fill:black"/>-->
+                                <!--</md-card-avatar>-->
+                            <!--</div>-->
+                            <!--&lt;!&ndash;</md-card-header>&ndash;&gt;-->
+                            <!--<div layout="column" layout-padding>-->
+                                <!--text: {{doc.tekst}}-->
+                                <!--azuriran: {{doc.azuriran}}-->
+                                <!--istice: {{doc.istice}}-->
+                                <!--kreiran: {{doc.kreiran}}-->
+                            <!--</div>-->
+                            <!--<span flex></span>-->
+                            <!--<div layout="column" layout-align="end end">-->
+                                <!--<md-menu >-->
+                                    <!--&lt;!&ndash;md-offset="0 -7"&ndash;&gt;-->
+                                    <!--<md-button class="md-icon-button" ng-click="$mdOpenMenu($event)">-->
+                                        <!--<ng-md-icon icon="more_vert" style="fill: black"></ng-md-icon>-->
+                                    <!--</md-button>-->
+                                    <!--&lt;!&ndash;<md-button aria-label="Open demo menu" class="md-icon-button" >&ndash;&gt;-->
+                                    <!--&lt;!&ndash;<md-icon md-menu-origin md-svg-icon="call:email"></md-icon>&ndash;&gt;-->
+                                    <!--&lt;!&ndash;</md-button>&ndash;&gt;-->
+                                    <!--<md-menu-content width="4">-->
+                                        <!--<md-menu-item ng-repeat="item in [1, 2, 3]">-->
+                                            <!--<md-button ng-click="dummyDoc(doc,item)"> <span md-menu-align-target>Option</span> {{item}} </md-button>-->
+                                        <!--</md-menu-item>-->
+                                    <!--</md-menu-content>-->
+                                <!--</md-menu>-->
+
+                            <!--</div>-->
+
+
+                        <!--</md-card>-->
+                    <!--</md-list-item>-->
+                <!--</md-list>-->
+            <!--</section>-->
+    <!--</md-content>-->
+</span>
 <!--<div ng-controller="SubheaderAppCtrl" layout="column" flex  ng-cloak>-->
     <!--<md-toolbar md-scroll-shrink>-->
         <!--<div class="md-toolbar-tools">My Messages</div>-->

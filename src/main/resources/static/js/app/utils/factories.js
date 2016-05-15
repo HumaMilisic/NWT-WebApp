@@ -25,7 +25,11 @@ DMApp.factory('navigacijaDozvoljena',function(){
 DMApp.factory('randomElem',function(){
 
     var doc = function(){
-        var azuriran=faker.date.recent();
+        if(Math.random()>0.5)
+            var azuriran=faker.date.recent();
+        else
+            var azuriran=faker.date.past();
+
         var istice=faker.date.future();
         var kreiran=faker.date.past();
         var oznaka=faker.lorem.text();
@@ -59,7 +63,15 @@ DMApp.factory('randomElem',function(){
     var nizDocSortiranAzuriran = function(n){
         var niz = nizDoc(n);
         niz.sort(function(a,b){
-            return new Date(a.azuriran)- new Date(b.azuriran);
+            return new Date(b.azuriran)- new Date(a.azuriran);
+        });
+        return niz;
+    };
+
+    var nizDocSortiranKreiran = function(n){
+        var niz = nizDoc(n);
+        niz.sort(function(a,b){
+            return new Date(b.kreiran)- new Date(a.kreiran);
         });
         return niz;
     };
@@ -67,7 +79,8 @@ DMApp.factory('randomElem',function(){
     return {
         doc:doc,
         nizDoc:nizDoc,
-        nizDocSortiranPoAzuriran:nizDocSortiranAzuriran
+        nizDocSortiranPoAzuriran:nizDocSortiranAzuriran,
+        nizDocSortiranKreiran:nizDocSortiranKreiran
     }
 });
 
