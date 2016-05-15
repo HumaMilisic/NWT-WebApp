@@ -33,7 +33,8 @@
     "UPDATED":"?UPDATED",
     "NEW":"?NEW_DOCUMENT",
     "EDIT":"?EDIT_DOCUMENT",
-    "UPDATED":"?UPDATED"
+    "UPDATED":"?UPDATED",
+    "MY_DOCUMENTS":"My documents"
   },
   "USER":{
     "NEW":"?NEW USER",
@@ -78,5 +79,8 @@
   "IZBOR":{
     "EDIT": "Edit",
     "DELETE": "Delete"
-  }
+  },
+  "TODAY":"Today",
+  "OLDER":"Older",
+  "LOGOUT":"Logout"
 }

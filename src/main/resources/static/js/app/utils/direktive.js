@@ -23,10 +23,11 @@ DMApp.directive('baseWidget',function(){
 
 DMApp.directive('prevodOdabir',function(){
     return{
-        controller: ["$scope","$translate","localStorageService",function($scope,$translate,localStorageService){
+        controller: ["$scope","$translate","localStorageService","amMoment",function($scope,$translate,localStorageService,amMoment){
             $scope.jezici = ['en-US','bs-Latn-BA'];
             $scope.jezik = $translate.use();
-
+            //moment.locale(String);
+            //amMoment.changeLocale('de');
             $scope.changeLanguage = function (langKey) {
                 if(langKey==null || typeof (langKey)=='undefined'){
                     langKey='en-US';
@@ -34,6 +35,7 @@ DMApp.directive('prevodOdabir',function(){
                 $translate.use(langKey);
                 var tempJezik = localStorageService.get('jezik');
                 localStorageService.set('jezik',langKey);
+                amMoment.changeLocale(langKey);
                 //$scope.jezik = langKey;
             };
 
@@ -56,4 +58,4 @@ DMApp.directive('prevodOdabir',function(){
         '<md-option ng-repeat="j in jezici" value="{{j}}">{{j}}</md-option>'+
         '</md-select>'+'</md-input-container>'
     }
-})
+});

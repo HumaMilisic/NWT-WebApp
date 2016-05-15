@@ -69,5 +69,8 @@
   "IZBOR":{
     "EDIT": "Uredi",
     "DELETE": "Izbriši"
-  }
+  },
+  "TODAY":"Danas",
+  "OLDER":"Starije",
+  "LOGOUT":"Odjava"
 }
