@@ -29,20 +29,27 @@ DMApp.controller('homeController', [
         var obrada = SpringDataRestAdapter.process(getDocPromise,'_allLinks')
             .then(function(data,x,y,z,k){
                 $scope.docs = data._embeddedItems;
+                for(var i =0;i<$scope.docs.length;i++){
+                    $scope.docs[i].azuriran = new Date($scope.docs[i].azuriran);
+                    $scope.docs[i].kreiran = new Date($scope.docs[i].kreiran);
+                    $scope.docs[i].istice = new Date($scope.docs[i].istice);
+                    $scope.docs[i].potpisan = new Date($scope.docs[i].potpisan);
+                }
 
-                $scope.docs = $scope.docsR;
+                //$scope.docs = $scope.docsR;
 
                 var dateDanas = function(date){
-                    var datum = date['azuriran'];
+                    var datum = new Date(JSON.parse(JSON.stringify(date['azuriran'])));
                     datum.setDate(datum.getDate()+1);
                     var sad = new Date();
                     sad.setDate(sad.getDate());
                     var rezultat =  datum-sad;
+                    datum.setDate(datum.getDate()-1);
                     return rezultat>0;
                 }
 
                 var dateOstali = function(date){
-                    var datum = date['azuriran'];
+                    var datum = new Date(JSON.parse(JSON.stringify(date['azuriran'])));
                     datum.setDate(datum.getDate()+1);
                     var sad = new Date();
                     sad.setDate(sad.getDate());
