@@ -2,7 +2,7 @@
   "GREETING": "Wozdraaaaaaaaa",
   "EXAMPLE_TRANSLATION": "?EXAMPLE_TRANSLATION",
   "REGISTRATION": "Registracija",
-  "USER_NAME": "Username",
+  "USER_NAME": "Korisničko ime",
   "PASSWORD": "Lozinka",
   "REPEAT_PASSWORD":"Ponovite lozinku",
   "FIRST_NAME":"Ime",
@@ -14,7 +14,7 @@
   "SIGN_IN":"Sign in",
   "FORGOT_PASSWORD":"Zaboravili ste lozinku?",
   "SEND_MAIL":"Pošaljite email",
-  "SUBMIT":"?SUBMIT",
+  "SUBMIT":"Kreni",
   "JMBG":"JMBG",
   "RESET_PASSWORD":"Reset lozinke",
   "DOCUMENT":{
@@ -26,15 +26,15 @@
     "SIGNATURE":"Potpis",
     "UPDATED":"Ažuriran",
     "NEW":"Novi dokument",
-    "EDIT":"?EDIT_DOCUMENT"
+    "EDIT":"Uredi dokument"
   },
   "USER":{
     "NEW":"Novi korisnik",
-    "EDIT":"?EDIT USER"
+    "EDIT":"Uredi korisnika"
   },
-  "DELETE":"?DELETE",
+  "DELETE":"Izbriši",
   "BUTTONS":"Dugmići",
-  "EDIT":"?EDIT",
+  "EDIT":"Uredi",
   "DOCUMENTS":"Dokumenti",
   "TITLE":"Naziv",
   "ROLE":{
