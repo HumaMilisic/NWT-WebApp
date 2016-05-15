@@ -28,6 +28,9 @@ DMApp.service('redirekt',function($location){
     };
     this.goTo404 = function(){
         this.goTo('/404');
+    };
+    this.goTo403 = function(){
+        this.goTo('/403');
     }
 
 });
@@ -50,4 +53,4 @@ DMApp.service('widgetRegistration',function(){
         text:{},
         doughnutDijagram: {}
     };
-})
+});

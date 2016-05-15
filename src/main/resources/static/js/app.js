@@ -67,6 +67,9 @@ DMApp.config(function($httpProvider,$routeProvider/*,SpringDataRestInterceptor*/
         .when('/404',{
             templateUrl: 'js/app/404.html'
         })
+        .when('/403',{
+            templateUrl: 'js/app/403.html'
+        })
         .otherwise({redirectTo:'/home'});
 
     //administracija
@@ -131,6 +134,10 @@ DMApp.config(function($httpProvider,$routeProvider/*,SpringDataRestInterceptor*/
                     }
                     case 401:{
                         redirekt.goToLogin();
+                        return $q.reject(response);
+                    }
+                    case 403:{
+                        redirekt.goTo403();
                         return $q.reject(response);
                     }
                     default:{

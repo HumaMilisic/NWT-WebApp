@@ -11,7 +11,7 @@ import org.springframework.security.access.prepost.PreAuthorize;
 
 import java.util.List;
 
-@PreAuthorize("hasRole('ROLE_TEST')")
+@PreAuthorize("hasRole('ROLE_ADMIN')")
 @RepositoryRestResource(collectionResourceRel = "akcija",path = "akcija")
 public interface AkcijaRepository extends PagingAndSortingRepository<Akcija,Long>{
 
