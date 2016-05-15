@@ -822,6 +822,8 @@ DMApp.controller('editItemModalCtrl',function($scope,$mdDialog){
 
 });
 
-DMApp.controller('userInfoCtrl',function($scope,$rootScope){
-
+DMApp.controller('userInfoCtrl',function($scope,$rootScope,auth){
+    $scope.logout = function(){
+        auth.logout();
+    };
 });
