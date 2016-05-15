@@ -73,6 +73,23 @@
     "EDIT": "Edit",
     "DELETE": "Delete"
   },
+  "COMMENTS" : "Comments",
+  "COMMENT":{
+    "NEW": "New comment",
+    "EDIT": "Edit comment",
+    "TEXT": "Text",
+    "CREATED": "Created"
+  },
+  "R_DOCUMENTS": "Relation of documents",
+  "R_DOCUMENT":{
+    "NEW": "New relation of document",
+    "EDIT": "Edit relation of document"
+  },
+  "R_USERS": "Relation of users",
+  "R_USER":{
+    "NEW": "New relation of user",
+    "EDIT": "Edit relation of user"
+  },
   "TODAY":"Today",
   "OLDER":"Older",
   "LOGOUT":"Logout"
