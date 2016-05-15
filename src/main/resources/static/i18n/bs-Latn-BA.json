@@ -39,5 +39,8 @@
   "TITLE":"Naziv",
   "ROLE":{
     "NEW":"Nova uloga"
-  }
+  },
+  "TODAY":"Danas",
+  "OLDER":"Starije",
+  "LOGOUT":"Odjava"
 }

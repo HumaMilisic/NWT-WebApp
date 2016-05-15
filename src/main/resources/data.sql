@@ -79,7 +79,14 @@ INSERT INTO KORISNIK VALUES
 
 -- Dokumenti
 
+-- insert into dokument values(1, null, null, null, null, null, null, null,'yeeeey');
 -- insert into dokument values(2, null, null, null, null, null, null, null,'yeeeey');
+-- insert into dokument values(3, null, null, null, null, null, null, null,'yeeeey');
+-- insert into dokument values(4, null, null, null, null, null, null, null,'yeeeey');
+-- insert into dokument values(5, null, null, null, null, null, null, null,'yeeeey');
+-- insert into dokument values(6, null, null, null, null, null, null, null,'yeeeey');
+-- insert into dokument values(7, null, null, null, null, null, null, null,'yeeeey');
+
 
 -- Relacija Dokumenti
 

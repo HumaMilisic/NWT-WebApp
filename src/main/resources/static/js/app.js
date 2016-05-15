@@ -622,11 +622,11 @@ DMApp.controller('indexController',function($scope,$rootScope,$translate,$mdSide
 
     $scope.navBarVisibleFlag = $mdSidenav('left').isOpen();
 
-    $scope.toggleNavBar = function(){
+    $scope.toggleNavBar = function(id){
         //$scope.isOpenRight = function(){
         //    return $mdSidenav('right').isOpen();
         //};
-        $mdSidenav("left").open();
+        $mdSidenav(id).open();
         $scope.navBarVisibleFlag = !$scope.navBarVisibleFlag;
         //.toggle()
         //.then(function () {
@@ -822,3 +822,6 @@ DMApp.controller('editItemModalCtrl',function($scope,$mdDialog){
 
 });
 
+DMApp.controller('userInfoCtrl',function($scope,$rootScope){
+
+});

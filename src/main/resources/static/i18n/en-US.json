@@ -41,5 +41,8 @@
   "TITLE":"?TITLE",
   "ROLE":{
     "NEW":"?NEW ROLE"
-  }
+  },
+  "TODAY":"Today",
+  "OLDER":"Older",
+  "LOGOUT":"Logout"
 }

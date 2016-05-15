@@ -6,8 +6,9 @@
         <!--</div>-->
     <!--</md-toolbar>-->
     <!--<md-content>-->
+
         <section>
-            <md-subheader>Danas</md-subheader>
+            <md-subheader><span translate="TODAY">Danas</span></md-subheader>
 
             <md-list layout-padding>
                 <md-list-item ng-repeat="doc in docFilterDanas">
@@ -19,7 +20,7 @@
                         </md-card-avatar>
                     </div>
                     <!--</md-card-header>-->
-                    <div layout="column" layout-padding>
+                    <div layout="row" layout-padding>
                         text: {{doc.tekst}}<br/>
 
 
@@ -61,8 +62,8 @@
             </md-list-item>
             </md-list>
         </section>
-        <section>
-            <md-subheader>Starije</md-subheader>
+        <section >
+            <md-subheader><span translate="OLDER"> Starije</span></md-subheader>
 
 
             <md-list layout-padding>
@@ -75,7 +76,7 @@
                             </md-card-avatar>
                         </div>
                         <!--</md-card-header>-->
-                        <div layout="column" layout-padding>
+                        <div layout="row" layout-padding>
                             text: {{doc.tekst}}<br/>
 
 
@@ -115,6 +116,18 @@
                 </md-list-item>
             </md-list>
         </section>
+<span flex></span>
+    <footer layout="row">
+
+        <md-table-pagination md-limit="query.limit"
+                             md-limit-options="limitOptions"
+                             md-page="query.page"
+                             md-total="{{query.totalElements}}"
+                             md-page-select="options.pageSelect"
+                             md-boundary-links="options.boundaryLinks"
+                             md-on-paginate="logPagination"></md-table-pagination>
+    </footer>
+
         <!--<section>-->
             <!--<md-subheader>Mjesec</md-subheader>-->
 
