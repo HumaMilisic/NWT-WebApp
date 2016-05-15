@@ -1,14 +1,14 @@
 <!--https://klarsys.github.io/angular-material-icons/-->
 <md-dialog aria-label="Mango (Fruit)" ng-controller="noviItemModalCtrl">
     <md-toolbar layout-padding>
-        Nova relacija korisnik
+        <span translate="R_USER.NEW">Nova relacija korisnika</span>
     </md-toolbar>
     <md-content class="md-padding">
         <form name="form">
 
             <div layout-gt-xs="row">
                 <md-input-container class="md-block">
-                    <label TRANSLATE="Title_BA"> Naziv BA: </label>
+                    <label TRANSLATE="TITLE_BA"> Naziv BA: </label>
                     <input type="text" name="nazivba"
                            required
                            ng-model="item.nazivba"/>
@@ -17,7 +17,7 @@
                     </div>
                 </md-input-container>
                 <md-input-container class="md-block">
-                    <label TRANSLATE="Title_EN"> Naziv EN: </label>
+                    <label TRANSLATE="TITLE_EN"> Naziv EN: </label>
                     <input type="text" name="naziven"
                            required
                            ng-model="item.naziven"/>
@@ -30,7 +30,7 @@
     </md-content>
     <div class="md-actions" layout="row">
         <span flex></span>
-        <md-button ng-click="answer(null)"> Cancel </md-button>
-        <md-button ng-click="answer(item)" class="md-primary"> Save </md-button>
+        <md-button ng-click="answer(null)" translate="CANCEL"> Cancel </md-button>
+        <md-button ng-click="answer(item)" class="md-primary" translate="SAVE"> Save </md-button>
     </div>
 </md-dialog>

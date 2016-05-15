@@ -70,6 +70,23 @@
     "EDIT": "Uredi",
     "DELETE": "Izbriši"
   },
+  "COMMENTS" : "Komentari",
+  "COMMENT":{
+    "NEW": "Novi komentar",
+    "EDIT": "Uredi komentar",
+    "TEXT": "Tekst",
+    "CREATED": "Kreiran"
+  },
+  "R_DOCUMENTS": "Relacije dokumenata",
+  "R_DOCUMENT":{
+    "NEW": "Nova relacija dokumenta",
+    "EDIT": "Uredi relaciju dokumenta"
+  },
+  "R_USERS": "Relacije korisnika",
+  "R_USER":{
+    "NEW": "Nova relacija korisnika",
+    "EDIT": "Uredi relaciju korisnika"
+  },
   "TODAY":"Danas",
   "OLDER":"Starije",
   "LOGOUT":"Odjava"

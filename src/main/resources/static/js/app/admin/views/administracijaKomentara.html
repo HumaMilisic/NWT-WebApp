@@ -3,7 +3,7 @@
         <md-toolbar class="md-table-toolbar md-default"
                     ng-hide="options.rowSelection && selected.length">
             <div class="md-toolbar-tools">
-                <h2 flex="">Komentari</h2>
+                <h2 flex="" translate="COMMENTS">Komentari</h2>
                 <md-button class="md-icon-button">
                     <ng-md-icon icon="add" ng-click="newDialog($event)"
                                 style="fill: black"></ng-md-icon>
@@ -39,13 +39,13 @@
             <div class="md-toolbar-tools">
                 <span flex="">{{selected.length}} {{selected.length > 1 ? 'items' : 'item'}} selected</span>
                 <md-button class="md-icon-button">
-                    <md-tooltip>Edit</md-tooltip>
+                    <md-tooltip><span translate="IZBOR.EDIT"> Edit</span></md-tooltip>
                     <ng-md-icon icon="edit"
                                 ng-click="editDialog($event)"
                                 style="fill: black"></ng-md-icon>
                 </md-button>
                 <md-button class="md-icon-button">
-                    <md-tooltip>Delete</md-tooltip>
+                    <md-tooltip><span translate="IZBOR.DELETE"> Delete</span></md-tooltip>
                     <ng-md-icon icon="delete"
                                 ng-click="deleteKomentar()"
                                 style="fill: black"></ng-md-icon>
@@ -62,9 +62,9 @@
                 <thead ng-if="!options.decapitate" md-head
                        md-order="query.order" md-on-reorder="logOrder">
                 <tr md-row>
-                    <th md-column="">Kreiran</th>
-                    <th md-column="">Tekst</th>
-                    <th md-column>Dugmici</th>
+                    <th md-column=""><span translate="COMMENT.CREATED"> Kreiran</span></th>
+                    <th md-column=""><span translate="COMMENT.TEXT"> Tekst</span></th>
+                    <!--<th md-column>Dugmici</th> -->
                 </tr>
                 </thead>
                 <tbody md-body>
