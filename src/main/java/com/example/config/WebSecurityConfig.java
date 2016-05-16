@@ -92,8 +92,9 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter{
                 .failureHandler(authFailureHandler)
 //                .and()
 //                .logout()
-                .and()
+//                .and()
 // .csrf()
+                .and().headers().frameOptions().disable().and()
                 .csrf().disable()
                 .exceptionHandling()
                 .authenticationEntryPoint(authenticationEntryPoint);

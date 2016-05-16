@@ -4,6 +4,7 @@ import org.passay.CharacterRule;
 import org.passay.EnglishCharacterData;
 import org.passay.PasswordGenerator;
 
+import java.security.Principal;
 import java.util.Arrays;
 
 /**
@@ -32,6 +33,10 @@ public class GlobalStuff {
                 new CharacterRule(EnglishCharacterData.Special,1)
         ));
         return rez;
+    }
+
+    public static Principal user(Principal user){
+        return user;
     }
 
 }

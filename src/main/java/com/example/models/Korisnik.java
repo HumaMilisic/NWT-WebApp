@@ -1,6 +1,7 @@
 package com.example.models;
 
 import com.example.utils.validators.ValidPassword;
+import com.fasterxml.jackson.annotation.JsonIgnore;
 
 import javax.persistence.*;
 import java.io.Serializable;
@@ -71,7 +72,7 @@ public class Korisnik implements Serializable {
 
 	//bi-directional many-to-one association to Dokument
 //	@OneToMany(mappedBy="korisnik")
-//	private List<Dokument> dokuments;
+//	private Set<Dokument> dokuments;
 
 	//bi-directional many-to-one association to DokumentXStatus
 //	@OneToMany(mappedBy="korisnikBean")
@@ -93,8 +94,30 @@ public class Korisnik implements Serializable {
 //	private List<Korisnik> korisniks;
 //
 //	//bi-directional many-to-one association to KorisnikXDokument
-//	@OneToMany(mappedBy="korisnikBean")
-//	private List<KorisnikXDokument> korisnikXDokuments;
+	@JsonIgnore
+	@OneToMany
+	@JoinTable(
+			name="KorisnikXDokument",
+			joinColumns = @JoinColumn(name="DOKUMENT",
+					referencedColumnName = "ID"
+			),
+			inverseJoinColumns = @JoinColumn(name ="KORISNIK",
+					referencedColumnName = "ID"
+			)
+	)
+	private Set<Dokument> dokumentSet;
+
+	public Set<Dokument> getDokumentSet() {
+		return dokumentSet;
+	}
+
+	public void setDokumentSet(Set<Dokument> dokumentSet) {
+		this.dokumentSet = dokumentSet;
+	}
+
+	public String getEnabled() {
+		return enabled;
+	}
 
 	//bi-directional many-to-one association to KorisnikXKorisnik
 //	@OneToMany(mappedBy="korisnik1")

@@ -1,10 +1,16 @@
 package com.example.models;
 
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+import org.springframework.security.core.Authentication;
+import org.springframework.security.core.context.SecurityContextHolder;
+
 import javax.persistence.*;
 import java.io.Serializable;
+import java.security.Principal;
 import java.sql.Timestamp;
 import java.util.Date;
+import java.util.Set;
 
 
 /**
@@ -45,7 +51,7 @@ public class Dokument implements Serializable {
 
 	//bi-directional many-to-one association to Dokument
 //	@OneToMany(mappedBy="dokument")
-//	private List<Dokument> dokuments;
+//	private Set<Dokument> dokuments;
 
 	//bi-directional many-to-one association to Korisnik
 //	@ManyToOne
@@ -77,10 +83,20 @@ public class Dokument implements Serializable {
 //	//@JsonManagedReference //proba
 //	private List<Komentar> komentars;
 
-//	@JsonIgnore
+	@JsonIgnore
 //	//bi-directional many-to-one association to KorisnikXDokument
 //	@OneToMany(mappedBy="dokumentBean")
-//	private List<KorisnikXDokument> korisnikXDokuments;
+	@OneToMany
+	@JoinTable(
+			name="KorisnikXDokument",
+			joinColumns = @JoinColumn(name="KORISNIK",
+					referencedColumnName = "ID"
+			),
+			inverseJoinColumns = @JoinColumn(name="DOKUMENT",
+					referencedColumnName = "ID"
+			)
+	)
+	private Set<Korisnik> korisnikSet;
 
 //	@ValidBool
 	private String deleted;
@@ -95,8 +111,11 @@ public class Dokument implements Serializable {
 	public void setId(long id) {
 		this.id = id;
 		Date date = new Date();
-		if(this.kreiran==null)
+		if(this.kreiran==null) {
 			this.kreiran = new Timestamp(date.getTime());
+			Principal user;
+//			this.korisnikSet.add(e.getName());
+		}
 		this.azuriran = new Timestamp(date.getTime());
 	}
 
@@ -107,8 +126,10 @@ public class Dokument implements Serializable {
 	public void setAzuriran(Timestamp azuriran) {
 		Date date = new Date();
 		this.azuriran = new Timestamp(date.getTime());
-		if(this.kreiran==null)
+		if(this.kreiran==null) {
 			this.kreiran = new Timestamp(date.getTime());
+			Principal user;
+		}
 	}
 
 	public Date getIstice() {
@@ -117,10 +138,15 @@ public class Dokument implements Serializable {
 
 	public void setIstice(Date istice) {
 		this.istice = istice;
+//		GlobalStuff.user()
+		Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
+		String currentPrincipalName = authentication.getName();
 		Date date = new Date();
 		this.azuriran = new Timestamp(date.getTime());
-		if(this.kreiran==null)
+		if(this.kreiran==null){
 			this.kreiran = new Timestamp(date.getTime());
+//			Principal user;
+		}
 	}
 
 	public Timestamp getKreiran() {
