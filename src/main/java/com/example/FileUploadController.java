@@ -38,8 +38,8 @@ import javax.servlet.http.*;
 public class FileUploadController { //extends HttpServlet {
     private DokumentRepository repo;
 
-    //private static final String filesRoot = System.getenv("OPENSHIFT_DATA_DIR");
-    private static final String filesRoot = "F:\\appDocs";
+    private static final String filesRoot = System.getenv("OPENSHIFT_DATA_DIR");
+    //private static final String filesRoot = "F:\\appDocs";
 
     @RequestMapping(method = RequestMethod.GET, value = "/document") //, produces = MediaType.APPLICATION_JSON_VALUE)
     //public String provideUploadInfo(Model model) {
