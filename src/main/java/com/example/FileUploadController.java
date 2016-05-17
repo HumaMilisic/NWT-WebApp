@@ -190,11 +190,13 @@ public class FileUploadController { //extends HttpServlet {
                 //RedirectAttributes redirectAttributes) {
         if (name.contains("/")) {
             //redirectAttributes.addFlashAttribute("message", "Folder separators not allowed");
-            return "redirect:upload";
+            //return "redirect:upload";
+            return "{ \"status\": \"Ime ne smije sadrzavati znak '/'!\" }";
         }
         if (name.contains("/")) {
             //redirectAttributes.addFlashAttribute("message", "Relative pathnames not allowed");
-            return "redirect:upload";
+            //return "redirect:upload";
+            return "{ \"status\": \"Ime ne smije sadrzavati znak '/'!\" }";
         }
 
         if (!file.isEmpty()) {
@@ -223,7 +225,17 @@ public class FileUploadController { //extends HttpServlet {
             //        "You failed to upload " + name + " because the file was empty");
         }
 
-        return "redirect:upload";
+        //return "redirect:upload";
+        return "{ \"status\": \"Fajl uspjesno uploadovan!\" }";
     }
 
+    @RequestMapping(method = RequestMethod.DELETE, value = "/document/{fileName:.+}")
+    public @ResponseBody String delete(@PathVariable String fileName) {
+        File rootFolder = new File(filesRoot + "\\" + SecurityContextHolder.getContext().getAuthentication().getName());
+        File file = new File(rootFolder + "\\" + fileName);
+        if(file.delete())
+            return "{ \"status\": \"Fajl je uspjesno obrisan!\" }";
+        else
+            return "{ \"status\": \"Fajl nije obrisan!\" }";
+    }
 }
