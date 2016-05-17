@@ -56,4 +56,6 @@ public interface RelacijaDokumentRepository extends PagingAndSortingRepository<R
     void deleteAll();
 
     List<RelacijaDokument> findById(@Param("id")long id); //zasad po id
+
+    List<RelacijaDokument> findByNazivba(@Param("nazivba")long nazivba); //po nazivu BA
 }

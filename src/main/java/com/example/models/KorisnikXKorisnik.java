@@ -1,5 +1,8 @@
 package com.example.models;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.fasterxml.jackson.annotation.JsonManagedReference;
+
 import java.io.Serializable;
 import javax.persistence.*;
 
@@ -10,7 +13,7 @@ import javax.persistence.*;
  */
 @Entity @IdClass(KorisnikXKorisnikID.class)
 @Table(name="KORISNIK_X_KORISNIK")
-@NamedQuery(name="KorisnikXKorisnik.findAll", query="SELECT k FROM KorisnikXKorisnik k")
+//@NamedQuery(name="KorisnikXKorisnik.findAll", query="SELECT k FROM KorisnikXKorisnik k")
 public class KorisnikXKorisnik implements Serializable {
 	private static final long serialVersionUID = 1L;
 
@@ -35,6 +38,7 @@ public class KorisnikXKorisnik implements Serializable {
 	public KorisnikXKorisnik() {
 	}
 
+	@JsonIgnore //dodala
 	public Korisnik getKorisnik1() {
 		return this.korisnik1;
 	}
@@ -43,6 +47,7 @@ public class KorisnikXKorisnik implements Serializable {
 		this.korisnik1 = korisnik1;
 	}
 
+	@JsonIgnore //dodala
 	public Korisnik getKorisnik2() {
 		return this.korisnik2;
 	}
@@ -51,6 +56,7 @@ public class KorisnikXKorisnik implements Serializable {
 		this.korisnik2 = korisnik2;
 	}
 
+	@JsonIgnore //dodala
 	public RelacijaKorisnik getRelacijaKorisnik() {
 		return this.relacijaKorisnik;
 	}
@@ -58,7 +64,7 @@ public class KorisnikXKorisnik implements Serializable {
 	public void setRelacijaKorisnik(RelacijaKorisnik relacijaKorisnik) {
 		this.relacijaKorisnik = relacijaKorisnik;
 	}
-	
+
 	//dodao
 	public KorisnikXKorisnikID getId() {
 		KorisnikXKorisnikID id = new KorisnikXKorisnikID();

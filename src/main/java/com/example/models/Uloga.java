@@ -1,5 +1,7 @@
 package com.example.models;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+
 import javax.persistence.*;
 import java.io.Serializable;
 import java.util.Set;
@@ -74,7 +76,7 @@ public class Uloga implements Serializable {
         return serialVersionUID;
     }
 
-//    @JsonIgnore
+    @JsonIgnore //dodala
     @ManyToMany(fetch = FetchType.EAGER)
     @JoinTable(name = "KORISNIK_X_ULOGA",
             joinColumns = @JoinColumn(name = "KORISNIK",
@@ -84,6 +86,7 @@ public class Uloga implements Serializable {
     )
     private Set<Korisnik> korisnikSet;
 
+	@JsonIgnore //dodala
 	@ManyToMany(fetch = FetchType.EAGER)
 	@JoinTable(name = "ULOGA_X_AKCIJA",
 			joinColumns = @JoinColumn(name = "AKCIJA",

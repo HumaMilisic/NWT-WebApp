@@ -1,14 +1,6 @@
-<!--https://klarsys.github.io/angular-material-icons/-->
 <md-dialog aria-label="Mango (Fruit)" ng-controller="noviItemModalCtrl">
     <md-toolbar layout-padding>
-        <span translate="USER.NEW">Novi korisnik</span>
-        <!--<h4>Nova uloga</h4>-->
-        <!--<span flex></span>-->
-        <!--<md-button class="md-icon-button" ng-click="cancel()">-->
-        <!--<md-icon icon="close"-->
-        <!--style="fill: black"-->
-        <!--aria-label="Close dialog"></md-icon>-->
-        <!--</md-button>-->
+        <span translate="USER.EDIT">Uredi korisnika</span>
     </md-toolbar>
     <md-content class="md-padding">
         <form name="form">
@@ -35,7 +27,7 @@
             </div>
             <div layout-gt-xs="row">
                 <md-input-container class="md-block">
-                    <label TRANSLATE="FIRST_NAME"> Ime: </label>
+                    <label TRANSLATE="USER.FNAME"> Ime: </label>
                     <input type="text" name="ime"
                            required
                            ng-model="item.ime"/>
@@ -44,7 +36,7 @@
                     </div>
                 </md-input-container>
                 <md-input-container class="md-block">
-                    <label TRANSLATE="LAST_NAME"> Prezime: </label>
+                    <label TRANSLATE="USER.LNAME"> Prezime: </label>
                     <input type="text" name="prezime"
                            required
                            ng-model="item.prezime"/>
@@ -53,17 +45,13 @@
                     </div>
                 </md-input-container>
             </div>
-            <!--<md-input-container>-->
-                <!--<label>Datum rodjenja</label>-->
-                <md-datepicker ng-model="item.datumRodjenja" md-placeholder="{{'USER.DATE' | translate}}"></md-datepicker>
-            <!--</md-input-container>-->
+
+            <md-datepicker ng-model="item.datumRodjenja" md-placeholder="{{'USER.DATE' | translate}}"></md-datepicker>
+
             <md-input-container class="md-block">
                 <label TRANSLATE="JMBG"> JMBG: </label>
                 <input type="text" name="jmbg"
                        ng-model="item.jmbg"/>
-                <!--<div ng-messages="form.jmbg.$error">-->
-                    <!--<div ng-message="required" TRANSLATE="VALIDATION_ERROR.REQUIRED">This is required.</div>-->
-                <!--</div>-->
             </md-input-container>
             <md-checkbox ng-model="item.enabled" aria-label="enabled">
                 Enabled

@@ -1,13 +1,13 @@
 {
   "GREETING": "Wozdraaaaaaaaa",
-  "EXAMPLE_TRANSLATION": "?EXAMPLE_TRANSLATION",
+  "EXAMPLE_TRANSLATION": "Primjer prevoda",
   "REGISTRATION": "Registracija",
   "USER_NAME": "Korisničko ime",
   "PASSWORD": "Lozinka",
   "REPEAT_PASSWORD":"Ponovite lozinku",
   "FIRST_NAME":"Ime",
   "LAST_NAME": "Prezime",
-  "EMAIL": "email",
+  "EMAIL": "Email",
   "VALIDATION_ERROR": {
     "REQUIRED":"Obavezno"
   },
@@ -26,11 +26,20 @@
     "SIGNATURE":"Potpis",
     "UPDATED":"Ažuriran",
     "NEW":"Novi dokument",
-    "EDIT":"Uredi dokument"
+    "EDIT":"Uredi dokument",
+    "DATE": "Unesite datum"
   },
   "USER":{
     "NEW":"Novi korisnik",
-    "EDIT":"Uredi korisnika"
+    "EDIT":"Uredi korisnika",
+    "USERNAME": "Korisničko ime",
+    "FNAME": "Ime",
+    "LNAME": "Prezime",
+    "EMAIL": "Email",
+    "ENABLED": "Odobren",
+    "ROLES": "Uloge",
+    "BUTTONS": "Dugmići",
+    "DATE": "Datum rođenja"
   },
   "DELETE":"Izbriši",
   "BUTTONS":"Dugmići",
@@ -46,6 +55,8 @@
   },
   "TITLE_BA": "Naziv BA",
   "TITLE_EN": "Naziv EN",
+  "TEMPLATE_BA": "Template BA",
+  "TEMPLATE_EN": "Template EN",
   "CANCEL": "Odustani",
   "SAVE": "Sačuvaj",
   "STATUSES": "Statusi",
@@ -53,7 +64,8 @@
   "NOTIFICATION":{
     "TEXT": "Tekst",
     "NEW": "Nova notifikacija",
-    "EDIT": "Uredi notifikaciju"
+    "EDIT": "Uredi notifikaciju",
+    "DELETED": "Notifikacija je obrisana"
   },
   "TYPE_OF_DOCUMENTS": "Vrste dokumenata",
   "TYPE_OF_DOCUMENT":{
@@ -68,14 +80,17 @@
   },
   "IZBOR":{
     "EDIT": "Uredi",
-    "DELETE": "Izbriši"
+    "DELETE": "Izbriši",
+    "OPEN": "Otvori"
   },
   "COMMENTS" : "Komentari",
   "COMMENT":{
     "NEW": "Novi komentar",
     "EDIT": "Uredi komentar",
     "TEXT": "Tekst",
-    "CREATED": "Kreiran"
+    "CREATED": "Kreiran",
+    "DATE": "Unesite datum",
+    "DELETED": "Komentar je obrisan"
   },
   "R_DOCUMENTS": "Relacije dokumenata",
   "R_DOCUMENT":{
@@ -87,7 +102,22 @@
     "NEW": "Nova relacija korisnika",
     "EDIT": "Uredi relaciju korisnika"
   },
+  "ROLES": "Uloge",
+  "ROLE":{
+    "NAME": "Naziv",
+    "ACTIONS": "Akcije",
+    "USERS": "Korisnici",
+    "EDIT": "Uredi ulogu",
+    "NEW": "Nova uloga"
+  },
+  "ACTION":{
+    "NAME": "Naziv"
+  },
+  "USERS": "Korisnici",
   "TODAY":"Danas",
   "OLDER":"Starije",
-  "LOGOUT":"Odjava"
+  "LOGOUT":"Odjava",
+  "ADDED": "Dodano",
+  "MODIFIED": "Izmijenjeno",
+  "DELETED": " je obrisan"
 }
