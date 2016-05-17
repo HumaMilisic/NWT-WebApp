@@ -1,6 +1,7 @@
 package com.example;
 
 import java.io.*;
+import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Comparator;
 import java.util.List;
@@ -9,7 +10,11 @@ import java.util.stream.Collectors;
 
 import com.example.models.Dokument;
 import com.example.repo.DokumentRepository;
+import org.apache.catalina.connector.Response;
 import org.apache.tomcat.util.http.fileupload.IOUtils;
+import org.apache.tomcat.util.http.parser.MediaType;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -36,9 +41,10 @@ public class FileUploadController { //extends HttpServlet {
     //private static final String filesRoot = System.getenv("OPENSHIFT_DATA_DIR");
     private static final String filesRoot = "F:\\appDocs";
 
-    @RequestMapping(method = RequestMethod.GET, value = "/document")
+    @RequestMapping(method = RequestMethod.GET, value = "/document") //, produces = MediaType.APPLICATION_JSON_VALUE)
     //public String provideUploadInfo(Model model) {
-    public Iterable<Dokument> provideUploadInfo() {
+    //public Iterable<Dokument> provideUploadInfo() {
+    public void provideUploadInfo(HttpServletResponse response) {
 
         //File rootFolder = new File(Application.ROOT);
         /*File rootFolder = new File(filesRoot);
@@ -57,8 +63,29 @@ public class FileUploadController { //extends HttpServlet {
 
         // Ovdje NullPointerException ?
         //List<Dokument> docs = (List<Dokument>)repo.findAll();
-        Iterable<Dokument> docs = repo.findAll();
-        return docs;
+        File rootFolder = new File(filesRoot + "\\" + SecurityContextHolder.getContext().getAuthentication().getName());
+        List<String> files = new ArrayList<String>();
+        for (File file : rootFolder.listFiles())
+            files.add(file.getName());
+
+        //Iterable<Dokument> docs = repo.findAll();
+        //return docs;
+
+        //return files;
+        //return new ResponseEntity<String>(files.toString(), HttpStatus.OK);
+        //test
+        String ret = "{ \"docs\" : [ ";
+        for (String s: files)
+            ret += ("\"" + s + "\", ");
+        ret = ret.substring(0, ret.length() - 2);
+        ret += " ] }";
+        try {
+            //response.getWriter().write("{ \"docs\" :" + files.toString() + " }");
+            response.getWriter().write(ret);
+        }
+        catch (IOException ioe) {
+
+        }
     }
 
     //@RequestMapping(value="download", method=RequestMethod.GET)
