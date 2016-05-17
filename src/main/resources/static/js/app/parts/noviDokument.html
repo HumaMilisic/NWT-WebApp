@@ -9,7 +9,7 @@
                 <!--<md-datepicker ng-model="item.azuriran" md-placeholder="Enter date"></md-datepicker>-->
             <!--</div>-->
             <div layout-gt-xs="row">
-                <md-datepicker ng-model="item.istice" md-placeholder="Enter date"></md-datepicker>
+                <md-datepicker ng-model="item.istice" md-placeholder="{{'DOCUMENT.DATE' | translate}}"></md-datepicker>
             </div>
             <!--<div layout-gt-xs="row">-->
                 <!--<md-datepicker ng-model="item.kreiran" md-placeholder="Enter date"></md-datepicker>-->
@@ -64,7 +64,7 @@
     </md-content>
     <div class="md-actions" layout="row">
         <span flex></span>
-        <md-button ng-click="answer(null)"> Cancel </md-button>
-        <md-button ng-click="answer(item)" class="md-primary"> Save </md-button>
+        <md-button ng-click="answer(null)" translate="CANCEL"> Cancel </md-button>
+        <md-button ng-click="answer(item)" class="md-primary" translate="SAVE"> Save </md-button>
     </div>
 </md-dialog>
