@@ -1,6 +1,7 @@
 package com.example.repo;
 
-import com.example.models.UlogaXNotifikacija;
+import com.example.models.Korisnik;
+import com.example.models.KorisnikXKorisnik;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.domain.Sort;
@@ -12,29 +13,29 @@ import org.springframework.security.access.prepost.PreAuthorize;
 import java.util.List;
 
 @PreAuthorize("hasRole('ROLE_USER')")
-@RepositoryRestResource(collectionResourceRel = "ulogaXNotifikacija",path = "ulogaXNotifikacija")
-public interface UlogaXNotifikacijaRepository extends PagingAndSortingRepository<UlogaXNotifikacija,Long> {
+@RepositoryRestResource(collectionResourceRel = "korisnikXkorisnik",path = "korisnikXkorisnik")
+public interface KorisnikXKorisnikRepository extends PagingAndSortingRepository<KorisnikXKorisnik,Long> {
 
     @Override
-    Iterable<UlogaXNotifikacija> findAll(Sort sort);
+    Iterable<KorisnikXKorisnik> findAll(Sort sort);
 
     @Override
-    Page<UlogaXNotifikacija> findAll(Pageable pageable);
+    Page<KorisnikXKorisnik> findAll(Pageable pageable);
 
     @Override
-    UlogaXNotifikacija save(UlogaXNotifikacija s);
+    KorisnikXKorisnik save(KorisnikXKorisnik s);
 
     @Override
-    UlogaXNotifikacija findOne(Long aLong);
+    KorisnikXKorisnik findOne(Long aLong);
 
     @Override
     boolean exists(Long aLong);
 
     @Override
-    Iterable<UlogaXNotifikacija> findAll();
+    Iterable<KorisnikXKorisnik> findAll();
 
     @Override
-    Iterable<UlogaXNotifikacija> findAll(Iterable<Long> iterable);
+    Iterable<KorisnikXKorisnik> findAll(Iterable<Long> iterable);
 
     @Override
     long count();
@@ -45,15 +46,14 @@ public interface UlogaXNotifikacijaRepository extends PagingAndSortingRepository
 
     @Override
     @PreAuthorize("hasRole('ROLE_ADMIN')")
-    void delete(UlogaXNotifikacija ulogaXNotifikacija);
+    void delete(KorisnikXKorisnik korisnikXkorisnik);
 
     @Override
     @PreAuthorize("hasRole('ROLE_ADMIN')")
-    void delete(Iterable<? extends UlogaXNotifikacija> iterable);
+    void delete(Iterable<? extends KorisnikXKorisnik> iterable);
 
     @Override
     @PreAuthorize("hasRole('ROLE_ADMIN')")
     void deleteAll();
-
 
 }

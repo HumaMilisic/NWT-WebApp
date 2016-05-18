@@ -4,7 +4,8 @@ DMApp.controller('administracijaStatusaController', [
     '$http',
     '$location',
     '$mdDialog',
-    function($scope, $controller, $http, $location, $mdDialog) {
+    '$filter',
+    function($scope, $controller, $http, $location, $mdDialog, $filter) {
         $scope.main = {};
         $scope.name = "naziv!!!statusi";
         $scope.childEntity = 'status';
@@ -23,15 +24,15 @@ DMApp.controller('administracijaStatusaController', [
                             data:answer,
                             url:url
                         }).success(function(x,y,z){
-                            $scope.toastMsg('dodano');
+                            $scope.toastMsg($filter('translate')('ADDED'));
                             $scope.loadStuff();
                         }).error(function(x,y,z){
-                            $scope.toastMsg('problem');
+                            $scope.toastMsg('Problem');
                         })
                     }
                 },
                 function(){
-                    $scope.toastMsg('cancel');
+                    $scope.toastMsg($filter('translate')('CANCEL'));
                 })
         };
 

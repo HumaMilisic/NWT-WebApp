@@ -1,6 +1,7 @@
 package com.example.models;
 
 import com.example.utils.validators.ValidPassword;
+import com.fasterxml.jackson.annotation.JsonIgnore;
 
 import javax.persistence.*;
 import java.io.Serializable;
@@ -112,7 +113,7 @@ public class Korisnik implements Serializable {
     }
 
 
-//    @JsonIgnore
+    @JsonIgnore //dodala
     @ManyToMany(mappedBy = "korisnikSet",fetch = FetchType.EAGER)
     private Set<Uloga> ulogaSet;
     public void setUlogaSet(Set<Uloga> ulogaSet) {
