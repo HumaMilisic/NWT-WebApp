@@ -88,7 +88,7 @@ DMApp.controller('homeController', [
         };
 
         $scope.getPage = function(page,pageSize,entity,query,promise,linkovi){
-            var url = '/api/'+entity+'?page='+page+'&size='+pageSize+'&sort=azuriran';
+            var url = '/api/'+entity+'?page='+page+'&size='+pageSize+'&sort=azuriran,desc';
             var httpGetPromise = $http.get(url)
                 .success(function(x,y,z){
                     var a = 0;
