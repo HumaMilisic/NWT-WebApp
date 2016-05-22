@@ -135,7 +135,7 @@ public class Korisnik implements Serializable {
     }
 
 
-//    @JsonIgnore
+    @JsonIgnore //dodala
     @ManyToMany(mappedBy = "korisnikSet",fetch = FetchType.EAGER)
     private Set<Uloga> ulogaSet;
     public void setUlogaSet(Set<Uloga> ulogaSet) {

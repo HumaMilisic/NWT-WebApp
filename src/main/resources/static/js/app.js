@@ -112,6 +112,9 @@ DMApp.config(function($httpProvider,$routeProvider/*,SpringDataRestInterceptor*/
         })
         .when('/admin/relacijaKorisnik',{
             templateUrl:'/js/app/admin/views/administracijaRelacijaKorisnik.html'
+        })
+        .when('/user/dokumenti',{
+            templateUrl:'/js/app/files.html'
         });
 
 
@@ -224,7 +227,7 @@ DMApp.service('fileUpload', ['$http', function ($http) {
                 //var blob = new Blob([new Uint8Array(bytes)]);
             })
             .error(function(a, b, c, d, e, f){
-                debugger;
+                alert("Došlo je do greške prilikom slanja!");
             });
     }
 }]);
@@ -793,22 +796,6 @@ DMApp.controller('SubheaderAppCtrl', function($scope) {
         },
     ];
 });
-//DMApp.controller('uploadtestController', function($scope, $http) {
-DMApp.controller('uploadtestController', ['$rootScope', '$scope', '$http', '$location', '$window', 'fileUpload', function($rootScope, $scope, $http, $location, $window, fileUpload) {
-    $scope.file = null;
-
-    //$scope.testUpload = function() {
-    //    fileUpload.uploadFileToUrl($scope.file, '/api/upload'); //, $scope.dokument);
-    //};
-
-    $scope.newVersion = function() {
-        fileUpload.uploadFileToUrl($scope.file, '/document'); //, $scope.dokument);
-    };
-
-    $scope.download = function (id) {
-        $window.open('/document/' + id, '_blank');
-    };
-}]);
 
 DMApp.controller('editItemModalCtrl',function($scope,$mdDialog){
 //    var a=0;

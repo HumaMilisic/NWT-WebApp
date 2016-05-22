@@ -7,7 +7,8 @@ DMApp.controller('administracijaRelacijaDokumentController', [
     '$http',
     '$location',
     '$mdDialog',
-    function($scope, $controller,$http,$location,$mdDialog) {
+    '$filter',
+    function($scope, $controller,$http,$location,$mdDialog,$filter) {
         $scope.main = {};
         $scope.name = "naziv!!!relacija dokumenti";
         $scope.childEntity = 'relacijaDokument';
@@ -26,20 +27,20 @@ DMApp.controller('administracijaRelacijaDokumentController', [
                             data:answer,
                             url:url
                         }).success(function(x,y,z){
-                            $scope.toastMsg('dodano');
+                            $scope.toastMsg($filter('translate')('ADDED'));
                             $scope.loadStuff();
                         }).error(function(x,y,z){
-                            $scope.toastMsg('problem');
+                            $scope.toastMsg('Problem');
                         })
                     }
                 },
                 function(){
-                    $scope.toastMsg('cancel');
+                    $scope.toastMsg($filter('translate')('CANCEL'));
                 })
         };
 
-        $scope.childDelete = function(objekat,id){
-            var urlPretraga = '/api/'+$scope.entity+'/search/findById?id='+id;
+        $scope.childDelete = function(objekat,nazivba){
+            var urlPretraga = '/api/'+$scope.entity+'/search/findByNazivba?nazivba='+nazivba;
             $http({
                 method: 'GET',
                 url: urlPretraga

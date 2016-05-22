@@ -3,7 +3,7 @@
         <md-toolbar class="md-table-toolbar md-default"
                     ng-hide="options.rowSelection && selected.length">
             <div class="md-toolbar-tools">
-                <h2 flex="">Korisnici</h2>
+                <h2 flex="" translate="USERS">Korisnici</h2>
                 <md-button class="md-icon-button">
                     <ng-md-icon icon="add" ng-click="newDialog($event)"
                                 style="fill: black"></ng-md-icon>
@@ -20,15 +20,15 @@
             <div class="md-toolbar-tools">
                 <span flex="">{{selected.length}} {{selected.length > 1 ? 'items' : 'item'}} selected</span>
                 <md-button class="md-icon-button">
-                    <md-tooltip>Edit</md-tooltip>
+                    <md-tooltip><span translate="IZBOR.EDIT"> Edit</span></md-tooltip>
                     <ng-md-icon icon="edit"
-                                ng-click="dummy()"
+                                ng-click="editDialog($event)"
                                 style="fill: black"></ng-md-icon>
                 </md-button>
                 <md-button class="md-icon-button">
-                    <md-tooltip>Delete</md-tooltip>
+                    <md-tooltip><span translate="IZBOR.DELETE"> Delete</span></md-tooltip>
                     <ng-md-icon icon="delete"
-                                ng-click="dummy()"
+                                ng-click="deleteKorisnik()"
                                 style="fill: black"></ng-md-icon>
                 </md-button>
                 <md-button class="md-icon-button">
@@ -48,15 +48,15 @@
                 <thead ng-if="!options.decapitate" md-head
                        md-order="query.order" md-on-reorder="logOrder">
                 <tr md-row>
-                    <th md-column>Username</th>
-                    <th md-column="">ime</th>
-                    <th md-column="">prezime</th>
-                    <th md-column="">email</th>
+                    <th md-column> <span translate="USER.USERNAME"> Username</span></th>
+                    <th md-column=""><span translate="USER.FNAME"> Ime</span></th>
+                    <th md-column=""><span translate="USER.LNAME"> Prezime</span></th>
+                    <th md-column=""><span translate="USER.EMAIL"> Email</span></th>
                     <!--<th md-column="">jmbg</th>-->
-                    <th md-column="">enabled</th>
+                    <th md-column=""><span translate="USER.ENABLED"> Odobren</span></th>
                     <!--<th md-column="">deleted</th>-->
-                    <th md-column="">uloge</th>
-                    <th md-column>Dugmici</th>
+                    <th md-column=""><span translate="USER.ROLES"> Uloge</span></th>
+                    <th md-column><span translate="USER.BUTTONS"> Dugmići</span></th>
                 </tr>
                 </thead>
                 <tbody md-body>
@@ -75,7 +75,7 @@
                     <td md-cell>{{displaySet(item.ulogaSet)}}</td>
                     <td md-cell>
                         <md-button class="md-icon-button">
-                            <md-tooltip>Open</md-tooltip>
+                            <md-tooltip><span translate="IZBOR.OPEN"> Open</span></md-tooltip>
                             <ng-md-icon icon="open_in_browser"
                                         ng-click="detalji(item.username)"
                                         style="fill: black">

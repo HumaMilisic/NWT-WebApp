@@ -14,7 +14,8 @@ DMApp.controller('administracijaController', [
     '$mdToast',
     '$mdDialog',
     '$translate',
-    function($scope/*,NgTableParams*/,Resource,$http,loader,$location,auth,$q,SpringDataRestAdapter,Item,$resource,$mdEditDialog,$mdToast,$mdDialog,$translate) {
+    '$filter',
+    function($scope/*,NgTableParams*/,Resource,$http,loader,$location,auth,$q,SpringDataRestAdapter,Item,$resource,$mdEditDialog,$mdToast,$mdDialog,$translate, $filter) {
         //auth.check();
         $scope.main = {};
         $scope.name = "administracija";
@@ -293,12 +294,12 @@ DMApp.controller('administracijaController', [
                 $http.delete(self)
                     .success(function(x,z,y){
                         var a = 0;
-                        $scope.toastMsg(naziv+" je obrisan");
+                        $scope.toastMsg(naziv+ $filter('translate')('DELETED'));
                         $scope.loadStuff();
                     })
                     .error(function(x,z,y){
                         var a = 0;
-                        $scope.toastMsg("greska");
+                        $scope.toastMsg("Problem");
                     })
             });
             $scope.selected = [];
@@ -313,12 +314,12 @@ DMApp.controller('administracijaController', [
                 $http.delete(self)
                     .success(function(x,z,y){
                         var a = 0;
-                        $scope.toastMsg(nazivba+" je obrisan");
+                        $scope.toastMsg(nazivba+ $filter('translate')('DELETED'));
                         $scope.loadStuff();
                     })
                     .error(function(x,z,y){
                         var a = 0;
-                        $scope.toastMsg("greska");
+                        $scope.toastMsg("Problem");
                     })
             });
             $scope.selected = [];
@@ -333,12 +334,32 @@ DMApp.controller('administracijaController', [
                 $http.delete(self)
                     .success(function(x,z,y){
                         var a = 0;
-                        $scope.toastMsg("Notifikacija je obrisana");
+                        $scope.toastMsg($filter('translate')('NOTIFICATION.DELETED'));
                         $scope.loadStuff();
                     })
                     .error(function(x,z,y){
                         var a = 0;
-                        $scope.toastMsg("greska");
+                        $scope.toastMsg("Problem");
+                    })
+            });
+            $scope.selected = [];
+        };
+
+        $scope.deleteKomentar = function(){
+            var selected = $scope.selected;
+            angular.forEach(selected,function(item){
+                var a = 0;
+                var self = item._links.self.href;
+                //var naziv = item.naziv;
+                $http.delete(self)
+                    .success(function(x,z,y){
+                        var a = 0;
+                        $scope.toastMsg($filter('translate')('COMMENT.DELETED'));
+                        $scope.loadStuff();
+                    })
+                    .error(function(x,z,y){
+                        var a = 0;
+                        $scope.toastMsg("Problem");
                     })
             });
             $scope.selected = [];
@@ -353,12 +374,12 @@ DMApp.controller('administracijaController', [
                 $http.delete(self)
                     .success(function(x,z,y){
                         var a = 0;
-                        $scope.toastMsg(nazivba+" je obrisan");
+                        $scope.toastMsg(nazivba+ $filter('translate')('DELETED'));
                         $scope.loadStuff();
                     })
                     .error(function(x,z,y){
                         var a = 0;
-                        $scope.toastMsg("greska");
+                        $scope.toastMsg("Problem");
                     })
             });
             $scope.selected = [];
@@ -373,12 +394,52 @@ DMApp.controller('administracijaController', [
                 $http.delete(self)
                     .success(function(x,z,y){
                         var a = 0;
-                        $scope.toastMsg(naziv+" je obrisan");
+                        $scope.toastMsg(naziv+ $filter('translate')('DELETED'));
                         $scope.loadStuff();
                     })
                     .error(function(x,z,y){
                         var a = 0;
-                        $scope.toastMsg("greska");
+                        $scope.toastMsg("Problem");
+                    })
+            });
+            $scope.selected = [];
+        };
+
+        $scope.deleteKorisnik = function(){
+            var selected = $scope.selected;
+            angular.forEach(selected,function(item){
+                var a = 0;
+                var self = item._links.self.href;
+                var username = item.username;
+                $http.delete(self)
+                    .success(function(x,z,y){
+                        var a = 0;
+                        $scope.toastMsg(username+ $filter('translate')('DELETED'));
+                        $scope.loadStuff();
+                    })
+                    .error(function(x,z,y){
+                        var a = 0;
+                        $scope.toastMsg("Problem");
+                    })
+            });
+            $scope.selected = [];
+        };
+
+        $scope.deleteDokument = function(){
+            var selected = $scope.selected;
+            angular.forEach(selected,function(item){
+                var a = 0;
+                var self = item._links.self.href;
+                var oznaka = item.oznaka;
+                $http.delete(self)
+                    .success(function(x,z,y){
+                        var a = 0;
+                        $scope.toastMsg(oznaka+ $filter('translate')('DELETED'));
+                        $scope.loadStuff();
+                    })
+                    .error(function(x,z,y){
+                        var a = 0;
+                        $scope.toastMsg("Problem");
                     })
             });
             $scope.selected = [];
@@ -989,15 +1050,15 @@ DMApp.controller('administracijaController', [
                             url: link,
                             data: answer
                         }).success(function(x,y,z){
-                            $scope.toastMsg('izmijenjeno');
+                            $scope.toastMsg($filter('translate')('MODIFIED'));
                             $scope.loadStuff();
                         }).error(function(x,y,z){
-                            $scope.toastMsg('problem');
+                            $scope.toastMsg('Problem');
                         })
                     }
                 },
                 function(){
-                    $scope.toastMsg('cancel');
+                    $scope.toastMsg($filter('translate')('CANCEL'));
                 })
         };
 

@@ -16,30 +16,39 @@
   "SEND_MAIL":"Send email",
   "SUBMIT":"Submit",
   "RESET_PASSWORD":"Reset password",
-  "JMBG":"?JMBG",
+  "JMBG":"Personal identification number",
   "DOCUMENT":{
-    "NAME":"?NAME",
-    "EXPIRES":"?EXPIRES",
-    "CREATED":"?CREATED",
-    "TEXT":"?TEXT",
-    "SIGNED":"?SIGNED",
-    "SIGNATURE":"?SIGNATURE",
-    "UPDATED":"?UPDATED",
-    "NEW":"?NEW_DOCUMENT",
-    "EDIT":"?EDIT_DOCUMENT",
-    "MY_DOCUMENTS":"My documents"
+    "NAME":"Title",
+    "EXPIRES":"Expires",
+    "CREATED":"Created",
+    "TEXT":"Text",
+    "SIGNED":"Signed",
+    "SIGNATURE":"Signature",
+    "UPDATED":"Updated",
+    "NEW":"New document",
+    "EDIT":"Edit document",
+    "MY_DOCUMENTS":"My documents",
+    "DATE": "Enter date"
   },
   "USER":{
-    "NEW":"?NEW USER",
-    "EDIT":"?EDIT USER"
+    "NEW":"New user",
+    "EDIT":"Edit user",
+    "USERNAME": "Username",
+    "FNAME": "First name",
+    "LNAME": "Last name",
+    "EMAIL": "Email",
+    "ENABLED": "Enabled",
+    "ROLES": "Roles",
+    "BUTTONS": "Buttons",
+    "DATE": "Date of birth"
   },
-  "DELETE":"?DELETE",
-  "BUTTONS":"?BUTTONS",
-  "EDIT":"?EDIT",
-  "DOCUMENTS":"?DOCUMENTS",
-  "TITLE":"?TITLE",
+  "DELETE":"Delete",
+  "BUTTONS":"Buttons",
+  "EDIT":"Edit",
+  "DOCUMENTS":"Documents",
+  "TITLE":"Title",
   "ROLE":{
-    "NEW":"?NEW ROLE"
+    "NEW":"New role"
   },
   "STATUS":{
     "NEW":"New status",
@@ -56,7 +65,8 @@
   "NOTIFICATION":{
     "TEXT": "Text",
     "NEW": "New notification",
-    "EDIT": "Edit notification"
+    "EDIT": "Edit notification",
+    "DELETED": "Notification is deleted"
   },
   "TYPE_OF_DOCUMENTS": "Type of document",
   "TYPE_OF_DOCUMENT":{
@@ -71,14 +81,17 @@
   },
   "IZBOR":{
     "EDIT": "Edit",
-    "DELETE": "Delete"
+    "DELETE": "Delete",
+    "OPEN": "Open"
   },
   "COMMENTS" : "Comments",
   "COMMENT":{
     "NEW": "New comment",
     "EDIT": "Edit comment",
     "TEXT": "Text",
-    "CREATED": "Created"
+    "CREATED": "Created",
+    "DATE": "Enter date",
+    "DELETED": "Comment is deleted"
   },
   "R_DOCUMENTS": "Relation of documents",
   "R_DOCUMENT":{
@@ -90,7 +103,22 @@
     "NEW": "New relation of user",
     "EDIT": "Edit relation of user"
   },
+  "ROLES": "Roles",
+  "ROLE":{
+    "NAME": "Name",
+    "ACTIONS": "Actions",
+    "USERS": "Users",
+    "EDIT": "Edit role",
+    "NEW": "New role"
+  },
+  "ACTION":{
+    "NAME": "Name"
+  },
+  "USERS": "Users",
   "TODAY":"Today",
   "OLDER":"Older",
-  "LOGOUT":"Logout"
+  "LOGOUT":"Logout",
+  "ADDED": "Added",
+  "MODIFIED": "Modified",
+  "DELETED": " is deleted"
 }
