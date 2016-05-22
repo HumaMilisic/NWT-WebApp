@@ -12,6 +12,12 @@ DMApp.directive('breadcrumb',function(){
     }
 });
 
+DMApp.directive('docListItem',function(){
+    return{
+        templateUrl: "/js/app/parts/docListItem.html"
+    }
+})
+
 DMApp.directive('baseWidget',function(){
    return{
        templateUrl:"/js/app/parts/widgets/baseWidget.html",

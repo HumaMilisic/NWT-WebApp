@@ -2,12 +2,9 @@ package com.example.models;
 
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
-import org.springframework.security.core.Authentication;
-import org.springframework.security.core.context.SecurityContextHolder;
 
 import javax.persistence.*;
 import java.io.Serializable;
-import java.security.Principal;
 import java.sql.Timestamp;
 import java.util.Date;
 import java.util.Set;
@@ -21,6 +18,10 @@ import java.util.Set;
 //@NamedQuery(name="Dokument.findAll", query="SELECT d FROM Dokument d")
 public class Dokument implements Serializable {
 	private static final long serialVersionUID = 1L;
+
+//	@JsonIgnore
+//	@Autowired
+//	private CustomUserDetailsService service;
 
 	@Id
 	@GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "DokumentSEQ")
@@ -98,7 +99,15 @@ public class Dokument implements Serializable {
 	)
 	private Set<Korisnik> korisnikSet;
 
-//	@ValidBool
+	public Set<Korisnik> getKorisnikSet() {
+		return korisnikSet;
+	}
+
+	public void setKorisnikSet(Set<Korisnik> korisnikSet) {
+		this.korisnikSet = korisnikSet;
+	}
+
+	//	@ValidBool
 	private String deleted;
 
 	public Dokument() {
@@ -110,13 +119,7 @@ public class Dokument implements Serializable {
 
 	public void setId(long id) {
 		this.id = id;
-		Date date = new Date();
-		if(this.kreiran==null) {
-			this.kreiran = new Timestamp(date.getTime());
-			Principal user;
-//			this.korisnikSet.add(e.getName());
-		}
-		this.azuriran = new Timestamp(date.getTime());
+		datumiIUseri();
 	}
 
 	public Timestamp getAzuriran() {
@@ -124,12 +127,7 @@ public class Dokument implements Serializable {
 	}
 
 	public void setAzuriran(Timestamp azuriran) {
-		Date date = new Date();
-		this.azuriran = new Timestamp(date.getTime());
-		if(this.kreiran==null) {
-			this.kreiran = new Timestamp(date.getTime());
-			Principal user;
-		}
+		datumiIUseri();
 	}
 
 	public Date getIstice() {
@@ -138,15 +136,7 @@ public class Dokument implements Serializable {
 
 	public void setIstice(Date istice) {
 		this.istice = istice;
-//		GlobalStuff.user()
-		Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
-		String currentPrincipalName = authentication.getName();
-		Date date = new Date();
-		this.azuriran = new Timestamp(date.getTime());
-		if(this.kreiran==null){
-			this.kreiran = new Timestamp(date.getTime());
-//			Principal user;
-		}
+		datumiIUseri();
 	}
 
 	public Timestamp getKreiran() {
@@ -156,10 +146,7 @@ public class Dokument implements Serializable {
 	public void setKreiran(Timestamp kreiran) {
 
 //		this.kreiran = kreiran;
-		Date date = new Date();
-		if(this.kreiran==null)
-			this.kreiran = new Timestamp(date.getTime());
-		this.azuriran = new Timestamp(date.getTime());
+		datumiIUseri();
 	}
 
 	public String getOznaka() {
@@ -169,10 +156,6 @@ public class Dokument implements Serializable {
 	public void setOznaka(String oznaka) {
 
 		this.oznaka = oznaka;
-		Date date = new Date();
-		this.azuriran = new Timestamp(date.getTime());
-		if(this.kreiran==null)
-			this.kreiran = new Timestamp(date.getTime());
 	}
 
 	public String getPotpis() {
@@ -182,10 +165,8 @@ public class Dokument implements Serializable {
 	public void setPotpis(String potpis) {
 		this.potpis = potpis;
 		Date date = new Date();
-		this.azuriran = new Timestamp(date.getTime());
 		this.potpisan = new Timestamp(date.getTime());
-		if(this.kreiran==null)
-			this.kreiran = new Timestamp(date.getTime());
+		datumiIUseri();
 	}
 
 	public Timestamp getPotpisan() {
@@ -202,10 +183,7 @@ public class Dokument implements Serializable {
 
 	public void setTekst(String tekst) {
 		this.tekst = tekst;
-		Date date = new Date();
-		this.azuriran = new Timestamp(date.getTime());
-		if(this.kreiran==null)
-			this.kreiran = new Timestamp(date.getTime());
+		datumiIUseri();
 	}
 
 //	public Dokument getDokument() {
@@ -342,10 +320,20 @@ public class Dokument implements Serializable {
 
 	public void setDeleted(String deleted) {
 		this.deleted = deleted;
-		Date date = new Date();
-		this.azuriran = new Timestamp(date.getTime());
-		if(this.kreiran==null)
-			this.kreiran = new Timestamp(date.getTime());
+		datumiIUseri();
 	}
 
+	private void datumiIUseri()
+	{
+		Date date = new Date();
+		this.azuriran = new Timestamp(date.getTime());
+		if(this.kreiran==null){
+			this.kreiran = new Timestamp(date.getTime());
+//			GlobalStuff stuff = new GlobalStuff();
+//			Korisnik user = stuff.getPrincipalKorisnikFromRepo();
+////					.getCurrentPrincipalKorisnik(); //GlobalStuff.getPrincipalKorisnikFromRepo();
+//			korisnikSet.add(user);
+//			Principal user;
+		}
+	}
 }

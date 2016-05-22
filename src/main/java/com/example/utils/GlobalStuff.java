@@ -11,6 +11,20 @@ import java.util.Arrays;
  * Created by WorkIt on 04/04/2016.
  */
 public class GlobalStuff {
+
+
+
+//    @Autowired
+//    private CustomUserDetailsService service;
+//    @Autowired
+//    private KorisnikRepository repository;
+//
+//    public GlobalStuff(){
+//        repository = new KorisnikRepository();
+//        service = new CustomUserDetailsService(repository);
+//    }
+//    @Autowired
+//    static private KorisnikRepository korisnikRepository;
 //    public static List<CharacterRule> getRules(){
 ////        return new List<CharacterRule>(
 ////                new LengthRule(8,30),
@@ -38,5 +52,18 @@ public class GlobalStuff {
     public static Principal user(Principal user){
         return user;
     }
+
+//
+//    public Korisnik getPrincipalKorisnikFromRepo()
+//    {
+//        try{
+//            Korisnik user = service.getCurrentPrincipalKorisnik();
+//            return user;
+//        }
+//        catch (Exception e){
+//            return null;
+//        }
+////        return service.getCurrentPrincipalKorisnik();
+//    }
 
 }

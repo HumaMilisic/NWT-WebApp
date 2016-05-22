@@ -6,8 +6,11 @@ DMApp.controller('homeController', [
     '$http',
     'SpringDataRestAdapter',
     'loader',
+    '$mdDialog',
+    '$filter',
+    '$rootScope',
     //'ResourceNew',
-    function($scope,auth,$translate,randomElem,$http,SpringDataRestAdapter,loader) {
+    function($scope,auth,$translate,randomElem,$http,SpringDataRestAdapter,loader,$mdDialog,$filter,$rootScope) {
         $scope.main = {};
         $scope.main.time = new Date();
         $scope.name = "naziv!!!";
@@ -16,7 +19,7 @@ DMApp.controller('homeController', [
         $scope.docsR = randomElem.nizDocSortiranKreiran(15);
 
         $scope.docsB = [];
-        loader.startSpin();
+        //loader.startSpin();
         //var getDocPromise = $http.get('/api/dokument?size=10')
         //    .success(function(data,status,x,y,z){
         //        var a = 0;
@@ -156,6 +159,50 @@ DMApp.controller('homeController', [
         };
 
         $scope.loadStuff();
+
+        $scope.newDialog = function(event){
+            $mdDialog.show({
+                templateUrl: 'js/app/parts/noviDokument.html',
+                targetEvent: event
+            }).then(function(answer){
+                    if(answer!=null){
+                        answer.deleted = "0";
+                        var url = '/api/dokument';
+                        $http({
+                            method:'POST',
+                            data:answer,
+                            url:url
+                        }).success(function(data,y,z){
+                            //$scope.toastMsg($filter('translate')('ADDED'));
+                            var docLink = data._links.korisnikSet.href;
+                            var userLink = $rootScope.korisnik._links.self.href;
+                            var data = {
+                                _links:{
+                                    korisnikSet:[{'href':userLink}]
+                                }};
+                            $http({
+                                method:'PUT',
+                                data:data,
+                                url:docLink
+                            }).success(function(x,y,z){
+                                var a = 0;
+                                //$scope.loadStuffUloga();
+                            }).error(function(x,y,z){
+                                var a =0;
+                            }).finally(function(){
+                                $scope.loadStuff();
+                            })
+
+                        }).error(function(x,y,z){
+                            var a = 0;
+                            //$scope.toastMsg('Problem');
+                        })
+                    }
+                },
+                function(){
+                    $scope.toastMsg($filter('translate')('CANCEL'));
+                })
+        };
 
 
         //auth.jeLogovan().then(function(rez){

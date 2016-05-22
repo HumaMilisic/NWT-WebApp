@@ -24,6 +24,8 @@ INSERT INTO ULOGA VALUES (ULOGA_SEQ.nextval,'0','EH');
 
 INSERT INTO KORISNIK VALUES
 (KORISNIK_SEQ.nextval,NULL ,NULL,'huma.milisic@gmail.com','1','HUMA',NULL ,NULL,'$2a$10$VrVNE6bFjI8GsLujFb2qquB8/jYqJiyuJ6aYUBr5Rdysp2u33wRsS','HUMA','huma' );
+INSERT INTO KORISNIK VALUES
+(KORISNIK_SEQ.nextval,NULL ,NULL,'huma.milisic2@gmail.com','1','HUMA2',NULL ,NULL,'$2a$10$VrVNE6bFjI8GsLujFb2qquB8/jYqJiyuJ6aYUBr5Rdysp2u33wRsS','HUMA2','huma2' );
 -- --
 -- INSERT INTO KORISNIK VALUES
 -- (2,NULL ,NULL,'1huma.milisic@gmail.com','1','HUMA',NULL ,NULL,'g','HUMA','humta' );
@@ -79,7 +81,7 @@ INSERT INTO ULOGA_X_AKCIJA
 
 -- Dokumenti
 
-insert into dokument values(1, null, null, null, null, null, null, null,'yeeeey');
+-- insert into dokument values(1, null, null, null, null, null, null, null,'yeeeey');
 -- insert into dokument values(2, null, null, null, null, null, null, null,'yeeeey');
 -- insert into dokument values(3, null, null, null, null, null, null, null,'yeeeey');
 -- insert into dokument values(4, null, null, null, null, null, null, null,'yeeeey');
@@ -93,4 +95,4 @@ insert into dokument values(1, null, null, null, null, null, null, null,'yeeeey'
 --insert into relacija_dokument values(1, 1, 'probaaaa', 'proba');
 
 -- KorisnikXDokument
-INSERT into KorisnikXDokument VALUES(1,1);
+-- INSERT into KorisnikXDokument VALUES(1,1);

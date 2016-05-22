@@ -7,8 +7,10 @@ import com.example.repo.PasswordResetTokenRepository;
 import com.example.repo.VerificationTokenRepository;
 import com.example.utils.KorisnikDTO;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.core.Authentication;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.authority.AuthorityUtils;
+import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
@@ -139,5 +141,19 @@ public class CustomUserDetailsService implements UserDetailsService{
     public void createPasswordResetTokenForUser(Korisnik korisnik,String token){
         PasswordResetToken myToken = new PasswordResetToken(token,korisnik);
         passwordResetTokenRepo.save(myToken);
+    }
+
+    public Korisnik getCurrentPrincipalKorisnik(){
+        Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
+        String currentPrincipalName = authentication.getName();
+
+        Korisnik user = null;
+        try {
+            user = repo.findByUsername(currentPrincipalName);
+        }
+        catch (Exception e){
+            user = null;
+        }
+        return user;
     }
 }
