@@ -162,7 +162,7 @@ DMApp.controller('homeController', [
 
         $scope.newDialog = function(event){
             $mdDialog.show({
-                templateUrl: 'js/app/parts/noviDokument.html',
+                templateUrl: 'js/app/parts/noviDokumentHome.html',
                 targetEvent: event
             }).then(function(answer){
                     if(answer!=null){
@@ -212,4 +212,8 @@ DMApp.controller('homeController', [
         //$scope.changeLanguage = function (langKey) {
         //    $translate.use(langKey);
         //};
+
+        $scope.otvoriDetalje = function(){
+            alert('eh sidebar nesto nesto sa komentarima');
+        }
     }]);

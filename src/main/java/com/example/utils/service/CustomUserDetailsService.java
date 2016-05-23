@@ -61,7 +61,7 @@ public class CustomUserDetailsService implements UserDetailsService{
             }
             String lista = "";
             for(Akcija i: setAkcija){
-                lista+= i.getNaziv()+",";
+                lista+= "ROLE_"+i.getNaziv()+",";
             }
             List<GrantedAuthority> auth = AuthorityUtils.commaSeparatedStringToAuthorityList(lista);//ROLE_ADMIN,
             AuthorityUtils.createAuthorityList();

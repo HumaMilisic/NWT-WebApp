@@ -24,6 +24,13 @@ DMApp.factory('navigacijaDozvoljena',function(){
 
 DMApp.factory('randomElem',function(){
 
+    var status = function(){
+        return{
+            nazivba:faker.lorem.word(),
+            naziven:faker.lorem.word()
+        }
+    }
+
     var doc = function(){
         if(Math.random()>0.5)
             var azuriran=faker.date.recent();
@@ -60,6 +67,10 @@ DMApp.factory('randomElem',function(){
         return niz(n,doc);
     };
 
+    var nizStatus = function(n){
+        return niz(n,status);
+    }
+
     var nizDocSortiranAzuriran = function(n){
         var niz = nizDoc(n);
         niz.sort(function(a,b){
@@ -80,7 +91,8 @@ DMApp.factory('randomElem',function(){
         doc:doc,
         nizDoc:nizDoc,
         nizDocSortiranPoAzuriran:nizDocSortiranAzuriran,
-        nizDocSortiranKreiran:nizDocSortiranKreiran
+        nizDocSortiranKreiran:nizDocSortiranKreiran,
+        nizStatus:nizStatus
     }
 });
 
@@ -212,7 +224,10 @@ DMApp.factory('auth',function($http,$rootScope,$location,SpringDataRestAdapter,r
     var login = function(user){
         checkUser(user,function(){
             if($rootScope.authenticated){
-                redirekt.goToStaro();
+                checkAuth(user,function(){
+                    redirekt.goToStaro();
+                });
+
                 //checkUser(user,function(){
                 //    if($rootScope.authenticated){
                 //        //$location.path("/");
@@ -407,7 +422,7 @@ DMApp.factory('Resource',
 
 
 
-DMApp.factory("Access",function($q,auth){
+DMApp.factory("Access",function($q,auth,$rootScope){
     "use strict";
 
     var Access = {

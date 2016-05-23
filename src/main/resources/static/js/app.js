@@ -694,6 +694,18 @@ DMApp.controller('noviItemModalCtrl',function($scope,$mdDialog){
     };
 });
 
+DMApp.controller('noviDocHomeModalCtrl',function($scope,$controller,$timeout,randomElem){
+
+    $scope.statusi = null;
+    $scope.status = null;
+    $scope.loadStatus = function(){
+        return $timeout(function(){
+            $scope.statusi = randomElem.nizStatus(5);
+        },650);
+    }
+    $controller('noviItemModalCtrl',{$scope:$scope});
+})
+
 DMApp.controller('novaUlogaCtrl',function ($scope,$mdDialog){
     $scope.hide = function() {
         $mdDialog.hide();

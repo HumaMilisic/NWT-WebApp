@@ -1,0 +1,77 @@
+<!--https://klarsys.github.io/angular-material-icons/-->
+<md-dialog aria-label="Mango (Fruit)" ng-controller="noviDocHomeModalCtrl">
+    <md-toolbar layout-padding>
+        <span translate="DOCUMENT.NEW">Novi dokument</span>
+    </md-toolbar>
+    <md-content class="md-padding">
+        <form name="form">
+            <!--<div layout-gt-xs="row">-->
+            <!--<md-datepicker ng-model="item.azuriran" md-placeholder="Enter date"></md-datepicker>-->
+            <!--</div>-->
+            <div layout-gt-xs="row">
+                <md-datepicker ng-model="item.istice" md-placeholder="{{'DOCUMENT.DATE' | translate}}"></md-datepicker>
+            </div>
+            <!--<div layout-gt-xs="row">-->
+            <!--<md-datepicker ng-model="item.kreiran" md-placeholder="Enter date"></md-datepicker>-->
+            <!--</div>-->
+            <div layout-gt-xs="row">
+                <!--  <md-input-container class="md-block">
+                      <label TRANSLATE="Created"> Kreiran: </label>
+                       <input type="text" name="kreiran"
+                             required
+                             ng-model="item.kreiran"/>
+                      <div ng-messages="form.kreiran.$error">
+                          <div ng-message="required" TRANSLATE="VALIDATION_ERROR.REQUIRED">This is required.</div>
+                      </div>
+                  </md-input-container> -->
+
+                <md-input-container class="md-block">
+                    <label TRANSLATE="DOCUMENT.NAME"> Oznaka: </label>
+                    <input type="text" name="oznaka"
+                           required
+                           ng-model="item.oznaka"/>
+                    <div ng-messages="form.oznaka.$error">
+                        <div ng-message="required" TRANSLATE="VALIDATION_ERROR.REQUIRED">This is required.</div>
+                    </div>
+                </md-input-container>
+
+                <md-input-container class="md-block">
+                    <label TRANSLATE="DOCUMENT.SIGNATURE"> Potpis: </label>
+                    <input type="text" name="potpis"
+                           required
+                           ng-model="item.potpis"/>
+                    <div ng-messages="form.potpis.$error">
+                        <div ng-message="required" TRANSLATE="VALIDATION_ERROR.REQUIRED">This is required.</div>
+                    </div>
+                </md-input-container>
+            </div>
+
+            <!--<div layout-gt-xs="row">-->
+            <!--<md-datepicker ng-model="item.potpisan" md-placeholder="Enter date"></md-datepicker>-->
+            <!--</div>-->
+
+            <md-input-container class="md-block">
+                <label TRANSLATE="DOCUMENT.TEXT"> Tekst: </label>
+                <input type="text" name="tekst"
+                       required
+                       ng-model="item.tekst"/>
+                <div ng-messages="form.tekst.$error">
+                    <div ng-message="required" TRANSLATE="VALIDATION_ERROR.REQUIRED">This is required.</div>
+                </div>
+            </md-input-container>
+
+            <md-select ng-model="status" md-on-open="loadStatus()" placeholder="Status">
+                <md-option ng-value="status" ng-repeat="status in statusi">
+                    {{status.nazivba}} - {{status.naziven}}
+                </md-option>
+            </md-select>
+            <md-button>Upload</md-button>
+            <md-button>OCR</md-button>
+        </form>
+    </md-content>
+    <div class="md-actions" layout="row">
+        <span flex></span>
+        <md-button ng-click="answer(null)" translate="CANCEL"> Cancel </md-button>
+        <md-button ng-click="answer(item)" class="md-primary" translate="SAVE"> Save </md-button>
+    </div>
+</md-dialog>

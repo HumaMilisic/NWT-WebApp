@@ -87,7 +87,7 @@ public class Dokument implements Serializable {
 	@JsonIgnore
 //	//bi-directional many-to-one association to KorisnikXDokument
 //	@OneToMany(mappedBy="dokumentBean")
-	@OneToMany
+	@ManyToMany//(mappedBy = "dokumentSet")
 	@JoinTable(
 			name="KorisnikXDokument",
 			joinColumns = @JoinColumn(name="KORISNIK",

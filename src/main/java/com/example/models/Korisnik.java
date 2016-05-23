@@ -95,16 +95,16 @@ public class Korisnik implements Serializable {
 //
 //	//bi-directional many-to-one association to KorisnikXDokument
 	@JsonIgnore
-	@OneToMany
-	@JoinTable(
-			name="KorisnikXDokument",
-			joinColumns = @JoinColumn(name="DOKUMENT",
-					referencedColumnName = "ID"
-			),
-			inverseJoinColumns = @JoinColumn(name ="KORISNIK",
-					referencedColumnName = "ID"
-			)
-	)
+	@ManyToMany(mappedBy = "korisnikSet")
+//	@JoinTable(
+//			name="KorisnikXDokument",
+//			joinColumns = @JoinColumn(name="DOKUMENT",
+//					referencedColumnName = "ID"
+//			),
+//			inverseJoinColumns = @JoinColumn(name ="KORISNIK",
+//					referencedColumnName = "ID"
+//			)
+//	)
 	private Set<Dokument> dokumentSet;
 
 	public Set<Dokument> getDokumentSet() {

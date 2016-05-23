@@ -12,7 +12,7 @@ INSERT INTO AKCIJA VALUES(AKCIJA_SEQ.nextval,'0','ADMINISTRACIJA_NOTIFIKACIJE');
 -- uloga
 
 INSERT INTO ULOGA VALUES (ULOGA_SEQ.nextval ,'0','MOZE SVE');
-INSERT INTO ULOGA VALUES (ULOGA_SEQ.nextval,'0','EH');
+INSERT INTO ULOGA VALUES (ULOGA_SEQ.nextval,'0','USER');
 -- INSERT INTO ULOGA VALUES (3,'0','EH3');
 -- INSERT INTO ULOGA VALUES (4,'0','EH4');
 -- INSERT INTO ULOGA VALUES (5,'0','EH5');
@@ -22,6 +22,8 @@ INSERT INTO ULOGA VALUES (ULOGA_SEQ.nextval,'0','EH');
 
 -- korisnik
 
+INSERT INTO KORISNIK VALUES
+(KORISNIK_SEQ.nextval,NULL ,NULL,'neear1990@fleckens.hu','1','admin',NULL ,NULL,'$2a$11$Tyghjz8BILTukTHmSJB1wew/id9L2YrNfsWfhcdVoKhptsBY0ssIW','admin','admin' );
 INSERT INTO KORISNIK VALUES
 (KORISNIK_SEQ.nextval,NULL ,NULL,'huma.milisic@gmail.com','1','HUMA',NULL ,NULL,'$2a$10$VrVNE6bFjI8GsLujFb2qquB8/jYqJiyuJ6aYUBr5Rdysp2u33wRsS','HUMA','huma' );
 INSERT INTO KORISNIK VALUES
@@ -51,6 +53,7 @@ INSERT INTO KORISNIK VALUES
 -- KORISNIK_X_ULOGA
 
 INSERT INTO KORISNIK_X_ULOGA VALUES (1,1);
+INSERT INTO KORISNIK_X_ULOGA VALUES (2,2);
 -- INSERT INTO KORISNIK_X_ULOGA VALUES (2,2);
 
 -- ULOGA_X_AKCIJA
@@ -61,6 +64,12 @@ INSERT INTO ULOGA_X_AKCIJA
 INSERT INTO ULOGA_X_AKCIJA
 -- -- (uloga,akcija)
  VALUES (1,2);
+ INSERT INTO ULOGA_X_AKCIJA VALUES (1,3);
+ INSERT INTO ULOGA_X_AKCIJA VALUES (1,4);
+ INSERT INTO ULOGA_X_AKCIJA VALUES (1,5);
+ INSERT INTO ULOGA_X_AKCIJA VALUES (1,6);
+ INSERT INTO ULOGA_X_AKCIJA VALUES (1,7);
+ INSERT INTO ULOGA_X_AKCIJA VALUES (2,1);
 
 
  -- status
@@ -81,13 +90,13 @@ INSERT INTO ULOGA_X_AKCIJA
 
 -- Dokumenti
 
--- insert into dokument values(1, null, null, null, null, null, null, null,'yeeeey');
--- insert into dokument values(2, null, null, null, null, null, null, null,'yeeeey');
--- insert into dokument values(3, null, null, null, null, null, null, null,'yeeeey');
--- insert into dokument values(4, null, null, null, null, null, null, null,'yeeeey');
--- insert into dokument values(5, null, null, null, null, null, null, null,'yeeeey');
--- insert into dokument values(6, null, null, null, null, null, null, null,'yeeeey');
--- insert into dokument values(7, null, null, null, null, null, null, null,'yeeeey');
+-- insert into dokument values(DOKUMENT_SEQ.nextval, null, null, null, null, null, null, null,'yeeeey');
+-- insert into dokument values(DOKUMENT_SEQ.nextval, null, null, null, null, null, null, null,'yeeeey');
+-- insert into dokument values(DOKUMENT_SEQ.nextval, null, null, null, null, null, null, null,'yeeeey');
+-- insert into dokument values(DOKUMENT_SEQ.nextval, null, null, null, null, null, null, null,'yeeeey');
+-- insert into dokument values(DOKUMENT_SEQ.nextval, null, null, null, null, null, null, null,'yeeeey');
+-- insert into dokument values(DOKUMENT_SEQ.nextval, null, null, null, null, null, null, null,'yeeeey');
+-- insert into dokument values(DOKUMENT_SEQ.nextval, null, null, null, null, null, null, null,'yeeeey');
 
 
 -- Relacija Dokumenti

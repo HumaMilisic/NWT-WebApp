@@ -14,7 +14,20 @@ DMApp.directive('breadcrumb',function(){
 
 DMApp.directive('docListItem',function(){
     return{
-        templateUrl: "/js/app/parts/docListItem.html"
+        templateUrl: "/js/app/parts/docListItem.html",
+        scope:{
+            'doc':'=doc',
+            'details':'&'
+        },
+        controller:["$scope",function($scope){
+            $scope.dumdum = function(){
+                alert("nije implementirano: "+$scope.doc._links.self.href);
+            }
+
+            $scope.download = function(){
+                alert("download");
+            }
+        }]
     }
 })
 
