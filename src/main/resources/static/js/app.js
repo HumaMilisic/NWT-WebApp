@@ -703,6 +703,8 @@ DMApp.controller('noviDocHomeModalCtrl',function($scope,$controller,$timeout,ran
             $scope.statusi = randomElem.nizStatus(5);
         },650);
     }
+
+
     $controller('noviItemModalCtrl',{$scope:$scope});
 })
 

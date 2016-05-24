@@ -23,32 +23,38 @@
     <md-content>
 
         <section>
-            <md-subheader>
-                <span translate="TODAY">Danas</span>
-            </md-subheader>
+            <!--<md-subheader>-->
+                <!--<span translate="TODAY">Danas</span>-->
+            <!--</md-subheader>-->
 
             <md-list layout-padding>
-                <md-list-item ng-repeat="doc in docFilterDanas">
+                <md-list-item ng-repeat="doc in docSvi">
                     <span  layout-fill>
-                    <doc-list-item doc="doc" details="otvoriDetalje()"></doc-list-item>
+                    <doc-list-item doc="doc"
+                                   edit="otvoriEdit(doc)"
+                                   delete="otvoriDelete(doc)"
+                                   ocr="ocr(doc)"
+                                   upload="upload(doc)"
+                                   potpis="potpis(doc)"
+                                   details="otvoriDetalje(doc)"></doc-list-item>
                         </span>
                     <!--<md-divider ng-if="!$last"></md-divider>-->
                 </md-list-item>
             </md-list>
         </section>
-        <section >
-            <md-subheader><span translate="OLDER"> Starije</span></md-subheader>
+        <!--<section >-->
+            <!--<md-subheader><span translate="OLDER"> Starije</span></md-subheader>-->
 
 
-            <md-list layout-padding>
-                <md-list-item ng-repeat="doc in docFilterOstali" >
-                    <span  layout-fill>
-                    <doc-list-item doc="doc" details="otvoriDetalje()"></doc-list-item>
-                        </span>
-                    <!--<md-divider ng-if="!$last"></md-divider>-->
-                </md-list-item>
-            </md-list>
-        </section>
+            <!--<md-list layout-padding>-->
+                <!--<md-list-item ng-repeat="doc in docFilterOstali" >-->
+                    <!--<span  layout-fill>-->
+                    <!--<doc-list-item doc="doc" details="otvoriDetalje()"></doc-list-item>-->
+                        <!--</span>-->
+                    <!--&lt;!&ndash;<md-divider ng-if="!$last"></md-divider>&ndash;&gt;-->
+                <!--</md-list-item>-->
+            <!--</md-list>-->
+        <!--</section>-->
 <span flex></span>
     <footer>
 
@@ -147,7 +153,36 @@
                     <!--</md-list-item>-->
                 <!--</md-list>-->
             <!--</section>-->
-    <!--</md-content>-->
+    </md-content>
+    <md-sidenav class="md-sidenav-right md-whiteframe-z2" md-component-id="docDetalji">
+        <md-tabs md-dynamic-height
+                 md-border-bottom>
+            <md-tab label="Osnove">
+        <h2>oznaka: {{odabraniDoc.oznaka}}</h2>
+        <h2>tekst: {{odabraniDoc.tekst}}</h2>
+        <p>azuriran: {{odabraniDoc.azuriran}}</p>
+        <p>istice: {{odabraniDoc.istice}}</p>
+        <p>kreiran: {{odabraniDoc.kreiran}}</p>
+            </md-tab>
+            <md-tab label="Komentari">
+
+                <md-toolbar>
+                    <md-button class="md-icon-button">
+                        <md-tooltip>novi komentar</md-tooltip>
+                        <ng-md-icon icon="add" ng-click="newKomentar($event)"
+                                    style="fill: black"></ng-md-icon>
+                    </md-button>
+
+                </md-toolbar>
+                <md-content>
+                    ispisati komentare
+                </md-content>
+            </md-tab>
+            <!--<md-tab>-->
+                <!--komentari-->
+            <!--</md-tab>-->
+        </md-tabs>
+    </md-sidenav>
 </span>
 <!--<div ng-controller="SubheaderAppCtrl" layout="column" flex  ng-cloak>-->
     <!--<md-toolbar md-scroll-shrink>-->

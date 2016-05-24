@@ -1,5 +1,6 @@
 <!--https://klarsys.github.io/angular-material-icons/-->
-<md-dialog aria-label="Mango (Fruit)" ng-controller="noviDocHomeModalCtrl">
+<md-dialog aria-label="Mango (Fruit)">
+    <!--ng-controller="noviDocHomeModalCtrl">-->
     <md-toolbar layout-padding>
         <span translate="DOCUMENT.NEW">Novi dokument</span>
     </md-toolbar>
@@ -65,8 +66,9 @@
                     {{status.nazivba}} - {{status.naziven}}
                 </md-option>
             </md-select>
-            <md-button>Upload</md-button>
-            <md-button>OCR</md-button>
+            <md-button ng-click="upload(item)">Upload</md-button>
+            <md-button ng-click="ocr(item)">OCR</md-button>
+            <md-button ng-click="potpis(item)">Potpis?</md-button>
         </form>
     </md-content>
     <div class="md-actions" layout="row">

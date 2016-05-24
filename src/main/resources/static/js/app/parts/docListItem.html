@@ -40,13 +40,41 @@
                    <!--<md-icon md-menu-origin md-svg-icon="call:email"></md-icon>-->
                    <!--</md-button>-->
                    <md-menu-content width="4">
-                       <md-menu-item ng-repeat="item in [1, 2, 3]">
-                           <md-button ng-click="dumdum()"> <span md-menu-align-target>Option</span> {{item}} </md-button>
+                       <!--<md-menu-item ng-repeat="item in [1, 2, 3]">-->
+                           <!--<md-button ng-click="dumdum()"> <span md-menu-align-target>Option</span> {{item}} </md-button>-->
+                       <!--</md-menu-item>-->
+
+                       <md-menu-item ng-if="detailsFlag">
+                           <md-button ng-click="details(doc)">
+                               <span md-menu-align-taget>Detalji</span>
+                           </md-button>
+                       </md-menu-item>
+                       <md-menu-item ng-if="editFlag">
+                           <md-button ng-click="edit(doc)">
+                               <span md-menu-align-taget>Edit</span>
+                           </md-button>
+                       </md-menu-item>
+                       <md-menu-item ng-if="deleteFlag">
+                           <md-button ng-click="delete(doc)">
+                               <span md-menu-align-taget>Delete</span>
+                           </md-button>
                        </md-menu-item>
                        <md-menu-divider></md-menu-divider>
-                       <md-menu-item>
-                           <md-button ng-click="details()">
-                               <span md-menu-align-taget>Detalji</span>
+                       <md-menu-item ng-if="ocrFlag">
+                           <md-button ng-click="ocr(doc)">
+                               <span md-menu-align-taget>Ocr</span>
+                           </md-button>
+                       </md-menu-item>
+                       <md-menu-divider></md-menu-divider>
+                       <md-menu-item ng-if="potpisFlag">
+                           <md-button ng-click="potpis(doc)">
+                               <span md-menu-align-taget>potpis</span>
+                           </md-button>
+                       </md-menu-item>
+                       <md-menu-divider></md-menu-divider>
+                       <md-menu-item ng-if="uploadFlag">
+                           <md-button ng-click="upload(doc)">
+                               <span md-menu-align-taget>upload</span>
                            </md-button>
                        </md-menu-item>
                    </md-menu-content>

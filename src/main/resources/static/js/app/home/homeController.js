@@ -9,8 +9,16 @@ DMApp.controller('homeController', [
     '$mdDialog',
     '$filter',
     '$rootScope',
+    '$mdSidenav',
     //'ResourceNew',
-    function($scope,auth,$translate,randomElem,$http,SpringDataRestAdapter,loader,$mdDialog,$filter,$rootScope) {
+    function($scope,auth,$translate,randomElem,$http,SpringDataRestAdapter,loader,$mdDialog,$filter,$rootScope,$mdSidenav) {
+        $scope.trenutniKorisnik = null;
+        $scope.trenutniKorisnik = $rootScope.korisnik;
+
+        $rootScope.$on('korisnik',function(event){
+            $scope.trenutniKorisnik = $rootScope.korisnik;
+        })
+
         $scope.main = {};
         $scope.main.time = new Date();
         $scope.name = "naziv!!!";
@@ -114,35 +122,43 @@ DMApp.controller('homeController', [
                 $scope.docs = data._embeddedItems;
                 //$scope.docs = $scope.docsR;
                 for(var i =0;i<$scope.docs.length;i++){
-                    $scope.docs[i].azuriran = new Date($scope.docs[i].azuriran);
-                    $scope.docs[i].kreiran = new Date($scope.docs[i].kreiran);
-                    $scope.docs[i].istice = new Date($scope.docs[i].istice);
-                    $scope.docs[i].potpisan = new Date($scope.docs[i].potpisan);
+                    if($scope.docs[i].azuriran)
+                        $scope.docs[i].azuriran = new Date($scope.docs[i].azuriran);
+
+                    if($scope.docs[i].kreiran)
+                        $scope.docs[i].kreiran = new Date($scope.docs[i].kreiran);
+
+                    if($scope.docs[i].istice)
+                        $scope.docs[i].istice = new Date($scope.docs[i].istice);
+
+                    if($scope.docs[i].potpisan)
+                        $scope.docs[i].potpisan = new Date($scope.docs[i].potpisan);
                 }
 
                 //$scope.docs = $scope.docsR;
+                //
+                //var dateDanas = function(date){
+                //    var datum = new Date(JSON.parse(JSON.stringify(date['azuriran'])));
+                //    datum.setDate(datum.getDate()+1);
+                //    var sad = new Date();
+                //    sad.setDate(sad.getDate());
+                //    var rezultat =  datum-sad;
+                //    datum.setDate(datum.getDate()-1);
+                //    return rezultat>0;
+                //};
+                //
+                //var dateOstali = function(date){
+                //    var datum = new Date(JSON.parse(JSON.stringify(date['azuriran'])));
+                //    datum.setDate(datum.getDate()+1);
+                //    var sad = new Date();
+                //    sad.setDate(sad.getDate());
+                //    var rezultat =  datum-sad;
+                //    return rezultat<0;
+                //};
 
-                var dateDanas = function(date){
-                    var datum = new Date(JSON.parse(JSON.stringify(date['azuriran'])));
-                    datum.setDate(datum.getDate()+1);
-                    var sad = new Date();
-                    sad.setDate(sad.getDate());
-                    var rezultat =  datum-sad;
-                    datum.setDate(datum.getDate()-1);
-                    return rezultat>0;
-                };
-
-                var dateOstali = function(date){
-                    var datum = new Date(JSON.parse(JSON.stringify(date['azuriran'])));
-                    datum.setDate(datum.getDate()+1);
-                    var sad = new Date();
-                    sad.setDate(sad.getDate());
-                    var rezultat =  datum-sad;
-                    return rezultat<0;
-                };
-
-                $scope.docFilterDanas = $scope.docs.filter(dateDanas);
-                $scope.docFilterOstali = $scope.docs.filter(dateOstali);
+                //$scope.docFilterDanas = $scope.docs.filter(dateDanas);
+                //$scope.docFilterOstali = $scope.docs.filter(dateOstali);
+                $scope.docSvi = $scope.docs;
 
             });
             promise = httpGetPromise.$promise;
@@ -160,9 +176,24 @@ DMApp.controller('homeController', [
 
         $scope.loadStuff();
 
+        $scope.ocr = function(doc){
+            //za newDoc i meni
+            alert('ocr');
+        }
+        $scope.potpis = function(doc){
+            //za newDoc i meni
+            alert('potpis');
+        }
+        $scope.upload = function(doc){
+            //za newDoc i meni
+            alert('upload');
+        }
+
         $scope.newDialog = function(event){
             $mdDialog.show({
                 templateUrl: 'js/app/parts/noviDokumentHome.html',
+                scope: $scope,
+                controller: 'noviDocHomeModalCtrl',
                 targetEvent: event
             }).then(function(answer){
                     if(answer!=null){
@@ -175,7 +206,7 @@ DMApp.controller('homeController', [
                         }).success(function(data,y,z){
                             //$scope.toastMsg($filter('translate')('ADDED'));
                             var docLink = data._links.korisnikSet.href;
-                            var userLink = $rootScope.korisnik._links.self.href;
+                            var userLink = $scope.trenutniKorisnik._links.self.href;
                             var data = {
                                 _links:{
                                     korisnikSet:[{'href':userLink}]
@@ -186,9 +217,11 @@ DMApp.controller('homeController', [
                                 url:docLink
                             }).success(function(x,y,z){
                                 var a = 0;
+                                $scope.loadStuff()
                                 //$scope.loadStuffUloga();
                             }).error(function(x,y,z){
                                 var a =0;
+                                $scope.loadStuff()
                             }).finally(function(){
                                 $scope.loadStuff();
                             })
@@ -213,7 +246,33 @@ DMApp.controller('homeController', [
         //    $translate.use(langKey);
         //};
 
-        $scope.otvoriDetalje = function(){
-            alert('eh sidebar nesto nesto sa komentarima');
+        $scope.otvoriDetalje = function(doc){
+            //alert('eh sidebar nesto nesto sa komentarima, ',doc);
+            $scope.toggleNavBar('docDetalji');
+            $scope.odabraniDoc = doc;
+        }
+
+        $scope.otvoriDelete = function(doc){
+            alert('delete: ',doc);
+        }
+
+        $scope.otvoriEdit = function(doc){
+            alert('edit: ',doc);
+        }
+
+        $scope.toggleNavBar = function(id){
+            //$scope.isOpenRight = function(){
+            //    return $mdSidenav('right').isOpen();
+            //};
+            $mdSidenav(id).open();
+            $scope.navBarVisibleFlag = !$scope.navBarVisibleFlag;
+            //.toggle()
+            //.then(function () {
+            //    $log.debug("toggle " +  " is done");
+            //});
+        };
+
+        $scope.newKomentar = function(){
+            alert('novi komentar');
         }
     }]);

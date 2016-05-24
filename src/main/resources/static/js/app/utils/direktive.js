@@ -17,15 +17,50 @@ DMApp.directive('docListItem',function(){
         templateUrl: "/js/app/parts/docListItem.html",
         scope:{
             'doc':'=doc',
-            'details':'&'
+            'details':'&',
+            'delete':'&',
+            'edit':'&',
+            'ocr':'&',
+            'upload':'&',
+            'potpis':'&'
         },
         controller:["$scope",function($scope){
             $scope.dumdum = function(){
                 alert("nije implementirano: "+$scope.doc._links.self.href);
             }
+            //
+            //$scope.download = function(){
+            //    alert("download");
+            //}
+            //
+            $scope.deleteFlag = false;
+            if($scope.delete){
+                $scope.deleteFlag = true;
+            }
 
-            $scope.download = function(){
-                alert("download");
+            $scope.ocrFlag = false;
+            if($scope.ocr){
+                $scope.ocrFlag = true;
+            }
+
+            $scope.editFlag = false;
+            if($scope.edit){
+                $scope.editFlag = true;
+            }
+
+            $scope.detailsFlag = false;
+            if($scope.details){
+                $scope.detailsFlag = true;
+            }
+
+            $scope.potpisFlag = false;
+            if($scope.potpis){
+                $scope.potpisFlag = true;
+            }
+
+            $scope.uploadFlag = false;
+            if($scope.upload){
+                $scope.uploadFlag = true;
             }
         }]
     }
