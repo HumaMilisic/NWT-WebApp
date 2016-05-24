@@ -62,6 +62,8 @@ DMApp.directive('docListItem',function(){
             if($scope.upload){
                 $scope.uploadFlag = true;
             }
+
+            //$scope.$apply();
         }]
     }
 })

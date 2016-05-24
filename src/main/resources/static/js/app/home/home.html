@@ -1,5 +1,5 @@
 
-<span ng-controller="homeController" layout="column" flex layout-fill ng-cloak="">
+<span  layout="column" flex layout-fill ng-cloak="">
     <md-toolbar md-scroll-shrink>
         <div class="md-toolbar-tools">
             <span flex="50">Dokumenti</span>
@@ -8,11 +8,11 @@
             <span flex="20">Azurirano</span>
             <span flex="10" >
                 <div layout="row" layout-align="end end">
-                    <md-button class="md-icon-button">
+                    <md-button class="md-icon-button" aria-label="FAB">
                         <ng-md-icon icon="add" ng-click="newDialog($event)"
                                     style="fill: black"></ng-md-icon>
                     </md-button>
-                    <md-button class="md-icon-button">
+                    <md-button class="md-icon-button" aria-label="FAB">
                         <ng-md-icon icon="cached" ng-click="loadStuff()"
                                     style="fill: black"></ng-md-icon>
                     </md-button>
@@ -21,15 +21,17 @@
         </div>
     </md-toolbar>
     <md-content>
-
+        <md-progress-linear ng-if="flagLoader" md-mode="indeterminate"></md-progress-linear>
         <section>
             <!--<md-subheader>-->
                 <!--<span translate="TODAY">Danas</span>-->
             <!--</md-subheader>-->
-
+            <!--<pre>{{//query.data}}</pre>-->
+            <!--<pre>{{docs[0].tekst}}</pre>-->
             <md-list layout-padding>
-                <md-list-item ng-repeat="doc in docSvi">
+                <md-list-item ng-repeat="doc in docs">
                     <span  layout-fill>
+                        <!--<pre>{{doc.tekst}}</pre>-->
                     <doc-list-item doc="doc"
                                    edit="otvoriEdit(doc)"
                                    delete="otvoriDelete(doc)"
@@ -59,7 +61,7 @@
     <footer>
 
         <md-table-pagination md-limit="query.limit"
-                             md-limit-options="limitOptions"
+
                              md-page="query.page"
                              md-total="{{query.totalElements}}"
                              md-page-select="options.pageSelect"
@@ -167,7 +169,7 @@
             <md-tab label="Komentari">
 
                 <md-toolbar>
-                    <md-button class="md-icon-button">
+                    <md-button class="md-icon-button" aria-label="FAB">
                         <md-tooltip>novi komentar</md-tooltip>
                         <ng-md-icon icon="add" ng-click="newKomentar($event)"
                                     style="fill: black"></ng-md-icon>

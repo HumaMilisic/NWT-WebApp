@@ -7,11 +7,11 @@
             <!--</md-card-avatar>-->
         <!--</span>-->
         <md-chips>
-            <md-chip>
+            <md-chip aria-label="FAB">
                 status
             </md-chip>
         </md-chips>
-            <md-button class="md-icon-button" ng-click="download()">
+            <md-button class="md-icon-button" ng-click="download()" aria-label="FAB">
                 <ng-md-icon icon="file_download"></ng-md-icon>
             </md-button>
 
@@ -33,7 +33,7 @@
            <div layout="column" layout-align="end end">
                <md-menu >
                    <!--md-offset="0 -7"-->
-                   <md-button class="md-icon-button" ng-click="$mdOpenMenu($event)">
+                   <md-button class="md-icon-button" aria-label="FAB" ng-click="$mdOpenMenu($event)">
                        <ng-md-icon icon="more_vert" style="fill: black"></ng-md-icon>
                    </md-button>
                    <!--<md-button aria-label="Open demo menu" class="md-icon-button" >-->
@@ -44,35 +44,35 @@
                            <!--<md-button ng-click="dumdum()"> <span md-menu-align-target>Option</span> {{item}} </md-button>-->
                        <!--</md-menu-item>-->
 
-                       <md-menu-item ng-if="detailsFlag">
+                       <md-menu-item ng-if="detailsFlag" aria-label="FAB">
                            <md-button ng-click="details(doc)">
                                <span md-menu-align-taget>Detalji</span>
                            </md-button>
                        </md-menu-item>
-                       <md-menu-item ng-if="editFlag">
+                       <md-menu-item ng-if="editFlag" aria-label="FAB">
                            <md-button ng-click="edit(doc)">
                                <span md-menu-align-taget>Edit</span>
                            </md-button>
                        </md-menu-item>
-                       <md-menu-item ng-if="deleteFlag">
+                       <md-menu-item ng-if="deleteFlag" aria-label="FAB">
                            <md-button ng-click="delete(doc)">
                                <span md-menu-align-taget>Delete</span>
                            </md-button>
                        </md-menu-item>
                        <md-menu-divider></md-menu-divider>
-                       <md-menu-item ng-if="ocrFlag">
+                       <md-menu-item ng-if="ocrFlag" aria-label="FAB">
                            <md-button ng-click="ocr(doc)">
                                <span md-menu-align-taget>Ocr</span>
                            </md-button>
                        </md-menu-item>
                        <md-menu-divider></md-menu-divider>
-                       <md-menu-item ng-if="potpisFlag">
+                       <md-menu-item ng-if="potpisFlag" aria-label="FAB">
                            <md-button ng-click="potpis(doc)">
                                <span md-menu-align-taget>potpis</span>
                            </md-button>
                        </md-menu-item>
                        <md-menu-divider></md-menu-divider>
-                       <md-menu-item ng-if="uploadFlag">
+                       <md-menu-item ng-if="uploadFlag" aria-label="FAB">
                            <md-button ng-click="upload(doc)">
                                <span md-menu-align-taget>upload</span>
                            </md-button>
