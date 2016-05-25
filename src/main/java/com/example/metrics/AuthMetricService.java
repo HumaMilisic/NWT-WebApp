@@ -10,7 +10,7 @@ import java.util.concurrent.ConcurrentMap;
 /**
  * Created by WorkIt on 25/05/2016.
  */
-public class AuthMetricService implements IMetricService {
+public class AuthMetricService implements IAuthMetricService {
 
     private ConcurrentMap<String, Integer> loginMetric;
     private ConcurrentMap<String,ConcurrentHashMap<String,Integer>> metricMap;
@@ -26,12 +26,55 @@ public class AuthMetricService implements IMetricService {
 
     @Override
     public void increaseCount(String request, int status) {
-        String por;
-        if(status==1){
-            por = "login_success";
-        }else{
-            por = "login_error";
+        String por="";
+//        if(status==1){
+//            por = "login_success";
+//        }else if(status==-1){
+//            por = "login_error";
+//        }
+        switch (status){
+            case 1:{
+                por = "login_success";
+                break;
+            }
+            case -1:{
+                por = "login_error";
+                break;
+            }
+            case 2:{
+                por = "verification_token_used";
+                break;
+            }
+            case -2:{
+                por = "verification_token_expired";
+                break;
+            }
+            case 3:{
+                por = "reset_password_token_used";
+                break;
+            }
+            case -3:{
+                por = "reset_password_token_expired";
+                break;
+            }
+            case 4:{
+                por = "mail_send";
+                break;
+            }
+            case 5:{
+                por = "mail_send_success";
+                break;
+            }
+            case -5:{
+                por = "mail_send_success";
+                break;
+            }
+            default:{
+                por = "error";
+                break;
+            }
         }
+
         increaseMainMetric(request, por);
         increaseStatusMetric(por);
         updateTimeMap(por);

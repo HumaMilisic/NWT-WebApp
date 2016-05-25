@@ -1,5 +1,7 @@
 package com.example.config;
 
+import com.example.metrics.IAuthMetricService;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.AuthenticationException;
 import org.springframework.security.web.authentication.SimpleUrlAuthenticationFailureHandler;
 import org.springframework.stereotype.Component;
@@ -13,6 +15,9 @@ import java.io.PrintWriter;
 
 @Component
 public class AuthFailureHandler extends SimpleUrlAuthenticationFailureHandler {
+    @Autowired
+    private IAuthMetricService authMetricService;
+
     @Override
     public void onAuthenticationFailure(HttpServletRequest request, HttpServletResponse response, AuthenticationException exception) throws IOException, ServletException {
 //            super.onAuthenticationFailure(request, response, exception);
@@ -21,6 +26,8 @@ public class AuthFailureHandler extends SimpleUrlAuthenticationFailureHandler {
         PrintWriter writer = response.getWriter();
         writer.write(exception.getMessage());
         writer.flush();
+        final String req = request.getMethod()+" "+request.getRequestURI();
+        authMetricService.increaseCount(req,-1);
     }
 
 }

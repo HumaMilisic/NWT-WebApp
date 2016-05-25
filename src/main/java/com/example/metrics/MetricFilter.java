@@ -17,6 +17,7 @@ public class MetricFilter implements Filter {
     @Autowired
     private IMetricService metricService;
 
+
     @Override
     public void init(FilterConfig filterConfig) throws ServletException {
         if(metricService == null){

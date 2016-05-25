@@ -1,5 +1,6 @@
 package com.example.utils.service;
 
+import com.example.metrics.IAuthMetricService;
 import com.example.models.Korisnik;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
@@ -7,10 +8,14 @@ import org.springframework.mail.SimpleMailMessage;
 import org.springframework.mail.javamail.JavaMailSender;
 import org.springframework.stereotype.Service;
 
+import javax.servlet.http.HttpServletRequest;
+
 @Service
 public class EmailService {
     @Autowired
     private JavaMailSender mailSender;
+    @Autowired
+    private IAuthMetricService authMetricService;
 
     @Value("${my.mail.sender}")
     private String sender;
@@ -24,11 +29,14 @@ public class EmailService {
         email.setTo(to);
         email.setSubject(subject);
         email.setText(text);
+//        metrics(null,4);
         try{
             mailSender.send(email);
             System.out.println("mail poslan");
+//            metrics(null,5);
         }catch (Exception e){
             System.out.println(e.toString());
+//            metrics(null,-5);
 //            throw new Exception("mail umro");
         }
     }
@@ -60,5 +68,10 @@ public class EmailService {
         String subject = "New Password";
         String text = password;
         sendMail(to,subject,text);
+    }
+
+    private void metrics(HttpServletRequest request, int status){
+        final String req = request.getMethod()+" "+request.getRequestURI();
+        authMetricService.increaseCount(req,status);
     }
 }

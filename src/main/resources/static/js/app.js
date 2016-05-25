@@ -522,7 +522,7 @@ DMApp.controller('registracijaController', function ($scope, vcRecaptchaService,
 
 
     $scope.model = {
-        key: '6Ld7gB0TAAAAAHP-rEzmJM9H93ZbNvM__Ndx89qW'
+        key: '6LeH5CATAAAAAI-do8BItc6h-ogHc4kgJTJ2eye5'
     };
 
     $scope.setResponse = function (response) {

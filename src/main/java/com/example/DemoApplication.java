@@ -1,5 +1,7 @@
 package com.example;
 
+import com.example.metrics.AuthMetricService;
+import com.example.metrics.IAuthMetricService;
 import org.h2.server.web.WebServlet;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
@@ -31,6 +33,11 @@ public class DemoApplication {
 		return registrationBean;
 	}
 
-
+	@Bean
+	//    @Autowired
+//	private IAuthMetricService authMetricService;
+	public IAuthMetricService authMetricService(){
+		return new AuthMetricService();
+	}
 
 }

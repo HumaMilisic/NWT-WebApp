@@ -1,6 +1,7 @@
 package com.example.controller;
 
 
+import com.example.metrics.IAuthMetricService;
 import com.example.models.Korisnik;
 import com.example.models.PasswordResetToken;
 import com.example.models.VerificationToken;
@@ -27,7 +28,6 @@ import org.springframework.web.servlet.ModelAndView;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.validation.Valid;
-import java.nio.file.attribute.UserPrincipalNotFoundException;
 import java.security.Principal;
 import java.util.Calendar;
 import java.util.Locale;
@@ -53,6 +53,8 @@ public class RegisterController {
     KorisnikRepository korisnikRepository;
     @Autowired
     ReCaptchaService reCaptchaService;
+    @Autowired
+    private IAuthMetricService authMetricService;
 
     public RegisterController(){
         super();
@@ -113,7 +115,7 @@ public class RegisterController {
     @RequestMapping(value = "/register",method = RequestMethod.POST)
     @ResponseBody
     public ResponseEntity<GenericResponse> registerUserAccount(@ModelAttribute("user") @Valid KorisnikDTO korisnikDTO, BindingResult result,
-                                                              WebRequest request, Errors errors){
+                                                               HttpServletRequest request, Errors errors){
 
         if(result.hasErrors()){
             GenericResponse error = new GenericResponse("validacijaFula","ima gresaka",korisnikDTO);
@@ -144,13 +146,16 @@ public class RegisterController {
             return new ResponseEntity<GenericResponse>(errorMail,HttpStatus.EXPECTATION_FAILED);
         }
 //        return new ModelAndView("successRegister","user",korisnikDTO);
+
+
+
         GenericResponse uspjeh = new GenericResponse("poslan mail",null);
         return new ResponseEntity<GenericResponse>(uspjeh,HttpStatus.CREATED);
 
     }
 
     @RequestMapping(value = "/registrationConfirm", method = RequestMethod.GET)
-    public ResponseEntity<GenericResponse> confirmRegistration (WebRequest request, Model model,
+    public ResponseEntity<GenericResponse> confirmRegistration (HttpServletRequest request, Model model,
                                        @RequestParam("token") String token){
         Locale locale = request.getLocale();
         VerificationToken verificationToken = userDetailsService.getVerificationToken(token);
@@ -172,9 +177,13 @@ public class RegisterController {
             model.addAttribute("expired",true);
             model.addAttribute("token",token);
             GenericResponse fail = new GenericResponse("token istekao",null);
+            metrics(request,-2);
             return new ResponseEntity<GenericResponse>(fail, HttpStatus.EXPECTATION_FAILED);
 //            return new ModelAndView("redirect:/badUser");
         }
+
+        metrics(request,2);
+
 
         user.setEnabled("1");
         userDetailsService.saveRegisteredUser(user);
@@ -228,12 +237,14 @@ public class RegisterController {
         Calendar cal = Calendar.getInstance();
         if ((passToken.getExpiryDate().getTime() - cal.getTime().getTime()) <= 0) {
 //            model.addAttribute("message", messages.getMessage("auth.message.expired", null, locale));
+            metrics(request,-3);
             return "redirect:/bad.html";//?lang=" + locale.getLanguage();
         }
 //        Authentication auth = new UsernamePasswordAuthenticationToken(korisnik,null,
 //                userDetailsService.loadUserByUsername(korisnik.getUsername()).getAuthorities());
 //        SecurityContextHolder.getContext().setAuthentication(auth);
 //
+        metrics(request,3);
         String noviPassword = GlobalStuff.RandomPassword();
         korisnik.setPassword(passwordEncoder.encode(noviPassword));//passwordEncoder.encode(korisnikDTO.getPassword()
         korisnikRepository.save(korisnik);
@@ -252,4 +263,8 @@ public class RegisterController {
         return registered;
     }
 
+    private void metrics(HttpServletRequest request,int status){
+        final String req = request.getMethod()+" "+request.getRequestURI();
+        authMetricService.increaseCount(req,status);
+    }
 }

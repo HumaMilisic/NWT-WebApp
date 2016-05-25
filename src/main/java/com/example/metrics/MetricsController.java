@@ -14,7 +14,7 @@ public class MetricsController {
     @Autowired
     private IMetricService metricService;
     @Autowired
-    private IMetricService authMetricService;
+    private IAuthMetricService authMetricService;
 
 
     @RequestMapping(value = "/metric-graph-data/status",method = RequestMethod.GET)
@@ -23,7 +23,7 @@ public class MetricsController {
         return metricService.getGraphData();
     }
 
-    @RequestMapping(value = "/metric-graph-data/login",method = RequestMethod.GET)
+    @RequestMapping(value = "/metric-graph-data/auth",method = RequestMethod.GET)
     @ResponseBody
     public Object[][] getAuthMetricData(){
         return authMetricService.getGraphData();
