@@ -1,15 +1,72 @@
 <md-content ng-controller="administracijaDashboardController">
+    <!--<md-button class="md-icon-button" layout-align="end end">-->
+        <!--<md-tooltip>-->
+            <!--Refresh-->
+        <!--</md-tooltip>-->
+        <!--<ng-md-icon icon="cached" ng-click="dataGet()"-->
+                    <!--style="fill: black"></ng-md-icon>-->
+    <!--</md-button>-->
+    <!--<div class="row-fluid">-->
+        <!--<div class="col-sm-6 col-lg-1">-->
+            <!--<canvas id="doughnutMem" class="chart chart-doughnut" chart-legend="true"-->
+                    <!--chart-data="dataMem" chart-labels="labelsMem">-->
+            <!--</canvas>-->
+        <!--</div>-->
+    <!--</div>-->
+    <!--<md-card>-->
+        <!--&lt;!&ndash;<h1>Dijagram1</h1>&ndash;&gt;-->
+        <!--&lt;!&ndash;<md-button ng-click="dataGet()">getMetrics</md-button>&ndash;&gt;-->
+        <!--<h2>memorija</h2>-->
+        <!--<canvas id="doughnutMem" class="chart chart-doughnut" chart-legend="true"-->
+                <!--chart-data="dataMem" chart-labels="labelsMem">-->
+        <!--</canvas>-->
+
+    <!--</md-card>-->
+    <!--<md-card>-->
+        <!--<canvas id="mail" class="chart chart-bar" chart-data="dataMail"-->
+                <!--chart-labels="mailVrijeme" chart-series="mailSeries"></canvas>-->
+    <!--</md-card>-->
     <!--<base-widget></base-widget>-->
     <md-grid-list
-            md-cols-xs="1" md-cols-sm="2" md-cols-md="4" md-cols-gt-md="6"
+            md-cols-xs="1" md-cols-sm="3" md-cols-md="4" md-cols-gt-md="6"
             md-row-height-gt-md="1:1" md-row-height="2:2"
             md-gutter="12px" md-gutter-gt-sm="8px">
         <!--<base-widget></base-widget>-->
-        <md-grid-tile ng-repeat="n in [1,2,3,4,5,6,7]" >
-            <base-widget></base-widget>
-            <!--<md-grid-tile-footer>-->
-            <!--<h3>#1: (3r x 2c)</h3>-->
-            <!--</md-grid-tile-footer>-->
+        <md-grid-tile >
+            <!--<md-grid-tile-header>-->
+                <!--<h2>-->
+                    <!--Memorija-->
+                <!--</h2>-->
+            <!--</md-grid-tile-header>-->
+            <!--<span >7897897</span>-->
+            <md-grid-tile-footer layout="row">
+                <md-button class="md-icon-button" layout-align="end end">
+                    <md-tooltip>
+                        Refresh
+                    </md-tooltip>
+                    <ng-md-icon icon="cached" ng-click="dataGet()"
+                                style="fill: black"></ng-md-icon>
+                </md-button>
+                <span>Memorija</span>
+            </md-grid-tile-footer>
+            <canvas id="doughnutMem" class="chart chart-doughnut" chart-legend="true"
+                    chart-data="dataMem" chart-labels="labelsMem">
+            </canvas>
+        </md-grid-tile>
+        <!--md-rowspan="2" md-colspan="3" md-colspan-sm="1" md-colspan-xs="1"-->
+        <md-grid-tile md-rowspan="1" md-colspan="5" md-colspan-sm="1" md-colspan-xs="1">
+            <canvas id="mail" class="chart chart-bar" chart-data="dataMail"
+                    chart-labels="mailVrijeme" chart-series="mailSeries"></canvas>
+            <md-grid-tile-footer layout="row">
+                <md-button class="md-icon-button" layout-align="end end">
+                    <md-tooltip>
+                        Refresh
+                    </md-tooltip>
+                    <ng-md-icon icon="cached" ng-click="dataGet()"
+                                style="fill: black"></ng-md-icon>
+                </md-button>
+                <span>Mailovi</span>
+            </md-grid-tile-footer>
         </md-grid-tile>
     </md-grid-list>
     <!--<div class="row">-->

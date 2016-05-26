@@ -19,7 +19,7 @@ public class MetricService implements IMetricService {
     private ConcurrentMap<String,ConcurrentHashMap<Integer,Integer>> metricMap;
     private ConcurrentMap<Integer, Integer> statusMetric;
     private ConcurrentMap<String, ConcurrentHashMap<Integer, Integer>> timeMap;
-    private static final SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd HH:mm");
+    private static final SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd HH");
 
     public MetricService(){
         super();

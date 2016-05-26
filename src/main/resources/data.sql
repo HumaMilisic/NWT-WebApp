@@ -25,7 +25,7 @@ INSERT INTO ULOGA VALUES (ULOGA_SEQ.nextval,'0','USER');
 INSERT INTO KORISNIK VALUES
 (KORISNIK_SEQ.nextval,NULL ,NULL,'neear1990@fleckens.hu','1','admin',NULL ,NULL,'$2a$11$Tyghjz8BILTukTHmSJB1wew/id9L2YrNfsWfhcdVoKhptsBY0ssIW','admin','admin' );
 INSERT INTO KORISNIK VALUES
-(KORISNIK_SEQ.nextval,NULL ,NULL,'huma.milisic@gmail.com','1','HUMA',NULL ,NULL,'$2a$10$VrVNE6bFjI8GsLujFb2qquB8/jYqJiyuJ6aYUBr5Rdysp2u33wRsS','HUMA','huma' );
+(KORISNIK_SEQ.nextval,NULL ,NULL,'teen1957@rhyta.com','1','HUMA',NULL ,NULL,'$2a$10$VrVNE6bFjI8GsLujFb2qquB8/jYqJiyuJ6aYUBr5Rdysp2u33wRsS','HUMA','huma' );
 INSERT INTO KORISNIK VALUES
 (KORISNIK_SEQ.nextval,NULL ,NULL,'huma.milisic2@gmail.com','1','HUMA2',NULL ,NULL,'$2a$10$VrVNE6bFjI8GsLujFb2qquB8/jYqJiyuJ6aYUBr5Rdysp2u33wRsS','HUMA2','huma2' );
 -- --

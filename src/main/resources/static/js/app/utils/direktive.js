@@ -115,3 +115,7 @@ DMApp.directive('prevodOdabir',function(){
         '</md-select>'+'</md-input-container>'
     }
 });
+
+DMApp.directive('dijagram',function(){
+
+})

@@ -15,7 +15,7 @@ public class AuthMetricService implements IAuthMetricService {
     private ConcurrentMap<String, Integer> loginMetric;
     private ConcurrentMap<String,ConcurrentHashMap<String,Integer>> metricMap;
     private ConcurrentMap<String, ConcurrentHashMap<String, Integer>> timeMap;
-    private static final SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd HH:mm");
+    private static final SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd HH");
 
 
     public AuthMetricService(){
@@ -58,7 +58,7 @@ public class AuthMetricService implements IAuthMetricService {
                 break;
             }
             case 4:{
-                por = "mail_send";
+                por = "mail_send_attempt";
                 break;
             }
             case 5:{
@@ -66,7 +66,7 @@ public class AuthMetricService implements IAuthMetricService {
                 break;
             }
             case -5:{
-                por = "mail_send_success";
+                por = "mail_send_error";
                 break;
             }
             default:{
