@@ -29,14 +29,14 @@ public class EmailService {
         email.setTo(to);
         email.setSubject(subject);
         email.setText(text);
-//        metrics(null,4);
+        metrics(null,4);
         try{
             mailSender.send(email);
             System.out.println("mail poslan");
-//            metrics(null,5);
+            metrics(null,5);
         }catch (Exception e){
             System.out.println(e.toString());
-//            metrics(null,-5);
+            metrics(null,-5);
 //            throw new Exception("mail umro");
         }
     }
@@ -71,7 +71,11 @@ public class EmailService {
     }
 
     private void metrics(HttpServletRequest request, int status){
-        final String req = request.getMethod()+" "+request.getRequestURI();
+        String req="";
+        if(request==null)
+            req = "";
+        else
+            req = request.getMethod()+" "+request.getRequestURI();
         authMetricService.increaseCount(req,status);
     }
 }
