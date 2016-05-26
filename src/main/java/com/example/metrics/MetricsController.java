@@ -28,4 +28,11 @@ public class MetricsController {
     public Object[][] getAuthMetricData(){
         return authMetricService.getGraphData();
     }
+
+    @RequestMapping(value = "/metric-graph-data/reset",method = RequestMethod.GET)
+    @ResponseBody
+    public void resetMetrics(){
+        metricService.reset();
+        authMetricService.reset();
+    }
 }

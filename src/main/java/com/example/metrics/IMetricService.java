@@ -13,4 +13,6 @@ public interface IMetricService {
     Map getStatusMetric();
 
     Object[][] getGraphData();
+
+    void reset();
 }

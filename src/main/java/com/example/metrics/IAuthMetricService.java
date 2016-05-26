@@ -13,4 +13,6 @@ public interface IAuthMetricService {
     Map getStatusMetric();
 
     Object[][] getGraphData();
+
+    void reset();
 }

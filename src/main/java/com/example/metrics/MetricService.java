@@ -28,7 +28,12 @@ public class MetricService implements IMetricService {
         timeMap = new ConcurrentHashMap<String, ConcurrentHashMap<Integer, Integer>>();
     }
 
-
+    @Override
+    public void reset() {
+        statusMetric.clear();
+        metricMap.clear();
+        timeMap.clear();
+    }
 
 
     @Override

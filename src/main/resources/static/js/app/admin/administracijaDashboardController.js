@@ -143,8 +143,15 @@ DMApp.controller('administracijaDashboardController', [
                 })
         }
 
+        $scope.clearCustomMetrics = function(){
+            $http.get("/metric-graph-data/reset")
+                .success(function(){
+                    $scope.dataGet();
+                });
+        }
 
         $scope.start = function(){
+            $scope.dataGet();
             $scope.dataGet();
             //return $interval(function(){
             //    $scope.dataGet()

@@ -1,44 +1,9 @@
 <md-content ng-controller="administracijaDashboardController">
-    <!--<md-button class="md-icon-button" layout-align="end end">-->
-        <!--<md-tooltip>-->
-            <!--Refresh-->
-        <!--</md-tooltip>-->
-        <!--<ng-md-icon icon="cached" ng-click="dataGet()"-->
-                    <!--style="fill: black"></ng-md-icon>-->
-    <!--</md-button>-->
-    <!--<div class="row-fluid">-->
-        <!--<div class="col-sm-6 col-lg-1">-->
-            <!--<canvas id="doughnutMem" class="chart chart-doughnut" chart-legend="true"-->
-                    <!--chart-data="dataMem" chart-labels="labelsMem">-->
-            <!--</canvas>-->
-        <!--</div>-->
-    <!--</div>-->
-    <!--<md-card>-->
-        <!--&lt;!&ndash;<h1>Dijagram1</h1>&ndash;&gt;-->
-        <!--&lt;!&ndash;<md-button ng-click="dataGet()">getMetrics</md-button>&ndash;&gt;-->
-        <!--<h2>memorija</h2>-->
-        <!--<canvas id="doughnutMem" class="chart chart-doughnut" chart-legend="true"-->
-                <!--chart-data="dataMem" chart-labels="labelsMem">-->
-        <!--</canvas>-->
-
-    <!--</md-card>-->
-    <!--<md-card>-->
-        <!--<canvas id="mail" class="chart chart-bar" chart-data="dataMail"-->
-                <!--chart-labels="mailVrijeme" chart-series="mailSeries"></canvas>-->
-    <!--</md-card>-->
-    <!--<base-widget></base-widget>-->
     <md-grid-list
             md-cols-xs="1" md-cols-sm="3" md-cols-md="4" md-cols-gt-md="6"
             md-row-height-gt-md="1:1" md-row-height="2:2"
             md-gutter="12px" md-gutter-gt-sm="8px">
-        <!--<base-widget></base-widget>-->
         <md-grid-tile >
-            <!--<md-grid-tile-header>-->
-                <!--<h2>-->
-                    <!--Memorija-->
-                <!--</h2>-->
-            <!--</md-grid-tile-header>-->
-            <!--<span >7897897</span>-->
             <md-grid-tile-footer layout="row">
                 <md-button class="md-icon-button" layout-align="end end">
                     <md-tooltip>
@@ -53,58 +18,26 @@
                     chart-data="dataMem" chart-labels="labelsMem">
             </canvas>
         </md-grid-tile>
-        <!--md-rowspan="2" md-colspan="3" md-colspan-sm="1" md-colspan-xs="1"-->
-        <md-grid-tile md-rowspan="1" md-colspan="5" md-colspan-sm="1" md-colspan-xs="1">
+        <md-grid-tile md-rowspan="1" md-colspan="5" md-colspan-sm="2" md-colspan-xs="1">
             <canvas id="mail" class="chart chart-bar" chart-data="dataMail"
                     chart-labels="mailVrijeme" chart-series="mailSeries"></canvas>
             <md-grid-tile-footer layout="row">
-                <md-button class="md-icon-button" layout-align="end end">
+                <md-button class="md-icon-button">
                     <md-tooltip>
                         Refresh
                     </md-tooltip>
                     <ng-md-icon icon="cached" ng-click="dataGet()"
                                 style="fill: black"></ng-md-icon>
                 </md-button>
+                <md-button class="md-icon-button">
+                    <md-tooltip>
+                        Clear
+                    </md-tooltip>
+                    <ng-md-icon icon="clear" ng-click="clearCustomMetrics()"
+                                style="fill: black"></ng-md-icon>
+                </md-button>
                 <span>Mailovi</span>
             </md-grid-tile-footer>
         </md-grid-tile>
     </md-grid-list>
-    <!--<div class="row">-->
-        <!--<div class="col-lg-12">-->
-            <!--<div class="title">-->
-                <!--<h1>{{name}}</h1>-->
-            <!--</div>-->
-        <!--</div>-->
-    <!--</div>-->
-    <!--<div class="row">-->
-        <!--<div class="col-lg-6">-->
-            <!--<canvas id="radar" class="chart chart-radar"-->
-                    <!--chart-data="dataRadar" chart-labels="labelsRadar">-->
-            <!--</canvas>-->
-        <!--</div>-->
-        <!--<div class="col-lg-6">-->
-            <!--<canvas id="line" class="chart chart-line" chart-data="dataLine"-->
-                    <!--chart-labels="labelsLine" chart-legend="false" chart-series="seriesLine"-->
-                    <!--chart-click="onClick" >-->
-            <!--</canvas>-->
-        <!--</div>-->
-    <!--</div>-->
-    <!--<div class="row">-->
-        <!--<div class="col-lg-4">-->
-            <!--<p>-->
-            <!--Lorem ipsum dolor sit amet, consectetur adipiscing elit. Maecenas vel scelerisque tellus. Curabitur elit lacus, dapibus a porttitor sit amet, iaculis ut sem. Cras lectus quam, consectetur vehicula lectus ut, rutrum fermentum turpis. Nam sollicitudin, elit id semper venenatis, odio nulla fermentum quam, eget malesuada arcu lorem quis mauris. In in ante in risus placerat euismod sit amet et lectus. Integer tortor odio, porta ac metus ac, mollis viverra libero. Morbi ut libero at ipsum vehicula rhoncus ut vel felis. Ut sit amet quam tempus, maximus nunc aliquet, sodales dui. Curabitur quis semper justo. Nam consequat leo a sapien imperdiet, quis placerat tellus bibendum. Suspendisse a malesuada enim, a gravida magna. Sed posuere turpis sed consectetur aliquam. Class aptent taciti sociosqu ad litora torquent per conubia nostra, per inceptos himenaeos. Phasellus elementum neque nulla, sed sagittis erat tempus bibendum. Nam et sem urna.-->
-            <!--</p>-->
-        <!--</div>-->
-        <!--<div class="col-lg-4">-->
-            <!--<canvas id="polar-area" class="chart chart-polar-area"-->
-                    <!--chart-data="dataPie" chart-labels="labelsPie">-->
-            <!--</canvas>-->
-        <!--</div>-->
-        <!--<div class="col-lg-4">-->
-            <!--<canvas id="doughnut" class="chart chart-doughnut"-->
-                    <!--chart-data="data" chart-labels="labels">-->
-            <!--</canvas>-->
-        <!--</div>-->
-    <!--</div>-->
-
 </md-content>

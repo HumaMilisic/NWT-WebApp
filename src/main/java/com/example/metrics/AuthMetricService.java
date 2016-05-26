@@ -25,6 +25,13 @@ public class AuthMetricService implements IAuthMetricService {
     }
 
     @Override
+    public void reset() {
+        loginMetric.clear();
+        metricMap.clear();
+        timeMap.clear();
+    }
+
+    @Override
     public void increaseCount(String request, int status) {
         String por="";
 //        if(status==1){
