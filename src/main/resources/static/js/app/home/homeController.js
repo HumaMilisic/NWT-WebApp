@@ -16,6 +16,8 @@ DMApp.controller('homeController', [
         $scope.trenutniKorisnik = null;
         $scope.trenutniKorisnik = $rootScope.korisnik;
 
+        $scope.selectedStatus = '';
+
         $rootScope.$on('korisnik',function(event){
             $scope.trenutniKorisnik = $rootScope.korisnik;
         })
@@ -102,7 +104,7 @@ DMApp.controller('homeController', [
         $scope.getPage = function(page,pageSize,entity,query,promise,linkovi){
             //$scope.flagLoader=true;
             $scope.docSvi = null;
-            var url = '/api/'+entity+'?page='+page+'&size='+pageSize+'&sort=azuriran,desc';
+           var url = '/api/'+entity+'?page='+page+'&size='+pageSize+'&sort=azuriran,desc';
             var httpGetPromise = $http.get(url)
                 .success(function(x,y,z){
                     var a = 0;
@@ -221,14 +223,36 @@ DMApp.controller('homeController', [
                             //$scope.toastMsg($filter('translate')('ADDED'));
                             var docLink = data._links.korisnikSet.href;
                             var userLink = $scope.trenutniKorisnik._links.self.href;
-                            var data = {
+                            var data1 = {
                                 _links:{
                                     korisnikSet:[{'href':userLink}]
                                 }};
                             $http({
                                 method:'PUT',
-                                data:data,
+                                data:data1,
                                 url:docLink
+                            }).success(function(x,y,z){
+                                var a = 0;
+                                //$scope.loadStuff()
+                                //$scope.loadStuffUloga();
+                            }).error(function(x,y,z){
+                                var a =0;
+                                //$scope.loadStuff()
+                            }).finally(function(){
+                                $scope.loadStuff();
+                            })
+
+
+                            var docLink2 = data._links.statusSet.href;
+                            var statusLink = answer.selectedStatus;
+                            var data2 = {
+                                _links:{
+                                    statusSet:[{'href':statusLink}]
+                                }};
+                            $http({
+                                method:'PUT',
+                                data:data2,
+                                url:docLink2
                             }).success(function(x,y,z){
                                 var a = 0;
                                 //$scope.loadStuff()

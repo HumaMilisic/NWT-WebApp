@@ -61,11 +61,12 @@
                 </div>
             </md-input-container>
 
-            <md-select ng-model="status" md-on-open="loadStatus()" placeholder="Status">
-                <md-option ng-value="status" ng-repeat="status in statusi">
+            <md-select ng-model="item.selectedStatus" md-on-open="loadStatus()" placeholder="Status">
+                <md-option ng-value="status.href" ng-repeat="status in statusiSet">
                     {{status.nazivba}} - {{status.naziven}}
                 </md-option>
             </md-select>
+
             <md-button ng-click="upload(item)">Upload</md-button>
             <md-button ng-click="ocr(item)">OCR</md-button>
             <md-button ng-click="potpis(item)">Potpis?</md-button>

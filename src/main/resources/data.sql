@@ -73,8 +73,12 @@ INSERT INTO ULOGA_X_AKCIJA
 
 
  -- status
--- INSERT INTO STATUS VALUES(1, 'Kreiran', 'Kreiran', 0);
--- INSERT INTO STATUS VALUES(2, 'Potpisan', 'Potpisan', 0);
+ INSERT INTO STATUS VALUES(STATUS_SEQ.nextval, '0', 'Kreiran', 'Created');
+ INSERT INTO STATUS VALUES(STATUS_SEQ.nextval, '0', 'Potpisan', 'Signed');
+ INSERT INTO STATUS VALUES(STATUS_SEQ.nextval, '0', 'Poslan', 'Sent');
+ INSERT INTO STATUS VALUES(STATUS_SEQ.nextval, '0', 'Potvrdjen', 'Confirmed');
+ INSERT INTO STATUS VALUES(STATUS_SEQ.nextval, '0', 'Odbijen', 'Rejected');
+
 
  -- vrsta dokumenta
 -- INSERT INTO VRSTA_DOKUMENTA VALUES(1, 0, 'Rodni list', 'Rodni list', 'Template BA', 'Template EN');

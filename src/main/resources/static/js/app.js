@@ -695,16 +695,32 @@ DMApp.controller('noviItemModalCtrl',function($scope,$mdDialog){
     };
 });
 
-DMApp.controller('noviDocHomeModalCtrl',function($scope,$controller,$timeout,randomElem){
+//DMApp.controller('noviDocHomeModalCtrl',function($scope,$controller,$timeout,randomElem)
+DMApp.controller('noviDocHomeModalCtrl',function($scope,$controller, $http){
 
-    $scope.statusi = null;
-    $scope.status = null;
     $scope.loadStatus = function(){
-        return $timeout(function(){
-            $scope.statusi = randomElem.nizStatus(5);
-        },650);
-    }
+        //return $timeout(function(){
+        //    $scope.statusi = randomElem.nizStatus(5);
+        //},650);
 
+        var urlPretraga = '/api/status';
+        $scope.statusSet = {};
+        $http({
+            method: 'GET',
+            url: urlPretraga
+        })
+            .success(function(data,status,x,y,z){
+                var obj = data._embedded.status;
+                $scope.statusiSet = [];
+                angular.forEach(obj, function(value, key){
+                    $scope.statusiSet.push({href: value._links.self.href, nazivba: value.nazivba, naziven: value.naziven});
+                });
+            })
+            .error(function(data,status,x,y,z){
+                var a = 0;
+            })
+
+    }
 
     $controller('noviItemModalCtrl',{$scope:$scope});
 })

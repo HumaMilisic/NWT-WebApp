@@ -107,6 +107,27 @@ public class Dokument implements Serializable {
 		this.korisnikSet = korisnikSet;
 	}
 
+	@JsonIgnore
+	@ManyToMany(fetch = FetchType.EAGER)
+	@JoinTable(
+			name = "DokumentXStatus",
+			joinColumns = @JoinColumn(name = "STATUS",
+				referencedColumnName = "ID"),
+			inverseJoinColumns = @JoinColumn(name = "DOKUMENT",
+				referencedColumnName = "ID"
+			)
+	)
+	private Set<Status> statusSet;
+
+	public Set<Status> getStatusSet() {
+		return statusSet;
+	}
+
+	public void setStatusSet(Set<Status> statusSet) {
+		this.statusSet = statusSet;
+	}
+
+
 	//	@ValidBool
 	private String deleted;
 
