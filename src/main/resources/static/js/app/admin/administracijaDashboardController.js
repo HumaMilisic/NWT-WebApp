@@ -35,6 +35,8 @@ DMApp.controller('administracijaDashboardController', [
         };
 
         $scope.labelsMem = ["Free","Used"];
+        $scope.labelsStatusi = ["200", "401", "404"];
+        $scope.labelsKonekcije = [""];
 
         $scope.defaultMetrics = [];
         $scope.customMetrics = {status:[],auth:[]}
@@ -108,7 +110,31 @@ DMApp.controller('administracijaDashboardController', [
                 }
             }
 
+            //statusi 200, 401, 404
+            var s1 = $scope.defaultMetrics["counter.status.200.api.profile.repository"];
+            var s2 = $scope.defaultMetrics["counter.status.200.api.repository.id.property"];
+            var s3 = $scope.defaultMetrics["counter.status.200.api.repository.id"];
+            var s4 = $scope.defaultMetrics["counter.status.200.metric-graph-data.auth"];
+            var s5 = $scope.defaultMetrics["counter.status.200.metrics"];
+            var s6 = $scope.defaultMetrics["counter.status.200.api.repository.search.search"];
+            var s7 = $scope.defaultMetrics["counter.status.200.metric-graph-data.status"];
+            var s8 = $scope.defaultMetrics["counter.status.200.star-star"];
+            var s9 = $scope.defaultMetrics["counter.status.200.user"];
+            var s10 = $scope.defaultMetrics["counter.status.200.api.repository.search"];
+            var s11 = $scope.defaultMetrics["counter.status.200.login"];
+            var s12 = $scope.defaultMetrics["counter.status.200.api.repository"];
+            var status200 = s1+s2+s3+s4+s5+s6+s7+s8+s9+s10+s11+s12;
+            var status401 = $scope.defaultMetrics["counter.status.401.unmapped"];
+            var status404 = $scope.defaultMetrics["counter.status.404.star-star"];
+            $scope.dataStatusi = [status200, status401, status404];
 
+            //konekcije
+            var konekcije = $scope.defaultMetrics["datasource.primary.active"];
+            var iskoristenost = $scope.defaultMetrics["datasource.primary.usage"];
+            //var konekcije = 5;
+            //var iskoristenost = 0.25;
+            $scope.seriesKonekcije = ["Broj konekcija", "Iskorištenost"];
+            $scope.dataKonekcije = [[konekcije],[iskoristenost]];
 
 
         };
