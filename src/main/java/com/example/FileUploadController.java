@@ -32,14 +32,15 @@ import javax.servlet.ServletOutputStream;
 import javax.servlet.annotation.MultipartConfig;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.*;
+import com.asprise.ocr.Ocr;
 
 //ako ovo zakomentarišem ne može ga naći
 @Controller
 public class FileUploadController { //extends HttpServlet {
     private DokumentRepository repo;
 
-    private static final String filesRoot = System.getenv("OPENSHIFT_DATA_DIR");
-    //private static final String filesRoot = "F:\\appDocs";
+    //private static final String filesRoot = System.getenv("OPENSHIFT_DATA_DIR");
+    private static final String filesRoot = "F:\\appDocs";
 
     @RequestMapping(method = RequestMethod.GET, value = "/document") //, produces = MediaType.APPLICATION_JSON_VALUE)
     //public String provideUploadInfo(Model model) {
@@ -203,12 +204,24 @@ public class FileUploadController { //extends HttpServlet {
             try {
                 File usersFolder = new File(filesRoot + "\\" + SecurityContextHolder.getContext().getAuthentication().getName());
                 if(!usersFolder.exists()) usersFolder.mkdirs();
+
+                File f = new File(usersFolder + "\\" + name);
+
+                Ocr ocr = new Ocr();
+                ocr.startEngine("eng", Ocr.SPEED_FASTEST);
+
                 BufferedOutputStream stream = new BufferedOutputStream(
                         //new FileOutputStream(new File(Application.ROOT + "/" + name)));
                         //new FileOutputStream(new File(filesRoot + "/" + name)));
                         new FileOutputStream(new File(filesRoot + "\\" + SecurityContextHolder.getContext().getAuthentication().getName() + "\\" + name)));
                 FileCopyUtils.copy(file.getInputStream(), stream);
+
+
                 stream.close();
+
+                ocr.recognize(new File[] {f},
+                        Ocr.RECOGNIZE_TYPE_TEXT, Ocr.OUTPUT_FORMAT_PDF, Ocr.PROP_PDF_OUTPUT_FILE, filesRoot + "\\" + SecurityContextHolder.getContext().getAuthentication().getName() + "\\" + name, Ocr.PROP_PDF_OUTPUT_TEXT_VISIBLE, false);
+                ocr.stopEngine();
                 //redirectAttributes.addFlashAttribute("message",
                 //        "You successfully uploaded " + name + "!");
             }
