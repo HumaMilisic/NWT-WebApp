@@ -37,6 +37,8 @@ DMApp.controller('administracijaDashboardController', [
         $scope.labelsMem = ["Free","Used"];
         $scope.labelsStatusi = ["200", "401", "404"];
         $scope.labelsKonekcije = [""];
+        $scope.labelsClasses = ["Used", "Max", "Unused"];
+        $scope.labelsHeap = ["Comm.", "Init", "Used", "Heap"];
 
         $scope.defaultMetrics = [];
         $scope.customMetrics = {status:[],auth:[]}
@@ -88,6 +90,19 @@ DMApp.controller('administracijaDashboardController', [
             var mem = $scope.defaultMetrics["mem"];
             var free = $scope.defaultMetrics["mem.free"];
             $scope.dataMem = [free,mem-free];
+
+            //classes
+            var classes = $scope.defaultMetrics["classes"];
+            var classesLoaded = $scope.defaultMetrics["classes.loaded"];
+            var classesUnloaded = $scope.defaultMetrics["classes.unloaded"];
+            $scope.dataClasses = [classes,classesLoaded,classesUnloaded];
+
+            //heap
+            var heapCommitted = $scope.defaultMetrics["heap.committed"];
+            var heapInit = $scope.defaultMetrics["heap.init"];
+            var heapUsed = $scope.defaultMetrics["heap.used"];
+            var heap = $scope.defaultMetrics["heap"];
+            $scope.dataHeap = [heapCommitted,heapInit,heapUsed,heap];
 
             //mail info iz custom mail_send_attempt, mail_send_success, mail_send_error
             var niz = $scope.customMetrics.auth;
