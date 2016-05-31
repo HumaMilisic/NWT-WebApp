@@ -99,6 +99,19 @@ DMApp.factory('randomElem',function(){
 DMApp.factory('auth',function($http,$rootScope,$location,SpringDataRestAdapter,redirekt){
     var user = null;
     var korisnik = null;
+    var role = [];
+    var jeAdmin = false;
+
+    var imaRola = function(rola,niz){
+        var rez = false;
+        for(var i =0;i<niz.length;i++){
+            if(niz[i].authority == rola){
+                rez = true;
+                break;
+            }
+        }
+        return rez;
+    }
 
     var checkAuth = function(user,callback){
         $http.get("/user")
@@ -112,24 +125,34 @@ DMApp.factory('auth',function($http,$rootScope,$location,SpringDataRestAdapter,r
                     if(korisnik==null){
                         getKorisnik(user.name);
                     }
+                    $rootScope.jeAdmin = imaRola("ROLE_ADMIN",response.authorities);
+                    $rootScope.$broadcast('jeAdmin');
                 }else{
+                    $rootScope.jeAdmin = false;
+                    //$rootScope.jeAdmin = imaRola("ROLE_ADMIN",response.authorities);
+                    $rootScope.$broadcast('jeAdmin');
                     $rootScope.authenticated = false;
                     $rootScope.$broadcast('authenticated');
                     $rootScope.user = null;
                     $rootScope.$broadcast('user');
                     $rootScope.korisnik = null;
                     $rootScope.$broadcast('korisnik');
+                    korisnik = null;
                 }
                 callback && callback();
             })
             .error(function(x,y,z,k){
                 var a = 0;
+                $rootScope.jeAdmin = false;
+                //$rootScope.jeAdmin = imaRola("ROLE_ADMIN",response.authorities);
+                $rootScope.$broadcast('jeAdmin');
                 $rootScope.authenticated = false;
                 $rootScope.$broadcast('authenticated');
                 $rootScope.user = null;
                 $rootScope.$broadcast('user');
                 $rootScope.korisnik = null;
                 $rootScope.$broadcast('korisnik');
+                korisnik = null;
                 callback && callback();
             })
 
@@ -157,13 +180,13 @@ DMApp.factory('auth',function($http,$rootScope,$location,SpringDataRestAdapter,r
     var checkUser = function(user,callback){
         var headers = {};
 
-        if(user!=null && typeof (user)!='undefined'){
-            if(user.username){
-                if(user.password){
-                    headers = {authorization:"Basic " + btoa(user.username+":"+user.password)};
-                }
-            }
-        }
+        //if(user!=null && typeof (user)!='undefined'){
+        //    if(user.username){
+        //        if(user.password){
+        //            headers = {authorization:"Basic " + btoa(user.username+":"+user.password)};
+        //        }
+        //    }
+        //}
 
         //$http({
         //    method: 'POST',
@@ -201,6 +224,9 @@ DMApp.factory('auth',function($http,$rootScope,$location,SpringDataRestAdapter,r
                     if(korisnik==null)
                         getKorisnik(user.username);
                 }else{
+                    $rootScope.jeAdmin = false;
+                    //$rootScope.jeAdmin = imaRola("ROLE_ADMIN",response.authorities);
+                    $rootScope.$broadcast('jeAdmin');
                     $rootScope.authenticated = false;
                     $rootScope.$broadcast('authenticated');
                     $rootScope.user = null;
@@ -211,6 +237,9 @@ DMApp.factory('auth',function($http,$rootScope,$location,SpringDataRestAdapter,r
                 callback && callback();
             })
             .error(function(x,y,z,k){
+                $rootScope.jeAdmin = false;
+                //$rootScope.jeAdmin = imaRola("ROLE_ADMIN",response.authorities);
+                $rootScope.$broadcast('jeAdmin');
                 $rootScope.authenticated = false;
                 $rootScope.$broadcast('authenticated');
                 $rootScope.user = null;
@@ -239,6 +268,9 @@ DMApp.factory('auth',function($http,$rootScope,$location,SpringDataRestAdapter,r
                 //})
             }else{
                 //$location.path("login");
+                $rootScope.jeAdmin = false;
+                //$rootScope.jeAdmin = imaRola("ROLE_ADMIN",response.authorities);
+                $rootScope.$broadcast('jeAdmin');
                 redirekt.goToLogin();
                 fail && fail();
             }

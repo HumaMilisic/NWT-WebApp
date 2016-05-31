@@ -1,6 +1,7 @@
 package com.example.metrics;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
@@ -9,6 +10,7 @@ import org.springframework.web.bind.annotation.RestController;
 /**
  * Created by WorkIt on 25/05/2016.
  */
+@PreAuthorize("hasRole('ROLE_ADMIN')")
 @RestController
 public class MetricsController {
     @Autowired

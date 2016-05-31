@@ -29,6 +29,20 @@ var DMApp = angular.module('DMApp', [
 ]);
 
 
+DMApp.factory("roleFactory",function($rootScope,$q){
+
+    return {
+        jeAdmin: function(){
+            var rez = $rootScope.jeAdmin;
+            if(rez)
+                return $q.when(200);
+            else return $q.reject(403);
+
+        }
+    }
+})
+
+
 DMApp.config(function($httpProvider,$routeProvider/*,SpringDataRestInterceptor*/,$translateProvider,localStorageServiceProvider){
     $httpProvider.defaults.headers.common["X-Requested-With"] = 'XMLHttpRequest';
 
@@ -50,7 +64,7 @@ DMApp.config(function($httpProvider,$routeProvider/*,SpringDataRestInterceptor*/
             templateUrl: 'js/app/home/home.html',
             controller: "homeController"
         })
-        .when('/korisnik',{
+        .when('/home/korisnik',{
             templateUrl:'js/app/korisnik.html'
         })
         .when('/login',{
@@ -76,46 +90,112 @@ DMApp.config(function($httpProvider,$routeProvider/*,SpringDataRestInterceptor*/
     //administracija
     $routeProvider
         .when('/admin',{
-            templateUrl:'/js/app/admin/views/adminDashboard.html'
+            templateUrl:'/js/app/admin/views/adminDashboard.html',
+            resolve:{
+                jeAdmin: function(roleFactory){
+                    return roleFactory.jeAdmin();
+                }
+            }
         })
         .when('/admin/korisnik',{
-            templateUrl:'/js/app/admin/views/administracijaKorisnika.html'
+            templateUrl:'/js/app/admin/views/administracijaKorisnika.html',
+            resolve:{
+                jeAdmin: function(roleFactory){
+                    return roleFactory.jeAdmin();
+                }
+            }
         })
         .when('/admin/korisnik/:username',{
-            templateUrl:'/js/app/admin/views/korisnik.html'
+            templateUrl:'/js/app/admin/views/korisnik.html',
+            resolve:{
+                jeAdmin: function(roleFactory){
+                    return roleFactory.jeAdmin();
+                }
+            }
         })
         .when('/admin/akcija',{
-            templateUrl:'/js/app/admin/views/administracijaAkcija.html'
+            templateUrl:'/js/app/admin/views/administracijaAkcija.html',
+            resolve:{
+                jeAdmin: function(roleFactory){
+                    return roleFactory.jeAdmin();
+                }
+            }
         })
         .when('/admin/uloga',{
-            templateUrl:'/js/app/admin/views/administracijaUloga.html'
+            templateUrl:'/js/app/admin/views/administracijaUloga.html',
+            resolve:{
+                jeAdmin: function(roleFactory){
+                    return roleFactory.jeAdmin();
+                }
+            }
         })
         .when('/admin/status',{
-            templateUrl:'/js/app/admin/views/administracijaStatusa.html'
+            templateUrl:'/js/app/admin/views/administracijaStatusa.html',
+            resolve:{
+                jeAdmin: function(roleFactory){
+                    return roleFactory.jeAdmin();
+                }
+            }
         })
         .when('/admin/vrstaDokumenta',{
-            templateUrl:'/js/app/admin/views/administracijaVrstaDokumenta.html'
+            templateUrl:'/js/app/admin/views/administracijaVrstaDokumenta.html',
+            resolve:{
+                jeAdmin: function(roleFactory){
+                    return roleFactory.jeAdmin();
+                }
+            }
         })
         .when('/admin/notifikacija',{
-            templateUrl:'/js/app/admin/views/administracijaNotifikacija.html'
+            templateUrl:'/js/app/admin/views/administracijaNotifikacija.html',
+            resolve:{
+                jeAdmin: function(roleFactory){
+                    return roleFactory.jeAdmin();
+                }
+            }
         })
         .when('/admin/komentar',{
-            templateUrl:'/js/app/admin/views/administracijaKomentara.html'
+            templateUrl:'/js/app/admin/views/administracijaKomentara.html',
+            resolve:{
+                jeAdmin: function(roleFactory){
+                    return roleFactory.jeAdmin();
+                }
+            }
         })
         .when('/admin/dokument',{
-            templateUrl:'/js/app/admin/views/administracijaDokumenta.html'
+            templateUrl:'/js/app/admin/views/administracijaDokumenta.html',
+            resolve:{
+                jeAdmin: function(roleFactory){
+                    return roleFactory.jeAdmin();
+                }
+            }
         })
         .when('/admin/relacijaDokument',{
-            templateUrl:'/js/app/admin/views/administracijaRelacijaDokumenta.html'
+            templateUrl:'/js/app/admin/views/administracijaRelacijaDokumenta.html',
+            resolve:{
+                jeAdmin: function(roleFactory){
+                    return roleFactory.jeAdmin();
+                }
+            }
         })
         .when('/admin/dogadjaj',{
-            templateUrl:'/js/app/admin/views/administracijaDogadjaja.html'
+            templateUrl:'/js/app/admin/views/administracijaDogadjaja.html',
+            resolve:{
+                jeAdmin: function(roleFactory){
+                    return roleFactory.jeAdmin();
+                }
+            }
         })
         .when('/admin/relacijaKorisnik',{
-            templateUrl:'/js/app/admin/views/administracijaRelacijaKorisnik.html'
+            templateUrl:'/js/app/admin/views/administracijaRelacijaKorisnik.html',
+            resolve:{
+                jeAdmin: function(roleFactory){
+                    return roleFactory.jeAdmin();
+                }
+            }
         })
         .when('/user/dokumenti',{
             templateUrl:'/js/app/files.html'
+
         });
 
 
@@ -161,17 +241,20 @@ DMApp.config(function($httpProvider,$routeProvider/*,SpringDataRestInterceptor*/
     $httpProvider.interceptors.push(redirectOnError);
 });
 
-DMApp.run(["$rootScope","loader","auth",function($rootScope,loader,auth){
+DMApp.run(["$rootScope","loader","auth","redirekt",function($rootScope,loader,auth,redirekt){
     $rootScope.$on("$routeChangeStart",function(event){
         loader.startSpin();
+        auth.check();
     });
     $rootScope.$on("$routeChangeSuccess",function(event){
         loader.stopSpin();
     });
-    $rootScope.$on("$routeChangeError",function(event){
+    $rootScope.$on("$routeChangeError",function(event,x,y,z){
         loader.stopSpin();
+        if(z==403)
+            redirekt.goTo403();
     });
-    auth.check();
+
 }]);
 
 DMApp.directive('nwtPopover',function(){
@@ -627,6 +710,12 @@ DMApp.controller('korisnikPageController',function($scope,$http,$rootScope,auth,
 });
 
 DMApp.controller('indexController',function($scope,$rootScope,$translate,$mdSidenav){
+    $scope.jeAdmin = $rootScope.jeAdmin;
+    $scope.$on('jeAdmin',function(event,args){
+        //$rootScope.jeAdmin = false;
+        $scope.jeAdmin = $rootScope.jeAdmin;
+    });
+
     $scope.authenticated = $rootScope.authenticated;
     $scope.$on('authenticated',function(event,args){
         $scope.authenticated = $rootScope.authenticated;
