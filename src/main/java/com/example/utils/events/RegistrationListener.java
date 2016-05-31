@@ -23,11 +23,16 @@ public class RegistrationListener implements ApplicationListener<OnRegistrationC
     private EmailService emailService;
 
     @Override
-    public void onApplicationEvent(OnRegistrationCompleteEvent event) {
+    public void onApplicationEvent(OnRegistrationCompleteEvent event){
         System.out.println("event stigao");
         Korisnik korisnik = event.getKorisnik();
         String token = UUID.randomUUID().toString();
         service.createVerificationToken(korisnik,token);
-        emailService.sendVerificationTokenMail(korisnik,event.getAppUrl(),token);
+        try{
+            emailService.sendVerificationTokenMail(korisnik,event.getAppUrl(),token);
+        }
+        catch (Exception e){
+
+        }
     }
 }

@@ -65,7 +65,10 @@
                     <!--<div ng-message="required" TRANSLATE="VALIDATION_ERROR.REQUIRED">This is required.</div>-->
                 <!--</div>-->
             </md-input-container>
-            <md-checkbox ng-model="item.enabled" aria-label="enabled">
+            <md-checkbox ng-model="item.enabled"
+                         ng-true-value="1"
+                         ng-false-value ="0"
+                         aria-label="enabled">
                 Enabled
             </md-checkbox>
         </form>

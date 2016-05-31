@@ -52,12 +52,13 @@ DMApp.controller('administracijaDashboardController', [
         $scope.obrada = function(sub,niz){
             var mailIndex = [];
             var rez = null;
-            for(var i =1;i<niz[0].length;i++){
-                if(niz[0][i].indexOf(sub)!=-1){
-                    mailIndex.push(i);
+            if(niz[0]){
+                for(var i =1;i<niz[0].length;i++){
+                    if(niz[0][i].indexOf(sub)!=-1){
+                        mailIndex.push(i);
+                    }
                 }
-            }
-            if(mailIndex.length>0){
+                if(mailIndex.length>0){
                 rez = [];
                 var validniSize = mailIndex.length;
                 for(var i=0;i<validniSize;i++){
@@ -74,6 +75,7 @@ DMApp.controller('administracijaDashboardController', [
                     temp[niz[0][mailIndex[i]]]=rez[i];
                 }
                 rez = temp;
+            }
             }
             return rez;
         }

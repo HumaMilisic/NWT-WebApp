@@ -196,7 +196,7 @@ public class RegisterController {
     @RequestMapping(value = "/resendRegistrationToken",method = RequestMethod.GET)
     @ResponseBody
     public GenericResponse resendRegistrationToken(
-            HttpServletRequest request, @RequestParam("token") String existingToken){
+            HttpServletRequest request, @RequestParam("token") String existingToken) throws Exception{
         VerificationToken newToken = userDetailsService.generateNewVerificationToken(existingToken);
 
         Korisnik korisnik = userDetailsService.getKorisnik(newToken.getToken());

@@ -61,11 +61,16 @@
                 </div>
             </md-input-container>
 
-            <md-select ng-model="item.selectedStatus" md-on-open="loadStatus()" placeholder="Status">
-                <md-option ng-value="status.href" ng-repeat="status in statusiSet">
-                    {{status.nazivba}} - {{status.naziven}}
-                </md-option>
-            </md-select>
+            <md-input-container class="md-block">
+                <md-select name="status" required ng-model="item.selectedStatus" md-on-open="loadStatus()" placeholder="Status*">
+                    <md-option ng-value="status.href" ng-repeat="status in statusiSet">
+                        {{status.nazivba}} - {{status.naziven}}
+                    </md-option>
+                </md-select>
+                <div ng-messages="form.status.$error">
+                    <div ng-message="required" TRANSLATE="VALIDATION_ERROR.REQUIRED">This is required.</div>
+                </div>
+            </md-input-container>
 
             <md-button ng-click="upload(item)">Upload</md-button>
             <md-button ng-click="ocr(item)">OCR</md-button>

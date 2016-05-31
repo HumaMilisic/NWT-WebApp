@@ -119,5 +119,6 @@
   "LOGOUT":"Odjava",
   "ADDED": "Dodano",
   "MODIFIED": "Izmijenjeno",
-  "DELETED": " je obrisan"
+  "DELETED": " je obrisan",
+  "LOGIN_FAIL": "Login nije uspio"
 }

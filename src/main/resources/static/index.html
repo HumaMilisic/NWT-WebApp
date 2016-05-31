@@ -145,25 +145,37 @@
         <md-toolbar ng-show="authenticated"
                     ng-controller="mainToolbarCtrl" flex="none" >
             <div class="md-toolbar-tools">
-                <md-button class="md-icon-button">
+                <md-button class="md-icon-button" ng-show="jeAdmin">
                     <ng-md-icon icon="menu" ng-click="toggleNavBar('left')"
                                 style="fill: black">
                     </ng-md-icon>
                 </md-button>
                 <span breadcrumb></span>
                 <span flex></span>
-                {{localUser.name}}
+                <a href="#home/korisnik">{{localUser.name}}</a>
+                <span ng-controller="userInfoCtrl">
+                    <md-button class="md-icon-button">
+                        <md-tooltip>
+                            <span   translate="LOGOUT">
+                            logout
+                            </span>
+                        </md-tooltip>
+                        <ng-md-icon icon="logout" ng-click="logout()"
+                                    style="fill: black">
+                        </ng-md-icon>
+                    </md-button>
+                </span>
                 <!--<div>-->
                 <!--<span uib-popover="myPopoverTemplate.html"-->
                       <!--popover-placement="bottom-right">-->
 
                 <!--<span >-->
-                <md-button class="md-icon-button"ng-click="toggleNavBar('userInfo')" >
+                <!--<md-button class="md-icon-button"ng-click="toggleNavBar('userInfo')" >-->
 
-                    <ng-md-icon icon="person"
+                    <!--<ng-md-icon icon="person"-->
 
-                                style="fill: black">
-                    </ng-md-icon></md-button>
+                                <!--style="fill: black">-->
+                    <!--</ng-md-icon></md-button>-->
                     <!--<ng-md-icon icon="arrow_drop_down" style="fill: black"></ng-md-icon>-->
 
 
@@ -221,9 +233,9 @@
             md-component-id="left">
     <!--md-is-locked-open="$mdMedia('gt-md')"-->
     <div ng-controller="sideNavCtrl">
-        <md-toolbar>
-            <h1 class="md-toolbar-tools">Sidenav</h1>
-        </md-toolbar>
+        <!--<md-toolbar>-->
+            <!--<h1 class="md-toolbar-tools">Sidenav</h1>-->
+        <!--</md-toolbar>-->
         <md-content layout-padding layout-fill>
             <md-list>
                 <md-list-item ng-repeat="link in linkovi">

@@ -1,12 +1,39 @@
 DMApp.directive('breadcrumb',function(){
     return{
-        template:"{{crumb}}",
+        template:"<span ng-repeat='link in linkovi'>" +
+        "<a ng-href='{{pre(link.link)}}'>&nbsp;&nbsp;{{link.str}}&nbsp;&nbsp;</a>" +
+        "<span  ng-show='!$last'>|</span>"+
+        "</span>",
         controller: function($scope,$rootScope,$location){
+            $scope.linkovi = [];
+
+
+
+            $scope.pre = function(str){ return "#\/"+str;};
+
+
+            var isparcaj = function(){
+                $scope.linkovi = [];
+                $scope.str = [];
+                var full = $scope.crumb.split('\/');
+                for(var i=1;i<full.length;i++){
+                    var link = {};
+                    link.link = full[i];
+                    if($scope.linkovi.length>0){
+                        link['link'] = $scope.linkovi[$scope.linkovi.length-1].link + "\/"+link.link;
+                    }
+                    link.str = full[i];
+                    $scope.linkovi.push(link);
+                }
+            }
+
             $rootScope.$on("$routeChangeSuccess",function(event){
                 $scope.crumb = $location.url();
+                isparcaj();
             });
             $rootScope.$on("$routeChangeError",function(event){
                 $scope.crumb = $location.url();
+                isparcaj();
             });
         }
     }
