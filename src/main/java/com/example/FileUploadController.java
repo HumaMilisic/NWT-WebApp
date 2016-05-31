@@ -71,7 +71,7 @@ public class FileUploadController { //extends HttpServlet {
         //for (File file : rootFolder.listFiles())
         //    files.add(file.getName());
 
-        //ali posto on kreira fajlove sa imenom "\username\fajl", onda ovo "\username\" mozemo posmatrati kao prefiks
+        //ali posto on kreira fajlove sa losim imenom, onda losi dio imena mozemo posmatrati kao prefiks
         File rootFolder = new File(filesRoot);
         List<String> files = new ArrayList<String>();
         for (File file : rootFolder.listFiles()) {
