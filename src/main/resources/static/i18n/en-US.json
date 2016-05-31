@@ -120,5 +120,6 @@
   "LOGOUT":"Logout",
   "ADDED": "Added",
   "MODIFIED": "Modified",
-  "DELETED": " is deleted"
+  "DELETED": " is deleted",
+  "LOGIN_FAIL":"Login failed"
 }

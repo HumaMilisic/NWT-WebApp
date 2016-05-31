@@ -304,7 +304,7 @@ DMApp.controller('mainToolbarCtrl',function($scope,$rootScope,auth,$translate,$l
 
 });
 
-DMApp.controller('loginController',function($scope,$http,$rootScope,auth,$translate,localStorageService){
+DMApp.controller('loginController',function($scope,$http,$rootScope,auth,$translate,localStorageService,$mdToast,$filter){
     //$scope.logovan = $rootScope.logovan;
     //$scope.$on('logovan',function(){
     //    $scope.logovan = $rootScope.logovan;
@@ -314,6 +314,8 @@ DMApp.controller('loginController',function($scope,$http,$rootScope,auth,$transl
     //if($routeParams.token){
     //    alert('token: '+$routeParams.token);
     //}
+
+    $scope.loginProgress = false;
 
     $scope.toastMsg = function(text) {
         var pinTo = "bottom right";
@@ -415,7 +417,12 @@ DMApp.controller('loginController',function($scope,$http,$rootScope,auth,$transl
     $scope.user = {};
 
     $scope.login = function(){
-        auth.login($scope.user);
+        $scope.loginProgress = true;
+        auth.login($scope.user,function(){
+            $scope.loginProgress = false;
+        },function(){
+            $scope.toastMsg($filter('translate')('LOGIN_FAIL'));
+        });
     };
 
     $scope.logout = function(){

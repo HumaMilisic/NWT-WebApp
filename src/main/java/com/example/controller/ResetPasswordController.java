@@ -4,6 +4,7 @@ import com.example.models.Korisnik;
 import com.example.repo.KorisnikRepository;
 import com.example.utils.GenericResponse;
 import com.example.utils.GlobalStuff;
+import com.example.utils.service.CustomUserDetailsService;
 import com.example.utils.service.EmailService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -20,12 +21,14 @@ public class ResetPasswordController {
     private EmailService emailService;
     @Autowired
     PasswordEncoder passwordEncoder;
+    @Autowired
+    private CustomUserDetailsService userDetailsService;
 
     public ResetPasswordController(){super();}
 
     @RequestMapping(value = "/user/resetPassword",method = RequestMethod.POST)
     @ResponseBody
-    public ResponseEntity<GenericResponse> ressetPassword(@RequestParam("username") String username,@RequestParam("email") boolean sendEmail){
+    public ResponseEntity<GenericResponse> ressetPassword(@RequestParam("username") String username,@RequestParam("email") boolean sendEmail,@RequestParam("pass") String pass){
         Korisnik korisnik = korisnikRepository.findByUsername(username);
         GenericResponse uspjeh = new GenericResponse("");
         GenericResponse fail = new GenericResponse("","");
@@ -33,8 +36,16 @@ public class ResetPasswordController {
             fail.setMessage("korisnik ne postoji");
             return new ResponseEntity<GenericResponse>(fail, HttpStatus.EXPECTATION_FAILED);
         }
+
+        if(userDetailsService.getCurrentPrincipalKorisnik()!=korisnik && pass!=""){
+            fail.setMessage("korisnik nije logovan");
+            return new ResponseEntity<GenericResponse>(fail, HttpStatus.EXPECTATION_FAILED);
+        }
+
         try{
             String noviPassword = GlobalStuff.RandomPassword();
+            if(pass!="")
+                noviPassword = pass;
             korisnik.setPassword(passwordEncoder.encode(noviPassword));//passwordEncoder.encode(korisnikDTO.getPassword()
             korisnikRepository.save(korisnik);
             uspjeh.setMessage("password promjenjen");
@@ -50,4 +61,42 @@ public class ResetPasswordController {
         }
 
     }
+//
+//    @RequestMapping(value = "/user/resetPassword",method = RequestMethod.POST)
+//    @ResponseBody
+//    public ResponseEntity<GenericResponse> ressetPasswordUser(@RequestParam("username") String username,@RequestParam("pass") String pass){
+//        Korisnik korisnik = korisnikRepository.findByUsername(username);
+//        GenericResponse uspjeh = new GenericResponse("");
+//        GenericResponse fail = new GenericResponse("","");
+//        if(korisnik == null){
+//            fail.setMessage("korisnik ne postoji");
+//            return new ResponseEntity<GenericResponse>(fail, HttpStatus.EXPECTATION_FAILED);
+//        }
+//
+//        if(userDetailsService.getCurrentPrincipalKorisnik()!=korisnik){
+//            fail.setMessage("korisnik nije logovan");
+//            return new ResponseEntity<GenericResponse>(fail, HttpStatus.EXPECTATION_FAILED);
+//        }
+//
+//        try{
+//            String noviPassword = pass;//GlobalStuff.RandomPassword();
+//            korisnik.setPassword(passwordEncoder.encode(noviPassword));//passwordEncoder.encode(korisnikDTO.getPassword()
+//            korisnikRepository.save(korisnik);
+//            uspjeh.setMessage("password promjenjen");
+////            if(sendEmail){
+////                emailService.sendNewPasswordMail(korisnik.getEmail(),noviPassword );
+////                uspjeh.setMessage("mail poslan");
+////            }
+//            return new ResponseEntity<GenericResponse>(uspjeh,HttpStatus.OK);
+//        }catch (Exception e){
+//            fail.setMessage("exception");
+//            fail.setObjekat(e);
+//            return new ResponseEntity<GenericResponse>(fail, HttpStatus.EXPECTATION_FAILED);
+//        }
+//
+//    }
+//
+////    void logovaniKorisnik(Korisnik korisnik,GenericResponse uspjeh,GenericResponse fail){
+////
+////    }
 }

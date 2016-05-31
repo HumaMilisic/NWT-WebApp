@@ -221,7 +221,7 @@ DMApp.factory('auth',function($http,$rootScope,$location,SpringDataRestAdapter,r
             })
     };
 
-    var login = function(user){
+    var login = function(user,callback,fail){
         checkUser(user,function(){
             if($rootScope.authenticated){
                 checkAuth(user,function(){
@@ -240,7 +240,9 @@ DMApp.factory('auth',function($http,$rootScope,$location,SpringDataRestAdapter,r
             }else{
                 //$location.path("login");
                 redirekt.goToLogin();
+                fail && fail();
             }
+            callback&&callback();
         })
     };
 
