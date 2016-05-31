@@ -39,8 +39,8 @@ import com.asprise.ocr.Ocr;
 public class FileUploadController { //extends HttpServlet {
     private DokumentRepository repo;
 
-    //private static final String filesRoot = System.getenv("OPENSHIFT_DATA_DIR");
-    private static final String filesRoot = "F:\\appDocs";
+    private static final String filesRoot = System.getenv("OPENSHIFT_DATA_DIR");
+    //private static final String filesRoot = "F:\\appDocs";
 
     @RequestMapping(method = RequestMethod.GET, value = "/document") //, produces = MediaType.APPLICATION_JSON_VALUE)
     //public String provideUploadInfo(Model model) {
@@ -64,10 +64,23 @@ public class FileUploadController { //extends HttpServlet {
 
         // Ovdje NullPointerException ?
         //List<Dokument> docs = (List<Dokument>)repo.findAll();
-        File rootFolder = new File(filesRoot + "\\" + SecurityContextHolder.getContext().getAuthentication().getName());
+
+        //ovako bi radilo kad bi fajlovi fakat isli u korisnicki folder
+        //File rootFolder = new File(filesRoot + "\\" + SecurityContextHolder.getContext().getAuthentication().getName());
+        //List<String> files = new ArrayList<String>();
+        //for (File file : rootFolder.listFiles())
+        //    files.add(file.getName());
+
+        //ali posto on kreira fajlove sa imenom "\username\fajl", onda ovo "\username\" mozemo posmatrati kao prefiks
+        File rootFolder = new File(filesRoot);
         List<String> files = new ArrayList<String>();
-        for (File file : rootFolder.listFiles())
-            files.add(file.getName());
+        for (File file : rootFolder.listFiles()) {
+            if(file.getName().startsWith("\\" + SecurityContextHolder.getContext().getAuthentication().getName() + "\\")) {
+                files.add(file.getName().split("\\\\")[2]);
+                //alternativno
+                files.add(file.getName().substring(SecurityContextHolder.getContext().getAuthentication().getName().length() + 2));
+            }
+        }
 
         //Iterable<Dokument> docs = repo.findAll();
         //return docs;
@@ -75,11 +88,17 @@ public class FileUploadController { //extends HttpServlet {
         //return files;
         //return new ResponseEntity<String>(files.toString(), HttpStatus.OK);
         //test
-        String ret = "{ \"docs\" : [ ";
-        for (String s: files)
-            ret += ("\"" + s + "\", ");
-        ret = ret.substring(0, ret.length() - 2);
-        ret += " ] }";
+        String ret;
+        if(files.isEmpty()) {
+            ret = "{ \"docs\" : [] }";
+        }
+        else {
+            ret = "{ \"docs\" : [ ";
+            for (String s : files)
+                ret += ("\"" + s + "\", ");
+            ret = ret.substring(0, ret.length() - 2);
+            ret += " ] }";
+        }
         try {
             //response.getWriter().write("{ \"docs\" :" + files.toString() + " }");
             response.getWriter().write(ret);

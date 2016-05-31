@@ -108,5 +108,53 @@
             </canvas>
         </md-grid-tile>
 
+        <md-grid-tile >
+            <md-grid-tile-footer layout="row">
+                <md-button class="md-icon-button" layout-align="end end">
+                    <md-tooltip>
+                        Refresh
+                    </md-tooltip>
+                    <ng-md-icon icon="cached" ng-click="dataGet()"
+                                style="fill: black"></ng-md-icon>
+                </md-button>
+                <span>Heap</span>
+            </md-grid-tile-footer>
+            <canvas id="id1" class="chart chart-bubble" chart-legend="true"
+                    chart-data="dataThreads" chart-labels="labelsThreads">
+            </canvas>
+        </md-grid-tile>
+
+        <md-grid-tile >
+            <md-grid-tile-footer layout="row">
+                <md-button class="md-icon-button" layout-align="end end">
+                    <md-tooltip>
+                        Refresh
+                    </md-tooltip>
+                    <ng-md-icon icon="cached" ng-click="dataGet()"
+                                style="fill: black"></ng-md-icon>
+                </md-button>
+                <span>Heap</span>
+            </md-grid-tile-footer>
+            <canvas id="id2" class="chart chart-pie" chart-legend="true"
+                    chart-data="dataCounts" chart-labels="labelsCounts">
+            </canvas>
+        </md-grid-tile>
+
+        md-grid-tile >
+        <md-grid-tile-footer layout="row">
+            <md-button class="md-icon-button" layout-align="end end">
+                <md-tooltip>
+                    Refresh
+                </md-tooltip>
+                <ng-md-icon icon="cached" ng-click="dataGet()"
+                            style="fill: black"></ng-md-icon>
+            </md-button>
+            <span>Heap</span>
+        </md-grid-tile-footer>
+        <canvas id="id2" class="chart chart-pie" chart-legend="true"
+                chart-data="dataTimes" chart-labels="labelsTimes">
+        </canvas>
+        </md-grid-tile>
+
     </md-grid-list>
 </md-content>

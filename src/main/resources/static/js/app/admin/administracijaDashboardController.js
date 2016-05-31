@@ -39,6 +39,12 @@ DMApp.controller('administracijaDashboardController', [
         $scope.labelsKonekcije = [""];
         $scope.labelsClasses = ["Used", "Max", "Unused"];
         $scope.labelsHeap = ["Comm.", "Init", "Used", "Heap"];
+        //$scope.dataThreads = [threads, total, peek, daemon];
+        $scope.labelsThreads = ["threads", "total", "peek", "daemon"];
+        //"gc.ps_scavenge.count":57,"gc.ps_scavenge.time":8189,"gc.ps_marksweep.count":3,"gc.ps_marksweep.time":3636
+        //scavenge_count, gc_marksweep_count
+        $scope.labelsCounts = ["Scavange count", "Marksweep count"];
+        $scope.labelsTimes = ["Scavange time", "Marksweep time"];
 
         $scope.defaultMetrics = [];
         $scope.customMetrics = {status:[],auth:[]}
@@ -83,7 +89,7 @@ DMApp.controller('administracijaDashboardController', [
                 }
             }
             return timeNiz;
-        }
+        };
 
         $scope.srediPodatke = function(){
             //memorija
@@ -103,6 +109,24 @@ DMApp.controller('administracijaDashboardController', [
             var heapUsed = $scope.defaultMetrics["heap.used"];
             var heap = $scope.defaultMetrics["heap"];
             $scope.dataHeap = [heapCommitted,heapInit,heapUsed,heap];
+
+            //threads
+            //threads.peak":21,"threads.daemon":19,"threads.totalStarted":27,"threads":21,
+            var peek = $scope.defaultMetrics["threads.peak"];
+            var daemon = $scope.defaultMetrics["threads.daemon"];
+            var total = $scope.defaultMetrics["threads.totalStarted"];
+            var threads = $scope.defaultMetrics["threads"];
+            $scope.dataThreads = [threads, total, peek, daemon];
+
+            //"gc.ps_scavenge.count":57,"gc.ps_scavenge.time":8189,"gc.ps_marksweep.count":3,"gc.ps_marksweep.time":3636
+            //gc counts
+            var gc_scavenge_count = $scope.defaultMetrics["gc.ps_scavenge.count"];
+            var gc_marksweep_count = $scope.defaultMetrics["gc.ps_marksweep.count"];
+            $scope.dataCounts = [gc_scavenge_count, gc_marksweep_count];
+            //gc times
+            var gc_scavenge_time = $scope.defaultMetrics["gc.ps_scavenge.time"];
+            var gc_marksweep_time = $scope.defaultMetrics["gc.ps_marksweep.time"];
+            $scope.dataTimes = [gc_scavenge_time, gc_marksweep_time];
 
             //mail info iz custom mail_send_attempt, mail_send_success, mail_send_error
             var niz = $scope.customMetrics.auth;
