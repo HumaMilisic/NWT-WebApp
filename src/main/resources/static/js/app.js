@@ -106,7 +106,7 @@ DMApp.config(function($httpProvider,$routeProvider/*,SpringDataRestInterceptor*/
             }
         })
         .when('/admin/korisnik/:username',{
-            templateUrl:'/js/app/admin/views/korisnik.html',
+            templateUrl:'js/app/korisnik.html',
             resolve:{
                 jeAdmin: function(roleFactory){
                     return roleFactory.jeAdmin();
@@ -695,12 +695,30 @@ DMApp.controller('registracijaController', function ($scope, vcRecaptchaService,
 
 
 
-DMApp.controller('korisnikPageController',function($scope,$http,$rootScope,auth,$routeParams,auth){
+DMApp.controller('korisnikPageController',function($scope,$http,$rootScope,auth,$routeParams,razmjena){
     $scope.name = "korisnikPageController";
 
     $scope.username = $routeParams.username;
     $scope.korisnik = null;
+
+    //var getKorisnika =function(username){
+    //    var promise =
+    //}
+
+    if($routeParams.username){
+        $scope.korisnik = razmjena.getObjekat();
+        razmjena.setObjekat(null);
+        if($scope.korisnik==null){
+
+        }
+    }
+
     if($routeParams.username==undefined){
+        $scope.korisnik = razmjena.getObjekat();
+        razmjena.setObjekat(null);
+        if($scope.korisnik==null){
+
+        }
         //auth.getKorisnik().then(function(rez){
         //    $scope.username = rez.data.username;
         //    $scope.korisnik = rez.data;

@@ -540,6 +540,18 @@ DMApp.factory('Item',function(SpringDataRestAdapter,$http){
     return Item;
 });
 
+DMApp.factory('razmjena',function(){
+    var objekat = null;
+    return{
+        setObjekat: function(obj){
+            objekat=obj;
+        },
+        getObjekat:function(){
+            return objekat;
+        }
+    }
+})
+
 DMApp.factory('ResourceNew',function(SpringDataRestAdapter,$http){
     //var Item = {
     //    entity:null,

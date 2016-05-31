@@ -37,25 +37,30 @@ public class ResetPasswordController {
             return new ResponseEntity<GenericResponse>(fail, HttpStatus.EXPECTATION_FAILED);
         }
 
-        if(userDetailsService.getCurrentPrincipalKorisnik()!=korisnik && pass!=""){
+        if(userDetailsService.getCurrentPrincipalKorisnik()!=korisnik && !sendEmail){
             fail.setMessage("korisnik nije logovan");
             return new ResponseEntity<GenericResponse>(fail, HttpStatus.EXPECTATION_FAILED);
         }
-
+        String noviPassword = GlobalStuff.RandomPassword();
         try{
-            String noviPassword = GlobalStuff.RandomPassword();
-            if(pass!="")
+            if(!sendEmail)
                 noviPassword = pass;
             korisnik.setPassword(passwordEncoder.encode(noviPassword));//passwordEncoder.encode(korisnikDTO.getPassword()
             korisnikRepository.save(korisnik);
             uspjeh.setMessage("password promjenjen");
+        }catch (Exception e){
+            fail.setMessage("exception");
+            fail.setObjekat(e);
+            return new ResponseEntity<GenericResponse>(fail, HttpStatus.EXPECTATION_FAILED);
+        }
+        try{
             if(sendEmail){
                 emailService.sendNewPasswordMail(korisnik.getEmail(),noviPassword );
                 uspjeh.setMessage("mail poslan");
             }
             return new ResponseEntity<GenericResponse>(uspjeh,HttpStatus.OK);
         }catch (Exception e){
-            fail.setMessage("exception");
+            fail.setMessage("pass promjenjen mail pao");
             fail.setObjekat(e);
             return new ResponseEntity<GenericResponse>(fail, HttpStatus.EXPECTATION_FAILED);
         }

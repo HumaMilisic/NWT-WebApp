@@ -1036,8 +1036,11 @@ DMApp.controller('administracijaController', [
             // var naziv_BA = $scope.selected[0].nazivba;
             // var naziv_EN = $scope.selected[0].naziven;
 
+            var editScope = $scope.$new(true);
+            editScope.selected = angular.copy($scope.selected);
+
             $mdDialog.show({
-                scope: $scope,
+                scope: editScope,
                 controller: "editItemModalCtrl",
                 templateUrl: $scope.editModalTemplateUrl,
                 targetEvent: event

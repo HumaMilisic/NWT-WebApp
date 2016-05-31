@@ -64,6 +64,10 @@ public class Korisnik implements Serializable {
 	}
 
 	public void setEnabled(String enabled) {
+		if(enabled=="true")
+			enabled = "1";
+		if(enabled=="false")
+			enabled = "0";
 		this.enabled = enabled;
 	}
 

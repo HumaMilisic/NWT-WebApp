@@ -48,7 +48,7 @@ public class CustomUserDetailsService implements UserDetailsService{
         boolean enabled = true;
         boolean accountNonExpired = true;
         boolean credentialsNonExpired = true;
-        boolean accountNonLocked = true;
+        boolean accountNonLocked = false;
         try{
             Korisnik korisnik = repo.findByUsername(username);
             Set<Uloga> setUloga = korisnik.getUlogaSet();
@@ -61,6 +61,8 @@ public class CustomUserDetailsService implements UserDetailsService{
             }
             String lista = "";
             for(Akcija i: setAkcija){
+                if(i.getNaziv().contains("USER"))
+                    accountNonLocked = true;
                 lista+= "ROLE_"+i.getNaziv()+",";
             }
             List<GrantedAuthority> auth = AuthorityUtils.commaSeparatedStringToAuthorityList(lista);//ROLE_ADMIN,
