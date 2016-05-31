@@ -116,7 +116,7 @@ public class DigitalSignatureController {
         }
     }
 
-    @RequestMapping(method = RequestMethod.DELETE, value = "/document/{fileName:.+}")
+    @RequestMapping(method = RequestMethod.DELETE, value = "/deletesignature/{fileName:.+}")
     public @ResponseBody String delete(@PathVariable String fileName) {
         return "blahblah";
     }
