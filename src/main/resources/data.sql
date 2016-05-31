@@ -94,13 +94,13 @@ INSERT INTO ULOGA_X_AKCIJA
 
 -- Dokumenti
 
-insert into dokument values(DOKUMENT_SEQ.nextval, null, null, null, null, null, null, null,'yeeeey');
-insert into dokument values(DOKUMENT_SEQ.nextval, null, null, null, null, null, null, null,'yeeeey');
-insert into dokument values(DOKUMENT_SEQ.nextval, null, null, null, null, null, null, null,'yeeeey');
-insert into dokument values(DOKUMENT_SEQ.nextval, null, null, null, null, null, null, null,'yeeeey');
-insert into dokument values(DOKUMENT_SEQ.nextval, null, null, null, null, null, null, null,'yeeeey');
-insert into dokument values(DOKUMENT_SEQ.nextval, null, null, null, null, null, null, null,'yeeeey');
-insert into dokument values(DOKUMENT_SEQ.nextval, null, null, null, null, null, null, null,'yeeeey');
+-- insert into dokument values(DOKUMENT_SEQ.nextval, null, null, null, null, null, null, null,'yeeeey');
+-- insert into dokument values(DOKUMENT_SEQ.nextval, null, null, null, null, null, null, null,'yeeeey');
+-- insert into dokument values(DOKUMENT_SEQ.nextval, null, null, null, null, null, null, null,'yeeeey');
+-- insert into dokument values(DOKUMENT_SEQ.nextval, null, null, null, null, null, null, null,'yeeeey');
+-- insert into dokument values(DOKUMENT_SEQ.nextval, null, null, null, null, null, null, null,'yeeeey');
+-- insert into dokument values(DOKUMENT_SEQ.nextval, null, null, null, null, null, null, null,'yeeeey');
+-- insert into dokument values(DOKUMENT_SEQ.nextval, null, null, null, null, null, null, null,'yeeeey');
 
 
 -- Relacija Dokumenti

@@ -198,12 +198,14 @@ DMApp.controller('homeController', [
             alert('upload');
         }
 
-        var dialogeScope = $scope.$new(true);
-        dialogeScope.upload = $scope.upload;
-        dialogeScope.ocr = $scope.ocr;
-        dialogeScope.potpis = $scope.potpis;
+
 
         $scope.newDialog = function(event){
+            var dialogeScope = $scope.$new(true);
+            dialogeScope.upload = $scope.upload;
+            dialogeScope.ocr = $scope.ocr;
+            dialogeScope.potpis = $scope.potpis;
+
             $mdDialog.show({
                 templateUrl: 'js/app/parts/noviDokumentHome.html',
                 scope: dialogeScope,
@@ -245,24 +247,27 @@ DMApp.controller('homeController', [
 
                             var docLink2 = data._links.statusSet.href;
                             var statusLink = answer.selectedStatus;
-                            var data2 = {
-                                _links:{
-                                    statusSet:[{'href':statusLink}]
-                                }};
-                            $http({
-                                method:'PUT',
-                                data:data2,
-                                url:docLink2
-                            }).success(function(x,y,z){
-                                var a = 0;
-                                //$scope.loadStuff()
-                                //$scope.loadStuffUloga();
-                            }).error(function(x,y,z){
-                                var a =0;
-                                //$scope.loadStuff()
-                            }).finally(function(){
-                                $scope.loadStuff();
-                            })
+
+                            if(statusLink){
+                                var data2 = {
+                                    _links:{
+                                        statusSet:[{'href':statusLink}]
+                                    }};
+                                $http({
+                                    method:'PUT',
+                                    data:data2,
+                                    url:docLink2
+                                }).success(function(x,y,z){
+                                    var a = 0;
+                                    //$scope.loadStuff()
+                                    //$scope.loadStuffUloga();
+                                }).error(function(x,y,z){
+                                    var a =0;
+                                    //$scope.loadStuff()
+                                }).finally(function(){
+                                    $scope.loadStuff();
+                                })
+                            }
                             //$scope.loadStuff();
                         }).error(function(x,y,z){
                             var a = 0;
