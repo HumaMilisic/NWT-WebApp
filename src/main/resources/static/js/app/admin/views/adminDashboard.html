@@ -18,6 +18,7 @@
                     chart-data="dataMem" chart-labels="labelsMem">
             </canvas>
         </md-grid-tile>
+
         <md-grid-tile md-rowspan="1" md-colspan="5" md-colspan-sm="2" md-colspan-xs="1">
             <canvas id="mail" class="chart chart-bar" chart-data="dataMail"
                     chart-labels="mailVrijeme" chart-series="mailSeries"></canvas>
@@ -71,6 +72,39 @@
             <canvas id="konekcije" class="chart chart-bar" chart-legend="false"
                     chart-data="dataKonekcije" chart-labels="labelsKonekcije" chart-series="seriesKonekcije"
                     width="250" height="150">
+            </canvas>
+        </md-grid-tile>
+
+
+        <md-grid-tile >
+            <md-grid-tile-footer layout="row">
+                <md-button class="md-icon-button" layout-align="end end">
+                    <md-tooltip>
+                        Refresh
+                    </md-tooltip>
+                    <ng-md-icon icon="cached" ng-click="dataGet()"
+                                style="fill: black"></ng-md-icon>
+                </md-button>
+                <span>Classes</span>
+            </md-grid-tile-footer>
+            <canvas id="classes" class="chart chart-doughnut" chart-legend="true"
+                    chart-data="dataClasses" chart-labels="labelsClasses">
+            </canvas>
+        </md-grid-tile>
+
+        <md-grid-tile >
+            <md-grid-tile-footer layout="row">
+                <md-button class="md-icon-button" layout-align="end end">
+                    <md-tooltip>
+                        Refresh
+                    </md-tooltip>
+                    <ng-md-icon icon="cached" ng-click="dataGet()"
+                                style="fill: black"></ng-md-icon>
+                </md-button>
+                <span>Heap</span>
+            </md-grid-tile-footer>
+            <canvas id="heaps" class="chart chart-pie" chart-legend="true"
+                    chart-data="dataHeap" chart-labels="labelsHeap">
             </canvas>
         </md-grid-tile>
 
