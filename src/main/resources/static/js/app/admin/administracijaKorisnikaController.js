@@ -6,6 +6,9 @@ DMApp.controller('administracijaKorisnikaController', [
     '$mdDialog',
     '$filter',
     function($scope, $controller,$http,$location,$mdDialog,$filter) {
+        $scope.ban = function(osoba){
+            alert('ban');
+        }
         $scope.main = {};
         $scope.name = "naziv!!!";
         $scope.childEntity = 'korisnik';

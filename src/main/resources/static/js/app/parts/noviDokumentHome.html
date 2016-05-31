@@ -75,6 +75,6 @@
     <div class="md-actions" layout="row">
         <span flex></span>
         <md-button ng-click="answer(null)" translate="CANCEL"> Cancel </md-button>
-        <md-button ng-click="answer(item)" class="md-primary" translate="SAVE"> Save </md-button>
+        <md-button ng-click="answer(item)" class="md-primary" translate="SAVE" ng-disabled="!form.$valid"> Save </md-button>
     </div>
 </md-dialog>

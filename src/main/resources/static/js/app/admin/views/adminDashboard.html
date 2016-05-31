@@ -39,5 +39,40 @@
                 <span>Mailovi</span>
             </md-grid-tile-footer>
         </md-grid-tile>
+
+        <md-grid-tile >
+            <md-grid-tile-footer layout="row">
+                <md-button class="md-icon-button" layout-align="end end">
+                    <md-tooltip>
+                        Refresh
+                    </md-tooltip>
+                    <ng-md-icon icon="cached" ng-click="dataGet()"
+                                style="..."></ng-md-icon>
+                </md-button>
+                <span>Brojač statusa</span>
+            </md-grid-tile-footer>
+            <canvas id="statusi" class="chart chart-pie" chart-legend="true"
+                    chart-data="dataStatusi" chart-labels="labelsStatusi"
+                    width="250" height="150">
+            </canvas>
+        </md-grid-tile>
+
+        <md-grid-tile>
+            <md-grid-tile-footer layout="row">
+                <md-button class="md-icon-button" layout-align="end end">
+                    <md-tooltip>
+                        Refresh
+                    </md-tooltip>
+                    <ng-md-icon icon="cached" ng-click="dataGet()"
+                                style="..."></ng-md-icon>
+                </md-button>
+                <span>Trenutne konekcije</span>
+            </md-grid-tile-footer>
+            <canvas id="konekcije" class="chart chart-bar" chart-legend="false"
+                    chart-data="dataKonekcije" chart-labels="labelsKonekcije" chart-series="seriesKonekcije"
+                    width="250" height="150">
+            </canvas>
+        </md-grid-tile>
+
     </md-grid-list>
 </md-content>

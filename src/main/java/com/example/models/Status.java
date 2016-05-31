@@ -1,14 +1,11 @@
 package com.example.models;
 
-import com.fasterxml.jackson.annotation.JsonBackReference;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import org.hibernate.annotations.Generated;
 import org.hibernate.annotations.GenerationTime;
-import org.hibernate.validator.constraints.Length;
 
-import java.io.Serializable;
 import javax.persistence.*;
-import java.util.List;
+import java.io.Serializable;
 import java.util.Set;
 
 
@@ -106,6 +103,7 @@ public class Status implements Serializable {
 		this.naziven = naziven;
 	}
 
+	@JsonIgnore
 	@ManyToMany(mappedBy = "statusSet", fetch = FetchType.EAGER)
 	private Set<Dokument> dokumentSet;
 
