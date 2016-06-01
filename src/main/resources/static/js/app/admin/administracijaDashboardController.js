@@ -190,15 +190,15 @@ DMApp.controller('administracijaDashboardController', [
                 .error(function(x,y,z){
                     var a = 0;
                 })
-            $http.get('metric-graph-data/status')
-                .success(function(data,status,y){
-                    $scope.customMetrics.status = data;
-                    $scope.srediPodatke();
-                    var a = 0;
-                })
-                .error(function(x,y,z){
-                    var a = 0;
-                })
+            //$http.get('metric-graph-data/status')
+            //    .success(function(data,status,y){
+            //        $scope.customMetrics.status = data;
+            //        $scope.srediPodatke();
+            //        var a = 0;
+            //    })
+            //    .error(function(x,y,z){
+            //        var a = 0;
+            //    })
             $http.get('metric-graph-data/auth')
                 .success(function(data,status,y){
                     $scope.customMetrics.auth = data;
