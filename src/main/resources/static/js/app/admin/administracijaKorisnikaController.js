@@ -5,6 +5,7 @@ DMApp.controller('administracijaKorisnikaController', [
     '$location',
     '$mdDialog',
     '$filter',
+    'razmjena',
     function($scope, $controller,$http,$location,$mdDialog,$filter,razmjena) {
         $scope.ban = function(osoba){
             var url = osoba._links.self.href;

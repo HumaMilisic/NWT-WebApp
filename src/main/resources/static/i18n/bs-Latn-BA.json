@@ -120,5 +120,7 @@
   "ADDED": "Dodano",
   "MODIFIED": "Izmijenjeno",
   "DELETED": " je obrisan",
-  "LOGIN_FAIL": "Login nije uspio"
+  "LOGIN_FAIL": "Login nije uspio",
+  "CHANGE_PASS":"Change password",
+  "NEW_PASS":"New password"
 }

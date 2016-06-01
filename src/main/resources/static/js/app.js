@@ -695,35 +695,85 @@ DMApp.controller('registracijaController', function ($scope, vcRecaptchaService,
 
 
 
-DMApp.controller('korisnikPageController',function($scope,$http,$rootScope,auth,$routeParams,razmjena){
+DMApp.controller('korisnikPageController',function($scope,$http,$rootScope,auth,$routeParams,razmjena,SpringDataRestAdapter,$location,$mdToast){
     $scope.name = "korisnikPageController";
 
     $scope.username = $routeParams.username;
     $scope.korisnik = null;
+    $scope.trenutniKorisnik = $rootScope.korisnik;
+    $scope.$on('korisnik',function(event){
+        $scope.trenutniKorisnik = $rootScope.korisnik;
+    })
 
-    //var getKorisnika =function(username){
-    //    var promise =
-    //}
+    $scope.query={};
+
+    $scope.jeSvoj = function(){
+        var path = $location.url();
+        return path.indexOf("home")>-1;
+    }
+
+    $scope.promjeniPass = function(){
+        ///user/resetPassword
+        var username = $scope.korisnik.username;
+        var mail = false;
+        var newPass = $scope.newPass;
+        var url = "/user/resetPassword?username="+username+"&email="+mail+"&pass="+newPass;
+        var promise = $http.post(url)
+            .success(function(x,y,z){
+                var a =0;
+                $scope.toastMsg("Uspjeh");
+            })
+            .error(function(x,y,z){
+                var a =0;
+                $scope.toastMsg('Problem');
+            })
+            .finally(function(){
+                $scope.newPass = null;
+                $scope.form.$setPristine();
+                $scope.form.newPass.$setPristine();
+            })
+    }
+
+    $scope.toastMsg = function(text) {
+        var pinTo = "bottom right";
+        $mdToast.show(
+            $mdToast.simple()
+                .textContent(text)
+                .position(pinTo )
+                .hideDelay(3000)
+        );
+    };
+
+    var getKorisnika =function(username){
+        var url = "/api/korisnik/search/findByUsername?username="+username;
+        var promise = $http.get(url)
+            .success(function(x,y,z,k){
+                $scope.korisnik = x;
+                var a = 0;
+            })
+            .error(function(x,y,z,k){
+                var a = 0;
+            })
+
+        var obrada = SpringDataRestAdapter.process(promise,'_allLinks').then(function(data,x,y,z,k){
+            //$scope.query.limit = data.page.size;
+            //$scope.query.page = data.page.number+1;
+            //$scope.query.totalElements = data.page.totalElements;
+            $scope.query.data = data.dokumentSet._embeddedItems;
+        });
+    }
 
     if($routeParams.username){
-        $scope.korisnik = razmjena.getObjekat();
-        razmjena.setObjekat(null);
-        if($scope.korisnik==null){
-
-        }
+        getKorisnika($routeParams.username);
+        $scope.korisnikR = razmjena.getObjekat();
+        //razmjena.setObjekat(null);
+        //if($scope.korisnik==null){
+        //
+        //}
     }
 
     if($routeParams.username==undefined){
-        $scope.korisnik = razmjena.getObjekat();
-        razmjena.setObjekat(null);
-        if($scope.korisnik==null){
-
-        }
-        //auth.getKorisnik().then(function(rez){
-        //    $scope.username = rez.data.username;
-        //    $scope.korisnik = rez.data;
-        //});
-        //$scope.username = a.name;
+        $scope.korisnik = $scope.trenutniKorisnik;
     }
 });
 
