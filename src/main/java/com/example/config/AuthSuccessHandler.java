@@ -1,6 +1,5 @@
 package com.example.config;
 
-import com.example.metrics.IAuthMetricService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.web.authentication.SavedRequestAwareAuthenticationSuccessHandler;
@@ -26,15 +25,15 @@ public class AuthSuccessHandler extends SavedRequestAwareAuthenticationSuccessHa
 //        this.mapper = messageConverter.getObjectMapper();
     }
 
-    @Autowired
-    private IAuthMetricService authMetricService;
+//    @Autowired
+//    private IAuthMetricService authMetricService;
 
     @Override
     public void onAuthenticationSuccess(HttpServletRequest request, HttpServletResponse response, Authentication authentication) throws ServletException, IOException {
         //            super.onAuthenticationSuccess(request, response, authentication);
          response.setStatus(HttpServletResponse.SC_OK);
-        final String req = request.getMethod()+" "+request.getRequestURI();
-        authMetricService.increaseCount(req,1);
+//        final String req = request.getMethod()+" "+request.getRequestURI();
+//        authMetricService.increaseCount(req,1);
         PrintWriter writer = response.getWriter();
 //        mapper.writeValue(writer,);
     }

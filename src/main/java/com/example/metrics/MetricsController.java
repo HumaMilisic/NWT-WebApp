@@ -13,17 +13,17 @@ import org.springframework.web.bind.annotation.RestController;
 @PreAuthorize("hasRole('ROLE_ADMIN')")
 @RestController
 public class MetricsController {
-    @Autowired
-    private IMetricService metricService;
+//    @Autowired
+//    private IMetricService metricService;
     @Autowired
     private IAuthMetricService authMetricService;
 
-
-    @RequestMapping(value = "/metric-graph-data/status",method = RequestMethod.GET)
-    @ResponseBody
-    public Object[][] getMetricData(){
-        return metricService.getGraphData();
-    }
+//
+//    @RequestMapping(value = "/metric-graph-data/status",method = RequestMethod.GET)
+//    @ResponseBody
+//    public Object[][] getMetricData(){
+//        return metricService.getGraphData();
+//    }
 
     @RequestMapping(value = "/metric-graph-data/auth",method = RequestMethod.GET)
     @ResponseBody
@@ -34,7 +34,7 @@ public class MetricsController {
     @RequestMapping(value = "/metric-graph-data/reset",method = RequestMethod.GET)
     @ResponseBody
     public void resetMetrics(){
-        metricService.reset();
+//        metricService.reset();
         authMetricService.reset();
     }
 }
