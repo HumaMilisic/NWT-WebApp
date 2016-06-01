@@ -188,7 +188,7 @@ public class RegisterController {
         user.setEnabled("1");
         userDetailsService.saveRegisteredUser(user);
         System.out.println("sacuvan korisnik");
-        GenericResponse uspjeh = new GenericResponse("korisnik aktiviran",null);
+        GenericResponse uspjeh = new GenericResponse("korisnik aktiviran, trazite od admina ulogu",null);
         return new ResponseEntity<GenericResponse>(uspjeh, HttpStatus.ACCEPTED);
 //        return new ModelAndView("redirect:/login");//?lang=" + request.getLocale().getLanguage();
     }
@@ -196,7 +196,7 @@ public class RegisterController {
     @RequestMapping(value = "/resendRegistrationToken",method = RequestMethod.GET)
     @ResponseBody
     public GenericResponse resendRegistrationToken(
-            HttpServletRequest request, @RequestParam("token") String existingToken){
+            HttpServletRequest request, @RequestParam("token") String existingToken) throws Exception{
         VerificationToken newToken = userDetailsService.generateNewVerificationToken(existingToken);
 
         Korisnik korisnik = userDetailsService.getKorisnik(newToken.getToken());

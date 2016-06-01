@@ -5,14 +5,25 @@ DMApp.controller('administracijaKorisnikaController', [
     '$location',
     '$mdDialog',
     '$filter',
-    function($scope, $controller,$http,$location,$mdDialog,$filter) {
+    'razmjena',
+    function($scope, $controller,$http,$location,$mdDialog,$filter,razmjena) {
         $scope.ban = function(osoba){
-            alert('ban');
+            var url = osoba._links.self.href;
+            var data = {
+                enabled:"0"
+            }
+            $http({ method: 'PATCH', url: url, data: angular.toJson(data)})
+                .success(function(x,y,z,k){
+                    var a = 0;
+                    $scope.loadStuff();
+                    $scope.toastMsg("uspjeh");
+                });
         }
         $scope.main = {};
         $scope.name = "naziv!!!";
         $scope.childEntity = 'korisnik';
-        $scope.detalji = function(username){
+        $scope.detalji = function(username,user){
+            razmjena.setObjekat(user);
             $location.path('/admin/korisnik/'+username);
         };
 
@@ -28,9 +39,10 @@ DMApp.controller('administracijaKorisnikaController', [
                 var user = $scope.selected[0];
                 var data = {
                     "username":user.username,
-                    email:true
+                    email:true,
+                    pass:null
                 };
-                var url = "/user/resetPassword?username="+user.username+"&email=true";
+                var url = "/user/resetPassword?username="+user.username+"&email=true&pass=null";
                 var promise = $http({
                     method:'POST',
                     url:url,
