@@ -77,7 +77,7 @@ public class DigitalSignatureController {
     @CrossOrigin
     @RequestMapping(method = RequestMethod.POST, value = "/sign/{fileName:.+}")
     public @ResponseBody String signDocument(
-                @RequestBody String fileName) {
+                @PathVariable String fileName) {
         try {
             //String name = file.getOriginalFilename();
             //provjeri postoji li javni kljuc, ako ne postoji generisi privatni i javni
