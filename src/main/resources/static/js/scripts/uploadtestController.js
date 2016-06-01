@@ -30,4 +30,13 @@ DMApp.controller('uploadtestController', ['$rootScope', '$scope', '$http', '$loc
                 alert(response.data.status);
             });
     };
+
+    $scope.sign = function (fileName) {
+        $http.post("/sign/" + fileName).then(function(response) {
+                alert("sucess!")
+            },
+            function(response) {
+                //alert("fail!")
+            });
+    };
 }]);
