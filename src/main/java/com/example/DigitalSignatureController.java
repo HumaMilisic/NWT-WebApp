@@ -56,8 +56,22 @@ public class DigitalSignatureController {
 
     @RequestMapping(method = RequestMethod.GET, value = "/signature/{fileName:.+}")
     public void getDigitalSignature(@PathVariable String fileName, HttpServletResponse response) { //HttpServletResponse response, HttpServletRequest request) {
+        try {
+            String username = SecurityContextHolder.getContext().getAuthentication().getName();
+            File signature = new File(filesRoot + "/" + username + "/signatures/" + fileName + ".sgn");
+            //FileInputStream fis = new FileInputStream(new File(filesRoot + "/" + fileName + ".sgn"));
+            FileInputStream fis = new FileInputStream(signature);
 
+            // Set the content type and attachment header.
+            response.addHeader("Content-disposition", "attachment;filename=" + fileName);
+            response.setContentType("txt/plain");
+            response.setContentLength((int)signature.length());
 
+            IOUtils.copy(fis, response.getOutputStream());
+            response.flushBuffer();
+        }
+        catch(FileNotFoundException fnfe) {}
+        catch (IOException ioe) {}
     }
 
     @CrossOrigin
@@ -72,7 +86,7 @@ public class DigitalSignatureController {
             KeyPair pair = KeyGen.getKeyPair();
 
             PrivateKey priv = pair.getPrivate();
-            PublicKey pub = pair.getPublic();
+            //PublicKey pub = pair.getPublic();
 
             //potpisivanje podataka
             Signature dsa = Signature.getInstance("SHA1withDSA", "SUN");
@@ -83,7 +97,7 @@ public class DigitalSignatureController {
 
             //dsa.initSign(priv);
 
-            FileInputStream fis = new FileInputStream(filesRoot + "\\" + username + "\\" + fileName);
+            FileInputStream fis = new FileInputStream(filesRoot + "/" + username + "/" + fileName);
             BufferedInputStream bufin = new BufferedInputStream(fis);
             byte[] buffer = new byte[1024];
             int len;
@@ -95,7 +109,7 @@ public class DigitalSignatureController {
             byte[] realSig = dsa.sign();
 
                 /* save the signature in a file */
-            FileOutputStream sigfos = new FileOutputStream(new File(filesRoot + "\\" + username + "\\signatures\\" + fileName + ".sgn"));
+            FileOutputStream sigfos = new FileOutputStream(new File(filesRoot + "/" + username + "/signatures/" + fileName + ".sgn"));
             sigfos.write(realSig);
             sigfos.close();
 
@@ -104,10 +118,10 @@ public class DigitalSignatureController {
             //trenutno je jos potrebno, jer se svakim restartom generisu novi kljucevi, tako da se ne bi mogli provjeriti stari potpisi
             //osim ako jednom generisan kljuc ne bude sacuvan u fajl, i onda uvijek preuzet iz njega
                 /* save the public key in a file */
-            byte[] key = pub.getEncoded();
+            /*byte[] key = pub.getEncoded();
             FileOutputStream keyfos = new FileOutputStream(new File(filesRoot + "\\" + username + "\\signatures\\" + fileName + ".key"));
             keyfos.write(key);
-            keyfos.close();
+            keyfos.close();*/
 
             return "{ \"status\": \"Fajl uspjesno potpisan!\" }";
         }
@@ -118,6 +132,6 @@ public class DigitalSignatureController {
 
     @RequestMapping(method = RequestMethod.DELETE, value = "/deletesignature/{fileName:.+}")
     public @ResponseBody String delete(@PathVariable String fileName) {
-        return "blahblah";
+        return "{ \"status\": \"blahblah\" }";
     }
 }
