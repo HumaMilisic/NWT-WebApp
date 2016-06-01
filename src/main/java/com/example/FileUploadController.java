@@ -226,6 +226,7 @@ public class FileUploadController { //extends HttpServlet {
 
                 File f = new File(usersFolder + "\\" + name);
 
+                Ocr.setUp();
                 Ocr ocr = new Ocr();
                 ocr.startEngine("eng", Ocr.SPEED_FASTEST);
 
