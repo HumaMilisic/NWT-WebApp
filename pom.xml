@@ -53,11 +53,11 @@
 			<artifactId>h2</artifactId>
 		</dependency>
 		<!-- http://mvnrepository.com/artifact/org.postgresql/postgresql -->
-		<dependency>
-			<groupId>org.postgresql</groupId>
-			<artifactId>postgresql</artifactId>
-			<version>9.2-1003-jdbc4</version>
-		</dependency>
+		<!--<dependency>-->
+			<!--<groupId>org.postgresql</groupId>-->
+			<!--<artifactId>postgresql</artifactId>-->
+			<!--<version>9.2-1003-jdbc4</version>-->
+		<!--</dependency>-->
 
 		<!--<dependency>-->
 		<!--<groupId>org.springframework.boot</groupId>-->
@@ -79,10 +79,10 @@
 			<groupId>org.springframework.boot</groupId>
 			<artifactId>spring-boot-starter-mail</artifactId>
 		</dependency>
-		<dependency>
-			<groupId>org.springframework.boot</groupId>
-			<artifactId>spring-boot-starter-jdbc</artifactId>
-		</dependency>
+		<!--<dependency>-->
+			<!--<groupId>org.springframework.boot</groupId>-->
+			<!--<artifactId>spring-boot-starter-jdbc</artifactId>-->
+		<!--</dependency>-->
 		<!--<dependency>-->
 			<!--<groupId>org.springframework.data</groupId>-->
 			<!--<artifactId>spring-data-rest-hal-browser</artifactId>-->
