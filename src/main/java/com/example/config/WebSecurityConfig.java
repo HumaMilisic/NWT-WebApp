@@ -7,6 +7,7 @@ import org.springframework.context.annotation.Configuration;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.authentication.dao.DaoAuthenticationProvider;
 import org.springframework.security.config.annotation.authentication.builders.AuthenticationManagerBuilder;
+import org.springframework.security.config.annotation.authentication.configurers.provisioning.InMemoryUserDetailsManagerConfigurer;
 import org.springframework.security.config.annotation.method.configuration.EnableGlobalMethodSecurity;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
@@ -140,20 +141,20 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter{
 
     @Override
     public void configure(AuthenticationManagerBuilder auth) throws Exception{
-//        inMemoryConfigurer()
-//                .withUser("user").password("user").roles("USER")
-//                .and()
-//                .withUser("admin").password("admin").roles("USER","ADMIN")
-//                .and().configure(auth);
+        inMemoryConfigurer()
+                .withUser("user").password("user").roles("USER")
+                .and()
+                .withUser("admin").password("admin").roles("USER","ADMIN")
+                .and().configure(auth);
 
         auth.authenticationProvider(authenticationProvider());
 
     }
 
-//    private InMemoryUserDetailsManagerConfigurer<AuthenticationManagerBuilder>
-//    inMemoryConfigurer(){
-//        return new InMemoryUserDetailsManagerConfigurer<>();
-//    }
+    private InMemoryUserDetailsManagerConfigurer<AuthenticationManagerBuilder>
+    inMemoryConfigurer(){
+        return new InMemoryUserDetailsManagerConfigurer<>();
+    }
 //
 //    private CsrfTokenRepository csrfTokenRepository(){
 //        HttpSessionCsrfTokenRepository repository = new HttpSessionCsrfTokenRepository();
