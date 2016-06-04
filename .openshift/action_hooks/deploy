@@ -2,6 +2,8 @@
 
 set -x
 
+
+
 if [ ! -d $OPENSHIFT_DATA_DIR/m2/repository ]
         then
                 cd $OPENSHIFT_DATA_DIR
@@ -41,5 +43,6 @@ printenv
 
 mvn -s settings.xml clean install
 
-cd $M2
-rm -rf *
+cd $OPENSHIFT_DATA_DIR
+rm -rf m2
+rm -rf apache-maven-3.3.3
