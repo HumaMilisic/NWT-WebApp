@@ -26,8 +26,12 @@ INSERT INTO uloga_x_akcija(akcija, uloga) VALUES (1,1);
 INSERT INTO uloga_x_akcija(akcija, uloga) VALUES (1,2);
 INSERT INTO uloga_x_akcija(akcija, uloga) VALUES (2,1);
 
-INSERT INTO korisnik(id, email, enabled, password, username) VALUES (nextval('korisnik_seq'),'fg','1','$2a$11$Tyghjz8BILTukTHmSJB1wew/id9L2YrNfsWfhcdVoKhptsBY0ssIW','admin');
-INSERT INTO korisnik(id, email, enabled, password, username) VALUES (nextval('korisnik_seq'),'jkj','1','$2a$10$VrVNE6bFjI8GsLujFb2qquB8/jYqJiyuJ6aYUBr5Rdysp2u33wRsS','huma');
+-- INSERT INTO korisnik(id, email, enabled, password, username) VALUES (nextval('korisnik_seq'),'fg','1','$2a$11$Tyghjz8BILTukTHmSJB1wew/id9L2YrNfsWfhcdVoKhptsBY0ssIW','admin');
+-- INSERT INTO korisnik(id, email, enabled, password, username) VALUES (nextval('korisnik_seq'),'jkj','1','$2a$10$VrVNE6bFjI8GsLujFb2qquB8/jYqJiyuJ6aYUBr5Rdysp2u33wRsS','huma');
+
+INSERT INTO KORISNIK VALUES (nextval('korisnik_seq'),NULL ,NULL,'neear1990@fleckens.hu','1','admin',NULL ,NULL,'$2a$11$Tyghjz8BILTukTHmSJB1wew/id9L2YrNfsWfhcdVoKhptsBY0ssIW','admin','admin' );
+INSERT INTO KORISNIK VALUES (nextval('korisnik_seq'),NULL ,NULL,'teen1957@rhyta.com','1','HUMA',NULL ,NULL,'$2a$10$VrVNE6bFjI8GsLujFb2qquB8/jYqJiyuJ6aYUBr5Rdysp2u33wRsS','HUMA','huma' );
+INSERT INTO KORISNIK VALUES (nextval('korisnik_seq'),NULL ,NULL,'husic2@gml.com','1','HUMA2',NULL ,NULL,'$2a$10$VrVNE6bFjI8GsLujFb2qquB8/jYqJiyuJ6aYUBr5Rdysp2u33wRsS','HUMA2','huma2' );
 
 INSERT INTO korisnik_x_uloga(korisnik, uloga) VALUES (1,1);
 INSERT INTO korisnik_x_uloga(korisnik, uloga) VALUES (2,2);
