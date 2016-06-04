@@ -253,6 +253,9 @@ DMApp.run(["$rootScope","loader","auth","redirekt",function($rootScope,loader,au
         loader.stopSpin();
         if(z==403)
             redirekt.goTo403();
+        if(z==401){
+            auth.logout();
+        }
     });
 
 }]);
