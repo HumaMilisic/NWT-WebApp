@@ -1,6 +1,6 @@
 package com.example.models;
 
-import com.example.utils.validators.ValidBool;
+//import com.example.utils.validators.ValidBool;
 import org.hibernate.annotations.Generated;
 import org.hibernate.annotations.GenerationTime;
 import org.hibernate.validator.constraints.Length;

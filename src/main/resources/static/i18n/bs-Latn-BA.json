@@ -27,7 +27,8 @@
     "UPDATED":"Ažuriran",
     "NEW":"Novi dokument",
     "EDIT":"Uredi dokument",
-    "DATE": "Unesite datum"
+    "DATE": "Unesite datum",
+    "OWNER":"Vlasnik"
   },
   "USER":{
     "NEW":"Novi korisnik",

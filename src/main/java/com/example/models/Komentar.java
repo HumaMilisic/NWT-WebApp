@@ -1,7 +1,7 @@
 package com.example.models;
 
 
-import com.example.utils.validators.ValidBool;
+//import com.example.utils.validators.ValidBool;
 
 import javax.persistence.*;
 import java.io.Serializable;
