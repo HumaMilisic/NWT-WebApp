@@ -7,6 +7,7 @@ import javax.persistence.*;
 import java.io.Serializable;
 import java.sql.Timestamp;
 import java.util.Date;
+import java.util.List;
 import java.util.Set;
 
 
@@ -97,13 +98,13 @@ public class Dokument implements Serializable {
 					referencedColumnName = "ID"
 			)
 	)
-	private Set<Korisnik> korisnikSet;
+	private List<Korisnik> korisnikSet;
 
-	public Set<Korisnik> getKorisnikSet() {
+	public List<Korisnik> getKorisnikSet() {
 		return korisnikSet;
 	}
 
-	public void setKorisnikSet(Set<Korisnik> korisnikSet) {
+	public void setKorisnikSet(List<Korisnik> korisnikSet) {
 		this.korisnikSet = korisnikSet;
 	}
 

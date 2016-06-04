@@ -15,11 +15,22 @@ import java.util.List;
 @PreAuthorize("hasRole('ROLE_USER')")
 @RepositoryRestResource(collectionResourceRel = "dokument",path = "dokument")
 public interface DokumentRepository extends PagingAndSortingRepository<Dokument,Long> {
-    @Override
-    Iterable<Dokument> findAll(Sort sort);
 
     @Override
+//    @PostFilter("filterObject.username == authentication.name or hasRole('ROLE_ADMIN')")
+//    @PostFilter("filterObject.username == authentication.name")
     Page<Dokument> findAll(Pageable pageable);
+
+    @Override
+//    @PostFilter("filterObject.username == authentication.name")
+//    @PostFilter("filterObject.username == authentication.name or hasRole('ROLE_ADMIN')")
+    Iterable<Dokument> findAll(Sort sort);
+
+//    @Override
+//    Iterable<Dokument> findAll(Sort sort);
+//
+//    @Override
+//    Page<Dokument> findAll(Pageable pageable);
 
     @Override
     Dokument save(Dokument s);
