@@ -207,7 +207,27 @@ public class Dokument implements Serializable {
 		datumiIUseri();
 	}
 
-//	public Dokument getDokument() {
+	@JsonIgnore
+	@ManyToMany(fetch = FetchType.EAGER)
+	@JoinTable(
+			name = "Dokument_X_Komentar",
+			joinColumns = @JoinColumn(name = "KOMENTAR",
+					referencedColumnName = "ID"),
+			inverseJoinColumns = @JoinColumn(name = "DOKUMENT",
+					referencedColumnName = "ID"
+			)
+	)
+	private Set<Komentar>komentarSet;
+
+	public Set<Komentar> getKomentarSet() {
+		return komentarSet;
+	}
+
+	public void setKomentarSet(Set<Komentar> komentarSet) {
+		this.komentarSet = komentarSet;
+	}
+
+	//	public Dokument getDokument() {
 //		return this.dokument;
 //	}
 //

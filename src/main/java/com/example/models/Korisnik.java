@@ -74,6 +74,18 @@ public class Korisnik implements Serializable {
 	@Column(name = "ENABLED")
 	private String enabled;
 
+//	@JsonIgnore
+//	@OneToMany(mappedBy = "korisnik")
+//	private Set<Komentar>komentarSet;
+//
+//	public Set<Komentar> getKomentarSet() {
+//		return komentarSet;
+//	}
+//
+//	public void setKomentarSet(Set<Komentar> komentarSet) {
+//		this.komentarSet = komentarSet;
+//	}
+
 	//bi-directional many-to-one association to Dokument
 //	@OneToMany(mappedBy="korisnik")
 //	private Set<Dokument> dokuments;
@@ -97,27 +109,27 @@ public class Korisnik implements Serializable {
 //	@OneToMany(mappedBy="korisnik")
 //	private List<Korisnik> korisniks;
 //
-//	//bi-directional many-to-one association to KorisnikXDokument
-	@JsonIgnore
-	@ManyToMany(mappedBy = "korisnikSet")
-//	@JoinTable(
-//			name="KorisnikXDokument",
-//			joinColumns = @JoinColumn(name="DOKUMENT",
-//					referencedColumnName = "ID"
-//			),
-//			inverseJoinColumns = @JoinColumn(name ="KORISNIK",
-//					referencedColumnName = "ID"
-//			)
-//	)
-	private Set<Dokument> dokumentSet;
-
-	public Set<Dokument> getDokumentSet() {
-		return dokumentSet;
-	}
-
-	public void setDokumentSet(Set<Dokument> dokumentSet) {
-		this.dokumentSet = dokumentSet;
-	}
+////	//bi-directional many-to-one association to KorisnikXDokument
+//	@JsonIgnore
+//	@ManyToMany(mappedBy = "korisnikSet")
+////	@JoinTable(
+////			name="KorisnikXDokument",
+////			joinColumns = @JoinColumn(name="DOKUMENT",
+////					referencedColumnName = "ID"
+////			),
+////			inverseJoinColumns = @JoinColumn(name ="KORISNIK",
+////					referencedColumnName = "ID"
+////			)
+////	)
+//	private Set<Dokument> dokumentSet;
+//
+//	public Set<Dokument> getDokumentSet() {
+//		return dokumentSet;
+//	}
+//
+//	public void setDokumentSet(Set<Dokument> dokumentSet) {
+//		this.dokumentSet = dokumentSet;
+//	}
 
 	public String getEnabled() {
 		return enabled;

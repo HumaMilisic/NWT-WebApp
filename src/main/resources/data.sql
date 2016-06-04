@@ -36,11 +36,16 @@ INSERT INTO KORISNIK VALUES (nextval('korisnik_seq'),NULL ,NULL,'husic2@gml.com'
 INSERT INTO korisnik_x_uloga(korisnik, uloga) VALUES (1,1);
 INSERT INTO korisnik_x_uloga(korisnik, uloga) VALUES (2,2);
 
- INSERT INTO STATUS VALUES(nextval('status_seq'), '0', 'Kreiran', 'Created');
- INSERT INTO STATUS VALUES(nextval('status_seq'), '0', 'Potpisan', 'Signed');
- INSERT INTO STATUS VALUES(nextval('status_seq'), '0', 'Poslan', 'Sent');
- INSERT INTO STATUS VALUES(nextval('status_seq'), '0', 'Potvrdjen', 'Confirmed');
- INSERT INTO STATUS VALUES(nextval('status_seq'), '0', 'Odbijen', 'Rejected');
+INSERT INTO STATUS VALUES(nextval('status_seq'), '0', 'Kreiran', 'Created');
+INSERT INTO STATUS VALUES(nextval('status_seq'), '0', 'Potpisan', 'Signed');
+INSERT INTO STATUS VALUES(nextval('status_seq'), '0', 'Poslan', 'Sent');
+INSERT INTO STATUS VALUES(nextval('status_seq'), '0', 'Potvrdjen', 'Confirmed');
+INSERT INTO STATUS VALUES(nextval('status_seq'), '0', 'Odbijen', 'Rejected');
+
+
+-- INSERT INTO komentar(id, tekst) VALUES (nextval('status_seq'),'1');
+-- INSERT INTO komentar(id, tekst) VALUES (nextval('status_seq'),'2');
+-- INSERT INTO komentar(id, tekst) VALUES (nextval('status_seq'),'3');
 
 
 -- (KORISNIK_SEQ.nextval,NULL ,NULL,'neear1990@fleckens.hu','1','admin',NULL ,NULL,'$2a$11$Tyghjz8BILTukTHmSJB1wew/id9L2YrNfsWfhcdVoKhptsBY0ssIW','admin','admin' );

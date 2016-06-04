@@ -3,9 +3,12 @@ package com.example.models;
 
 //import com.example.utils.validators.ValidBool;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+
 import javax.persistence.*;
 import java.io.Serializable;
 import java.sql.Timestamp;
+import java.util.Date;
 
 
 /**
@@ -26,6 +29,22 @@ public class Komentar implements Serializable {
 
 	@Lob
 	private String tekst;
+
+	@JsonIgnore
+	@ManyToOne
+	private Korisnik korisnik;
+
+//	@JsonIgnore
+//	@ManyToMany
+//	private Set<Dokument>dokumentSet;
+//
+//	public Set<Dokument> getDokumentSet() {
+//		return dokumentSet;
+//	}
+//
+//	public void setDokumentSet(Set<Dokument> dokumentSet) {
+//		this.dokumentSet = dokumentSet;
+//	}
 
 	//bi-directional many-to-one association to Dokument
 /*
@@ -62,7 +81,8 @@ public class Komentar implements Serializable {
 	}
 
 	public void setKreiran(Timestamp kreiran) {
-		this.kreiran = kreiran;
+//		this.kreiran = kreiran;
+		datumi();
 	}
 
 	public String getTekst() {
@@ -71,6 +91,7 @@ public class Komentar implements Serializable {
 
 	public void setTekst(String tekst) {
 		this.tekst = tekst;
+		datumi();
 	}
 
 /*
@@ -98,5 +119,12 @@ public class Komentar implements Serializable {
 		this.deleted = deleted;
 	}
 */
+private void datumi()
+{
+	Date date = new Date();
+	if(this.kreiran==null){
+		this.kreiran = new Timestamp(date.getTime());
+	}
+}
 
 }
