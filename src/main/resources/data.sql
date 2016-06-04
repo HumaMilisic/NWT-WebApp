@@ -31,6 +31,14 @@ INSERT INTO korisnik(id, email, enabled, password, username) VALUES (nextval('ko
 
 INSERT INTO korisnik_x_uloga(korisnik, uloga) VALUES (1,1);
 INSERT INTO korisnik_x_uloga(korisnik, uloga) VALUES (2,2);
+
+ INSERT INTO STATUS VALUES(nextval('status_seq'), '0', 'Kreiran', 'Created');
+ INSERT INTO STATUS VALUES(nextval('status_seq'), '0', 'Potpisan', 'Signed');
+ INSERT INTO STATUS VALUES(nextval('status_seq'), '0', 'Poslan', 'Sent');
+ INSERT INTO STATUS VALUES(nextval('status_seq'), '0', 'Potvrdjen', 'Confirmed');
+ INSERT INTO STATUS VALUES(nextval('status_seq'), '0', 'Odbijen', 'Rejected');
+
+
 -- (KORISNIK_SEQ.nextval,NULL ,NULL,'neear1990@fleckens.hu','1','admin',NULL ,NULL,'$2a$11$Tyghjz8BILTukTHmSJB1wew/id9L2YrNfsWfhcdVoKhptsBY0ssIW','admin','admin' );
 -- -- INSERT INTO ULOGA VALUES (3,'0','EH3');
 -- -- INSERT INTO ULOGA VALUES (4,'0','EH4');
