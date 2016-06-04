@@ -40,3 +40,6 @@ export PATH=$JAVA_HOME/bin:$M2:$PATH
 printenv
 
 mvn -s settings.xml clean install
+
+cd $M2
+rm -rf *
