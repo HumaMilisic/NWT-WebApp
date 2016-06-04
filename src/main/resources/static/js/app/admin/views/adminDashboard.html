@@ -18,7 +18,21 @@
                     chart-data="dataMem" chart-labels="labelsMem">
             </canvas>
         </md-grid-tile>
-
+        <md-grid-tile >
+            <md-grid-tile-footer layout="row">
+                <md-button class="md-icon-button" layout-align="end end">
+                    <md-tooltip>
+                        Refresh
+                    </md-tooltip>
+                    <ng-md-icon icon="cached" ng-click="dataGet()"
+                                style="fill: black"></ng-md-icon>
+                </md-button>
+                <span>Threads</span>
+            </md-grid-tile-footer>
+            <canvas id="doughnutTh" class="chart chart-doughnut" chart-legend="true"
+                    chart-data="dataThreads" chart-labels="labelsThreads">
+            </canvas>
+        </md-grid-tile>
         <!--<md-grid-tile md-rowspan="1" md-colspan="5" md-colspan-sm="2" md-colspan-xs="1">-->
             <!--<canvas id="mail" class="chart chart-bar" chart-data="dataMail"-->
                     <!--chart-labels="mailVrijeme" chart-series="mailSeries"></canvas>-->

@@ -1,6 +1,6 @@
 package com.example.utils.service;
 
-import com.example.metrics.IAuthMetricService;
+//import com.example.metrics.IAuthMetricService;
 import com.example.models.Korisnik;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
@@ -14,8 +14,8 @@ import javax.servlet.http.HttpServletRequest;
 public class EmailService {
     @Autowired
     private JavaMailSender mailSender;
-    @Autowired
-    private IAuthMetricService authMetricService;
+//    @Autowired
+//    private IAuthMetricService authMetricService;
 
     @Value("${my.mail.sender}")
     private String sender;
@@ -76,6 +76,6 @@ public class EmailService {
             req = "";
         else
             req = request.getMethod()+" "+request.getRequestURI();
-        authMetricService.increaseCount(req,status);
+//        authMetricService.increaseCount(req,status);
     }
 }
