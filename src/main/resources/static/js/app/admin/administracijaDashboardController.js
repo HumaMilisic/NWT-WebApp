@@ -43,8 +43,8 @@ DMApp.controller('administracijaDashboardController', [
         $scope.labelsThreads = ["threads", "total", "peek", "daemon"];
         //"gc.ps_scavenge.count":57,"gc.ps_scavenge.time":8189,"gc.ps_marksweep.count":3,"gc.ps_marksweep.time":3636
         //scavenge_count, gc_marksweep_count
-        $scope.labelsCounts = ["Scavange count", "Marksweep count"];
-        $scope.labelsTimes = ["Scavange time", "Marksweep time"];
+        $scope.labelsCounts = ["Scavange", "Marksweep"];
+        $scope.labelsTimes = ["Scavange", "Marksweep"];
 
         $scope.defaultMetrics = [];
         $scope.customMetrics = {status:[],auth:[]}
