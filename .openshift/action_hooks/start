@@ -9,4 +9,4 @@ export PATH=$JAVA_HOME/bin:$PATH
 export JAVA_OPTS="-Duser.timezone=Europe/Sarajevo"
 
 cd $OPENSHIFT_REPO_DIR
-nohup java -Xms384m -Xmx512m -Xdiag -jar target/*.jar --server.port=${OPENSHIFT_DIY_PORT} --server.address=${OPENSHIFT_DIY_IP} --spring.profiles.active=openshift &
+nohup java -Xms384m -Xmx412m -Xdiag -jar target/*.jar --server.port=${OPENSHIFT_DIY_PORT} --server.address=${OPENSHIFT_DIY_IP} --spring.profiles.active=openshift &
