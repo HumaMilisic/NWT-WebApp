@@ -34,11 +34,11 @@
 	<!--</repositories>-->
 
 	<dependencies>
-		<dependency>
-			<groupId>com.asprise.ocr</groupId>
-			<artifactId>java-ocr-api</artifactId>
-			<version>15.3.0.2</version>
-		</dependency>
+		<!--<dependency>-->
+			<!--<groupId>com.asprise.ocr</groupId>-->
+			<!--<artifactId>java-ocr-api</artifactId>-->
+			<!--<version>15.3.0.2</version>-->
+		<!--</dependency>-->
 
 		<dependency>
 			<groupId>org.springframework.boot</groupId>
