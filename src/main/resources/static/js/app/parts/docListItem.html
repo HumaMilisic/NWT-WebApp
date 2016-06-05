@@ -8,15 +8,24 @@
         <!--</span>-->
         <md-chips>
             <md-chip aria-label="FAB">
+                <md-tooltip>status</md-tooltip>
                 {{doc.statusSet._embeddedItems[0].nazivba}}
             </md-chip>
         </md-chips>
+        <!--<md-button class="md-icon-button" aria-label="FAB">-->
+            <!--<md-tooltip>novi komentar</md-tooltip>-->
+            <!--<ng-md-icon icon="insert_comment" ng-click="newKomentar($event,doc)"-->
+                        <!--style="fill: black"></ng-md-icon>-->
+        <!--</md-button>-->
             <md-button class="md-icon-button" ng-click="download()" aria-label="FAB">
+                <md-tooltip>download</md-tooltip>
                 <ng-md-icon icon="file_download"></ng-md-icon>
             </md-button>
 
         <div>oznaka: {{doc.oznaka}}</div>
         <div>tekst: {{doc.tekst}}</div>
+
+
 
     </span>
     <span flex="20">
