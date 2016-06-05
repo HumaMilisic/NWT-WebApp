@@ -162,16 +162,34 @@
             <md-tab label="Osnove">
         <h2>oznaka: {{odabraniDoc.oznaka}} </h2>
         <h2>tekst: {{odabraniDoc.tekst}}</h2>
-        <p>azuriran: {{odabraniDoc.azuriran}}</p>
-        <p>istice: {{odabraniDoc.istice}}</p>
-        <p>kreiran: {{odabraniDoc.kreiran}}</p>
+                <p>
+                    <label translate="DOCUMENT.UPDATED"></label>
+                <time title="{{ odabraniDoc.azuriran | amDateFormat: 'dddd, MMMM Do YYYY, h:mm a' }}">
+                    {{ odabraniDoc.azuriran | amCalendar }}
+                </time>
+                </p>
+                <p>
+                    <label translate="DOCUMENT.EXPIRES"></label>
+                <time title="{{ odabraniDoc.istice | amDateFormat: 'dddd, MMMM Do YYYY, h:mm a' }}">
+                    {{ odabraniDoc.istice | amCalendar }}
+                </time>
+                </p>
+                <p>
+                    <label translate="DOCUMENT.CREATED"></label>
+                <time title="{{ odabraniDoc.kreiran | amDateFormat: 'dddd, MMMM Do YYYY, h:mm a' }}">
+                    {{ odabraniDoc.kreiran | amCalendar }}
+                </time>
+                </p>
+        <!--<p>azuriran: {{odabraniDoc.azuriran}}</p>-->
+        <!--<p>istice: {{odabraniDoc.istice}}</p>-->
+        <!--<p>kreiran: {{odabraniDoc.kreiran}}</p>-->
             </md-tab>
             <md-tab label="Komentari">
 
-                <md-toolbar>
+                <md-toolbar md-scroll-shrink="true">
                     <md-button class="md-icon-button" aria-label="FAB">
                         <md-tooltip>novi komentar</md-tooltip>
-                        <ng-md-icon icon="add" ng-click="newKomentar($event,odabraniDoc)"
+                        <ng-md-icon icon="insert_comment" ng-click="newKomentar($event,odabraniDoc)"
                                     style="fill: black"></ng-md-icon>
                     </md-button>
 
@@ -195,6 +213,7 @@
                                 <span flex></span>
                                 <ng-md-icon icon="person_pin"></ng-md-icon>{{kom.korisnik.username}}
                             </md-card-header>
+                            <md-divider></md-divider>
                             <md-card-footer>
                                 {{kom.tekst}}
                             </md-card-footer>
