@@ -185,8 +185,8 @@
         <!--<p>kreiran: {{odabraniDoc.kreiran}}</p>-->
             </md-tab>
             <md-tab label="Komentari">
-
-                <md-toolbar md-scroll-shrink="true">
+                <md-progress-linear ng-if="flagLoaderKomentari" md-mode="indeterminate"></md-progress-linear>
+                <md-toolbar>
                     <md-button class="md-icon-button" aria-label="FAB">
                         <md-tooltip>novi komentar</md-tooltip>
                         <ng-md-icon icon="insert_comment" ng-click="newKomentar($event,odabraniDoc)"
@@ -194,7 +194,9 @@
                     </md-button>
 
                 </md-toolbar>
+
                 <md-content>
+
                     <div ng-repeat="kom in odabraniDoc.komentarSet">
 
                         <md-card>
