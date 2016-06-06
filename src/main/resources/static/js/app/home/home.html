@@ -159,7 +159,9 @@
     <md-sidenav class="md-sidenav-right md-whiteframe-z2" md-component-id="docDetalji">
         <md-tabs md-dynamic-height
                  md-border-bottom>
+
             <md-tab label="Osnove">
+                <md-content layout-padding>
         <h2>oznaka: {{odabraniDoc.oznaka}} </h2>
         <h2>tekst: {{odabraniDoc.tekst}}</h2>
                 <p>
@@ -183,6 +185,7 @@
         <!--<p>azuriran: {{odabraniDoc.azuriran}}</p>-->
         <!--<p>istice: {{odabraniDoc.istice}}</p>-->
         <!--<p>kreiran: {{odabraniDoc.kreiran}}</p>-->
+                </md-content>
             </md-tab>
             <md-tab label="Komentari">
                 <md-progress-linear ng-if="flagLoaderKomentari" md-mode="indeterminate"></md-progress-linear>
