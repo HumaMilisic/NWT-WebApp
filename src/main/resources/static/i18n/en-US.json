@@ -28,7 +28,8 @@
     "NEW":"New document",
     "EDIT":"Edit document",
     "MY_DOCUMENTS":"My documents",
-    "DATE": "Enter date"
+    "DATE": "Enter date",
+    "OWNER":"Vlasnik"
   },
   "USER":{
     "NEW":"New user",

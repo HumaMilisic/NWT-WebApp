@@ -1,7 +1,7 @@
 package com.example.controller;
 
 
-import com.example.metrics.IAuthMetricService;
+//import com.example.metrics.IAuthMetricService;
 import com.example.models.Korisnik;
 import com.example.models.PasswordResetToken;
 import com.example.models.VerificationToken;
@@ -53,8 +53,8 @@ public class RegisterController {
     KorisnikRepository korisnikRepository;
     @Autowired
     ReCaptchaService reCaptchaService;
-    @Autowired
-    private IAuthMetricService authMetricService;
+//    @Autowired
+//    private IAuthMetricService authMetricService;
 
     public RegisterController(){
         super();
@@ -265,6 +265,6 @@ public class RegisterController {
 
     private void metrics(HttpServletRequest request,int status){
         final String req = request.getMethod()+" "+request.getRequestURI();
-        authMetricService.increaseCount(req,status);
+//        authMetricService.increaseCount(req,status);
     }
 }

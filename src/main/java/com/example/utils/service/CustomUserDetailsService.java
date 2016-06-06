@@ -70,7 +70,7 @@ public class CustomUserDetailsService implements UserDetailsService{
             String password = korisnik.getPassword();
 
             Boolean isEnabled = false;
-            if(korisnik.isEnabled()=="1"){
+            if(korisnik.isEnabled().contains("1")){
                 isEnabled = true;
             }
 

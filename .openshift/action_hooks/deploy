@@ -2,6 +2,8 @@
 
 set -x
 
+
+
 if [ ! -d $OPENSHIFT_DATA_DIR/m2/repository ]
         then
                 cd $OPENSHIFT_DATA_DIR
@@ -37,6 +39,10 @@ export MAVEN_OPTS="-Xms384m -Xmx412m"
 export JAVA_HOME=$OPENSHIFT_DATA_DIR/jdk1.8.0_20
 export PATH=$JAVA_HOME/bin:$M2:$PATH
 
-mvn -s settings.xml install:install-file -DgroupId=com.oracle -DartifactId=ojdbc6 -Dversion=11.2.0 -Dpackaging=jar -Dfile=$OPENSHIFT_REPO_DIR/lib/ojdbc6.jar -e
+printenv
 
 mvn -s settings.xml clean install
+
+cd $OPENSHIFT_DATA_DIR
+rm -rf m2
+rm -rf apache-maven-3.3.3

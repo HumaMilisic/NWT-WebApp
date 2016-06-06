@@ -1,12 +1,9 @@
 package com.example.config;
 
-import com.example.metrics.MetricFilter;
 import com.example.utils.service.CustomUserDetailsService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
-import org.springframework.core.Ordered;
-import org.springframework.core.annotation.Order;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.authentication.dao.DaoAuthenticationProvider;
 import org.springframework.security.config.annotation.authentication.builders.AuthenticationManagerBuilder;
@@ -17,10 +14,6 @@ import org.springframework.security.config.annotation.web.configuration.EnableWe
 import org.springframework.security.config.annotation.web.configuration.WebSecurityConfigurerAdapter;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
-import org.springframework.security.web.csrf.CsrfTokenRepository;
-import org.springframework.security.web.csrf.HttpSessionCsrfTokenRepository;
-
-import javax.servlet.Filter;
 
 @Configuration
 @EnableWebSecurity
@@ -148,11 +141,11 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter{
 
     @Override
     public void configure(AuthenticationManagerBuilder auth) throws Exception{
-//        inMemoryConfigurer()
-//                .withUser("user").password("user").roles("USER")
-//                .and()
-//                .withUser("admin").password("admin").roles("USER","ADMIN")
-//                .and().configure(auth);
+        inMemoryConfigurer()
+                .withUser("user").password("user").roles("USER")
+                .and()
+                .withUser("admin").password("admin").roles("USER","ADMIN")
+                .and().configure(auth);
 
         auth.authenticationProvider(authenticationProvider());
 
@@ -162,12 +155,12 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter{
     inMemoryConfigurer(){
         return new InMemoryUserDetailsManagerConfigurer<>();
     }
-
-    private CsrfTokenRepository csrfTokenRepository(){
-        HttpSessionCsrfTokenRepository repository = new HttpSessionCsrfTokenRepository();
-        repository.setHeaderName("X-XSRF-TOKEN");
-        return repository;
-    }
+//
+//    private CsrfTokenRepository csrfTokenRepository(){
+//        HttpSessionCsrfTokenRepository repository = new HttpSessionCsrfTokenRepository();
+//        repository.setHeaderName("X-XSRF-TOKEN");
+//        return repository;
+//    }
 
 //    @Bean
 //    public FilterRegistrationBean metricFilterRegistration(){
@@ -178,12 +171,12 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter{
 //        registrationBean.setOrder(0);
 //        return registrationBean;
 //    }
-//
-    @Bean(name = "metricFilterCustom")
-    @Order(Ordered.HIGHEST_PRECEDENCE)
-    public Filter metricFilter(){
-        return new MetricFilter();
-    }
+////
+//    @Bean(name = "metricFilterCustom")
+//    @Order(Ordered.HIGHEST_PRECEDENCE)
+//    public Filter metricFilter(){
+//        return new MetricFilter();
+//    }
 
 //    @Component
 //    public class AuthSuccessHandler extends SavedRequestAwareAuthenticationSuccessHandler{

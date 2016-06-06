@@ -289,10 +289,40 @@ DMApp.controller('homeController', [
         //    $translate.use(langKey);
         //};
 
+        var dohvatiKorisnike = function(doc){
+
+            var komentari = doc.komentarSet._embeddedItems;
+            var link = doc._links.komentarSet.href;
+
+            var httpGetPromise = $http.get(link);
+
+            var obrada = SpringDataRestAdapter.process(httpGetPromise,'_allLinks').then(function(data,x,y,z,k) {
+                var a = data;
+
+                data._embeddedItems.sort(function(a,b){
+                    a = new Date(a.kreiran);
+                    b = new Date(b.kreiran);
+                    return a>b?-1:a<b?1:0;
+                })
+
+                //for(var i=0;i<data._embeddedItems;i++){
+                //    data._embeddedItem[i].kreiran = new Date(data._embeddedItem[i].kreiran);
+                //}
+
+                doc['komentarSet'] = data._embeddedItems;
+                //query.limit = data.page.size;
+                //query.page = data.page.number + 1;
+                //query.totalElements = data.page.totalElements;
+                //query.data = data._embeddedItems;
+                //$scope.docs = data._embeddedItems;
+            });
+        }
+
         $scope.otvoriDetalje = function(doc){
             //alert('eh sidebar nesto nesto sa komentarima, ',doc);
             $scope.toggleNavBar('docDetalji');
             $scope.odabraniDoc = doc;
+            dohvatiKorisnike(doc);
         }
 
         $scope.otvoriDelete = function(doc){
@@ -315,7 +345,69 @@ DMApp.controller('homeController', [
             //});
         };
 
-        $scope.newKomentar = function(){
-            alert('novi komentar');
+        $scope.newKomentar = function(event,doc){
+            //alert('novi komentar');
+            $mdDialog.show({
+                templateUrl: 'js/app/parts/noviKomentarHome.html',
+                targetEvent: event
+            }).then(function(answer){
+                    if(answer!=null){
+                        answer.deleted = "0";
+                        var url = '/api/komentar';
+                        $http({
+                            method:'POST',
+                            data:answer,
+                            url:url
+                        }).success(function(x,y,z){
+                            var a =0;
+                            var urlDocSet = doc._links.komentarSet.href;
+                            var urlKomentar = x._links.self.href;
+                            var urlKomentarUser = x._links.korisnik.href;
+                            var userLink = $scope.trenutniKorisnik._links.self.href;
+                            $http({
+                                method:"POST",
+                                url:urlDocSet,
+                                headers:{
+                                    'Content-Type':"text/uri-list"
+                                },
+                                data:urlKomentar
+                            })
+                                .success(function(x,y,z,k,r){
+                                    var a = 0;
+                                })
+                                .error(function(x,y,z,k){
+                                    var a = 0;
+                                })
+
+                            $http({
+                                method:"PUT",
+                                url:urlKomentarUser,
+                                headers:{
+                                    'Content-Type':"text/uri-list"
+                                },
+                                data:userLink
+                            })
+                                .success(function(data,status,x,z){
+                                    var a =0;
+                                })
+                                .error(function(x,z,y){
+                                    var a =0;
+                                })
+                                .finally(function(){
+                                    dohvatiKorisnike(doc);
+                                })
+
+                        }).error(function(x,y,z){
+                            $scope.toastMsg('Problem');
+                        }).finally(function(){
+                            $scope.loadStuff();
+                        })
+                    }
+                },
+                function(){
+                    $scope.toastMsg($filter('translate')('CANCEL'));
+                })
         }
+
+
     }]);

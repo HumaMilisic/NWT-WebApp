@@ -253,6 +253,9 @@ DMApp.run(["$rootScope","loader","auth","redirekt",function($rootScope,loader,au
         loader.stopSpin();
         if(z==403)
             redirekt.goTo403();
+        if(z==401){
+            auth.logout();
+        }
     });
 
 }]);
@@ -639,8 +642,11 @@ DMApp.controller('registracijaController', function ($scope, vcRecaptchaService,
         $scope.user.recaptchaResponse = $scope.response;
     });
 
+    $scope.registerProgress = false;
+
     $scope.submit = function () {
         var valid;
+        $scope.registerProgress = true;
 
         /**
          * SERVER SIDE VALIDATION
@@ -668,11 +674,13 @@ DMApp.controller('registracijaController', function ($scope, vcRecaptchaService,
                     if(status===201){
                         $scope.toastMsg(data.message);
                     }
+                    $scope.registerProgress = false;
                     //alert(data.message);
                 })
                 .error(function(response,status,nesto,request){
                     var a = 0;
                     $scope.toastMsg(response.message);
+                    $scope.registerProgress = false;
                     //alert(response.message);
                     console.log('Failed validation');
 

@@ -1,11 +1,9 @@
 package com.example;
 
-import com.example.metrics.AuthMetricService;
-import com.example.metrics.IAuthMetricService;
-import org.h2.server.web.WebServlet;
+//import com.example.metrics.AuthMetricService;
+//import com.example.metrics.IAuthMetricService;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
-import org.springframework.boot.context.embedded.ServletRegistrationBean;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.ComponentScan;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
@@ -26,18 +24,18 @@ public class DemoApplication {
 		return new BCryptPasswordEncoder(11);
 	}
 
-	@Bean
-	public ServletRegistrationBean h2servletRegistration(){
-		ServletRegistrationBean registrationBean = new ServletRegistrationBean(new WebServlet());
-		registrationBean.addUrlMappings("/console/*");
-		return registrationBean;
-	}
+//	@Bean
+//	public ServletRegistrationBean h2servletRegistration(){
+//		ServletRegistrationBean registrationBean = new ServletRegistrationBean(new WebServlet());
+//		registrationBean.addUrlMappings("/console/*");
+//		return registrationBean;
+//	}
 
-	@Bean
-	//    @Autowired
-//	private IAuthMetricService authMetricService;
-	public IAuthMetricService authMetricService(){
-		return new AuthMetricService();
-	}
+//	@Bean
+//	//    @Autowired
+////	private IAuthMetricService authMetricService;
+//	public IAuthMetricService authMetricService(){
+//		return new AuthMetricService();
+//	}
 
 }

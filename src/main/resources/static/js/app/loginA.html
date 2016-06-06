@@ -208,10 +208,18 @@
         <div class="md-actions" layout="row">
             <span flex></span>
             <!--<md-button ng-click="answer(null)"> Cancel </md-button>-->
+            <!--<md-button ng-click="login()"-->
+                       <!--ng-disabled="!loginForm.$valid&&!loginProgress"-->
+                       <!--class="md-primary">-->
+                <!--<span TRANSLATE="SUBMIT">Submit</span>-->
+                <!--<md-progress-linear md-mode="indeterminate" ng-show="loginProgress"></md-progress-linear>-->
+            <!--</md-button>-->
             <md-button ng-click="submit()"
-                       ng-show="registracijaForm.$valid == registracijaForm.$valid"
                        ng-disabled="!registracijaForm.$valid"
-                       class="md-primary" TRANSLATE="SUBMIT">Submit</md-button>
+                       class="md-primary">
+                <span TRANSLATE="SUBMIT">Submit</span>
+                <md-progress-linear md-mode="indeterminate" ng-show="registerProgress"></md-progress-linear>
+            </md-button>
         </div>
     </md-card>
     </div></div>

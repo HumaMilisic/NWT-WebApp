@@ -49,12 +49,18 @@ DMApp.directive('docListItem',function(){
             'edit':'&',
             'ocr':'&',
             'upload':'&',
-            'potpis':'&'
+            'potpis':'&'//,
+            //'komentar':'&'
         },
         controller:["$scope",function($scope){
             $scope.dumdum = function(){
                 alert("nije implementirano: "+$scope.doc._links.self.href);
             }
+
+            //$scope.newKomentar = function(){
+            //    alert('ef');
+            //}
+
             //
             //$scope.download = function(){
             //    alert("download");
