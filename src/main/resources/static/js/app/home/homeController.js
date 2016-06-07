@@ -192,9 +192,15 @@ DMApp.controller('homeController', [
             //za newDoc i meni
             //alert('ocr');
         }
-        $scope.potpis = function(doc){
+        $scope.potpis = function(fileName){
             //za newDoc i meni
             //alert('potpis');
+            $http.post("/sign/" + fileName).then(function(response) {
+                    alert("sucess!")
+                },
+                function(response) {
+                    //alert("fail!")
+                });
         }
         $scope.upload = function(doc){
             //za newDoc i meni

@@ -59,7 +59,7 @@ public class DigitalSignatureController {
             FileInputStream fis = new FileInputStream(signature);
 
             // Set the content type and attachment header.
-            response.addHeader("Content-disposition", "attachment;filename=" + fileName);
+            response.addHeader("Content-disposition", "attachment;filename=" + fileName + ".sgn");
             response.setContentType("txt/plain");
             response.setContentLength((int)signature.length());
 
