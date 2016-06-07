@@ -17,10 +17,14 @@
             <!--<ng-md-icon icon="insert_comment" ng-click="newKomentar($event,doc)"-->
                         <!--style="fill: black"></ng-md-icon>-->
         <!--</md-button>-->
-            <md-button class="md-icon-button" ng-click="download()" aria-label="FAB">
+
+        <a ng-href="/document/{{doc.oznaka}}" target="_blank">
+            <md-button class="md-icon-button"  aria-label="FAB">
                 <md-tooltip>download</md-tooltip>
                 <ng-md-icon icon="file_download"></ng-md-icon>
+
             </md-button>
+        </a>
 
         <div>oznaka: {{doc.oznaka}}</div>
         <div>tekst: {{doc.tekst}}</div>
