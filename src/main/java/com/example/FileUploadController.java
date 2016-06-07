@@ -1,5 +1,6 @@
 package com.example;
 
+//import com.asprise.ocr.Ocr;
 import com.example.repo.DokumentRepository;
 import org.apache.tomcat.util.http.fileupload.IOUtils;
 import org.springframework.security.core.context.SecurityContextHolder;
@@ -244,7 +245,7 @@ public class FileUploadController { //extends HttpServlet {
 //                            Ocr.PROP_PDF_OUTPUT_TEXT_VISIBLE, false);
 //                    ocr.stopEngine();
 //                }
-
+//
 
                 //redirectAttributes.addFlashAttribute("message",
                 //        "You successfully uploaded " + name + "!");

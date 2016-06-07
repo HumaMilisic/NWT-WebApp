@@ -52,9 +52,20 @@ DMApp.directive('docListItem',function(){
             'potpis':'&'//,
             //'komentar':'&'
         },
-        controller:["$scope",function($scope){
+        controller:["$scope", "$http", function($scope, $http){
             $scope.dumdum = function(){
                 alert("nije implementirano: "+$scope.doc._links.self.href);
+            }
+
+            $scope.potpis = function(fileName){
+                //za newDoc i meni
+                //alert('potpis');
+                $http.post("/sign/" + fileName).then(function(response) {
+                        alert("sucess!")
+                    },
+                    function(response) {
+                        //alert("fail!")
+                    });
             }
 
             //$scope.newKomentar = function(){

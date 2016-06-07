@@ -6,25 +6,10 @@
     </md-toolbar>
     <md-content class="md-padding">
         <form name="form">
-            <!--<div layout-gt-xs="row">-->
-            <!--<md-datepicker ng-model="item.azuriran" md-placeholder="Enter date"></md-datepicker>-->
-            <!--</div>-->
             <div layout-gt-xs="row">
                 <md-datepicker ng-model="item.istice" md-placeholder="{{'DOCUMENT.DATE' | translate}}"></md-datepicker>
             </div>
-            <!--<div layout-gt-xs="row">-->
-            <!--<md-datepicker ng-model="item.kreiran" md-placeholder="Enter date"></md-datepicker>-->
-            <!--</div>-->
             <div layout-gt-xs="row">
-                <!--  <md-input-container class="md-block">
-                      <label TRANSLATE="Created"> Kreiran: </label>
-                       <input type="text" name="kreiran"
-                             required
-                             ng-model="item.kreiran"/>
-                      <div ng-messages="form.kreiran.$error">
-                          <div ng-message="required" TRANSLATE="VALIDATION_ERROR.REQUIRED">This is required.</div>
-                      </div>
-                  </md-input-container> -->
 
                 <md-input-container class="md-block">
                     <label TRANSLATE="DOCUMENT.NAME"> Oznaka: </label>
@@ -47,10 +32,6 @@
                 </md-input-container>
             </div>
 
-            <!--<div layout-gt-xs="row">-->
-            <!--<md-datepicker ng-model="item.potpisan" md-placeholder="Enter date"></md-datepicker>-->
-            <!--</div>-->
-
             <md-input-container class="md-block">
                 <label TRANSLATE="DOCUMENT.TEXT"> Tekst: </label>
                 <input type="text" name="tekst"
@@ -72,7 +53,9 @@
                 </div>
             </md-input-container>
 
-            <md-button ng-click="upload(item)">Upload</md-button>
+            <!--<md-button ng-click="upload(item)">Upload</md-button>-->
+            <input type="file" value="Nova verzija" file-model="item.file"
+                   class="btn btn-default btn-block" />
             <md-button ng-click="ocr(item)">OCR</md-button>
             <md-button ng-click="potpis(item)">Potpis?</md-button>
         </form>

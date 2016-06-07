@@ -11,8 +11,9 @@ DMApp.controller('homeController', [
     '$rootScope',
     '$mdSidenav',
     '$location',
+    'fileUpload',
     //'ResourceNew',
-    function($scope,auth,$translate,randomElem,$http,SpringDataRestAdapter,loader,$mdDialog,$filter,$rootScope,$mdSidenav,$location) {
+    function($scope,auth,$translate,randomElem,$http,SpringDataRestAdapter,loader,$mdDialog,$filter,$rootScope,$mdSidenav,$location, fileUpload) {
         $scope.trenutniKorisnik = null;
         $scope.trenutniKorisnik = $rootScope.korisnik;
 
@@ -189,11 +190,17 @@ DMApp.controller('homeController', [
 
         $scope.ocr = function(doc){
             //za newDoc i meni
-            alert('ocr');
+            //alert('ocr');
         }
-        $scope.potpis = function(doc){
+        $scope.potpis = function(fileName){
             //za newDoc i meni
-            alert('potpis');
+            //alert('potpis');
+            $http.post("/sign/" + fileName).then(function(response) {
+                    alert("sucess!")
+                },
+                function(response) {
+                    //alert("fail!")
+                });
         }
         $scope.upload = function(doc){
             //za newDoc i meni
@@ -215,7 +222,13 @@ DMApp.controller('homeController', [
                 targetEvent: event
             }).then(function(answer){
                     if(answer!=null){
-                        //answer.deleted = "0";
+                        if(answer.file) {
+                            answer.oznaka = answer.file.name;
+                            //alert(answer.file.name);
+                            fileUpload.uploadFileToUrl(answer.file, '/document');
+                        }
+                        //answer.file = null;
+
                         var url = '/api/dokument';
                         $http({
                             method:'POST',

@@ -17,10 +17,24 @@
             <!--<ng-md-icon icon="insert_comment" ng-click="newKomentar($event,doc)"-->
                         <!--style="fill: black"></ng-md-icon>-->
         <!--</md-button>-->
-            <md-button class="md-icon-button" ng-click="download()" aria-label="FAB">
+
+        <a ng-href="/document/{{doc.oznaka}}" target="_blank">
+            <md-button class="md-icon-button"  aria-label="FAB">
                 <md-tooltip>download</md-tooltip>
                 <ng-md-icon icon="file_download"></ng-md-icon>
+
             </md-button>
+        </a>
+
+        <!--<a href="javascript:void(0);" ng-click="">sign</a>-->
+        <!-- -&#45;&#45;-->
+        <a ng-href="/signature/{{doc.oznaka}}" target="_blank">
+            <md-button class="md-icon-button"  aria-label="FAB">
+                <md-tooltip>potpisani fajl</md-tooltip>
+                <ng-md-icon icon="file_download" style="fill: red"></ng-md-icon>
+
+            </md-button>
+        </a>
 
         <div>oznaka: {{doc.oznaka}}</div>
         <div>tekst: {{doc.tekst}}</div>
@@ -75,17 +89,17 @@
                            </md-button>
                        </md-menu-item>
                        <md-menu-divider></md-menu-divider>
-                       <md-menu-item ng-if="potpisFlag" aria-label="FAB">
-                           <md-button ng-click="potpis(doc)">
+                       <md-menu-item  aria-label="FAB">
+                           <md-button ng-click="potpis(doc.oznaka)">
                                <span md-menu-align-taget>potpis</span>
                            </md-button>
                        </md-menu-item>
-                       <md-menu-divider></md-menu-divider>
-                       <md-menu-item ng-if="uploadFlag" aria-label="FAB">
-                           <md-button ng-click="upload(doc)">
-                               <span md-menu-align-taget>upload</span>
-                           </md-button>
-                       </md-menu-item>
+                       <!--<md-menu-divider></md-menu-divider>-->
+                       <!--<md-menu-item ng-if="uploadFlag" aria-label="FAB">-->
+                           <!--<md-button ng-click="upload(doc)">-->
+                               <!--<span md-menu-align-taget>upload</span>-->
+                           <!--</md-button>-->
+                       <!--</md-menu-item>-->
                    </md-menu-content>
                </md-menu>
 
