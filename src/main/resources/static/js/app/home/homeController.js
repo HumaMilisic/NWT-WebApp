@@ -102,7 +102,7 @@ DMApp.controller('homeController', [
         };
 
         $scope.getPage = function(page,pageSize,entity,query,promise,linkovi){
-            //$scope.flagLoader=true;
+            $scope.flagLoader=true;
             $scope.docSvi = null;
            var url = '/api/'+entity+'?page='+page+'&size='+pageSize+'&sort=azuriran,desc';
             var httpGetPromise = $http.get(url)
@@ -111,6 +111,7 @@ DMApp.controller('homeController', [
                 })
                 .error(function(x,y,z){
                     var a =0;
+                    $scope.flagLoader=false;
                 });
             $scope.promise = httpGetPromise;
             promise = httpGetPromise;
@@ -169,6 +170,7 @@ DMApp.controller('homeController', [
                 //$scope.docSvi = $scope.docs;
                 //$scope.flagLoader = false;
                 //$scope.$apply();
+                $scope.flagLoader=false;
             });
             //promise = httpGetPromise.$promise;
         };
@@ -294,7 +296,10 @@ DMApp.controller('homeController', [
             var komentari = doc.komentarSet._embeddedItems;
             var link = doc._links.komentarSet.href;
 
-            var httpGetPromise = $http.get(link);
+            var httpGetPromise = $http.get(link)
+                .error(function(){
+                    $scope.flagLoaderKomentari = false;
+                });
 
             var obrada = SpringDataRestAdapter.process(httpGetPromise,'_allLinks').then(function(data,x,y,z,k) {
                 var a = data;
@@ -310,6 +315,7 @@ DMApp.controller('homeController', [
                 //}
 
                 doc['komentarSet'] = data._embeddedItems;
+                $scope.flagLoaderKomentari = false;
                 //query.limit = data.page.size;
                 //query.page = data.page.number + 1;
                 //query.totalElements = data.page.totalElements;
@@ -322,6 +328,7 @@ DMApp.controller('homeController', [
             //alert('eh sidebar nesto nesto sa komentarima, ',doc);
             $scope.toggleNavBar('docDetalji');
             $scope.odabraniDoc = doc;
+            $scope.flagLoaderKomentari = true;
             dohvatiKorisnike(doc);
         }
 
