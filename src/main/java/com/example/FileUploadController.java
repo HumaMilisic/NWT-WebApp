@@ -1,38 +1,20 @@
 package com.example;
 
-import java.io.*;
-import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.Comparator;
-import java.util.List;
-import java.util.logging.Level;
-import java.util.stream.Collectors;
-
-import com.example.models.Dokument;
 import com.example.repo.DokumentRepository;
-import org.apache.catalina.connector.Response;
 import org.apache.tomcat.util.http.fileupload.IOUtils;
-import org.apache.tomcat.util.http.parser.MediaType;
-import org.springframework.http.HttpStatus;
-import org.springframework.http.ResponseEntity;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Controller;
-import org.springframework.ui.Model;
 import org.springframework.util.FileCopyUtils;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
-import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
-import javax.servlet.ServletContext;
-import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import java.io.*;
+import java.util.ArrayList;
+import java.util.List;
+
 //import javax.servlet.ServletContext;
-import javax.servlet.ServletException;
-import javax.servlet.ServletOutputStream;
-import javax.servlet.annotation.MultipartConfig;
-import javax.servlet.annotation.WebServlet;
-import javax.servlet.http.*;
-import com.asprise.ocr.Ocr;
+//import com.asprise.ocr.Ocr;
 
 //ako ovo zakomentarišem ne može ga naći
 @Controller
@@ -249,19 +231,19 @@ public class FileUploadController { //extends HttpServlet {
                 //    signature[i] = Byte.valueOf(x, 16);
                 //}
                 //String stringsignature = signature.toString();
-                if(ascii.equals("%PDF")) {
-                    if(!OCRinit) {
-                        Ocr.setUp();
-                        OCRinit = true;
-                    }
-                    Ocr ocr = new Ocr();
-                    ocr.startEngine("eng", Ocr.SPEED_FASTEST);
-                    ocr.recognize(new File[] {f},
-                            Ocr.RECOGNIZE_TYPE_TEXT, Ocr.OUTPUT_FORMAT_PDF,
-                            Ocr.PROP_PDF_OUTPUT_FILE, filesRoot + "/" + SecurityContextHolder.getContext().getAuthentication().getName() + "/" + name,
-                            Ocr.PROP_PDF_OUTPUT_TEXT_VISIBLE, false);
-                    ocr.stopEngine();
-                }
+//                if(ascii.equals("%PDF")) {
+//                    if(!OCRinit) {
+//                        Ocr.setUp();
+//                        OCRinit = true;
+//                    }
+//                    Ocr ocr = new Ocr();
+//                    ocr.startEngine("eng", Ocr.SPEED_FASTEST);
+//                    ocr.recognize(new File[] {f},
+//                            Ocr.RECOGNIZE_TYPE_TEXT, Ocr.OUTPUT_FORMAT_PDF,
+//                            Ocr.PROP_PDF_OUTPUT_FILE, filesRoot + "/" + SecurityContextHolder.getContext().getAuthentication().getName() + "/" + name,
+//                            Ocr.PROP_PDF_OUTPUT_TEXT_VISIBLE, false);
+//                    ocr.stopEngine();
+//                }
 
 
                 //redirectAttributes.addFlashAttribute("message",
