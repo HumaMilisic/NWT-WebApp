@@ -125,8 +125,11 @@ DMApp.controller('homeController', [
                 targetEvent: event
             }).then(function(answer){
                     if(answer!=null){
-                        if(answer.file)
+                        if(answer.file) {
+                            answer.oznaka = answer.file.name;
+                            //alert(answer.file.name);
                             fileUpload.uploadFileToUrl(answer.file, '/document');
+                        }
                         //answer.file = null;
 
                         var url = '/api/dokument';
