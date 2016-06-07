@@ -6,16 +6,12 @@ import org.apache.tomcat.util.http.fileupload.IOUtils;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
-import org.springframework.web.multipart.MultipartFile;
 
 import javax.servlet.http.HttpServletResponse;
 import java.io.*;
 import java.security.KeyPair;
 import java.security.PrivateKey;
-import java.security.PublicKey;
 import java.security.Signature;
-import java.util.ArrayList;
-import java.util.List;
 
 @Controller
 public class DigitalSignatureController {

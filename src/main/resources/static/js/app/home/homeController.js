@@ -31,6 +31,52 @@ DMApp.controller('homeController', [
         $scope.docsR = randomElem.nizDocSortiranKreiran(15);
 
         $scope.docsB = [];
+        //loader.startSpin();
+        //var getDocPromise = $http.get('/api/dokument?size=10')
+        //    .success(function(data,status,x,y,z){
+        //        var a = 0;
+        //    })
+        //    .error(function(x,y,z,k){
+        //        $scope.docs = $scope.docsR;
+        //        loader.stopSpin();
+        //    });
+        //
+        //var obrada = SpringDataRestAdapter.process(getDocPromise,'_allLinks')
+        //    .then(function(data,x,y,z,k){
+        //        $scope.docs = data._embeddedItems;
+        //        for(var i =0;i<$scope.docs.length;i++){
+        //            $scope.docs[i].azuriran = new Date($scope.docs[i].azuriran);
+        //            $scope.docs[i].kreiran = new Date($scope.docs[i].kreiran);
+        //            $scope.docs[i].istice = new Date($scope.docs[i].istice);
+        //            $scope.docs[i].potpisan = new Date($scope.docs[i].potpisan);
+        //        }
+        //
+        //        //$scope.docs = $scope.docsR;
+        //
+        //        var dateDanas = function(date){
+        //            var datum = new Date(JSON.parse(JSON.stringify(date['azuriran'])));
+        //            datum.setDate(datum.getDate()+1);
+        //            var sad = new Date();
+        //            sad.setDate(sad.getDate());
+        //            var rezultat =  datum-sad;
+        //            datum.setDate(datum.getDate()-1);
+        //            return rezultat>0;
+        //        }
+        //
+        //        var dateOstali = function(date){
+        //            var datum = new Date(JSON.parse(JSON.stringify(date['azuriran'])));
+        //            datum.setDate(datum.getDate()+1);
+        //            var sad = new Date();
+        //            sad.setDate(sad.getDate());
+        //            var rezultat =  datum-sad;
+        //            return rezultat<0;
+        //        }
+        //
+        //        $scope.docFilterDanas = $scope.docs.filter(dateDanas);
+        //        $scope.docFilterOstali = $scope.docs.filter(dateOstali);
+        //
+        //        loader.stopSpin();
+        //    });
 
         $scope.dummyDoc = function(doc,option){
             alert(doc.tekst+" Opcija: "+option);
@@ -57,7 +103,7 @@ DMApp.controller('homeController', [
         };
 
         $scope.getPage = function(page,pageSize,entity,query,promise,linkovi){
-            //$scope.flagLoader=true;
+            $scope.flagLoader=true;
             $scope.docSvi = null;
            var url = '/api/'+entity+'?page='+page+'&size='+pageSize+'&sort=azuriran,desc';
             var httpGetPromise = $http.get(url)
@@ -66,6 +112,7 @@ DMApp.controller('homeController', [
                 })
                 .error(function(x,y,z){
                     var a =0;
+                    $scope.flagLoader=false;
                 });
             $scope.promise = httpGetPromise;
             promise = httpGetPromise;
@@ -80,6 +127,51 @@ DMApp.controller('homeController', [
                 query.totalElements = data.page.totalElements;
                 query.data = data._embeddedItems;
                 $scope.docs = data._embeddedItems;
+                //$scope.$apply();
+                //
+                ////$scope.docs = $scope.docsR;
+                //for(var i =0;i<$scope.docs.length;i++){
+                //    //if($scope.docs[i].azuriran)
+                //        $scope.docs[i].azuriran = new Date($scope.docs[i].azuriran);
+                //
+                //    //if($scope.docs[i].kreiran)
+                //        $scope.docs[i].kreiran = new Date($scope.docs[i].kreiran);
+                //
+                //    //if($scope.docs[i].istice)
+                //        $scope.docs[i].istice = new Date($scope.docs[i].istice);
+                //
+                //    //if($scope.docs[i].potpisan)
+                //        $scope.docs[i].potpisan = new Date($scope.docs[i].potpisan);
+                //}
+                //
+                ////$scope.docs = $scope.docsR;
+                ////
+                ////var dateDanas = function(date){
+                ////    var datum = new Date(JSON.parse(JSON.stringify(date['azuriran'])));
+                ////    datum.setDate(datum.getDate()+1);
+                ////    var sad = new Date();
+                ////    sad.setDate(sad.getDate());
+                ////    var rezultat =  datum-sad;
+                ////    datum.setDate(datum.getDate()-1);
+                ////    return rezultat>0;
+                ////};
+                ////
+                ////var dateOstali = function(date){
+                ////    var datum = new Date(JSON.parse(JSON.stringify(date['azuriran'])));
+                ////    datum.setDate(datum.getDate()+1);
+                ////    var sad = new Date();
+                ////    sad.setDate(sad.getDate());
+                ////    var rezultat =  datum-sad;
+                ////    return rezultat<0;
+                ////};
+                //
+                ////$scope.docFilterDanas = $scope.docs.filter(dateDanas);
+                ////$scope.docFilterOstali = $scope.docs.filter(dateOstali);
+                //$scope.docSvi = null;//
+                //$scope.docSvi = $scope.docs;
+                //$scope.flagLoader = false;
+                //$scope.$apply();
+                $scope.flagLoader=false;
             });
             //promise = httpGetPromise.$promise;
         };
@@ -117,7 +209,6 @@ DMApp.controller('homeController', [
             dialogeScope.ocr = $scope.ocr;
             dialogeScope.potpis = $scope.potpis;
 
-            //OVDJE
             $mdDialog.show({
                 templateUrl: 'js/app/parts/noviDokumentHome.html',
                 scope: dialogeScope,
@@ -138,6 +229,9 @@ DMApp.controller('homeController', [
                             data:answer,
                             url:url
                         }).success(function(data,y,z){
+                            //$location.url('/home');
+                            //$scope.loadStuff();
+                            //$scope.toastMsg($filter('translate')('ADDED'));
                             var docLink = data._links.korisnikSet.href;
                             var userLink = $scope.trenutniKorisnik._links.self.href;
                             var data1 = {
@@ -209,7 +303,10 @@ DMApp.controller('homeController', [
             var komentari = doc.komentarSet._embeddedItems;
             var link = doc._links.komentarSet.href;
 
-            var httpGetPromise = $http.get(link);
+            var httpGetPromise = $http.get(link)
+                .error(function(){
+                    $scope.flagLoaderKomentari = false;
+                });
 
             var obrada = SpringDataRestAdapter.process(httpGetPromise,'_allLinks').then(function(data,x,y,z,k) {
                 var a = data;
@@ -225,6 +322,7 @@ DMApp.controller('homeController', [
                 //}
 
                 doc['komentarSet'] = data._embeddedItems;
+                $scope.flagLoaderKomentari = false;
                 //query.limit = data.page.size;
                 //query.page = data.page.number + 1;
                 //query.totalElements = data.page.totalElements;
@@ -237,6 +335,7 @@ DMApp.controller('homeController', [
             //alert('eh sidebar nesto nesto sa komentarima, ',doc);
             $scope.toggleNavBar('docDetalji');
             $scope.odabraniDoc = doc;
+            $scope.flagLoaderKomentari = true;
             dohvatiKorisnike(doc);
         }
 

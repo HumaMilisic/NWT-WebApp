@@ -23,6 +23,11 @@
     <md-content>
         <md-progress-linear ng-if="flagLoader" md-mode="indeterminate"></md-progress-linear>
         <section>
+            <!--<md-subheader>-->
+                <!--<span translate="TODAY">Danas</span>-->
+            <!--</md-subheader>-->
+            <!--<pre>{{//query.data}}</pre>-->
+            <!--<pre>{{docs[0].tekst}}</pre>-->
             <md-list layout-padding>
                 <md-list-item ng-repeat="doc in docs">
                     <span  layout-fill>
@@ -35,10 +40,23 @@
                                    potpis="potpis(doc)"
                                    details="otvoriDetalje(doc)"></doc-list-item>
                         </span>
+                    <!--<md-divider ng-if="!$last"></md-divider>-->
                 </md-list-item>
             </md-list>
         </section>
+        <!--<section >-->
+            <!--<md-subheader><span translate="OLDER"> Starije</span></md-subheader>-->
 
+
+            <!--<md-list layout-padding>-->
+                <!--<md-list-item ng-repeat="doc in docFilterOstali" >-->
+                    <!--<span  layout-fill>-->
+                    <!--<doc-list-item doc="doc" details="otvoriDetalje()"></doc-list-item>-->
+                        <!--</span>-->
+                    <!--&lt;!&ndash;<md-divider ng-if="!$last"></md-divider>&ndash;&gt;-->
+                <!--</md-list-item>-->
+            <!--</md-list>-->
+        <!--</section>-->
 <span flex></span>
     <footer>
 
@@ -56,6 +74,7 @@
         <md-tabs md-dynamic-height
                  md-border-bottom>
             <md-tab label="Osnove">
+                <md-content layout-padding>
         <h2>oznaka: {{odabraniDoc.oznaka}} </h2>
         <h2>tekst: {{odabraniDoc.tekst}}</h2>
                 <p>
@@ -76,10 +95,13 @@
                     {{ odabraniDoc.kreiran | amCalendar }}
                 </time>
                 </p>
+        <!--<p>azuriran: {{odabraniDoc.azuriran}}</p>-->
+        <!--<p>istice: {{odabraniDoc.istice}}</p>-->
+        <!--<p>kreiran: {{odabraniDoc.kreiran}}</p>-->
             </md-tab>
             <md-tab label="Komentari">
-
-                <md-toolbar md-scroll-shrink="true">
+                <md-progress-linear ng-if="flagLoaderKomentari" md-mode="indeterminate"></md-progress-linear>
+                <md-toolbar>
                     <md-button class="md-icon-button" aria-label="FAB">
                         <md-tooltip>novi komentar</md-tooltip>
                         <ng-md-icon icon="insert_comment" ng-click="newKomentar($event,odabraniDoc)"
