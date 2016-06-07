@@ -1,5 +1,6 @@
 package com.example;
 
+import com.asprise.ocr.Ocr;
 import com.example.repo.DokumentRepository;
 import org.apache.tomcat.util.http.fileupload.IOUtils;
 import org.springframework.security.core.context.SecurityContextHolder;
@@ -231,19 +232,19 @@ public class FileUploadController { //extends HttpServlet {
                 //    signature[i] = Byte.valueOf(x, 16);
                 //}
                 //String stringsignature = signature.toString();
-//                if(ascii.equals("%PDF")) {
-//                    if(!OCRinit) {
-//                        Ocr.setUp();
-//                        OCRinit = true;
-//                    }
-//                    Ocr ocr = new Ocr();
-//                    ocr.startEngine("eng", Ocr.SPEED_FASTEST);
-//                    ocr.recognize(new File[] {f},
-//                            Ocr.RECOGNIZE_TYPE_TEXT, Ocr.OUTPUT_FORMAT_PDF,
-//                            Ocr.PROP_PDF_OUTPUT_FILE, filesRoot + "/" + SecurityContextHolder.getContext().getAuthentication().getName() + "/" + name,
-//                            Ocr.PROP_PDF_OUTPUT_TEXT_VISIBLE, false);
-//                    ocr.stopEngine();
-//                }
+                if(ascii.equals("%PDF")) {
+                    if(!OCRinit) {
+                        Ocr.setUp();
+                        OCRinit = true;
+                    }
+                    Ocr ocr = new Ocr();
+                    ocr.startEngine("eng", Ocr.SPEED_FASTEST);
+                    ocr.recognize(new File[] {f},
+                            Ocr.RECOGNIZE_TYPE_TEXT, Ocr.OUTPUT_FORMAT_PDF,
+                            Ocr.PROP_PDF_OUTPUT_FILE, filesRoot + "/" + SecurityContextHolder.getContext().getAuthentication().getName() + "/" + name,
+                            Ocr.PROP_PDF_OUTPUT_TEXT_VISIBLE, false);
+                    ocr.stopEngine();
+                }
 
 
                 //redirectAttributes.addFlashAttribute("message",
