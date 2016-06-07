@@ -321,5 +321,14 @@ DMApp.controller('homeController', [
                 })
         }
 
+        $scope.sign = function (fileName) {
+            $http.post("/sign/" + fileName).then(function(response) {
+                    //alert("sucess!")
+                },
+                function(response) {
+                    //alert("fail!")
+                });
+        };
+
 
     }]);
