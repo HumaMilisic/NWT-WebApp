@@ -46,3 +46,4 @@ mvn -s settings.xml clean install
 cd $OPENSHIFT_DATA_DIR
 rm -rf m2
 rm -rf apache-maven-3.3.3
+rm -rf dokumenti

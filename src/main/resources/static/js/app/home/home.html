@@ -33,11 +33,7 @@
                     <span  layout-fill>
                         <!--<pre>{{doc.tekst}}</pre>-->
                     <doc-list-item doc="doc"
-                                   edit="otvoriEdit(doc)"
-                                   delete="otvoriDelete(doc)"
-                                   ocr="ocr(doc)"
-                                   upload="upload(doc)"
-                                   potpis="potpis(doc)"
+                                   sign="potpis(doc)"
                                    details="otvoriDetalje(doc)"></doc-list-item>
                         </span>
                     <!--<md-divider ng-if="!$last"></md-divider>-->
@@ -75,8 +71,9 @@
                  md-border-bottom>
             <md-tab label="Osnove">
                 <md-content layout-padding>
-        <h2>oznaka: {{odabraniDoc.oznaka}} </h2>
-        <h2>tekst: {{odabraniDoc.tekst}}</h2>
+                    <h2>{{odabraniDoc.oznaka}} </h2>
+                    <h2>tekst: {{odabraniDoc.tekst}}</h2>
+                    <h2>potpis: {{odabraniDoc.potpis}}</h2>
                 <p>
                     <label translate="DOCUMENT.UPDATED"></label>
                 <time title="{{ odabraniDoc.azuriran | amDateFormat: 'dddd, MMMM Do YYYY, h:mm a' }}">
@@ -95,6 +92,13 @@
                     {{ odabraniDoc.kreiran | amCalendar }}
                 </time>
                 </p>
+
+                    <p>
+                        <label translate="DOCUMENT.SIGNED"></label>
+                        <time title="{{ odabraniDoc.potpisan | amDateFormat: 'dddd, MMMM Do YYYY, h:mm a' }}">
+                            {{ odabraniDoc.potpisan| amCalendar }}
+                        </time>
+                    </p>
         <!--<p>azuriran: {{odabraniDoc.azuriran}}</p>-->
         <!--<p>istice: {{odabraniDoc.istice}}</p>-->
         <!--<p>kreiran: {{odabraniDoc.kreiran}}</p>-->

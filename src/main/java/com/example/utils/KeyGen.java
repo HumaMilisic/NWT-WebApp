@@ -1,12 +1,7 @@
 package com.example.utils;
 
 //import org.apache.tomcat.util.http.fileupload.IOUtils;
-import sun.nio.ch.IOUtil;
-
 import java.io.*;
-import java.nio.file.Files;
-import java.nio.file.Path;
-import java.nio.file.Paths;
 import java.security.*;
 import java.security.spec.InvalidKeySpecException;
 import java.security.spec.PKCS8EncodedKeySpec;
@@ -16,7 +11,7 @@ import java.security.spec.X509EncodedKeySpec;
  * Created by Owner on 10.12.2015.
  */
 public class KeyGen {
-    private static final String filesRoot = "OPENSHIFT_DATA_DIR";
+    private static final String filesRoot = System.getenv("OPENSHIFT_DATA_DIR")+"/dokumenti/";
     private static KeyPair keypair = null;
 
     public static KeyPair getKeyPair() {
