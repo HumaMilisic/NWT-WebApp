@@ -45,6 +45,7 @@ DMApp.directive('docListItem',function(){
         scope:{
             'doc':'=doc',
             'details':'&',
+            'reloadN':'&',
             'sign':'&',
 
             //'komentar':'&'
@@ -73,7 +74,8 @@ DMApp.directive('docListItem',function(){
                                 alert("fail!")
                             })
                             .finally(function(){
-                                $location.get("/home");
+                                //$location.get("/");
+                                $scope.reloadN();
                             });
 
                     },
