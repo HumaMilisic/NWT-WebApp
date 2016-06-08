@@ -133,9 +133,9 @@ public class DigitalSignatureController {
             FileOutputStream keyfos = new FileOutputStream(new File(filesRoot + "\\" + username + "\\signatures\\" + fileName + ".key"));
             keyfos.write(key);
             keyfos.close();*/
-
+            String temp = pair.getPublic().getFormat();
             return new ResponseEntity<String>("{ \"status\": \"Fajl uspjesno potpisan!\"," +
-                    "\"public-key\": \"Fajl uspjesno potpisan!\" }",
+                    "\"public-key\": \""+temp+"\" }",
                     HttpStatus.ACCEPTED);
         }
         catch (Throwable throwable) {
