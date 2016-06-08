@@ -9,28 +9,28 @@
             <div layout-gt-xs="row">
                 <md-datepicker ng-model="item.istice" md-placeholder="{{'DOCUMENT.DATE' | translate}}"></md-datepicker>
             </div>
-            <div layout-gt-xs="row">
+            <!--<div layout-gt-xs="row">-->
 
-                <md-input-container class="md-block">
-                    <label TRANSLATE="DOCUMENT.NAME"> Oznaka: </label>
-                    <input type="text" name="oznaka"
-                           required
-                           ng-model="item.oznaka"/>
-                    <div ng-messages="form.oznaka.$error">
-                        <div ng-message="required" TRANSLATE="VALIDATION_ERROR.REQUIRED">This is required.</div>
-                    </div>
-                </md-input-container>
+                <!--&lt;!&ndash;<md-input-container class="md-block">&ndash;&gt;-->
+                    <!--&lt;!&ndash;<label TRANSLATE="DOCUMENT.NAME"> Oznaka: </label>&ndash;&gt;-->
+                    <!--&lt;!&ndash;<input type="text" name="oznaka"&ndash;&gt;-->
+                           <!--&lt;!&ndash;required&ndash;&gt;-->
+                           <!--&lt;!&ndash;ng-model="item.oznaka"/>&ndash;&gt;-->
+                    <!--&lt;!&ndash;<div ng-messages="form.oznaka.$error">&ndash;&gt;-->
+                        <!--&lt;!&ndash;<div ng-message="required" TRANSLATE="VALIDATION_ERROR.REQUIRED">This is required.</div>&ndash;&gt;-->
+                    <!--&lt;!&ndash;</div>&ndash;&gt;-->
+                <!--&lt;!&ndash;</md-input-container>&ndash;&gt;-->
 
-                <md-input-container class="md-block">
-                    <label TRANSLATE="DOCUMENT.SIGNATURE"> Potpis: </label>
-                    <input type="text" name="potpis"
-                           required
-                           ng-model="item.potpis"/>
-                    <div ng-messages="form.potpis.$error">
-                        <div ng-message="required" TRANSLATE="VALIDATION_ERROR.REQUIRED">This is required.</div>
-                    </div>
-                </md-input-container>
-            </div>
+                <!--<md-input-container class="md-block">-->
+                    <!--<label TRANSLATE="DOCUMENT.SIGNATURE"> Potpis: </label>-->
+                    <!--<input type="text" name="potpis"-->
+
+                           <!--ng-model="item.potpis"/>-->
+                    <!--&lt;!&ndash;<div ng-messages="form.potpis.$error">&ndash;&gt;-->
+                        <!--&lt;!&ndash;<div ng-message="required" TRANSLATE="VALIDATION_ERROR.REQUIRED">This is required.</div>&ndash;&gt;-->
+                    <!--&lt;!&ndash;</div>&ndash;&gt;-->
+                <!--</md-input-container>-->
+            <!--</div>-->
 
             <md-input-container class="md-block">
                 <label TRANSLATE="DOCUMENT.TEXT"> Tekst: </label>
@@ -54,10 +54,12 @@
             </md-input-container>
 
             <!--<md-button ng-click="upload(item)">Upload</md-button>-->
-            <input type="file" value="Nova verzija" file-model="item.file"
+            <input type="file" value="Nova verzija"
+                   required
+                   file-model="item.file"
                    class="btn btn-default btn-block" />
-            <md-button ng-click="ocr(item)">OCR</md-button>
-            <md-button ng-click="potpis(item)">Potpis?</md-button>
+            <!--<md-button ng-click="ocr(item)">OCR</md-button>-->
+            <!--<md-button ng-click="potpis(item)">Potpis?</md-button>-->
         </form>
     </md-content>
     <div class="md-actions" layout="row">

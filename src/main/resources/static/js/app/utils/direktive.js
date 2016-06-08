@@ -45,28 +45,50 @@ DMApp.directive('docListItem',function(){
         scope:{
             'doc':'=doc',
             'details':'&',
-            'delete':'&',
-            'edit':'&',
-            'ocr':'&',
-            'upload':'&',
-            'potpis':'&'//,
+            'reloadN':'&',
+            'sign':'&',
+
             //'komentar':'&'
         },
-        controller:["$scope", "$http", function($scope, $http){
+        controller:["$scope", "$http","$location", function($scope, $http,$location){
             $scope.dumdum = function(){
                 alert("nije implementirano: "+$scope.doc._links.self.href);
             }
 
-            $scope.potpis = function(fileName){
+            $scope.potpis = function(doc){
                 //za newDoc i meni
                 //alert('potpis');
-                $http.post("/sign/" + fileName).then(function(response) {
-                        alert("sucess!")
+                var a = 0;
+                $http.post("/sign/" + doc.oznaka).then(function(response) {
+                        doc.potpis = response.data['public-key'];
+                        url = doc._links.self.href;
+                        $http({
+                            'method':'PATCH',
+                            url:url,
+                            data:doc
+                        })
+                            .success(function(data,status,x,y,z){
+                                alert("uspjeh")
+                            })
+                            .error(function(x,y,z){
+                                alert("fail!")
+                            })
+                            .finally(function(){
+                                //$location.get("/");
+                                $scope.reloadN();
+                            });
+
                     },
                     function(response) {
-                        //alert("fail!")
+                        alert("fail!")
                     });
             }
+
+            $scope.flagPotpisan = false;
+            if($scope.doc.potpis)
+                $scope.flagPotpisan = true;
+
+
 
             //$scope.newKomentar = function(){
             //    alert('ef');

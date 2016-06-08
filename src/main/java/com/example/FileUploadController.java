@@ -1,6 +1,7 @@
 package com.example;
 
 //import com.asprise.ocr.Ocr;
+
 import com.example.repo.DokumentRepository;
 import org.apache.tomcat.util.http.fileupload.IOUtils;
 import org.springframework.security.core.context.SecurityContextHolder;
@@ -11,6 +12,9 @@ import org.springframework.web.multipart.MultipartFile;
 
 import javax.servlet.http.HttpServletResponse;
 import java.io.*;
+import java.nio.file.Files;
+import java.nio.file.Path;
+import java.nio.file.Paths;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -23,7 +27,7 @@ public class FileUploadController { //extends HttpServlet {
     private static boolean OCRinit = false;
     private DokumentRepository repo;
 
-    private static final String filesRoot = System.getenv("OPENSHIFT_DATA_DIR");
+    private static final String filesRoot = System.getenv("OPENSHIFT_DATA_DIR")+"/dokumenti/";
     //private static final String filesRoot = "F:/appDocs";
 
     @RequestMapping(method = RequestMethod.GET, value = "/document") //, produces = MediaType.APPLICATION_JSON_VALUE)
@@ -205,10 +209,13 @@ public class FileUploadController { //extends HttpServlet {
 
         if (!file.isEmpty()) {
             try {
-                File usersFolder = new File(filesRoot + "/" + SecurityContextHolder.getContext().getAuthentication().getName());
-                if(!usersFolder.exists()) usersFolder.mkdirs();
+                Path dir = Paths.get(filesRoot + "/" + SecurityContextHolder.getContext().getAuthentication().getName());
+                Files.createDirectories(dir);
+//                File usersFolder = new File(dir);
+//                if(!usersFolder.exists())
+//                    usersFolder.mkdirs();
 
-                File f = new File(usersFolder + "/" + name);
+                File f = new File(dir.toString()+name);
 
                 BufferedOutputStream stream = new BufferedOutputStream(
                         //new FileOutputStream(new File(Application.ROOT + "/" + name)));

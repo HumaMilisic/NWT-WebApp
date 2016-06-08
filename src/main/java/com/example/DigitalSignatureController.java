@@ -3,12 +3,17 @@ package com.example;
 import com.example.repo.DokumentRepository;
 import com.example.utils.KeyGen;
 import org.apache.tomcat.util.http.fileupload.IOUtils;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
 
 import javax.servlet.http.HttpServletResponse;
 import java.io.*;
+import java.nio.file.Files;
+import java.nio.file.Path;
+import java.nio.file.Paths;
 import java.security.KeyPair;
 import java.security.PrivateKey;
 import java.security.Signature;
@@ -17,7 +22,7 @@ import java.security.Signature;
 public class DigitalSignatureController {
     private DokumentRepository repo;
 
-    private static final String filesRoot = System.getenv("OPENSHIFT_DATA_DIR");
+    private static final String filesRoot = System.getenv("OPENSHIFT_DATA_DIR")+"/dokumenti/";
     //private static final String filesRoot = "F:\\appDocs";
 
     @RequestMapping(method = RequestMethod.GET, value = "/publickey") //, produces = MediaType.APPLICATION_JSON_VALUE)
@@ -54,7 +59,9 @@ public class DigitalSignatureController {
     public void getDigitalSignature(@PathVariable String fileName, HttpServletResponse response) { //HttpServletResponse response, HttpServletRequest request) {
         try {
             String username = SecurityContextHolder.getContext().getAuthentication().getName();
-            File signature = new File(filesRoot + "/" + username + "/signatures/" + fileName + ".sgn");
+            Path dir = Paths.get(filesRoot + "/" + SecurityContextHolder.getContext().getAuthentication().getName()+"/signatures/");
+//            Files.createDirectories(dir);
+            File signature = new File(dir.toString() +"/"+ fileName + ".sgn");
             //FileInputStream fis = new FileInputStream(new File(filesRoot + "/" + fileName + ".sgn"));
             FileInputStream fis = new FileInputStream(signature);
 
@@ -72,7 +79,8 @@ public class DigitalSignatureController {
 
     @CrossOrigin
     @RequestMapping(method = RequestMethod.POST, value = "/sign/{fileName:.+}")
-    public @ResponseBody String signDocument(
+    public @ResponseBody
+    ResponseEntity<String> signDocument(
                 @PathVariable String fileName) {
         try {
             //String name = file.getOriginalFilename();
@@ -91,9 +99,13 @@ public class DigitalSignatureController {
 
             String username = SecurityContextHolder.getContext().getAuthentication().getName();
 
-            //dsa.initSign(priv);
+            Path dir = Paths.get(filesRoot + "/" + SecurityContextHolder.getContext().getAuthentication().getName());
+//            Files.createDirectories(dir);
+//            File signature = new File(dir.toString() + fileName + ".sgn");
 
-            FileInputStream fis = new FileInputStream(filesRoot + "/" + username + "/" + fileName);
+            //dsa.initSign(priv);
+            File file = new File(dir.toString() + "/" + fileName);
+            FileInputStream fis = new FileInputStream(file);
             BufferedInputStream bufin = new BufferedInputStream(fis);
             byte[] buffer = new byte[1024];
             int len;
@@ -105,7 +117,10 @@ public class DigitalSignatureController {
             byte[] realSig = dsa.sign();
 
                 /* save the signature in a file */
-            FileOutputStream sigfos = new FileOutputStream(new File(filesRoot + "/" + username + "/signatures/" + fileName + ".sgn"));
+            dir = Paths.get(filesRoot + "/" +
+                    SecurityContextHolder.getContext().getAuthentication().getName()+ "/signatures/");
+            Files.createDirectories(dir);
+            FileOutputStream sigfos = new FileOutputStream(new File(dir.toString()+'/'+ fileName + ".sgn"));
             sigfos.write(realSig);
             sigfos.close();
 
@@ -119,10 +134,12 @@ public class DigitalSignatureController {
             keyfos.write(key);
             keyfos.close();*/
 
-            return "{ \"status\": \"Fajl uspjesno potpisan!\" }";
+            return new ResponseEntity<String>("{ \"status\": \"Fajl uspjesno potpisan!\"," +
+                    "\"public-key\": \"Fajl uspjesno potpisan!\" }",
+                    HttpStatus.ACCEPTED);
         }
         catch (Throwable throwable) {
-            return throwable.getMessage();
+            return new ResponseEntity<String>(throwable.getMessage(),HttpStatus.EXPECTATION_FAILED);
         }
     }
 
